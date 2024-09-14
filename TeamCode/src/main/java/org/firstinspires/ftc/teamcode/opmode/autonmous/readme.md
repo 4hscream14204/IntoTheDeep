@@ -1,2 +1,2 @@
-This is the location for all auto code
+This is the location for all autonomous code.
 //  hehehe goburr
