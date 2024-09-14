@@ -47,5 +47,6 @@ public class MecanumDrive extends OpMode{
         telemetry.addData("Left Stick y", y);
         telemetry.addData("Left Stick x", x);
         telemetry.addData("Right Stick x", rx);
+        telemetry.addData("Overall speed", x+y);
     }
 }
