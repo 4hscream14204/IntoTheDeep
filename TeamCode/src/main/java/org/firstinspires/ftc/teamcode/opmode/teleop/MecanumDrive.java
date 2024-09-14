@@ -27,9 +27,9 @@ public class MecanumDrive extends OpMode{
 
     @Override
     public void loop() {
-        double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
+        double y = -gamepad1.left_stick_y  * Math.abs (gamepad1.left_stick_y); // Remember, Y stick value is reversed
+        double x = gamepad1.left_stick_x * Math.abs (gamepad1.left_stick_x);
+        double rx = gamepad1.right_stick_x * Math.abs (gamepad1.right_stick_x);
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,
