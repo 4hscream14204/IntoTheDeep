@@ -39,5 +39,9 @@ public class ConnorDemoBot extends OpMode {
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
+            telemetry.addData("Left Stick Y",y);
+            telemetry.addData("Left Stick X", x);
+            telemetry.addData("Right Stick X", rx);
+            telemetry.update();
     }
 }
