@@ -7,12 +7,16 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 public class ConnorDemoBot extends OpMode {
-    DcMotor frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-    DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
-    DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-    DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+    DcMotor frontLeftMotor;
+    DcMotor backLeftMotor;
+    DcMotor frontRightMotor;
+    DcMotor backRightMotor;
     @Override
     public void init(){
+        frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
+        backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
+        frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
+        backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
