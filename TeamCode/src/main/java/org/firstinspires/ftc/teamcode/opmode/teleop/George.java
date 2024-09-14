@@ -30,6 +30,11 @@ public class George extends OpMode{
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         bucketServo.setPosition(1.0);
 
+        double slidePosition = slideMotor.getCurrentPosition();
+        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        slideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slideMotor.setTargetPosition(0);
     }
 
     @Override
@@ -63,6 +68,15 @@ public class George extends OpMode{
             bucketServo.setPosition(1.0);
         }
 
+        double slidePosition = slideMotor.getCurrentPosition();
+        telemetry.addData("Slide position", slidePosition);
 
+        /*if (gamepad1.left_bumper) {
+            slideMotor.setPower(0.2);
+        }
+
+        if (gamepad1.right_bumper) {
+            slideMotor.setPower(-0.2);
+        } */
     }
 }
