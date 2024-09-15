@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Bucket {
 
-    double bucketUpPosition = 0.722;
-    double bucketDownPosition = 1.0;
+    double bucketUpPosition = 0;
+    double bucketDownPosition = 0.67;
 
     private Servo srvBucket;
 

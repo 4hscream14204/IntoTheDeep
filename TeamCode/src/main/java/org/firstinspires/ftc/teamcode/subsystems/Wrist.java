@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Wrist {
 
     private Servo srvWrist;
-    private double home = 0;
-    private double pickup = .5;
-    private double transfer = .25;
+    private double home = 0.776;
+    private double pickup = 1;
+    private double transfer = .7016;
 
     public Wrist (Servo conWristServo){
         srvWrist = conWristServo;

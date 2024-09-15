@@ -4,9 +4,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Zlide {
 
-    double startPosition = 0;
+    double startPosition = 1;
     double extendedPosition = 0;
-    double bucketPosition = 0;
+    double bucketPosition = 0.526;
 
     private Servo srvZlide;
 
