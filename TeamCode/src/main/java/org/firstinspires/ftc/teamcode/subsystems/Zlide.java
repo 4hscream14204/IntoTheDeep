@@ -16,19 +16,19 @@ public class Zlide {
 
     }
 
-    public void zlidePosition1() {
+    public void zlideStartPosition() {
 
         srvZlide.setPosition(startPosition);
 
     }
 
-    public void zlidePosition2() {
+    public void zlideExtendPosition() {
 
         srvZlide.setPosition(extendedPosition);
 
     }
 
-    public void zlidePosition3() {
+    public void zlideBucketPosition() {
 
         srvZlide.setPosition(bucketPosition);
 
