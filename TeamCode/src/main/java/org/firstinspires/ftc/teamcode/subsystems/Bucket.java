@@ -13,7 +13,10 @@ public class Bucket {
     boolean bucketUp;
 
     public Bucket (Servo bucketServo) {
+
         srvBucket = bucketServo;
+        srvBucket.setPosition(bucketDownPosition);
+
     }
 
     public void toggleBucket() {
