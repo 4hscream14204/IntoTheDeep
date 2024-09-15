@@ -77,6 +77,10 @@ public class George extends OpMode{
             slideMotor.setTargetPosition(0);
         }
 
+        if(slidePosition > -15){
+            slideMotor.setPower(0);
+        }
+
         if (gamepad1.right_bumper) {
             slideMotor.setPower(-0.5);
             slideMotor.setTargetPosition(-810);
