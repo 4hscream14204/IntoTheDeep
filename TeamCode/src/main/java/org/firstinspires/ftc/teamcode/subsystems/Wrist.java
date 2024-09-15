@@ -11,6 +11,7 @@ public class Wrist {
 
     public Wrist (Servo conWristServo){
         srvWrist = conWristServo;
+        wristHomePos();
     }
     public void wristHomePos(){
         srvWrist.setPosition(home);
