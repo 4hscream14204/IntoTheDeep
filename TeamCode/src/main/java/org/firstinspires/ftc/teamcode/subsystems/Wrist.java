@@ -5,17 +5,20 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Wrist {
 
     private Servo srvWrist;
+    private double home = 0;
+    private double pickup = .5;
+    private double transfer = .25;
 
     public Wrist (Servo conWristServo){
         srvWrist = conWristServo;
     }
-    public void wristStartPos(double position){
-        srvWrist.setPosition(position);
+    public void wristHomePos(){
+        srvWrist.setPosition(home);
     }
-    public void wristPickupPos(double position){
-        srvWrist.setPosition(position);
+    public void wristPickupPos(){
+        srvWrist.setPosition(pickup);
     }
-    public void wristTransferPos(double position){
-        srvWrist.setPosition(position);
+    public void wristTransferPos(){
+        srvWrist.setPosition(transfer);
     }
 }
