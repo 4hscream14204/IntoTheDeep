@@ -43,12 +43,7 @@ public class George extends OpMode{
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        double slidePosition = slideMotor.getCurrentPosition();
-        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slideMotor.setTargetPosition(0);
-        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slideMotor.setPower(0);
-        slideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
     @Override
@@ -76,8 +71,7 @@ public class George extends OpMode{
         telemetry.addData("Left Stick x", x);
         telemetry.addData("Right Stick rx", rx);
 
-        double slidePosition = slideMotor.getCurrentPosition();
-        telemetry.addData("Slide position", slidePosition);
+
 
         if (gamepad2.left_bumper) {
             wristSubsystem.wristPickupPos();
