@@ -21,7 +21,7 @@ public class Itd_example_robot_code extends OpMode{
     CRServo  intake      = null; //the active intake servo
     Servo    wrist       = null; //the wrist servo
 
-    final double ARM_TICKS_PER_DEGREE = 19.7924893140647;
+    final double ARM_TICKS_PER_DEGREE = -19.7924893140647;
     final double ARM_COLLAPSED_INTO_ROBOT  = 0;
     final double ARM_COLLECT               = 250 * ARM_TICKS_PER_DEGREE;
     final double ARM_CLEAR_BARRIER         = 230 * ARM_TICKS_PER_DEGREE;
@@ -73,6 +73,7 @@ public class Itd_example_robot_code extends OpMode{
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         ((DcMotorEx) armMotor).setCurrentAlert(5,CurrentUnit.AMPS);
     }
 
