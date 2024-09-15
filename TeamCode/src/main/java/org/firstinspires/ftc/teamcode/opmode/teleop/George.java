@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Zlide;
 
 @TeleOp(name="run George")
 public class George extends OpMode{
@@ -20,6 +21,7 @@ public class George extends OpMode{
     Servo bucketServo;
     Intake intakeSubsystem;
     Bucket bucketSubsystem;
+    Zlide zlideSubsystem;
 
     @Override
     public void init() {
@@ -32,6 +34,8 @@ public class George extends OpMode{
         bucketServo = hardwareMap.servo.get("bucketServo");
 
         intakeSubsystem = new Intake(hardwareMap.servo.get("intakeServo"));
+        bucketSubsystem = new Bucket(hardwareMap.servo.get("bucketServo"));
+        zlideSubsystem = new Zlide(hardwareMap.servo.get("zlideServo"));
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -97,6 +101,18 @@ public class George extends OpMode{
         if (gamepad2.x) {
 
             bucketSubsystem.toggleBucket();
+        }
+
+        if (gamepad2.dpad_up){
+
+            zlideSubsystem.zlideExtendPosition();
+
+        }
+
+        if (gamepad2.dpad_down){
+
+            zlideSubsystem.zlideBucketPosition();
+
         }
     }
 }
