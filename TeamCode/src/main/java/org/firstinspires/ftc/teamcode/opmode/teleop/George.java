@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.subsystems.Zlide;
 
 @TeleOp(name="run George")
@@ -22,6 +24,8 @@ public class George extends OpMode{
     Intake intakeSubsystem;
     Bucket bucketSubsystem;
     Zlide zlideSubsystem;
+    Wrist wristSubsystem;
+    Lift liftSubsystem;
 
     @Override
     public void init() {
@@ -51,6 +55,7 @@ public class George extends OpMode{
 
     @Override
     public void loop() {
+
         double y = -gamepad1.left_stick_y  * Math.abs (gamepad1.left_stick_y); // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x * Math.abs (gamepad1.left_stick_x);
         double rx = gamepad1.right_stick_x * Math.abs (gamepad1.right_stick_x);
@@ -72,29 +77,17 @@ public class George extends OpMode{
         telemetry.addData("Left Stick y", y);
         telemetry.addData("Left Stick x", x);
         telemetry.addData("Right Stick rx", rx);
-        if (gamepad1.a) {
-            bucketServo.setPosition(0.722);
-        }
-
-        if (gamepad1.x) {
-            bucketServo.setPosition(1.0);
-        }
 
         double slidePosition = slideMotor.getCurrentPosition();
         telemetry.addData("Slide position", slidePosition);
 
-        if (gamepad1.left_bumper) {
-            slideMotor.setPower(0.4);
-            slideMotor.setTargetPosition(0);
+        if (gamepad2.left_bumper) {
+            wristSubsystem.wristPickupPos();
         }
 
-        if(slidePosition > -15){
-            slideMotor.setPower(0);
-        }
 
-        if (gamepad1.right_bumper) {
-            slideMotor.setPower(-0.5);
-            slideMotor.setTargetPosition(-810);
+        if (gamepad2.right_bumper) {
+            wristSubsystem.wristTransferPos();
         }
         intakeSubsystem.intakeSpeed(gamepad2.right_stick_y);
 
@@ -113,6 +106,14 @@ public class George extends OpMode{
 
             zlideSubsystem.zlideBucketPosition();
 
+        }
+
+        if (gamepad2.left_trigger>0.1){
+            liftSubsystem.goDown(gamepad2.left_trigger);
+        }
+
+        if (gamepad2.right_trigger>0.1){
+            liftSubsystem.goUp(gamepad2.right_trigger);
         }
     }
 }

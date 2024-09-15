@@ -17,10 +17,29 @@ public class Lift {
         liftMotor = conLiftMotor;
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setTargetPosition(0);
-        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftMotor.setPower(0);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
+
+    public void goDown(double power){
+        if(liftMotor.getCurrentPosition()<-810){
+            liftMotor.setPower(0);
+        }
+        else {
+            liftMotor.setPower(power);
+        }
+    }
+
+    public void goUp(double power){
+        if(liftMotor.getCurrentPosition()>(home-30)){
+            liftMotor.setPower(0);
+        }
+        else{
+            liftMotor.setPower(power * -1);
+        }
+    }
+
     public void home (){
         liftMotor.setPower(downPower);
         liftMotor.setTargetPosition(home);
