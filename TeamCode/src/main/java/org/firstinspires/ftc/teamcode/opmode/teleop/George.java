@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 @TeleOp(name="run George")
@@ -18,6 +19,7 @@ public class George extends OpMode{
     DcMotor slideMotor;
     Servo bucketServo;
     Intake intakeSubsystem;
+    Bucket bucketSubsystem;
 
     @Override
     public void init() {
@@ -91,5 +93,10 @@ public class George extends OpMode{
             slideMotor.setTargetPosition(-810);
         }
         intakeSubsystem.intakeSpeed(gamepad2.right_stick_y);
+
+        if (gamepad2.x) {
+
+            bucketSubsystem.toggleBucket();
+        }
     }
 }
