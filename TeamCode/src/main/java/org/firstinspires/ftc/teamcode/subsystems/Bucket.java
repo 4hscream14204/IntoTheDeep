@@ -18,10 +18,12 @@ public class Bucket {
         if (!bucketUp) {
 
             srvBucket.setPosition(1.0);
+            bucketUp = false;
 
         } else {
 
             srvBucket.setPosition(0.722);
+            bucketUp = true;
 
         }
 
