@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
-@TeleOp(name="run code")
+@TeleOp(name="Itd example robot")
 public class Itd_example_robot_code extends OpMode{
 
     DcMotor frontLeftMotor;
