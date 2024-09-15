@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
+
 @TeleOp(name="run George")
 public class George extends OpMode{
 
@@ -15,6 +17,7 @@ public class George extends OpMode{
     DcMotor backRightMotor;
     DcMotor slideMotor;
     Servo bucketServo;
+    Intake intakeSubsystem;
 
     @Override
     public void init() {
@@ -25,6 +28,8 @@ public class George extends OpMode{
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
         slideMotor = hardwareMap.dcMotor.get("slideMotor");
         bucketServo = hardwareMap.servo.get("bucketServo");
+
+        intakeSubsystem = new Intake(hardwareMap.servo.get("intakeServo"));
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -85,5 +90,6 @@ public class George extends OpMode{
             slideMotor.setPower(-0.5);
             slideMotor.setTargetPosition(-810);
         }
+        intakeSubsystem.intakeSpeed(gamepad2.right_stick_y);
     }
 }

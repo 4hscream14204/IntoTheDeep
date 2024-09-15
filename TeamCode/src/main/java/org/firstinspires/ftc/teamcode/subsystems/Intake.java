@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Intake {
 
-    private Servo srvIntake;
+    Servo srvIntake;
 
     public Intake (Servo conIntakeServo){
         srvIntake = conIntakeServo;
