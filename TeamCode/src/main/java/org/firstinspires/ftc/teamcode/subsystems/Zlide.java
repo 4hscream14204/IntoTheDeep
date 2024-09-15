@@ -13,7 +13,7 @@ public class Zlide {
     public Zlide (Servo zlideServo) {
 
         srvZlide = zlideServo;
-
+        zlideStartPosition();
     }
 
     public void zlideStartPosition() {
