@@ -20,7 +20,6 @@ public class George extends OpMode{
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
     DcMotor slideMotor;
-    Servo bucketServo;
     Intake intakeSubsystem;
     Bucket bucketSubsystem;
     Zlide zlideSubsystem;
@@ -34,17 +33,15 @@ public class George extends OpMode{
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-        slideMotor = hardwareMap.dcMotor.get("slideMotor");
-        bucketServo = hardwareMap.servo.get("bucketServo");
 
         intakeSubsystem = new Intake(hardwareMap.servo.get("intakeServo"));
         bucketSubsystem = new Bucket(hardwareMap.servo.get("bucketServo"));
         zlideSubsystem = new Zlide(hardwareMap.servo.get("zlideServo"));
         wristSubsystem = new Wrist(hardwareMap.servo.get("transferServo"));
+        liftSubsystem = new Lift(hardwareMap.dcMotor.get("slideMotor"));
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        bucketServo.setPosition(1.0);
 
         double slidePosition = slideMotor.getCurrentPosition();
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
