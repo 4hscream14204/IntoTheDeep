@@ -40,6 +40,7 @@ public class George extends OpMode{
         intakeSubsystem = new Intake(hardwareMap.servo.get("intakeServo"));
         bucketSubsystem = new Bucket(hardwareMap.servo.get("bucketServo"));
         zlideSubsystem = new Zlide(hardwareMap.servo.get("zlideServo"));
+        wristSubsystem = new Wrist(hardwareMap.servo.get("transferServo"));
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -89,7 +90,7 @@ public class George extends OpMode{
         if (gamepad2.right_bumper) {
             wristSubsystem.wristTransferPos();
         }
-        intakeSubsystem.intakeSpeed(gamepad2.right_stick_y);
+        intakeSubsystem.intakeSpeed((gamepad2.right_stick_y+1)/2);
 
         if (gamepad2.x) {
 
