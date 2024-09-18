@@ -27,7 +27,7 @@ public class Lift {
             liftMotor.setPower(0);
         }
         else {
-            liftMotor.setPower(power);
+            liftMotor.setPower(power * -0.1);
         }
     }
 
@@ -36,7 +36,7 @@ public class Lift {
             liftMotor.setPower(0);
         }
         else{
-            liftMotor.setPower(power * -1);
+            liftMotor.setPower(power * 0.7);
         }
     }
 
