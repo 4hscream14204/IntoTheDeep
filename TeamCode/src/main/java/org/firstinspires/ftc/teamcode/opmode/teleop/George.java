@@ -84,7 +84,6 @@ public class George extends OpMode{
         intakeSubsystem.intakeSpeed((gamepad2.right_stick_y+1)/2);
 
         if (gamepad2.x) {
-
             bucketSubsystem.toggleBucket();
         }
 
@@ -107,5 +106,12 @@ public class George extends OpMode{
         if (gamepad2.right_trigger>0.1){
             liftSubsystem.goUp(gamepad2.right_trigger);
         }
+
+        if (gamepad2.right_trigger < 0.1 && gamepad2.right_trigger < 0.1) {
+            liftSubsystem.stop();
+        }
+
+
+        telemetry.addData ("lift motor", liftSubsystem.getPosition());
     }
 }

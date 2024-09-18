@@ -23,21 +23,25 @@ public class Lift {
     }
 
     public void goDown(double power){
-        if(liftMotor.getCurrentPosition()<-810){
+        if(liftMotor.getCurrentPosition()>home-30){
             liftMotor.setPower(0);
         }
         else {
-            liftMotor.setPower(power * -0.1);
+            liftMotor.setPower(power * 0.1);
         }
     }
 
     public void goUp(double power){
-        if(liftMotor.getCurrentPosition()>(home-30)){
+        if(liftMotor.getCurrentPosition()<(highBasket)){
             liftMotor.setPower(0);
         }
         else{
-            liftMotor.setPower(power * 0.7);
+            liftMotor.setPower(power * -0.7);
         }
+    }
+
+    public void stop () {
+        liftMotor.setPower(0);
     }
 
     public void home (){
@@ -56,6 +60,7 @@ public class Lift {
         }
         liftMotor.setTargetPosition(highChamber);
     }
+
     public void pickup(){
         if(liftMotor.getCurrentPosition()<pickup){
             liftMotor.setPower(downPower);
@@ -65,9 +70,14 @@ public class Lift {
         }
         liftMotor.setTargetPosition(pickup);
     }
+
     public void checkPosition(){
         if(liftMotor.getCurrentPosition()>(home - 30)){
             liftMotor.setPower(0);
         }
+    }
+
+    public int getPosition() {
+        return liftMotor.getCurrentPosition();
     }
 }
