@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
@@ -83,11 +84,11 @@ public class George extends OpMode{
         }
         intakeSubsystem.intakeSpeed((gamepad2.right_stick_y+1)/2);
 
-        if (gamepad2.x) {
+        if (gamepad2.Button.x)) {
             bucketSubsystem.toggleBucket();
         }
 
-        if (gamepad2.dpad_up){
+        if (Gamepad2(dpad_up)){
 
             zlideSubsystem.zlideExtendPosition();
 
