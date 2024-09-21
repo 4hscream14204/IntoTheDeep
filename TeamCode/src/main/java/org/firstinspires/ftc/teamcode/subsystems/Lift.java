@@ -12,6 +12,7 @@ public class Lift {
     public int pickup = -100;
     public double upPower= -0.5;
     public double downPower = 0.4;
+    public boolean stopped = true;
 
     public Lift (DcMotor conLiftMotor){
         liftMotor = conLiftMotor;
@@ -23,25 +24,36 @@ public class Lift {
     }
 
     public void goDown(double power){
-        if(liftMotor.getCurrentPosition()>home-30){
-            liftMotor.setPower(0);
+        if(liftMotor.getCurrentPosition()>home-10){
+            stop();
         }
         else {
-            liftMotor.setPower(power * 0.1);
+            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            liftMotor.setPower(power * 0.2);
+            stopped=false;
         }
     }
 
     public void goUp(double power){
         if(liftMotor.getCurrentPosition()<(highBasket)){
-            liftMotor.setPower(0);
+            stop();
         }
         else{
+            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             liftMotor.setPower(power * -0.7);
+            stopped=false;
         }
     }
 
     public void stop () {
-        liftMotor.setPower(0);
+
+        if(stopped==true) {
+            return;
+        }
+        stopped=true;
+        liftMotor.setTargetPosition(liftMotor.getCurrentPosition());
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftMotor.setPower(-0.3);
     }
 
     public void home (){
