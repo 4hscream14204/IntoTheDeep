@@ -1,16 +1,17 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Bucket {
+public class Bucket extends SubsystemBase {
 
     double bucketUpPosition = 0;
     double bucketDownPosition = 0.67;
 
-    private Servo srvBucket;
+     Servo srvBucket;
 
-    boolean bucketUp;
+    boolean bucketUp = false;
 
     public Bucket (Servo bucketServo) {
 
