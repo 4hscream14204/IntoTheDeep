@@ -40,7 +40,7 @@ public class Lift {
         }
         else{
             liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            liftMotor.setPower(power * -0.7);
+            liftMotor.setPower(power * -0.8);
             stopped=false;
         }
     }
