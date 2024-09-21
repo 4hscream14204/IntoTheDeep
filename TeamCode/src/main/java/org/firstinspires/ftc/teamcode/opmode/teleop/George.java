@@ -84,11 +84,11 @@ public class George extends OpMode{
         }
         intakeSubsystem.intakeSpeed((gamepad2.right_stick_y+1)/2);
 
-        if (gamepad2.Button.x)) {
+        if (gamepad2.x) {
             bucketSubsystem.toggleBucket();
         }
 
-        if (Gamepad2(dpad_up)){
+        if (gamepad2.dpad_up){
 
             zlideSubsystem.zlideExtendPosition();
 
