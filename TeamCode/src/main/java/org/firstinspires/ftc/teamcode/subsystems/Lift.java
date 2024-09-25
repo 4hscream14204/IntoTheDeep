@@ -54,8 +54,14 @@ public class Lift {
         liftMotor.setTargetPosition(liftMotor.getCurrentPosition());
         liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         liftMotor.setPower(-0.3);
-    }
 
+        if (liftMotor.getCurrentPosition() >=-10) {
+            liftMotor.setPower(0);
+        }
+        else {
+            liftMotor.setPower(-0.3);
+        }
+        }
     public void home (){
         liftMotor.setPower(downPower);
         liftMotor.setTargetPosition(home);
@@ -91,5 +97,6 @@ public class Lift {
 
     public int getPosition() {
         return liftMotor.getCurrentPosition();
+        }
     }
-}
+
