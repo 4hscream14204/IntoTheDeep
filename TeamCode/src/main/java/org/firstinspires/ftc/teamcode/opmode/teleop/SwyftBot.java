@@ -10,17 +10,18 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
-@TeleOp(name="Itd example robot")
-public class Itd_example_robot_code extends OpMode{
+@TeleOp(name="Sonic")
+public class SwyftBot extends OpMode {
 
     DcMotor frontLeftMotor;
     DcMotor frontRightMotor;
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
-    DcMotor  armMotor    = null; //the arm motor
-    CRServo  intake      = null; //the active intake servo
-    Servo    wrist       = null; //the wrist servo
+//    DcMotor  armMotor    = null; //the arm motor
+    //   CRServo  intake      = null; //the active intake servo
+//    Servo    wrist       = null; //the wrist servo
 
+    /*
     final double ARM_TICKS_PER_DEGREE = 19.7924893140647;
     final double ARM_COLLAPSED_INTO_ROBOT  = 0;
     final double ARM_COLLECT               = 250 * ARM_TICKS_PER_DEGREE;
@@ -42,11 +43,15 @@ public class Itd_example_robot_code extends OpMode{
     double armPosition = (int)ARM_COLLAPSED_INTO_ROBOT;
     double armPositionFudgeFactor;
 
+     */
+/*
     double left;
     double right;
     double forward;
     double rotate;
     double max;
+
+ */
 
 
     @Override
@@ -56,7 +61,7 @@ public class Itd_example_robot_code extends OpMode{
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-
+/*
         armMotor   = hardwareMap.get(DcMotor.class, "left_arm");
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setTargetPosition(0);
@@ -68,20 +73,22 @@ public class Itd_example_robot_code extends OpMode{
         intake.setPower(INTAKE_OFF);
         wrist.setPosition(WRIST_FOLDED_IN);
 
+ */
+
         telemetry.addLine("Robot Ready.");
         telemetry.update();
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        ((DcMotorEx) armMotor).setCurrentAlert(5,CurrentUnit.AMPS);
+        // armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        // ((DcMotorEx) armMotor).setCurrentAlert(5,CurrentUnit.AMPS);
     }
 
     @Override
     public void loop() {
-        double y = -gamepad1.left_stick_y  * Math.abs (gamepad1.left_stick_y); // Remember, Y stick value is reversed
-        double x = gamepad1.left_stick_x * Math.abs (gamepad1.left_stick_x);
-        double rx = gamepad1.right_stick_x * Math.abs (gamepad1.right_stick_x);
+        double y = -gamepad1.left_stick_y * Math.abs(gamepad1.left_stick_y); // Remember, Y stick value is reversed
+        double x = gamepad1.left_stick_x * Math.abs(gamepad1.left_stick_x);
+        double rx = gamepad1.right_stick_x * Math.abs(gamepad1.right_stick_x);
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,
@@ -100,6 +107,7 @@ public class Itd_example_robot_code extends OpMode{
         telemetry.addData("Left Stick x", x);
         telemetry.addData("Right Stick x", rx);
 
+        /*
         if (gamepad1.a) {
             intake.setPower(INTAKE_COLLECT);
         }
@@ -113,48 +121,51 @@ public class Itd_example_robot_code extends OpMode{
         armPositionFudgeFactor = FUDGE_FACTOR * (gamepad1.right_trigger + (-gamepad1.left_trigger));
 
         if(gamepad1.right_bumper){
-            /* This is the intaking/collecting arm position */
+          This is the intaking/collecting arm position
             armPosition = ARM_COLLECT;
             wrist.setPosition(WRIST_FOLDED_OUT);
             intake.setPower(INTAKE_COLLECT);
-        }
 
-        else if (gamepad1.left_bumper){
-                    /* This is about 20° up from the collecting position to clear the barrier
+         */
+
+        //}
+
+     /*   else if (gamepad1.left_bumper){
+                    This is about 20° up from the collecting position to clear the barrier
                     Note here that we don't set the wrist position or the intake power when we
                     select this "mode", this means that the intake and wrist will continue what
-                    they were doing before we clicked left bumper. */
+                    they were doing before we clicked left bumper
             armPosition = ARM_CLEAR_BARRIER;
         }
 
         else if (gamepad1.y){
-            /* This is the correct height to score the sample in the LOW BASKET */
+             This is the correct height to score the sample in the LOW BASKET
             armPosition = ARM_SCORE_SAMPLE_IN_LOW;
         }
 
         else if (gamepad1.dpad_left) {
-                    /* This turns off the intake, folds in the wrist, and moves the arm
-                    back to folded inside the robot. This is also the starting configuration */
+                     This turns off the intake, folds in the wrist, and moves the arm
+                    back to folded inside the robot. This is also the starting configuration
             armPosition = ARM_COLLAPSED_INTO_ROBOT;
             intake.setPower(INTAKE_OFF);
             wrist.setPosition(WRIST_FOLDED_IN);
         }
 
         else if (gamepad1.dpad_right){
-            /* This is the correct height to score SPECIMEN on the HIGH CHAMBER */
+             This is the correct height to score SPECIMEN on the HIGH CHAMBER
             armPosition = ARM_SCORE_SPECIMEN;
             wrist.setPosition(WRIST_FOLDED_IN);
         }
 
         else if (gamepad1.dpad_up){
-            /* This sets the arm to vertical to hook onto the LOW RUNG for hanging */
+             This sets the arm to vertical to hook onto the LOW RUNG for hanging
             armPosition = ARM_ATTACH_HANGING_HOOK;
             intake.setPower(INTAKE_OFF);
             wrist.setPosition(WRIST_FOLDED_IN);
         }
 
-        else if (gamepad1.dpad_down){
-            /* this moves the arm down to lift the robot up once it has been hooked */
+        else if (gamepad1.dpad_down){t
+             this moves the arm down to lift he robot up once it has been hooked
             armPosition = ARM_WINCH_ROBOT;
             intake.setPower(INTAKE_OFF);
             wrist.setPosition(WRIST_FOLDED_IN);
@@ -167,13 +178,15 @@ public class Itd_example_robot_code extends OpMode{
 
         if (((DcMotorEx) armMotor).isOverCurrent()){
             telemetry.addLine("MOTOR EXCEEDED CURRENT LIMIT!");
-        }
+
+      */
+   // }
 
 
-        /* send telemetry to the driver of the arm's current position and target position */
-        telemetry.addData("armTarget: ", armMotor.getTargetPosition());
-        telemetry.addData("arm Encoder: ", armMotor.getCurrentPosition());
-        telemetry.update();
+    /* send telemetry to the driver of the arm's current position and target position */
+    // telemetry.addData("armTarget: ", armMotor.getTargetPosition());
+    // telemetry.addData("arm Encoder: ", armMotor.getCurrentPosition());
+    // telemetry.update();
 
     }
 }
