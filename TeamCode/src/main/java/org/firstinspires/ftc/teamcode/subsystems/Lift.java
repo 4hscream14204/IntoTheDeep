@@ -7,7 +7,7 @@ public class Lift {
     public DcMotor liftMotor;
     public double speed = 0;
     public int home = 0;
-    public int highBasket = -810;
+    public int highBasket = -4200;
     public int highChamber = -600;
     public int pickup = -100;
     public double upPower= -0.5;
@@ -29,7 +29,7 @@ public class Lift {
         }
         else {
             liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            liftMotor.setPower(power * 0.2);
+            liftMotor.setPower(power * 1);
             stopped=false;
         }
     }
@@ -40,7 +40,7 @@ public class Lift {
         }
         else{
             liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            liftMotor.setPower(power * -0.8);
+            liftMotor.setPower(power * -1);
             stopped=false;
         }
     }

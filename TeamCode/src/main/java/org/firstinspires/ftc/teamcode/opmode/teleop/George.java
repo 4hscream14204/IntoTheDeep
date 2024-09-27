@@ -116,6 +116,10 @@ public class George extends OpMode{
 
         }
 
+        if (armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT))){
+            zlideSubsystem.zlideStartPosition();
+        }
+
         if (gamepad2.left_trigger>0.1){
             liftSubsystem.goDown(gamepad2.left_trigger);
         }
