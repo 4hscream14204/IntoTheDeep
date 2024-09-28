@@ -25,7 +25,7 @@ public class Itd_example_robot_code extends OpMode{
     final double ARM_COLLAPSED_INTO_ROBOT  = 0;
     final double ARM_COLLECT               = -(248 * ARM_TICKS_PER_DEGREE);
     final double ARM_CLEAR_BARRIER         = -(230 * ARM_TICKS_PER_DEGREE);
-    final double ARM_SCORE_SPECIMEN        = -(165 * ARM_TICKS_PER_DEGREE);
+    final double ARM_SCORE_SPECIMEN        = -(162 * ARM_TICKS_PER_DEGREE);
     final double ARM_SCORE_SAMPLE_IN_LOW   = -(160 * ARM_TICKS_PER_DEGREE);
     final double ARM_ATTACH_HANGING_HOOK   = -(120 * ARM_TICKS_PER_DEGREE);
     final double ARM_WINCH_ROBOT           = -(15 * ARM_TICKS_PER_DEGREE);
@@ -34,7 +34,7 @@ public class Itd_example_robot_code extends OpMode{
     final double INTAKE_OFF        =  0.0;
     final double INTAKE_DEPOSIT    =  0.5;
 
-    final double WRIST_FOLDED_IN   = 0.8333;
+    final double WRIST_FOLDED_IN   = 0.886111;
     final double WRIST_FOLDED_OUT  = 0.5;
 
     final double FUDGE_FACTOR = 15 * ARM_TICKS_PER_DEGREE;
