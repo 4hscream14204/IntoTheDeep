@@ -40,7 +40,7 @@ public class George extends OpMode{
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-        //armController = new GamepadEx (gamepad2);
+        armController = new GamepadEx (gamepad2);
 
         intakeSubsystem = new Intake(hardwareMap.servo.get("intakeServo"));
         bucketSubsystem = new Bucket(hardwareMap.servo.get("bucketServo"));

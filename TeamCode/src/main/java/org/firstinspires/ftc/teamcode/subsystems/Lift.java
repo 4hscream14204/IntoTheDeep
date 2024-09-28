@@ -7,7 +7,7 @@ public class Lift {
     public DcMotor liftMotor;
     public double speed = 0;
     public int home = 0;
-    public int highBasket = -810;
+    public int highBasket = -4000;
     public int highChamber = -600;
     public int pickup = -100;
     public double upPower= -0.5;
@@ -36,7 +36,7 @@ public class Lift {
             liftMotor.setPower(0);
         }
         else{
-            liftMotor.setPower(power * -0.7);
+            liftMotor.setPower(power * -1);
         }
     }
 
