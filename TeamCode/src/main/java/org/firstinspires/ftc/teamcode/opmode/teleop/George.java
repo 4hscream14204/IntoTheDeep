@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
@@ -63,7 +64,7 @@ public class George extends OpMode{
     @Override
     public void loop() {
 
-        //armController.readButtons();
+        armController.readButtons();
 
         double y = -gamepad1.left_stick_y  * Math.abs (gamepad1.left_stick_y); // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x * Math.abs (gamepad1.left_stick_x);
@@ -89,12 +90,12 @@ public class George extends OpMode{
 
 
 
-        if (gamepad2.left_bumper) {
+        if (armController.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
             wristSubsystem.wristPickupPos();
         }
 
 
-        if (gamepad2.right_bumper) {
+        if (armController.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
             wristSubsystem.wristTransferPos();
         }
         intakeSubsystem.intakeSpeed((gamepad2.right_stick_y+1)/2);
@@ -103,16 +104,20 @@ public class George extends OpMode{
             bucketSubsystem.toggleBucket();
         }
 
-        if (gamepad2.dpad_up){
+        if (armController.wasJustPressed(GamepadKeys.Button.DPAD_UP)){
 
             zlideSubsystem.zlideExtendPosition();
 
         }
 
-        if (gamepad2.dpad_down){
+        if (armController.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)){
 
             zlideSubsystem.zlideBucketPosition();
 
+        }
+
+        if (armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT))){
+            zlideSubsystem.zlideStartPosition();
         }
 
         if (gamepad2.left_trigger>0.1){
