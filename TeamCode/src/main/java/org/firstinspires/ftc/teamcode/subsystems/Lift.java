@@ -58,6 +58,7 @@ public class Lift {
 
         if (liftMotor.getCurrentPosition() >=-10) {
             liftMotor.setPower(0);
+            liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
         else {
             liftMotor.setPower(-0.3);
