@@ -23,12 +23,12 @@ public class Itd_example_robot_code extends OpMode{
 
     final double ARM_TICKS_PER_DEGREE = 19.7924893140647;
     final double ARM_COLLAPSED_INTO_ROBOT  = 0;
-    final double ARM_COLLECT               = -(250 * ARM_TICKS_PER_DEGREE);
+    final double ARM_COLLECT               = -(248 * ARM_TICKS_PER_DEGREE);
     final double ARM_CLEAR_BARRIER         = -(230 * ARM_TICKS_PER_DEGREE);
     final double ARM_SCORE_SPECIMEN        = -(165 * ARM_TICKS_PER_DEGREE);
     final double ARM_SCORE_SAMPLE_IN_LOW   = -(160 * ARM_TICKS_PER_DEGREE);
     final double ARM_ATTACH_HANGING_HOOK   = -(120 * ARM_TICKS_PER_DEGREE);
-    final double ARM_WINCH_ROBOT           = (15  * ARM_TICKS_PER_DEGREE);
+    final double ARM_WINCH_ROBOT           = -(15 * ARM_TICKS_PER_DEGREE);
 
     final double INTAKE_COLLECT    = -1.0;
     final double INTAKE_OFF        =  0.0;
