@@ -49,50 +49,44 @@ public class ConnorDemoBot extends OpMode {
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,
         // but only if at least one is out of the range [-1, 1]
-        IMU imu = hardwareMap.get(IMU.class, "imu");
-        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+            IMU imu = hardwareMap.get(IMU.class, "imu");
+            double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+            double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+            double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX - rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
+            double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+            double frontLeftPower = (rotY + rotX + rx) / denominator;
+            double backLeftPower = (rotY - rotX + rx) / denominator;
+            double frontRightPower = (rotY - rotX - rx) / denominator;
+            double backRightPower = (rotY + rotX - rx) / denominator;
 
-        if(gamepad1.a){
-            claw.setPosition(0.6111);
+            if (gamepad1.a) {
+                claw.setPosition(0.6111);
+            }
+
+            if (gamepad1.b) {
+                claw.setPosition(0.80555);
+            }
+
+            if (gamepad1.right_trigger > 0.1) {
+                arm.setPower(-0.3);
+            }
+
+            if (gamepad1.left_trigger > 0.1) {
+                arm.setPower(0.3);
+            }
+
+            if (gamepad1.left_trigger < 0.1 && gamepad1.right_trigger < 0.1) {
+                arm.setPower(0);
+            }
+
+            if (gamepad1.start) {
+                imu.resetYaw();
+            }
+
+            frontLeftMotor.setPower(frontLeftPower);
+            backLeftMotor.setPower(backLeftPower);
+            frontRightMotor.setPower(frontRightPower);
+            backRightMotor.setPower(backRightPower);
         }
-
-        if(gamepad1.b){
-            claw.setPosition(0.80555);
-        }
-
-        if(gamepad1.right_trigger > 0.1){
-            arm.setPower(-0.3);
-        }
-
-        if(gamepad1.left_trigger > 0.1){
-            arm.setPower(0.3);
-        }
-
-        if(gamepad1.left_trigger < 0.1 && gamepad1.right_trigger < 0.1){
-            arm.setPower(0);
-        }
-
-        if (gamepad1.start) {
-            imu.resetYaw();
-        }
-
-        frontLeftMotor.setPower(frontLeftPower);
-        backLeftMotor.setPower(backLeftPower);
-        frontRightMotor.setPower(frontRightPower);
-        backRightMotor.setPower(backRightPower);
-        telemetry.addData("Left Stick y", y);
-        telemetry.addData("Left Stick x", x);
-        telemetry.addData("Right Stick x", rx);
-        telemetry.addData("Overall speed", x+y);
-        telemetry.addData("Claw Position: ", claw.getPosition());
-        telemetry.addData("Arm Position: ", frontLeftMotor.getCurrentPosition());
     }
-}
