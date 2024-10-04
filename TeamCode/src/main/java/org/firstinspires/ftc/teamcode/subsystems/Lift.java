@@ -9,7 +9,7 @@ public class Lift extends SubsystemBase {
     public double speed = 0;
     public int home = 0;
     public int highBasket = -4000;
-    public int highChamber = -600;
+    public int highChamber = -1700;
     public int pickup = -100;
     public double upPower= -0.5;
     public double downPower = 0.4;
@@ -49,7 +49,7 @@ public class Lift extends SubsystemBase {
 
     public void stop () {
 
-        if(stopped==true) {
+        if(stopped) {
             return;
         }
         stopped=true;
@@ -64,12 +64,13 @@ public class Lift extends SubsystemBase {
         else {
             liftMotor.setPower(-0.3);
         }
-        }
+    }
     public void home (){
         liftMotor.setPower(downPower);
         liftMotor.setTargetPosition(home);
     }
     public void highBasket(){
+        liftMotor.setPower(upPower);
         liftMotor.setTargetPosition(highBasket);
     }
     public void highChamber(){
@@ -100,6 +101,6 @@ public class Lift extends SubsystemBase {
 
     public int getPosition() {
         return liftMotor.getCurrentPosition();
-        }
     }
+}
 
