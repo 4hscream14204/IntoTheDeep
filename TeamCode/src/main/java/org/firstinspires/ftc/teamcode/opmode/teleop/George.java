@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.commands.IntakeCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
@@ -57,7 +58,8 @@ public class George extends OpMode{
                         new InstantCommand(()->bucketSubsystem.toggleBucket())
                         )); */
 
-
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(new IntakeCommandGroup(zlideSubsystem, wristSubsystem));
 
     }
 
@@ -90,10 +92,10 @@ public class George extends OpMode{
 
 
 
-        if (armController.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
+        /*if (armController.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
             wristSubsystem.wristPickupPos();
         }
-
+*/
 
         if (armController.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
             wristSubsystem.wristTransferPos();
@@ -104,12 +106,12 @@ public class George extends OpMode{
             bucketSubsystem.toggleBucket();
         }
 
-        if (armController.wasJustPressed(GamepadKeys.Button.DPAD_UP)){
+        /*if (armController.wasJustPressed(GamepadKeys.Button.DPAD_UP)){
 
             zlideSubsystem.zlideExtendPosition();
 
         }
-
+*/
         if (armController.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)){
 
             zlideSubsystem.zlideBucketPosition();
@@ -135,6 +137,6 @@ public class George extends OpMode{
 
         telemetry.addData ("lift motor", liftSubsystem.getPosition());
 
-        //CommandScheduler.getInstance().run();
+        CommandScheduler.getInstance().run();
     }
 }

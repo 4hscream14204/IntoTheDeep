@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Lift {
+public class Lift extends SubsystemBase {
 
     public DcMotor liftMotor;
     public double speed = 0;

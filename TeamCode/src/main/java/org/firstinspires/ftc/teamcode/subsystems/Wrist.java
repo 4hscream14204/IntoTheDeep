@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Wrist {
+public class Wrist extends SubsystemBase {
 
     private Servo srvWrist;
     private double home = 0.776;
