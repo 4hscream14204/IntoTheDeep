@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.commands.IntakeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.IntakeTransferCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.LiftHome;
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
@@ -74,6 +75,9 @@ public class George extends OpMode{
         armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(new IntakeTransferCommandGroup(zlideSubsystem, wristSubsystem));
 
+        armController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(new LiftHome(liftSubsystem));
+
     }
 
     @Override
@@ -105,10 +109,10 @@ public class George extends OpMode{
 
 
 
-        /*if (armController.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
+        if (armController.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
             wristSubsystem.wristPickupPos();
         }
-*/
+
 
         if (armController.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
             wristSubsystem.wristTransferPos();
@@ -163,9 +167,9 @@ public class George extends OpMode{
             liftSubsystem.highChamber();
         }
 
-        if (gamepad2.a) {
+        /*if (gamepad2.a) {
             liftSubsystem.home();
-        }
+        }*/
 
 
         telemetry.addData ("lift motor", liftSubsystem.getPosition());
@@ -173,6 +177,8 @@ public class George extends OpMode{
         telemetry.addData("right trigger value", gamepad2.right_trigger);
 
         telemetry.addData("left trigger value", gamepad2.left_trigger);
+
+        telemetry.addData("Lift motor power", liftSubsystem.getPower());
 
         CommandScheduler.getInstance().run();
     }

@@ -12,7 +12,6 @@ public class IntakeCommandGroup extends SequentialCommandGroup {
     public IntakeCommandGroup(Zlide zlide, Wrist wrist){
         addCommands(
                 new InstantCommand(zlide::zlideExtendPosition),
-                new WaitCommand(500),
                 new InstantCommand(wrist::wristPickupPos)
         );
     }

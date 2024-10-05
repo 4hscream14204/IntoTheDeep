@@ -10,8 +10,8 @@ public class LiftHome extends SequentialCommandGroup {
     public LiftHome(Lift lift) {
         addCommands(
                 new InstantCommand(lift::home),
-                new WaitUntilCommand()
+                new WaitUntilCommand(lift::isHome),
+                new InstantCommand(lift::stop)
         );
-
     }
 }
