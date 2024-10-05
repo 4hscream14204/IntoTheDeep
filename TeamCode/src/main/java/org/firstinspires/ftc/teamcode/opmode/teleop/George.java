@@ -104,6 +104,7 @@ public class George extends OpMode{
         if (armController.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
             wristSubsystem.wristTransferPos();
         }
+        /*
         if(armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) >= 0.1){
             intakeSubsystem.intakeSpeed((gamepad2.right_trigger));
         }
@@ -113,6 +114,9 @@ public class George extends OpMode{
         if (armController.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
             bucketSubsystem.toggleBucket();
         }
+
+         */
+        intakeSubsystem.intakeSpeed( gamepad2.left_trigger/2 + -1 * gamepad2.right_trigger/2 + 0.5);
 
         /*if (armController.wasJustPressed(GamepadKeys.Button.DPAD_UP)){
 
@@ -146,6 +150,10 @@ public class George extends OpMode{
 
 
         telemetry.addData ("lift motor", liftSubsystem.getPosition());
+
+        telemetry.addData("right trigger value", gamepad2.right_trigger);
+
+        telemetry.addData("left trigger value", gamepad2.left_trigger);
 
         CommandScheduler.getInstance().run();
     }
