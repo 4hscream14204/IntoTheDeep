@@ -73,7 +73,7 @@ public class George extends OpMode{
                 .whenPressed(new IntakeCommandGroup(zlideSubsystem, wristSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(new IntakeTransferCommandGroup(zlideSubsystem, wristSubsystem));
+                .whenPressed(new IntakeTransferCommandGroup(zlideSubsystem, wristSubsystem, bucketSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(new LiftHome(liftSubsystem));
