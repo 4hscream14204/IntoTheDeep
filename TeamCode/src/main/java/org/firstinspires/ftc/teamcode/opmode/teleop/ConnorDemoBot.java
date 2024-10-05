@@ -38,6 +38,7 @@ public class ConnorDemoBot extends OpMode {
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         imu.initialize(parameters);
+        claw.setPosition(0.40833);
     }
 
     @Override
@@ -61,11 +62,11 @@ public class ConnorDemoBot extends OpMode {
             double backRightPower = (rotY + rotX - rx) / denominator;
 
             if (gamepad1.a) {
-                claw.setPosition(0.6111);
+                claw.setPosition(0.40833);
             }
 
             if (gamepad1.b) {
-                claw.setPosition(0.80555);
+                claw.setPosition(0.1188);
             }
 
             if (gamepad1.right_trigger > 0.1) {
