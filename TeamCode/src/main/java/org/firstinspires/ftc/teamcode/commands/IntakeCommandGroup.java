@@ -15,4 +15,5 @@ public class IntakeCommandGroup extends SequentialCommandGroup {
                 new InstantCommand(wrist::wristPickupPos)
         );
     }
+
 }
