@@ -116,6 +116,15 @@ public class Lift extends SubsystemBase {
         }
     }
 
+    public boolean isHome(){
+        if(liftMotor.getCurrentPosition()<=-15){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     public int getPosition() {
         return liftMotor.getCurrentPosition();
     }
