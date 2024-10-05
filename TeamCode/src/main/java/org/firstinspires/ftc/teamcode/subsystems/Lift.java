@@ -12,7 +12,7 @@ public class Lift extends SubsystemBase {
     public int highChamber = -1700;
     public int pickup = -100;
     public double upPower= -0.5;
-    public double downPower = 0.4;
+    public double downPower = 0.5;
     public boolean stopped = true;
 
     public Lift (DcMotor conLiftMotor){
@@ -66,6 +66,9 @@ public class Lift extends SubsystemBase {
     public void home (){
         liftMotor.setPower(downPower);
         liftMotor.setTargetPosition(home);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        stopped = false;
 
         if (liftMotor.getCurrentPosition() >= home) {
             stop();
@@ -74,6 +77,9 @@ public class Lift extends SubsystemBase {
     public void highBasket(){
         liftMotor.setPower(upPower);
         liftMotor.setTargetPosition(highBasket);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        stopped = false;
 
         if (liftMotor.getCurrentPosition() <= highBasket) {
             stop();
@@ -83,15 +89,21 @@ public class Lift extends SubsystemBase {
     public void highChamber(){
         if(liftMotor.getCurrentPosition()<highChamber){
             liftMotor.setPower(downPower);
+            if (liftMotor.getCurrentPosition() >= highChamber) {
+                stop();
+            }
         }
         else if(liftMotor.getCurrentPosition()>highChamber){
             liftMotor.setPower(upPower);
 
             if (liftMotor.getCurrentPosition() <= highChamber) {
-
+                stop();
             }
         }
         liftMotor.setTargetPosition(highChamber);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        stopped = false;
     }
 
     public void pickup(){
@@ -110,8 +122,21 @@ public class Lift extends SubsystemBase {
         }
     }
 
+    public boolean isHome(){
+        if(liftMotor.getCurrentPosition()<=-15){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     public int getPosition() {
         return liftMotor.getCurrentPosition();
+    }
+
+    public double getPower() {
+        return liftMotor.getPower();
     }
 }
 
