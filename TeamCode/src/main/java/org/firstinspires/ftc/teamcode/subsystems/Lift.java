@@ -66,6 +66,7 @@ public class Lift extends SubsystemBase {
     public void home (){
         liftMotor.setPower(downPower);
         liftMotor.setTargetPosition(home);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         if (liftMotor.getCurrentPosition() >= home) {
             stop();
@@ -74,6 +75,7 @@ public class Lift extends SubsystemBase {
     public void highBasket(){
         liftMotor.setPower(upPower);
         liftMotor.setTargetPosition(highBasket);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         if (liftMotor.getCurrentPosition() <= highBasket) {
             stop();
@@ -83,15 +85,19 @@ public class Lift extends SubsystemBase {
     public void highChamber(){
         if(liftMotor.getCurrentPosition()<highChamber){
             liftMotor.setPower(downPower);
+            if (liftMotor.getCurrentPosition() >= highChamber) {
+                stop();
+            }
         }
         else if(liftMotor.getCurrentPosition()>highChamber){
             liftMotor.setPower(upPower);
 
             if (liftMotor.getCurrentPosition() <= highChamber) {
-
+                stop();
             }
         }
         liftMotor.setTargetPosition(highChamber);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void pickup(){
