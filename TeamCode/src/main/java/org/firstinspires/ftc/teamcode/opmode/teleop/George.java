@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.commands.IntakeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.IntakeTransferCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
@@ -61,6 +62,9 @@ public class George extends OpMode{
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new IntakeCommandGroup(zlideSubsystem, wristSubsystem));
 
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(new IntakeTransferCommandGroup(zlideSubsystem, wristSubsystem));
+
     }
 
     @Override
@@ -106,7 +110,7 @@ public class George extends OpMode{
         if(armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) >= 0.1){
             intakeSubsystem.intakeSpeed((gamepad2.left_trigger));
         }
-        if (armController.wasJustPressed(GamepadKeys.Button.X)) {
+        if (armController.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
             bucketSubsystem.toggleBucket();
         }
 
@@ -116,17 +120,17 @@ public class George extends OpMode{
 
         }
 */
-        if (armController.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)){
+        /*if (armController.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)){
 
             zlideSubsystem.zlideBucketPosition();
 
-        }
+        } */
 
         if (armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT))){
             zlideSubsystem.zlideStartPosition();
         }
 
-        if (gamepad2.right_stick_y>0.1){
+        /*if (gamepad2.right_stick_y>0.1){
             liftSubsystem.goDown(gamepad2.right_stick_y);
         }
 
