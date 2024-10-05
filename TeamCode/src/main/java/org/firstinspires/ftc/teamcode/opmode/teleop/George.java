@@ -38,6 +38,15 @@ public class George extends OpMode{
     @Override
     public void init() {
         CommandScheduler.getInstance().reset();
+        Gamepad.LedEffect rgbEffect = new Gamepad.LedEffect.Builder()
+                .addStep(1, 0, 0, 500) // Show red for 250ms
+                .addStep(0, 1, 0, 500) // Show green for 250ms
+                .addStep(0, 0, 1, 500) // Show blue for 250ms
+                .addStep(1, 1, 1, 500) // Show white for 250ms
+                .build();
+        gamepad1.runLedEffect(rgbEffect);
+        gamepad1.rumble(1000);
+
 
         frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
@@ -111,11 +120,11 @@ public class George extends OpMode{
         if(armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) >= 0.1){
             intakeSubsystem.intakeSpeed((gamepad2.left_trigger));
         }
+        */
         if (armController.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
             bucketSubsystem.toggleBucket();
         }
 
-         */
         intakeSubsystem.intakeSpeed( gamepad2.left_trigger/2 + -1 * gamepad2.right_trigger/2 + 0.5);
 
         /*if (armController.wasJustPressed(GamepadKeys.Button.DPAD_UP)){
