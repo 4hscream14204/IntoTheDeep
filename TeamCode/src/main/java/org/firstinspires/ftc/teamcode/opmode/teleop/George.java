@@ -100,9 +100,12 @@ public class George extends OpMode{
         if (armController.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
             wristSubsystem.wristTransferPos();
         }
-        intakeSubsystem.intakeSpeed((gamepad2.right_trigger));
-        intakeSubsystem.intakeSpeed((gamepad2.left_trigger));
-
+        if(armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) >= 0.1){
+            intakeSubsystem.intakeSpeed((gamepad2.right_trigger));
+        }
+        if(armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) >= 0.1){
+            intakeSubsystem.intakeSpeed((gamepad2.left_trigger));
+        }
         if (armController.wasJustPressed(GamepadKeys.Button.X)) {
             bucketSubsystem.toggleBucket();
         }
@@ -127,7 +130,7 @@ public class George extends OpMode{
             liftSubsystem.goDown(gamepad2.right_stick_y);
         }
 
-        if (gamepad2.right_stick_y>0.1){
+        if (gamepad2.right_stick_y<-0.1){
             liftSubsystem.goUp(gamepad2.right_stick_y);
         }
 /*

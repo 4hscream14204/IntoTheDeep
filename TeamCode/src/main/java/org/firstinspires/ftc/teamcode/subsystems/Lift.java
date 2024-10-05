@@ -53,16 +53,14 @@ public class Lift extends SubsystemBase {
             return;
         }
         stopped=true;
-        liftMotor.setTargetPosition(liftMotor.getCurrentPosition());
-        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        liftMotor.setPower(-0.3);
-
         if (liftMotor.getCurrentPosition() >=-10) {
             liftMotor.setPower(0);
             liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
         else {
             liftMotor.setPower(-0.3);
+            liftMotor.setTargetPosition(liftMotor.getCurrentPosition());
+            liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
     public void home (){
