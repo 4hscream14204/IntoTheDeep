@@ -30,12 +30,14 @@ public class George extends OpMode{
     DcMotor frontRightMotor;
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
+    IMU imu;
 
     Intake intakeSubsystem;
     Bucket bucketSubsystem;
     Zlide zlideSubsystem;
     Wrist wristSubsystem;
     Lift liftSubsystem;
+
 
     GamepadEx armController;
 
@@ -51,6 +53,11 @@ public class George extends OpMode{
         gamepad1.runLedEffect(rgbEffect);
         gamepad1.rumble(1000);
 
+        imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+        imu.initialize(parameters);
 
         frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
@@ -86,11 +93,7 @@ public class George extends OpMode{
     @Override
     public void loop() {
 
-        IMU imu = hardwareMap.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
-        imu.initialize(parameters);
+
 
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
