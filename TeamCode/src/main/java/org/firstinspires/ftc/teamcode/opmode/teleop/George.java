@@ -40,6 +40,14 @@ public class George extends OpMode{
 
 
     GamepadEx armController;
+    GamepadEx baseController;
+
+    boolean fieldCentric  = true;
+    double denominator;
+    double frontLeftPower;
+    double backLeftPower;
+    double frontRightPower;
+    double backRightPower;
 
     @Override
     public void init() {
@@ -64,6 +72,7 @@ public class George extends OpMode{
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
         armController = new GamepadEx (gamepad2);
+        baseController = new GamepadEx(gamepad1);
 
         intakeSubsystem = new Intake(hardwareMap.servo.get("intakeServo"));
         bucketSubsystem = new Bucket(hardwareMap.servo.get("bucketServo"));
@@ -88,17 +97,19 @@ public class George extends OpMode{
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(new LiftHome(liftSubsystem));
 
+        baseController.getGamepadButton((GamepadKeys.Button.Y))
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                new InstantCommand(()->fieldCentric = !fieldCentric)
+        ));
+
     }
 
     @Override
     public void loop() {
-
-
-
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-
         armController.readButtons();
+        baseController.readButtons();
 
 
         double y = -gamepad1.left_stick_y  * Math.abs (gamepad1.left_stick_y); // Remember, Y stick value is reversed
@@ -108,14 +119,22 @@ public class George extends OpMode{
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
-        // Denominator is the largest motor power (absolute value) or 1
-        // This ensures all the powers maintain the same ratio,
-        // but only if at least one is out of the range [-1, 1]
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX - rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
+        if (fieldCentric) {
+            // Denominator is the largest motor power (absolute value) or 1
+            // This ensures all the powers maintain the same ratio,
+            // but only if at least one is out of the range [-1, 1]
+            denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+            frontLeftPower = (rotY + rotX + rx) / denominator;
+            backLeftPower = (rotY - rotX + rx) /denominator;
+            frontRightPower = (rotY - rotX - rx) / denominator;
+            backRightPower = (rotY + rotX - rx) / denominator;
+        } else {
+            denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+            frontLeftPower = (y + x + rx) / denominator;
+            backLeftPower = (y - x + rx) / denominator;
+            frontRightPower = (y - x - rx) / denominator;
+            backRightPower = (y + x - rx) / denominator;
+        }
 
         frontLeftMotor.setPower(frontLeftPower);
         backLeftMotor.setPower(backLeftPower);
@@ -191,14 +210,17 @@ public class George extends OpMode{
             liftSubsystem.home();
         }*/
 
-
-        telemetry.addData ("lift motor", liftSubsystem.getPosition());
+        telemetry.addData("lift motor", liftSubsystem.getPosition());
 
         telemetry.addData("right trigger value", gamepad2.right_trigger);
 
         telemetry.addData("left trigger value", gamepad2.left_trigger);
 
         telemetry.addData("Lift motor power", liftSubsystem.getPower());
+
+        telemetry.addData("feild centric", fieldCentric);
+
+        telemetry.addData("Gyro", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
 
         CommandScheduler.getInstance().run();
     }
