@@ -20,6 +20,7 @@ public class SwyftBot extends OpMode {
     DcMotor frontRightMotor;
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
+    IMU imu;
 //    DcMotor  armMotor    = null; //the arm motor
     //   CRServo  intake      = null; //the active intake servo
 //    Servo    wrist       = null; //the wrist servo
@@ -55,7 +56,13 @@ public class SwyftBot extends OpMode {
     double max;
 
  */
+    boolean bolFieldCentric = true;
 
+    double denominator;
+    double frontLeftPower;
+    double backLeftPower;
+    double frontRightPower;
+    double backRightPower;
 
     @Override
     public void init() {
@@ -64,6 +71,7 @@ public class SwyftBot extends OpMode {
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+        imu = hardwareMap.get(IMU.class, "imu");
 /*
         armMotor   = hardwareMap.get(DcMotor.class, "left_arm");
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -89,18 +97,19 @@ public class SwyftBot extends OpMode {
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         // armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         // ((DcMotorEx) armMotor).setCurrentAlert(5,CurrentUnit.AMPS);
-    }
 
-    @Override
-    public void loop() {
-
-        IMU imu = hardwareMap.get(IMU.class, "imu");
-        // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
+    }
+
+    @Override
+    public void loop() {
+
+        // Adjust the orientation parameters to match your robot
+
 
         double y = -gamepad1.left_stick_y * Math.abs(gamepad1.left_stick_y) * Math.abs(gamepad1.left_stick_y); // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x * Math.abs(gamepad1.left_stick_x) * Math.abs(gamepad1.left_stick_x);
@@ -114,15 +123,22 @@ public class SwyftBot extends OpMode {
 
         rotX = rotX * 1.1;
 
-        // Denominator is the largest motor power (absolute value) or 1
-        // This ensures all the powers maintain the same ratio,
-        // but only if at least one is out of the range [-1, 1]
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX - rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
-
+        if (bolFieldCentric) {
+            // Denominator is the largest motor power (absolute value) or 1
+            // This ensures all the powers maintain the same ratio,
+            // but only if at least one is out of the range [-1, 1]
+            denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+            frontLeftPower = (rotY + rotX + rx) / denominator;
+            backLeftPower = (rotY - rotX + rx) / denominator;
+            frontRightPower = (rotY - rotX - rx) / denominator;
+            backRightPower = (rotY + rotX - rx) / denominator;
+        } else {
+            denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+            frontLeftPower = (y + x + rx) / denominator;
+            backLeftPower = (y - x + rx) / denominator;
+            frontRightPower = (y - x - rx) / denominator;
+            backRightPower = (y + x - rx) / denominator;
+        }
 
 
         frontLeftMotor.setPower(frontLeftPower);
@@ -218,6 +234,24 @@ public class SwyftBot extends OpMode {
     // telemetry.addData("armTarget: ", armMotor.getTargetPosition());
     // telemetry.addData("arm Encoder: ", armMotor.getCurrentPosition());
     // telemetry.update();
+
+        if (gamepad1.right_bumper) {
+            bolFieldCentric = true;
+        } else if (gamepad1.left_bumper) {
+            bolFieldCentric = false;
+        }
+
+        telemetry.addData("field centric", bolFieldCentric);
+
+        telemetry.addData("Gyro", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+
+        telemetry.addData("back left motor power", backLeftPower);
+
+        telemetry.addData("back right motor power", backRightPower);
+
+        telemetry.addData("front left motor power", frontLeftPower);
+
+        telemetry.addData("front right motor power", frontRightPower);
 
     }
 }
