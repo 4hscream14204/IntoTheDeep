@@ -43,8 +43,7 @@ public class RobotBase {
                 .addStep(0, 0, 1, 500) // Show blue for 250ms
                 .addStep(1, 1, 1, 500) // Show white for 250ms
                 .build();
-        gamepad1.runLedEffect(rgbEffect);
-        gamepad1.rumble(1000);
+
 
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
