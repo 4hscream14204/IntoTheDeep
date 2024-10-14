@@ -38,7 +38,7 @@ public class TeleGeorge extends OpMode{
 
     @Override
     public void init() {
-        robotBase =new RobotBase(hardwareMap);
+        robotBase =new RobotBase(hardwareMap, gamepad1, gamepad2);
 
         CommandScheduler.getInstance().reset();
 
