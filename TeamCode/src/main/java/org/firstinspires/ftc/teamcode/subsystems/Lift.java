@@ -11,8 +11,8 @@ public class Lift extends SubsystemBase {
     public int highBasket = -4000;
     public int highChamber = -1700;
     public int pickup = -100;
-    public double upPower= -0.5;
-    public double downPower = 0.5;
+    public double upPower= -0.7;
+    public double downPower = 0.7;
     public boolean stopped = true;
     public enum LiftPosition{
         HOME (0),
@@ -127,6 +127,15 @@ public class Lift extends SubsystemBase {
         }
         else {
             return true;
+        }
+    }
+
+    public boolean isHighBasket(){
+        if(liftMotor.getCurrentPosition()<=-3950){
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
