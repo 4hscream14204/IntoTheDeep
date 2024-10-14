@@ -38,39 +38,10 @@ public class TeleGeorge extends OpMode{
 
     @Override
     public void init() {
-        robotBase =new RobotBase();
+        robotBase =new RobotBase(hardwareMap);
 
         CommandScheduler.getInstance().reset();
-        Gamepad.LedEffect rgbEffect = new Gamepad.LedEffect.Builder()
-                .addStep(1, 0, 0, 500) // Show red for 250ms
-                .addStep(0, 1, 0, 500) // Show green for 250ms
-                .addStep(0, 0, 1, 500) // Show blue for 250ms
-                .addStep(1, 1, 1, 500) // Show white for 250ms
-                .build();
-        gamepad1.runLedEffect(rgbEffect);
-        gamepad1.rumble(1000);
 
-        robotBase.imu = hardwareMap.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
-        robotBase.imu.initialize(parameters);
-
-        robotBase.frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-        robotBase.backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
-        robotBase.frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-        robotBase.backLeftMotor = hardwareMap.dcMotor.get("backRightMotor");
-        robotBase.armController = new GamepadEx (gamepad2);
-        robotBase.baseController = new GamepadEx(gamepad1);
-
-        robotBase.intakeSubsystem = new Intake(hardwareMap.servo.get("intakeServo"));
-        robotBase.bucketSubsystem = new Bucket(hardwareMap.servo.get("bucketServo"));
-        robotBase.zlideSubsystem = new Zlide(hardwareMap.servo.get("zlideServo"));
-        robotBase.wristSubsystem = new Wrist(hardwareMap.servo.get("transferServo"));
-        robotBase.liftSubsystem = new Lift(hardwareMap.dcMotor.get("slideMotor"));
-
-        robotBase.frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        robotBase.backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /*armController.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(

@@ -9,6 +9,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
@@ -36,7 +37,7 @@ public class RobotBase {
     public GamepadEx baseController;
 
 
-    public RobotBase() {
+    public RobotBase(HardwareMap hwMap) {
         Gamepad.LedEffect rgbEffect = new Gamepad.LedEffect.Builder()
                 .addStep(1, 0, 0, 500) // Show red for 250ms
                 .addStep(0, 1, 0, 500) // Show green for 250ms
@@ -45,24 +46,24 @@ public class RobotBase {
                 .build();
 
 
-        imu = hardwareMap.get(IMU.class, "imu");
+        imu = hwMap.get(IMU.class, "imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         imu.initialize(parameters);
 
-        frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-        backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
-        frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-        backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+        frontLeftMotor = hwMap.dcMotor.get("frontLeftMotor");
+        backLeftMotor = hwMap.dcMotor.get("backLeftMotor");
+        frontRightMotor = hwMap.dcMotor.get("frontRightMotor");
+        backRightMotor = hwMap.dcMotor.get("backRightMotor");
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
 
-        intakeSubsystem = new Intake(hardwareMap.servo.get("intakeServo"));
-        bucketSubsystem = new Bucket(hardwareMap.servo.get("bucketServo"));
-        zlideSubsystem = new Zlide(hardwareMap.servo.get("zlideServo"));
-        wristSubsystem = new Wrist(hardwareMap.servo.get("transferServo"));
-        liftSubsystem = new Lift(hardwareMap.dcMotor.get("slideMotor"));
+        intakeSubsystem = new Intake(hwMap.servo.get("intakeServo"));
+        bucketSubsystem = new Bucket(hwMap.servo.get("bucketServo"));
+        zlideSubsystem = new Zlide(hwMap.servo.get("zlideServo"));
+        wristSubsystem = new Wrist(hwMap.servo.get("transferServo"));
+        liftSubsystem = new Lift(hwMap.dcMotor.get("slideMotor"));
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
