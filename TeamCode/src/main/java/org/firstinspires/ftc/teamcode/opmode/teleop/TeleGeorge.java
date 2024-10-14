@@ -67,6 +67,17 @@ public class TeleGeorge extends OpMode{
                         new InstantCommand(()->fieldCentric = !fieldCentric)
                 ));
 
+        armController.getGamepadButton(GamepadKeys.Button.Y)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHBASKET))
+                ));;
+
+        armController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBER))
+                ));;
+
+
     }
 
     @Override
@@ -159,7 +170,7 @@ public class TeleGeorge extends OpMode{
         if (gamepad2.right_trigger < 0.1 && gamepad2.left_trigger < 0.1) {
             liftSubsystem.stop();
         }*/
-
+        /*
             if (gamepad2.y) {
                 robotBase.liftSubsystem.highBasket();
             }
@@ -167,6 +178,7 @@ public class TeleGeorge extends OpMode{
             if (gamepad2.b) {
                 robotBase.liftSubsystem.highChamber();
             }
+            */
 
         /*if (gamepad2.a) {
             liftSubsystem.home();
