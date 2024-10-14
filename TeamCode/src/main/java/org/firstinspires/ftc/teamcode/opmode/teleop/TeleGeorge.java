@@ -1,4 +1,4 @@
-/*package org.firstinspires.ftc.teamcode.opmode.teleop;
+package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
@@ -76,7 +76,7 @@ public class TeleGeorge extends OpMode{
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->bucketSubsystem.toggleBucket())
                         )); */
-/*
+
         robotBase.armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new IntakeCommandGroup(robotBase.zlideSubsystem,robotBase.wristSubsystem));
 
@@ -153,7 +153,7 @@ public class TeleGeorge extends OpMode{
             intakeSubsystem.intakeSpeed((gamepad2.left_trigger));
         }
         */
-/*
+
         if (robotBase.armController.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
             robotBase.bucketSubsystem.toggleBucket();
         }
@@ -166,7 +166,7 @@ public class TeleGeorge extends OpMode{
 
         }
 */
-     /*   if (robotBase.armController.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)) {
+        if (robotBase.armController.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)) {
 
             robotBase.armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT));{
                 robotBase.zlideSubsystem.zlideStartPosition();
@@ -183,7 +183,7 @@ public class TeleGeorge extends OpMode{
         if (gamepad2.right_trigger < 0.1 && gamepad2.left_trigger < 0.1) {
             liftSubsystem.stop();
         }*/
-/*
+
             if (gamepad2.y) {
                 robotBase.liftSubsystem.highBasket();
             }
@@ -196,7 +196,7 @@ public class TeleGeorge extends OpMode{
             liftSubsystem.home();
         }*/
 
-    /*        telemetry.addData("lift motor", robotBase.liftSubsystem.getPosition());
+           telemetry.addData("lift motor", robotBase.liftSubsystem.getPosition());
 
             telemetry.addData("right trigger value", gamepad2.right_trigger);
 
