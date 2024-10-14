@@ -37,7 +37,12 @@ public class Bucket extends SubsystemBase {
     }
         public void bucketDownPosition(){
             srvBucket.setPosition(bucketDownPosition);
+            bucketUp = false;
     }
+        public void bucketUpPosition(){
+            srvBucket.setPosition(bucketUpPosition);
+            bucketUp = true;
+        }
 
 
 
