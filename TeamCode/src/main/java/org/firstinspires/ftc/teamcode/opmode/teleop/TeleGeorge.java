@@ -144,7 +144,7 @@ public class TeleGeorge extends OpMode{
 */
         //if (armController.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)) {
 
-            armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT));{
+            if(armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT))){
                 robotBase.zlideSubsystem.zlideStartPosition();
             }
 
