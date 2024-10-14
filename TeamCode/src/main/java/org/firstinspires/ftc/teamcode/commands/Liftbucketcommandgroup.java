@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 public class Liftbucketcommandgroup extends SequentialCommandGroup {
     public Liftbucketcommandgroup(Lift lift, Bucket bucket){
         addCommands(
+                new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHBASKET)),
             new WaitUntilCommand(lift::isHighBasket),
             new WaitCommand(1000),
             new InstantCommand(bucket::bucketUpPosition),
