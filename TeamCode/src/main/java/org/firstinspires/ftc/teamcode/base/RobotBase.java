@@ -33,11 +33,10 @@ public class RobotBase {
     public Lift liftSubsystem;
 
 
-    public GamepadEx armController;
-    public GamepadEx baseController;
 
 
-    public RobotBase(HardwareMap hwMap, Gamepad gp1, Gamepad gp2) {
+
+    public RobotBase(HardwareMap hwMap) {
         Gamepad.LedEffect rgbEffect = new Gamepad.LedEffect.Builder()
                 .addStep(1, 0, 0, 500) // Show red for 250ms
                 .addStep(0, 1, 0, 500) // Show green for 250ms
@@ -56,8 +55,7 @@ public class RobotBase {
         backLeftMotor = hwMap.dcMotor.get("backLeftMotor");
         frontRightMotor = hwMap.dcMotor.get("frontRightMotor");
         backRightMotor = hwMap.dcMotor.get("backRightMotor");
-        armController = new GamepadEx(gp2);
-        baseController = new GamepadEx(gp1);
+
 
         intakeSubsystem = new Intake(hwMap.servo.get("intakeServo"));
         bucketSubsystem = new Bucket(hwMap.servo.get("bucketServo"));

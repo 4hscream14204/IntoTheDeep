@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
@@ -26,7 +28,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.subsystems.Zlide;
 
-@TeleOp(name="run George")
+@TeleOp(name="George")
 public class TeleGeorge extends OpMode{
     RobotBase robotBase;
     boolean fieldCentric  = true;
@@ -35,11 +37,14 @@ public class TeleGeorge extends OpMode{
     double backLeftPower;
     double frontRightPower;
     double backRightPower;
+    public GamepadEx armController;
+    public GamepadEx baseController;
 
     @Override
     public void init() {
-        robotBase =new RobotBase(hardwareMap, gamepad1, gamepad2);
-
+        robotBase =new RobotBase(hardwareMap);
+        armController = new GamepadEx(gamepad2);
+        baseController = new GamepadEx(gamepad1);
         CommandScheduler.getInstance().reset();
 
 
@@ -48,16 +53,16 @@ public class TeleGeorge extends OpMode{
                         new InstantCommand(()->bucketSubsystem.toggleBucket())
                         )); */
 
-        robotBase.armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new IntakeCommandGroup(robotBase.zlideSubsystem,robotBase.wristSubsystem));
 
-        robotBase.armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(new IntakeTransferCommandGroup(robotBase.zlideSubsystem, robotBase.wristSubsystem, robotBase.bucketSubsystem));
 
-        robotBase.armController.getGamepadButton(GamepadKeys.Button.A)
+        armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(new LiftHome(robotBase.liftSubsystem));
 
-        robotBase.baseController.getGamepadButton((GamepadKeys.Button.Y))
+        baseController.getGamepadButton((GamepadKeys.Button.Y))
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->fieldCentric = !fieldCentric)
                 ));
@@ -68,8 +73,8 @@ public class TeleGeorge extends OpMode{
     public void loop() {
         double botHeading = robotBase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-        robotBase.armController.readButtons();
-        robotBase.baseController.readButtons();
+        armController.readButtons();
+        baseController.readButtons();
 
 
         double y = -gamepad1.left_stick_y * Math.abs(gamepad1.left_stick_y); // Remember, Y stick value is reversed
@@ -108,12 +113,12 @@ public class TeleGeorge extends OpMode{
             robotBase.imu.resetYaw();
         }
 
-        if (robotBase.armController.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
+        if (armController.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
             robotBase.wristSubsystem.wristPickupPos();
         }
 
 
-        if (robotBase.armController.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
+        if (armController.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
             robotBase.wristSubsystem.wristTransferPos();
         }
         /*
@@ -125,7 +130,7 @@ public class TeleGeorge extends OpMode{
         }
         */
 
-        if (robotBase.armController.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
+        if (armController.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
             robotBase.bucketSubsystem.toggleBucket();
         }
 
@@ -137,9 +142,9 @@ public class TeleGeorge extends OpMode{
 
         }
 */
-        if (robotBase.armController.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)) {
+        //if (armController.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)) {
 
-            robotBase.armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT));{
+            armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT));{
                 robotBase.zlideSubsystem.zlideStartPosition();
             }
 
@@ -180,6 +185,6 @@ public class TeleGeorge extends OpMode{
             telemetry.addData("Gyro", robotBase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
 
             CommandScheduler.getInstance().run();
-        }
+
     }
 }
