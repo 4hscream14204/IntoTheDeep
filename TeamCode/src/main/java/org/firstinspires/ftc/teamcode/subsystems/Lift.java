@@ -14,6 +14,16 @@ public class Lift extends SubsystemBase {
     public double upPower= -0.5;
     public double downPower = 0.5;
     public boolean stopped = true;
+    public enum LiftPosition{
+        HOME (0),
+        HIGHCHAMBER (-1700),
+        HIGHBASKET (-4000);
+        public final int height;
+        LiftPosition(int high){
+            this.height = high;
+        }
+    }
+    public LiftPosition enmLiftPosition;
 
     public Lift (DcMotor conLiftMotor){
         liftMotor = conLiftMotor;
@@ -22,8 +32,27 @@ public class Lift extends SubsystemBase {
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftMotor.setPower(0);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        enmLiftPosition = LiftPosition.HOME;
     }
+    public void goToPosition(LiftPosition enmTargetPosition){
+        if(liftMotor.getCurrentPosition()<enmTargetPosition.height){
+            liftMotor.setPower(downPower);
+            if (liftMotor.getCurrentPosition() >= enmTargetPosition.height) {
+                stop();
+            }
+        }
+        else if(liftMotor.getCurrentPosition()>enmTargetPosition.height){
+            liftMotor.setPower(upPower);
 
+            if (liftMotor.getCurrentPosition() <= enmTargetPosition.height) {
+                stop();
+            }
+        }
+        liftMotor.setTargetPosition(enmTargetPosition.height);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        stopped = false;
+    }
     public void goDown(double power){
         if(liftMotor.getCurrentPosition()>home-10){
             stop();
