@@ -48,12 +48,6 @@ public class TeleGeorge extends OpMode{
         baseController = new GamepadEx(gamepad1);
         CommandScheduler.getInstance().reset();
 
-
-        /*armController.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->bucketSubsystem.toggleBucket())
-                        )); */
-
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new IntakeCommandGroup(robotBase.zlideSubsystem,robotBase.wristSubsystem));
 
@@ -127,18 +121,9 @@ public class TeleGeorge extends OpMode{
             robotBase.wristSubsystem.wristPickupPos();
         }
 
-
         if (armController.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
             robotBase.wristSubsystem.wristTransferPos();
         }
-        /*
-        if(armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) >= 0.1){
-            intakeSubsystem.intakeSpeed((gamepad2.right_trigger));
-        }
-        if(armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) >= 0.1){
-            intakeSubsystem.intakeSpeed((gamepad2.left_trigger));
-        }
-        */
 
         if (armController.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
             robotBase.bucketSubsystem.toggleBucket();
@@ -146,42 +131,9 @@ public class TeleGeorge extends OpMode{
 
         robotBase.intakeSubsystem.intakeSpeed(gamepad2.left_trigger / 2 + -1 * gamepad2.right_trigger / 2 + 0.5);
 
-        /*if (armController.wasJustPressed(GamepadKeys.Button.DPAD_UP)){
-
-            zlideSubsystem.zlideExtendPosition();
-
-        }
-*/
-        //if (armController.wasJustPressed(GamepadKeys.Button.DPAD_DOWN)) {
-
             if(armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT))){
                 robotBase.zlideSubsystem.zlideStartPosition();
             }
-
-        /*if (gamepad2.right_stick_y>0.1){
-            liftSubsystem.goDown(gamepad2.right_stick_y);
-        }
-
-        if (gamepad2.right_stick_y<-0.1){
-            liftSubsystem.goUp(gamepad2.right_stick_y);
-        }
-/*
-        if (gamepad2.right_trigger < 0.1 && gamepad2.left_trigger < 0.1) {
-            liftSubsystem.stop();
-        }*/
-        /*
-            if (gamepad2.y) {
-                robotBase.liftSubsystem.highBasket();
-            }
-
-            if (gamepad2.b) {
-                robotBase.liftSubsystem.highChamber();
-            }
-            */
-
-        /*if (gamepad2.a) {
-            liftSubsystem.home();
-        }*/
 
            telemetry.addData("lift motor", robotBase.liftSubsystem.getPosition());
 
