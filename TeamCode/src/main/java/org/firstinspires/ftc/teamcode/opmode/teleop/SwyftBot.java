@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -9,11 +11,15 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
-@TeleOp(name="Sonic")
+@TeleOp(name="Swyft bot drive program")
 public class SwyftBot extends OpMode {
 
     DcMotor frontLeftMotor;
@@ -21,6 +27,7 @@ public class SwyftBot extends OpMode {
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
     IMU imu;
+    GamepadEx controller;
 
     boolean bolFieldCentric = true;
     double denominator;
@@ -36,6 +43,8 @@ public class SwyftBot extends OpMode {
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+
+        controller = new GamepadEx(gamepad1);
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -61,19 +70,26 @@ public class SwyftBot extends OpMode {
         imu.initialize(parameters);
 
         imu.resetYaw();
+
+        controller.getGamepadButton((GamepadKeys.Button.Y))
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->bolFieldCentric = !bolFieldCentric)
+                ));
     }
 
     @Override
     public void loop() {
-
+        CommandScheduler.getInstance().reset();
         // Adjust the orientation parameters to match your robot
+        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
+        controller.readButtons();
 
         double y = -gamepad1.left_stick_y * Math.abs(gamepad1.left_stick_y) * Math.abs(gamepad1.left_stick_y); // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x * Math.abs(gamepad1.left_stick_x) * Math.abs(gamepad1.left_stick_x);
         double rx = gamepad1.right_stick_x * Math.abs(gamepad1.right_stick_x) * Math.abs(gamepad1.right_stick_x);
 
-        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
 
         // Rotate the movement direction counter to the bot's rotation
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
@@ -112,10 +128,8 @@ public class SwyftBot extends OpMode {
         telemetry.addData("Left Stick x", x);
         telemetry.addData("Right Stick x", rx);
 
-        if (gamepad1.right_bumper) {
-            bolFieldCentric = true;
-        } else if (gamepad1.left_bumper) {
-            bolFieldCentric = false;
+        if (controller.wasJustPressed(GamepadKeys.Button.Y)){
+            bolFieldCentric = !bolFieldCentric;
         }
 
         telemetry.addData("field centric", bolFieldCentric);
@@ -130,5 +144,6 @@ public class SwyftBot extends OpMode {
 
         telemetry.addData("front right motor power", frontRightPower);
 
+        CommandScheduler.getInstance().run();
     }
 }
