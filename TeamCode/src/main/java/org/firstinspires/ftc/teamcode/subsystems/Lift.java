@@ -8,7 +8,7 @@ public class Lift extends SubsystemBase {
     public DcMotor liftMotor;
     public double speed = 0;
     public int home = 0;
-    public int highBasket = -4000;
+    public int highBasket = -4200;
     public int highChamber = -1700;
     public int pickup = -100;
     public double upPower= -0.7;

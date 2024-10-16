@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Bucket extends SubsystemBase {
 
     double bucketUpPosition = 0;
-    double bucketDownPosition = 0.67;
+    double bucketDownPosition = 0.79333;
 
      Servo srvBucket;
 
