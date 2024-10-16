@@ -70,6 +70,10 @@ public class TeleGeorge extends OpMode{
                         new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBER))
                 ));;
 
+        baseController.getGamepadButton(GamepadKeys.Button.START)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand((()->robotBase.imu.resetYaw()))
+                ));
 
     }
 
