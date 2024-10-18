@@ -90,6 +90,11 @@ public class TeleGeorge extends OpMode{
                         new InstantCommand(()->robotBase.bucketSubsystem.toggleBucket())
                 ));
 
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.zlideSubsystem.zlideStartPosition())
+                ));
+
     }
 
     @Override
@@ -133,10 +138,6 @@ public class TeleGeorge extends OpMode{
         telemetry.addData("Right Stick rx", rx);
 
         robotBase.intakeSubsystem.intakeSpeed(gamepad1.left_trigger / 2 + -1 * gamepad1.right_trigger / 2 + 0.5);
-
-        if(armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT))){
-                robotBase.zlideSubsystem.zlideStartPosition();
-        }
 
         telemetry.addData("lift motor", robotBase.liftSubsystem.getPosition());
 
