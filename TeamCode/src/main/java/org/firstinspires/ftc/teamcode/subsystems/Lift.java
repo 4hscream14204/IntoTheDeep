@@ -2,10 +2,12 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 public class Lift extends SubsystemBase {
 
     public DcMotor liftMotor;
+    public DigitalChannel tsLimitSwitch;
     public double speed = 0;
     public int home = 0;
     public int highBasket = -4200;
@@ -17,7 +19,7 @@ public class Lift extends SubsystemBase {
     public enum LiftPosition{
         HOME (0),
         HIGHCHAMBER (-1700),
-        HIGHBASKET (-4000);
+        HIGHBASKET (-4200);
         public final int height;
         LiftPosition(int high){
             this.height = high;
@@ -25,13 +27,14 @@ public class Lift extends SubsystemBase {
     }
     public LiftPosition enmLiftPosition;
 
-    public Lift (DcMotor conLiftMotor){
+    public Lift (DcMotor conLiftMotor, DigitalChannel conLimitSwitch){
         liftMotor = conLiftMotor;
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setTargetPosition(0);
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftMotor.setPower(0);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        tsLimitSwitch = conLimitSwitch;
         enmLiftPosition = LiftPosition.HOME;
     }
     public void goToPosition(LiftPosition enmTargetPosition){
@@ -54,6 +57,10 @@ public class Lift extends SubsystemBase {
         stopped = false;
     }
     public void goDown(double power){
+        if(tsLimitSwitch.getState()){
+            reset();
+            return;
+        }
         if(liftMotor.getCurrentPosition()>home-10){
             stop();
         }
@@ -145,5 +152,15 @@ public class Lift extends SubsystemBase {
 
     public double getPower() {
         return liftMotor.getPower();
+    }
+    public void reset(){
+            liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            liftMotor.setTargetPosition(0);
+            liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            liftMotor.setPower(0);
+    }
+    public boolean getSwitchState(){
+       return tsLimitSwitch.getState();
     }
 }

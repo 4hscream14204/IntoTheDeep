@@ -61,7 +61,7 @@ public class RobotBase {
         bucketSubsystem = new Bucket(hwMap.servo.get("bucketServo"));
         zlideSubsystem = new Zlide(hwMap.servo.get("zlideServo"));
         wristSubsystem = new Wrist(hwMap.servo.get("transferServo"));
-        liftSubsystem = new Lift(hwMap.dcMotor.get("slideMotor"));
+        liftSubsystem = new Lift(hwMap.dcMotor.get("slideMotor"), hwMap.digitalChannel.get("liftLimitSwitch"));
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);

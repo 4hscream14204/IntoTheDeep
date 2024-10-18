@@ -137,6 +137,8 @@ public class TeleGeorge extends OpMode{
 
         telemetry.addData("Gyro", robotBase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
 
+        telemetry.addData("Lift Limit Switch: ", robotBase.liftSubsystem.getSwitchState());
+
             CommandScheduler.getInstance().run();
 
     }
