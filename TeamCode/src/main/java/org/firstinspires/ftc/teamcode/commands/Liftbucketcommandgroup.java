@@ -13,7 +13,7 @@ public class Liftbucketcommandgroup extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHBASKET)),
             new WaitUntilCommand(lift::isHighBasket),
-            new WaitCommand(1000),
+            new WaitCommand(250),
             new InstantCommand(bucket::bucketUpPosition),
             new WaitCommand(500),
             new InstantCommand(bucket::bucketDownPosition),

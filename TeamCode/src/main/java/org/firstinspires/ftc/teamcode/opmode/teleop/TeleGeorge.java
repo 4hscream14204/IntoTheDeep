@@ -133,7 +133,7 @@ public class TeleGeorge extends OpMode{
             robotBase.bucketSubsystem.toggleBucket();
         }
 
-        robotBase.intakeSubsystem.intakeSpeed(gamepad2.left_trigger / 2 + -1 * gamepad2.right_trigger / 2 + 0.5);
+        robotBase.intakeSubsystem.intakeSpeed(gamepad1.left_trigger / 2 + -1 * gamepad1.right_trigger / 2 + 0.5);
 
             if(armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT))){
                 robotBase.zlideSubsystem.zlideStartPosition();
