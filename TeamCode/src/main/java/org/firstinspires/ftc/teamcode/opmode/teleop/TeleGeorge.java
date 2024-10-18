@@ -75,6 +75,21 @@ public class TeleGeorge extends OpMode{
                         new InstantCommand((()->robotBase.imu.resetYaw()))
                 ));
 
+        armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.wristSubsystem.wristPickupPos())
+                ));
+
+        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.wristSubsystem.wristTransferPos())
+                ));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.bucketSubsystem.toggleBucket())
+                ));
+
     }
 
     @Override
@@ -117,39 +132,23 @@ public class TeleGeorge extends OpMode{
         telemetry.addData("Left Stick x", x);
         telemetry.addData("Right Stick rx", rx);
 
-        if (gamepad1.options) {
-            robotBase.imu.resetYaw();
-        }
-
-        if (armController.wasJustPressed(GamepadKeys.Button.LEFT_BUMPER)) {
-            robotBase.wristSubsystem.wristPickupPos();
-        }
-
-        if (armController.wasJustPressed(GamepadKeys.Button.RIGHT_BUMPER)) {
-            robotBase.wristSubsystem.wristTransferPos();
-        }
-
-        if (armController.wasJustPressed(GamepadKeys.Button.DPAD_LEFT)) {
-            robotBase.bucketSubsystem.toggleBucket();
-        }
-
         robotBase.intakeSubsystem.intakeSpeed(gamepad1.left_trigger / 2 + -1 * gamepad1.right_trigger / 2 + 0.5);
 
-            if(armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT))){
+        if(armController.wasJustPressed((GamepadKeys.Button.DPAD_RIGHT))){
                 robotBase.zlideSubsystem.zlideStartPosition();
-            }
+        }
 
-           telemetry.addData("lift motor", robotBase.liftSubsystem.getPosition());
+        telemetry.addData("lift motor", robotBase.liftSubsystem.getPosition());
 
-            telemetry.addData("right trigger value", gamepad2.right_trigger);
+        telemetry.addData("right trigger value", gamepad2.right_trigger);
 
-            telemetry.addData("left trigger value", gamepad2.left_trigger);
+        telemetry.addData("left trigger value", gamepad2.left_trigger);
 
-            telemetry.addData("Lift motor power", robotBase.liftSubsystem.getPower());
+        telemetry.addData("Lift motor power", robotBase.liftSubsystem.getPower());
 
-            telemetry.addData("feild centric", fieldCentric);
+        telemetry.addData("feild centric", fieldCentric);
 
-            telemetry.addData("Gyro", robotBase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+        telemetry.addData("Gyro", robotBase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
 
             CommandScheduler.getInstance().run();
 
