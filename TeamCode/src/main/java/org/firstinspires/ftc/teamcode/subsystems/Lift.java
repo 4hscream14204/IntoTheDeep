@@ -12,6 +12,7 @@ public class Lift extends SubsystemBase {
     public int home = 15;
     public int highBasket = -4200;
     public int highChamber = -1700;
+    public int lowBasket = -4200;
     public int pickup = -100;
     public double upPower= -0.9;
     public double downPower = 0.8;
@@ -19,7 +20,8 @@ public class Lift extends SubsystemBase {
     public enum LiftPosition{
         HOME (15),
         HIGHCHAMBER (-1700),
-        HIGHBASKET (-4200);
+        HIGHBASKET (-4200),
+        LOWBASKET (-4200);
         public final int height;
         LiftPosition(int high){
             this.height = high;
@@ -144,6 +146,22 @@ public class Lift extends SubsystemBase {
         else {
             return false;
         }
+    }
+
+    public boolean isLowBasket(){
+        if(liftMotor.getCurrentPosition()<=-2280 && liftMotor.getCurrentPosition()>-2320){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean isAtBasket(LiftPosition basketTarget){
+        if(Math.abs(liftMotor.getCurrentPosition() - basketTarget.height) <= 10){
+            return true;
+        }
+        return false;
     }
 
     public int getPosition() {

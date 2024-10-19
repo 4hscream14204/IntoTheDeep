@@ -12,9 +12,11 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.IntakeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.IntakeReturnPositionCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.IntakeTransferCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.LiftBucketCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.LiftGoToBasketCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.LiftHighBasketCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.LiftHighBasketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftHome;
-import org.firstinspires.ftc.teamcode.commands.LiftBucketCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.LiftLowBasketCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 @TeleOp(name="George")
@@ -51,7 +53,10 @@ public class TeleGeorge extends OpMode{
                 ));
 
         armController.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(new LiftBucketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem));
+                .whenPressed(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, Lift.LiftPosition.HIGHBASKET));
+
+        armController.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, Lift.LiftPosition.LOWBASKET));
 
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
