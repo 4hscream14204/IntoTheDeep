@@ -8,16 +8,16 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-public class Liftbucketcommandgroup extends SequentialCommandGroup {
-    public Liftbucketcommandgroup(Lift lift, Bucket bucket){
+public class LiftBucketCommandGroup extends SequentialCommandGroup {
+    public LiftBucketCommandGroup(Lift lift, Bucket bucket){
         addCommands(
-                new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHBASKET)),
+            new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHBASKET)),
             new WaitUntilCommand(lift::isHighBasket),
             new WaitCommand(250),
             new InstantCommand(bucket::bucketUpPosition),
-            new WaitCommand(500),
+            new WaitCommand(1500),
             new InstantCommand(bucket::bucketDownPosition),
-                new InstantCommand(lift::home)
+            new LiftHome(lift)
         );
 }
 }

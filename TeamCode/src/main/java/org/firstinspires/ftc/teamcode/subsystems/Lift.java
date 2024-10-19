@@ -9,7 +9,7 @@ public class Lift extends SubsystemBase {
     public DcMotor liftMotor;
     public DigitalChannel tsLimitSwitch;
     public double speed = 0;
-    public int home = 0;
+    public int home = 15;
     public int highBasket = -4200;
     public int highChamber = -1700;
     public int pickup = -100;
@@ -17,7 +17,7 @@ public class Lift extends SubsystemBase {
     public double downPower = 0.7;
     public boolean stopped = true;
     public enum LiftPosition{
-        HOME (0),
+        HOME (15),
         HIGHCHAMBER (-1700),
         HIGHBASKET (-4200);
         public final int height;
@@ -89,9 +89,8 @@ public class Lift extends SubsystemBase {
             return;
         }
         stopped=true;
-        if (liftMotor.getCurrentPosition() >=-10) {
-            liftMotor.setPower(0);
-            liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        if (tsLimitSwitch.getState()) {
+            reset();
         }
         else {
             liftMotor.setPower(-0.3);
@@ -106,8 +105,8 @@ public class Lift extends SubsystemBase {
 
         stopped = false;
 
-        if (liftMotor.getCurrentPosition() >= home) {
-            stop();
+        if (tsLimitSwitch.getState()) {
+            reset();
         }
     }
 

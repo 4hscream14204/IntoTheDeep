@@ -11,8 +11,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.IntakeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.IntakeTransferCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.LiftBucketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftHome;
-import org.firstinspires.ftc.teamcode.commands.Liftbucketcommandgroup;
+import org.firstinspires.ftc.teamcode.commands.LiftBucketCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 @TeleOp(name="George")
@@ -49,7 +50,7 @@ public class TeleGeorge extends OpMode{
                 ));
 
         armController.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(new Liftbucketcommandgroup(robotBase.liftSubsystem,robotBase.bucketSubsystem));
+                .whenPressed(new LiftBucketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
