@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.IntakeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.IntakeReturnPositionCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.IntakeTransferCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftBucketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftHome;
@@ -68,9 +69,7 @@ public class TeleGeorge extends OpMode{
                 ));
 
         armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.wristSubsystem.wristTransferPos())
-                ));
+                .whenPressed(new IntakeReturnPositionCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(

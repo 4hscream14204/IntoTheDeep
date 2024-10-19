@@ -13,8 +13,8 @@ public class Lift extends SubsystemBase {
     public int highBasket = -4200;
     public int highChamber = -1700;
     public int pickup = -100;
-    public double upPower= -0.7;
-    public double downPower = 0.7;
+    public double upPower= -0.9;
+    public double downPower = 0.8;
     public boolean stopped = true;
     public enum LiftPosition{
         HOME (15),
@@ -98,7 +98,7 @@ public class Lift extends SubsystemBase {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
-    public void home (){
+    /*public void home (){
         liftMotor.setPower(downPower);
         liftMotor.setTargetPosition(home);
         liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -109,6 +109,7 @@ public class Lift extends SubsystemBase {
             reset();
         }
     }
+    */
 
 
     public void pickup(){
