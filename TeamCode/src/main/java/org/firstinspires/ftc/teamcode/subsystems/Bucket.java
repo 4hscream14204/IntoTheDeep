@@ -23,14 +23,11 @@ public class Bucket extends SubsystemBase {
     public void toggleBucket() {
 
         if (bucketUp) {
-
-            srvBucket.setPosition(bucketDownPosition);
-            bucketUp = false;
+            bucketDownPosition();
 
         } else {
 
-            srvBucket.setPosition(bucketUpPosition);
-            bucketUp = true;
+            bucketUpPosition();
 
         }
 
