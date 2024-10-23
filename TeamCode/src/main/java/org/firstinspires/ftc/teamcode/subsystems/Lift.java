@@ -21,7 +21,7 @@ public class Lift extends SubsystemBase {
         HOME (15),
         HIGHCHAMBER (-1700),
         HIGHBASKET (-4200),
-        LOWBASKET (-4200);
+        LOWBASKET (-2600);
         public final int height;
         LiftPosition(int high){
             this.height = high;
