@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class SpecimenGrabber extends SubsystemBase {
 
-    double dubOpenPosition = 0.2022;
-    double dubClosedPosition = 0.49111;
+    double dubOpenPosition = 0.10888;
+    double dubClosedPosition = 0.630555;
 
     Servo srvSpecimenGrabber;
 
@@ -23,9 +23,11 @@ public class SpecimenGrabber extends SubsystemBase {
         if (bolOpen) {
 
             srvSpecimenGrabber.setPosition(dubClosedPosition);
+            bolOpen = false;
         } else {
 
             srvSpecimenGrabber.setPosition(dubOpenPosition);
+            bolOpen = true;
         }
     }
 }

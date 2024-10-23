@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
+import org.firstinspires.ftc.teamcode.subsystems.SpecimenGrabber;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.subsystems.Zlide;
 
@@ -31,6 +32,7 @@ public class RobotBase {
     public Zlide zlideSubsystem;
     public Wrist wristSubsystem;
     public Lift liftSubsystem;
+    public SpecimenGrabber specimenGrabberSubsystem;
 
 
 
@@ -62,6 +64,7 @@ public class RobotBase {
         zlideSubsystem = new Zlide(hwMap.servo.get("zlideServo"));
         wristSubsystem = new Wrist(hwMap.servo.get("transferServo"));
         liftSubsystem = new Lift(hwMap.dcMotor.get("slideMotor"), hwMap.digitalChannel.get("liftLimitSwitch"));
+        specimenGrabberSubsystem = new SpecimenGrabber(hwMap.servo.get("grabberServo"));
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);

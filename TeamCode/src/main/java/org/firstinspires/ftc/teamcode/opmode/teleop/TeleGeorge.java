@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.commands.LiftHighBasketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftHome;
 import org.firstinspires.ftc.teamcode.commands.LiftLowBasketCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
+import org.firstinspires.ftc.teamcode.subsystems.SpecimenGrabber;
 
 @TeleOp(name="George")
 public class TeleGeorge extends OpMode{
@@ -42,7 +43,9 @@ public class TeleGeorge extends OpMode{
                 .whenPressed(new IntakeCommandGroup(robotBase.zlideSubsystem,robotBase.wristSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(new IntakeTransferCommandGroup(robotBase.zlideSubsystem, robotBase.wristSubsystem, robotBase.bucketSubsystem));
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.specimenGrabberSubsystem.toggleGrabber())
+                ));
 
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(new LiftHome(robotBase.liftSubsystem));
