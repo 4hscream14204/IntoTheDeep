@@ -15,12 +15,18 @@ public class MeepMeepAizah {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(26, 62, Math.toRadians(-90)))
-                .splineToConstantHeading(new Vector2d(13, 34), Math.toRadians(-90))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(29, 62, Math.toRadians(-90)))
+                .splineToConstantHeading(new Vector2d(10, 34), Math.toRadians(-90))
                         .setReversed(true)
-                        .splineToConstantHeading(new Vector2d(37, 40), Math.toRadians(-90))
+                        .splineToConstantHeading(new Vector2d(36, 37
+                        ), Math.toRadians(-90))
                         .setReversed(false)
-                        .splineToConstantHeading(new Vector2d(34, 10), Math.toRadians(-90))
+                        .splineToConstantHeading(new Vector2d(36,16),Math.toRadians(-90))
+                        //.setReversed(false)
+                        .splineToConstantHeading(new Vector2d(45, 39),Math.toRadians(90))
+                        .setReversed(false)
+                        .splineToConstantHeading(new Vector2d(57,51),Math.toRadians(90))
+
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
