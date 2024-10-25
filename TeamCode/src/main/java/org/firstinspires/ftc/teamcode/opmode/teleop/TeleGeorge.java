@@ -2,13 +2,16 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.commands.HighChamberScoreCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.IntakeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.IntakeReturnPositionCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.IntakeTransferCommandGroup;
@@ -39,8 +42,9 @@ public class TeleGeorge extends OpMode{
         baseController = new GamepadEx(gamepad1);
         CommandScheduler.getInstance().reset();
 
-        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(new IntakeCommandGroup(robotBase.zlideSubsystem,robotBase.wristSubsystem));
+        armController.getGamepadButton(GamepadKeys.Button.Y)
+                .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
+                .whenActive(new IntakeCommandGroup(robotBase.zlideSubsystem,robotBase.wristSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
@@ -48,7 +52,8 @@ public class TeleGeorge extends OpMode{
                 ));
 
         armController.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(new LiftHome(robotBase.liftSubsystem));
+                .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
+                .whenActive(new LiftHome(robotBase.liftSubsystem));
 
         baseController.getGamepadButton((GamepadKeys.Button.Y))
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
@@ -56,36 +61,42 @@ public class TeleGeorge extends OpMode{
                 ));
 
         armController.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, Lift.LiftPosition.HIGHBASKET));
+                .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
+                .whenActive(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, Lift.LiftPosition.HIGHBASKET));
 
         armController.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, Lift.LiftPosition.LOWBASKET));
+                .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
+                .whenActive(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, Lift.LiftPosition.LOWBASKET));
 
         armController.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBER))
-                ));;
+                .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
+                .whenActive(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem)/*()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART))*/
+                );
 
         baseController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand((()->robotBase.imu.resetYaw()))
                 ));
 
-        armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                .whenPressed(()->CommandScheduler.getInstance().schedule(
+        armController.getGamepadButton(GamepadKeys.Button.X)
+                .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
+                .whenActive(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.wristSubsystem.wristPickupPos())
                 ));
 
-        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(new IntakeReturnPositionCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem));
+        armController.getGamepadButton(GamepadKeys.Button.A)
+                .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
+                .whenActive(new IntakeReturnPositionCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.bucketSubsystem.toggleBucket())
                 ));
 
-        armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(()->CommandScheduler.getInstance().schedule(
+        armController.getGamepadButton(GamepadKeys.Button.B)
+                .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
+                .whenActive(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.zlideSubsystem.zlideStartPosition())
                 ));
 

@@ -20,7 +20,8 @@ public class Lift extends SubsystemBase {
     public enum LiftPosition{
         HOME (15),
         PICKUP (-227),
-        HIGHCHAMBER (-1700),
+        HIGHCHAMBERSTART (-1930),
+        HIGHCHAMBERCLAMP (-1620),
         HIGHBASKET (-4200),
         LOWBASKET (-2600);
         public final int height;
@@ -160,6 +161,13 @@ public class Lift extends SubsystemBase {
 
     public boolean isAtBasket(LiftPosition basketTarget){
         if(Math.abs(liftMotor.getCurrentPosition() - basketTarget.height) <= 10){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isAtHighChamber(){
+        if(liftMotor.getCurrentPosition() <= -1930 && liftMotor.getCurrentPosition() >= -1940){
             return true;
         }
         return false;
