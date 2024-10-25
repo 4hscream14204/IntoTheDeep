@@ -16,7 +16,15 @@ public class MeepMeepMicah {
                 .build();
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-25, 61, Math.toRadians(-90)))
-                .splineToConstantHeading(new Vector2d(-14, 34), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-12, 32), Math.toRadians(-90.00))
+                .setReversed(true)
+                .splineToConstantHeading(new Vector2d(-36, 34), Math.toRadians(-90.00))
+                .setReversed(false)
+                .splineToConstantHeading(new Vector2d(-36, 13), Math.toRadians(-90.00))
+                .splineToConstantHeading(new Vector2d(-47, 14), Math.toRadians(90.00))
+                .setReversed(true)
+                .splineToConstantHeading(new Vector2d(-47, 31), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(-47, 57), Math.toRadians(90.00))
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
