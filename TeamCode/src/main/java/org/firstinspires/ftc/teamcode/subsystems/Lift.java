@@ -14,8 +14,8 @@ public class Lift extends SubsystemBase {
     public int highChamber = -1700;
     public int lowBasket = -4200;
     public int pickup = -100;
-    public double upPower= -0.9;
-    public double downPower = 0.8;
+    public double upPower= -1;
+    public double downPower = 0.9;
     public boolean stopped = true;
     public enum LiftPosition{
         HOME (15),
