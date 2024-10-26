@@ -24,14 +24,14 @@ public class MeepMeepJack {
                 .splineToConstantHeading(new Vector2d(46.53, 16.83), Math.toRadians(90.00))
                 .setReversed(true)
                 .splineToConstantHeading(new Vector2d(45.07, 45.21), Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(58.67, 58.80), Math.toRadians(57.24))
+                /*.splineToConstantHeading(new Vector2d(58.67, 58.80), Math.toRadians(57.24))
                 .splineToConstantHeading(new Vector2d(45.21, 45.21), Math.toRadians(-79.36))
                 .setReversed(false)
                 .splineToConstantHeading(new Vector2d(46.79, 12.74), Math.toRadians(-87.00))
                 .splineToConstantHeading(new Vector2d(57.88, 13.00), Math.toRadians(5.44))
                 .setReversed(true)
                 .splineToConstantHeading(new Vector2d(56.69, 62.63), Math.toRadians(86.40))
-                .setReversed(false)
+                .setReversed(false)*/
 
 
 
