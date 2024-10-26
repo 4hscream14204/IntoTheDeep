@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class SpecimenGrabber extends SubsystemBase {
 
-    double dubOpenPosition = 0.10888;
-    double dubClosedPosition = 0.630555;
+    double dubOpenPosition = 0.31166667;
+    double dubClosedPosition = 0.72777;
 
     Servo srvSpecimenGrabber;
 

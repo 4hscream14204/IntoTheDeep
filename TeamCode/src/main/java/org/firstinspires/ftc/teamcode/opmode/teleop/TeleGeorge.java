@@ -114,6 +114,11 @@ public class TeleGeorge extends OpMode{
         double x = gamepad1.left_stick_x * Math.abs(gamepad1.left_stick_x);
         double rx = gamepad1.right_stick_x * Math.abs(gamepad1.right_stick_x);
 
+        if (robotBase.zlideSubsystem.GetPostion() == 0) {
+            rx = gamepad1.right_stick_x / 2;
+
+        }
+
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
