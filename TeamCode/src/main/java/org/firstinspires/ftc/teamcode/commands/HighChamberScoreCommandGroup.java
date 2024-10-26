@@ -19,9 +19,8 @@ public class HighChamberScoreCommandGroup extends SequentialCommandGroup {
                 new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHCHAMBERCLAMP)),
                 new WaitCommand(1500),
                 new InstantCommand(specimenGrabber::toggleGrabber),
-                new WaitCommand(2000),
-                new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART)),
-                new WaitCommand(1000),
+                new WaitCommand(2500),
+                new LiftHome(lift),
                 new InstantCommand(specimenGrabber::toggleGrabber)
         );
     }

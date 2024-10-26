@@ -19,7 +19,8 @@ public class Lift extends SubsystemBase {
     public boolean stopped = true;
     public enum LiftPosition{
         HOME (15),
-        PICKUP (-227),
+        PICKUP (-215),
+        PICKUPLIFT (-450),
         HIGHCHAMBERSTART (-1930),
         HIGHCHAMBERCLAMP (-1620),
         HIGHBASKET (-4200),

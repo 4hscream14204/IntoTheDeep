@@ -70,8 +70,7 @@ public class TeleGeorge extends OpMode{
 
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem)/*()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART))*/
+                .whenActive(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem)
                 );
 
         baseController.getGamepadButton(GamepadKeys.Button.START)
@@ -98,6 +97,16 @@ public class TeleGeorge extends OpMode{
                 .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
                 .whenActive(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.zlideSubsystem.zlideStartPosition())
+                ));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand((()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.PICKUP)))
+                ));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand((()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.PICKUPLIFT)))
                 ));
 
     }
