@@ -30,4 +30,12 @@ public class SpecimenGrabber extends SubsystemBase {
             bolOpen = true;
         }
     }
+
+    public void grabberOpen(){
+        srvSpecimenGrabber.setPosition(dubOpenPosition);
+    }
+
+    public void grabberClosed(){
+        srvSpecimenGrabber.setPosition(dubClosedPosition);
+    }
 }

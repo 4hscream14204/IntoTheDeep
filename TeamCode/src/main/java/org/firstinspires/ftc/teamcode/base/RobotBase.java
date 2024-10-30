@@ -53,10 +53,10 @@ public class RobotBase {
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
         imu.initialize(parameters);
 
-        frontLeftMotor = hwMap.dcMotor.get("frontLeftMotor");
-        backLeftMotor = hwMap.dcMotor.get("backLeftMotor");
-        frontRightMotor = hwMap.dcMotor.get("frontRightMotor");
-        backRightMotor = hwMap.dcMotor.get("backRightMotor");
+        frontLeftMotor = hwMap.dcMotor.get("left_front");
+        backLeftMotor = hwMap.dcMotor.get("left_back");
+        frontRightMotor = hwMap.dcMotor.get("right_front");
+        backRightMotor = hwMap.dcMotor.get("right_back");
 
 
         intakeSubsystem = new Intake(hwMap.servo.get("intakeServo"));

@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.commands.LiftHighBasketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftHighBasketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftHome;
 import org.firstinspires.ftc.teamcode.commands.LiftLowBasketCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.PickupSpecimenCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.SpecimenGrabber;
 
@@ -70,8 +71,7 @@ public class TeleGeorge extends OpMode{
 
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem)/*()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART))*/
+                .whenActive(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem)
                 );
 
         baseController.getGamepadButton(GamepadKeys.Button.START)
@@ -99,6 +99,9 @@ public class TeleGeorge extends OpMode{
                 .whenActive(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.zlideSubsystem.zlideStartPosition())
                 ));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(new PickupSpecimenCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
 
     }
 
