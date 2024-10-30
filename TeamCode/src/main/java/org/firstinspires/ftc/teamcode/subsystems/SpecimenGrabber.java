@@ -22,20 +22,20 @@ public class SpecimenGrabber extends SubsystemBase {
 
         if (bolOpen) {
 
-            srvSpecimenGrabber.setPosition(dubClosedPosition);
-            bolOpen = false;
+            grabberClosed();
         } else {
 
-            srvSpecimenGrabber.setPosition(dubOpenPosition);
-            bolOpen = true;
+            grabberOpen();
         }
     }
 
     public void grabberOpen(){
         srvSpecimenGrabber.setPosition(dubOpenPosition);
+        bolOpen = true;
     }
 
     public void grabberClosed(){
         srvSpecimenGrabber.setPosition(dubClosedPosition);
+        bolOpen = false;
     }
 }
