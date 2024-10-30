@@ -58,6 +58,11 @@ public class RobotBase {
         frontRightMotor = hwMap.dcMotor.get("right_front");
         backRightMotor = hwMap.dcMotor.get("right_back");
 
+        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         intakeSubsystem = new Intake(hwMap.servo.get("intakeServo"));
         bucketSubsystem = new Bucket(hwMap.servo.get("bucketServo"));
