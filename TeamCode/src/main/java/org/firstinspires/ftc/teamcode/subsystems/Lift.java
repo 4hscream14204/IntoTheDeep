@@ -117,7 +117,7 @@ public class Lift extends SubsystemBase {
     }
 
     public boolean isLowBasket(){
-        if(liftMotor.getCurrentPosition()<= LiftPosition.LOWBASKET.height +320 && liftMotor.getCurrentPosition()> LiftPosition.LOWBASKET.height +280){
+        if(liftMotor.getCurrentPosition()<= LiftPosition.LOWBASKET.height +10 && liftMotor.getCurrentPosition()> LiftPosition.LOWBASKET.height -10){
             return true;
         }
         else{
@@ -133,7 +133,7 @@ public class Lift extends SubsystemBase {
     }
 
     public boolean isAtHighChamber(){
-        if(liftMotor.getCurrentPosition() <= -1930 && liftMotor.getCurrentPosition() >= LiftPosition.HIGHCHAMBERSTART.height -10){
+        if(liftMotor.getCurrentPosition() <= LiftPosition.HIGHCHAMBERSTART.height +10 && liftMotor.getCurrentPosition() >= LiftPosition.HIGHCHAMBERSTART.height -10){
             return true;
         }
         return false;
