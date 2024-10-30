@@ -8,12 +8,6 @@ public class Lift extends SubsystemBase {
 
     public DcMotor liftMotor;
     public DigitalChannel tsLimitSwitch;
-    public double speed = 0;
-    public int home = 15;
-    public int highBasket = -4200;
-    public int highChamber = -1700;
-    public int lowBasket = -4200;
-    public int pickup = -100;
     public double upPower= -1;
     public double downPower = 0.9;
     public boolean stopped = true;
@@ -65,7 +59,7 @@ public class Lift extends SubsystemBase {
             reset();
             return;
         }
-        if(liftMotor.getCurrentPosition()>home-10){
+        if(liftMotor.getCurrentPosition()>LiftPosition.HOME.height - 10){
             stop();
         }
         else {
@@ -76,7 +70,7 @@ public class Lift extends SubsystemBase {
     }
 
     public void goUp(double power){
-        if(liftMotor.getCurrentPosition()<(highBasket)){
+        if(liftMotor.getCurrentPosition()<(LiftPosition.HIGHBASKET.height)){
             stop();
         }
         else{
@@ -102,38 +96,9 @@ public class Lift extends SubsystemBase {
             liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
-    /*public void home (){
-        liftMotor.setPower(downPower);
-        liftMotor.setTargetPosition(home);
-        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        stopped = false;
-
-        if (tsLimitSwitch.getState()) {
-            reset();
-        }
-    }
-    */
-
-
-    public void pickup(){
-        if(liftMotor.getCurrentPosition()<pickup){
-            liftMotor.setPower(downPower);
-        }
-        else if(liftMotor.getCurrentPosition()>pickup){
-            liftMotor.setPower(upPower);
-        }
-        liftMotor.setTargetPosition(pickup);
-    }
-
-    public void checkPosition(){
-        if(liftMotor.getCurrentPosition()>(home - 30)){
-            liftMotor.setPower(0);
-        }
-    }
 
     public boolean isHome(){
-        if(liftMotor.getCurrentPosition()<=-15){
+        if(liftMotor.getCurrentPosition()<= LiftPosition.HOME.height -30){
             return false;
         }
         else {
@@ -142,7 +107,7 @@ public class Lift extends SubsystemBase {
     }
 
     public boolean isHighBasket(){
-        if(liftMotor.getCurrentPosition()<=-3950){
+        if(liftMotor.getCurrentPosition()<= LiftPosition.HIGHBASKET.height +250){
             return true;
         }
         else {
@@ -151,7 +116,7 @@ public class Lift extends SubsystemBase {
     }
 
     public boolean isLowBasket(){
-        if(liftMotor.getCurrentPosition()<=-2280 && liftMotor.getCurrentPosition()>-2320){
+        if(liftMotor.getCurrentPosition()<= LiftPosition.LOWBASKET.height +320 && liftMotor.getCurrentPosition()> LiftPosition.LOWBASKET.height +280){
             return true;
         }
         else{
@@ -167,7 +132,7 @@ public class Lift extends SubsystemBase {
     }
 
     public boolean isAtHighChamber(){
-        if(liftMotor.getCurrentPosition() <= -1930 && liftMotor.getCurrentPosition() >= -1940){
+        if(liftMotor.getCurrentPosition() <= -1930 && liftMotor.getCurrentPosition() >= LiftPosition.HIGHCHAMBERSTART.height -10){
             return true;
         }
         return false;
