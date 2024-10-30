@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.commands.LiftHighBasketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftHighBasketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftHome;
 import org.firstinspires.ftc.teamcode.commands.LiftLowBasketCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.PickupSpecimenCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.SpecimenGrabber;
 
@@ -100,14 +101,7 @@ public class TeleGeorge extends OpMode{
                 ));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand((()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.PICKUP)))
-                ));
-
-        armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand((()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.PICKUPLIFT)))
-                ));
+                .whenPressed(new PickupSpecimenCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
 
     }
 
