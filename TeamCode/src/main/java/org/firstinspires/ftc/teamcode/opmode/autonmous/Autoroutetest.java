@@ -20,15 +20,15 @@ public class Autoroutetest extends OpMode {
     SparkFunOTOSDrive drive;
     @Override
     public void init (){
-        Pose2d beginPose = new Pose2d(-14, 61, Math.toRadians(-90.00));
+        Pose2d beginPose = new Pose2d(-14, 61, Math.toRadians(0));
         drive = new SparkFunOTOSDrive (hardwareMap, beginPose);
         blueRight = drive.actionBuilder(beginPose)
                 .setTangent(Math.toRadians(-90))
                 .splineToConstantHeading(new Vector2d(-20, 40), Math.toRadians(-90.00))
                 .splineToConstantHeading(new Vector2d(-20, 33), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
                 //.setReversed(true)
-                .setTangent(Math.toRadians(0))
-                .splineToConstantHeading(new Vector2d(-36, 34), Math.toRadians(-90.00))
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36, 34), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
                 //.setReversed(false)
                 .splineToConstantHeading(new Vector2d(-36, 13), Math.toRadians(-90.00))
                 //Curve behind sample

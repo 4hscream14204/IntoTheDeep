@@ -21,8 +21,8 @@ public class MeepMeepMicah {
                 .splineToConstantHeading(new Vector2d(-20, 40), Math.toRadians(-90.00))
                 .splineToConstantHeading(new Vector2d(-20, 33), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
                 //.setReversed(true)
-                        .setTangent(Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-36, 34), Math.toRadians(-90.00))
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-36, 34), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
                 //.setReversed(false)
                 .splineToConstantHeading(new Vector2d(-36, 13), Math.toRadians(-90.00))
                 //Curve behind sample
