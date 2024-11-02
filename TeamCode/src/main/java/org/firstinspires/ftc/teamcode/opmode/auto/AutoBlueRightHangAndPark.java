@@ -48,12 +48,14 @@ public class AutoBlueRightHangAndPark extends OpMode {
                 ));
 
         blueRightAction = robotBase.drive.actionBuilder(startPose)
+                .waitSeconds(1)
                 .build();
 
     }
 
     @Override
     public void init_loop() {
+        CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", waitSec);
     }
 
@@ -70,6 +72,7 @@ public class AutoBlueRightHangAndPark extends OpMode {
 
     @Override
     public void loop() {
+        CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", 0);
         blueRightAction.run(telemetryPacket);
     }
