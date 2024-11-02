@@ -40,6 +40,7 @@ public class AutoBlueRightHangAndPark extends OpMode {
         baseController = new GamepadEx(gamepad1);
         CommandScheduler.getInstance().reset();
         robotBase.drive.pose = startPose;
+        telemetryPacket = new TelemetryPacket();
 
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(
