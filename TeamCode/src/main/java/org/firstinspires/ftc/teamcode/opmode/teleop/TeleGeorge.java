@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
@@ -38,6 +39,19 @@ public class TeleGeorge extends OpMode{
     double dubBackRightPower;
     public GamepadEx armController;
     public GamepadEx baseController;
+    private double dblCurrentHeading;
+    private double dblTargetHeading = 0;
+    private double dblHeadingDeviation = 0;
+    private double dblHeadingOutput = 0;
+    private double dblCurrentTime = 0;
+    private double dblDelayTime;
+    private double dblLastStickTime = 0;
+
+    private double dblBlueBasketHeading = Math.toRadians(-45);
+    private double dblBlueChamberHeading = Math.toRadians(0);
+    private double dblBlueSpecimenPickupHeading = Math.toRadians(180);
+
+    private ElapsedTime timer;
 
     @Override
     public void init() {
