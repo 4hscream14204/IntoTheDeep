@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmode.auto;
 
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
@@ -16,6 +17,8 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 @Autonomous(name = "Blue right hang and park")
 public class AutoBlueRightHangAndPark extends OpMode {
 
+    public TelemetryPacket telemetryPacket;
+
     public Pose2d startPose;
 
     public RobotBase robotBase;
@@ -23,6 +26,7 @@ public class AutoBlueRightHangAndPark extends OpMode {
     public GamepadEx baseController;
     public int waitSec = 0;
     public Action waitAction;
+    public  Action blueRightAction;
 
     @Override
     public void init() {
@@ -42,6 +46,10 @@ public class AutoBlueRightHangAndPark extends OpMode {
                 .whenPressed(new InstantCommand(
                         ()-> waitSec--
                 ));
+
+        blueRightAction = robotBase.drive.actionBuilder(startPose)
+                .build();
+
     }
 
     @Override
@@ -63,7 +71,7 @@ public class AutoBlueRightHangAndPark extends OpMode {
     @Override
     public void loop() {
 
-
+        blueRightAction.run(telemetryPacket);
     }
 
     @Override
