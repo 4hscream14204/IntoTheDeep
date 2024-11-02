@@ -20,7 +20,10 @@ import org.firstinspires.ftc.teamcode.commands.LiftHighBasketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftHighBasketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.LiftHome;
 import org.firstinspires.ftc.teamcode.commands.LiftLowBasketCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.PickupSpecimenCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.OuttakeIntoBucketCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.PickupSpecimenGrabSpecimenCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.PickupSpecimenLineUpCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.PickupSpecimenLineUpCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.SpecimenGrabber;
 
@@ -71,8 +74,8 @@ public class TeleGeorge extends OpMode{
 
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem)
-                );
+                .toggleWhenActive(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem),
+                new LiftHome(robotBase.liftSubsystem));
 
         baseController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
@@ -101,8 +104,11 @@ public class TeleGeorge extends OpMode{
                 ));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(new PickupSpecimenCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
+                .toggleWhenPressed(new PickupSpecimenLineUpCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem),
+                        new PickupSpecimenGrabSpecimenCommandGroup(robotBase.specimenGrabberSubsystem, robotBase.liftSubsystem));
 
+        baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(new OuttakeIntoBucketCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.zlideSubsystem, robotBase.wristSubsystem, robotBase.intakeSubsystem));
     }
 
     @Override
