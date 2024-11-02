@@ -70,7 +70,7 @@ public class AutoBlueRightHangAndPark extends OpMode {
 
     @Override
     public void loop() {
-
+        telemetry.addData("Wait time", 0);
         blueRightAction.run(telemetryPacket);
     }
 

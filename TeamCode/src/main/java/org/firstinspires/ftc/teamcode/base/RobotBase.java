@@ -77,7 +77,7 @@ public class RobotBase {
         wristSubsystem = new Wrist(hwMap.servo.get("transferServo"));
         liftSubsystem = new Lift(hwMap.dcMotor.get("slideMotor"), hwMap.digitalChannel.get("liftLimitSwitch"));
         specimenGrabberSubsystem = new SpecimenGrabber(hwMap.servo.get("grabberServo"));
-        drive = new SparkFunOTOSDrive(hardwareMap, new Pose2d(0,0,0));
+        drive = new SparkFunOTOSDrive(hwMap, new Pose2d(0,0,0));
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
