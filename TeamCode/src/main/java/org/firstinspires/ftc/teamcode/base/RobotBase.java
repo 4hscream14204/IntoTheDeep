@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gam
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,6 +13,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
@@ -33,6 +35,7 @@ public class RobotBase {
     public Wrist wristSubsystem;
     public Lift liftSubsystem;
     public SpecimenGrabber specimenGrabberSubsystem;
+    public SparkFunOTOSDrive drive;
 
 
 
@@ -65,6 +68,7 @@ public class RobotBase {
         wristSubsystem = new Wrist(hwMap.servo.get("transferServo"));
         liftSubsystem = new Lift(hwMap.dcMotor.get("slideMotor"), hwMap.digitalChannel.get("liftLimitSwitch"));
         specimenGrabberSubsystem = new SpecimenGrabber(hwMap.servo.get("grabberServo"));
+        drive = new SparkFunOTOSDrive(hardwareMap, new Pose2d(0,0,0));
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
