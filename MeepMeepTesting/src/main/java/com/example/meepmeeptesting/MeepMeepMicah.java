@@ -17,7 +17,7 @@ public class MeepMeepMicah {
                 .setConstraints(50, 50, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        Action testAct1 = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(0)))
+        Action blueRight = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(0)))
                 .setTangent(Math.toRadians(-90))
                 .splineToConstantHeading(new Vector2d(-20, 40), Math.toRadians(-90.00))
                 .splineToConstantHeading(new Vector2d(-20, 33), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
@@ -33,23 +33,22 @@ public class MeepMeepMicah {
                 .splineToConstantHeading(new Vector2d(-47, 57), Math.toRadians(90.00))
                 .build();
         // Blue right hang & park
-        Action testAct2 = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(0)))
+        Action blueRighthp = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(0)))
                 .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-20, 45), Math.toRadians(-90.00))
-                .splineToConstantHeading(new Vector2d(-20, 33), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-13, 45), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-13, 33), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .waitSeconds(5)
                 .setTangent(Math.toRadians(90))
-                //.setReversed(true)
-                .splineToConstantHeading(new Vector2d(-54, 59), Math.toRadians(180.00))
-                .splineToConstantHeading(new Vector2d(-57, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
-                //.setReversed(false)
+                .splineToConstantHeading(new Vector2d(-40, 59), Math.toRadians(180.00))
+                .splineToConstantHeading(new Vector2d(-52, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
                 .build();
 
 
         // Blue left hang & park
-        Action testAct3 = myBot.getDrive().actionBuilder(new Pose2d(14, 61, Math.toRadians(0)))
+        Action blueLefthp = myBot.getDrive().actionBuilder(new Pose2d(20, 61, Math.toRadians(0)))
                 .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(12, 38), Math.toRadians(-90.00))
-                .splineToConstantHeading(new Vector2d(12, 34), Math.toRadians(-90.00), new TranslationalVelConstraint(15))
+                .splineToConstantHeading(new Vector2d(18, 38), Math.toRadians(-90.00), new TranslationalVelConstraint(15))
+                .splineToConstantHeading(new Vector2d(18, 33), Math.toRadians(-90.00), new TranslationalVelConstraint(15))
                 .setTangent(Math.toRadians(90))
                // .setReversed(true)
                 .splineToConstantHeading(new Vector2d(-55, 60), Math.toRadians(180))
@@ -57,10 +56,47 @@ public class MeepMeepMicah {
                 //.setReversed(false)
                 .build();
 
+                //RedRight
+        Action redRight = myBot.getDrive().actionBuilder(new Pose2d(14, -61, Math.toRadians(0)))
+        .setTangent(Math.toRadians(90))
+        .splineToConstantHeading(new Vector2d(20, -40), Math.toRadians(90.00))
+        .splineToConstantHeading(new Vector2d(20, -33), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+        //.setReversed(true)
+        .setTangent(Math.toRadians(-90))
+        .splineToConstantHeading(new Vector2d(36, -34), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+        //.setReversed(false)
+        .splineToConstantHeading(new Vector2d(36, -13), Math.toRadians(90.00))
+        //Curve behind sample
+        .splineToConstantHeading(new Vector2d(47, -14), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+        //.setReversed(true)
+        .splineToConstantHeading(new Vector2d(47, -31), Math.toRadians(-90.00))
+        .splineToConstantHeading(new Vector2d(47, -57), Math.toRadians(-90.00))
+        .build();
 
+        // Blue right hang & park
+        Action redLeft = myBot.getDrive().actionBuilder(new Pose2d(14, -61, Math.toRadians(0)))
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(20, -45), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(20, -33), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+                .setTangent(Math.toRadians(-90))
+                //.setReversed(true)
+                .splineToConstantHeading(new Vector2d(54, -59), Math.toRadians(-180.00))
+                .splineToConstantHeading(new Vector2d(57, -59), Math.toRadians(-180.00), new TranslationalVelConstraint(20))
+                //.setReversed(false)
+                .build();
 
+        Action redHangPark = myBot.getDrive().actionBuilder(new Pose2d(-14, -61, Math.toRadians(0)))
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(12, -38), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(12, -34), Math.toRadians(90.00), new TranslationalVelConstraint(15))
+                .setTangent(Math.toRadians(-90))
+                // .setReversed(true)
+                .splineToConstantHeading(new Vector2d(55, -60), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(60, -60), Math.toRadians(-180.00), new TranslationalVelConstraint(15))
+                //.setReversed(false)
+                .build();
 
-        myBot.runAction(testAct2);
+        myBot.runAction(blueLefthp);
 
 
 
