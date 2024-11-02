@@ -10,15 +10,16 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.ITDEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.DataStorage;
 
-
-@Autonomous(name = "Blue right hang and park")
-public class AutoBlueRightHangAndPark extends OpMode {
+@Disabled
+@Autonomous(name = "this is a placeholder name")
+public class AutoTemplate extends OpMode {
 
     public TelemetryPacket telemetryPacket;
 

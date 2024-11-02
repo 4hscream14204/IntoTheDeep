@@ -36,6 +36,7 @@ public class RobotBase {
     public Lift liftSubsystem;
     public SpecimenGrabber specimenGrabberSubsystem;
     public SparkFunOTOSDrive drive;
+    public ITDEnums.EnmAlliance alliance;
 
 
 
