@@ -1,5 +1,6 @@
 package com.example.meepmeeptesting;
 
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -16,7 +17,7 @@ public class MeepMeepMicah {
                 .setConstraints(50, 50, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(0)))
+        Action testAct1 = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(0)))
                 .setTangent(Math.toRadians(-90))
                 .splineToConstantHeading(new Vector2d(-20, 40), Math.toRadians(-90.00))
                 .splineToConstantHeading(new Vector2d(-20, 33), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
@@ -30,7 +31,38 @@ public class MeepMeepMicah {
                 //.setReversed(true)
                 .splineToConstantHeading(new Vector2d(-47, 31), Math.toRadians(90.00))
                 .splineToConstantHeading(new Vector2d(-47, 57), Math.toRadians(90.00))
-                .build());
+                .build();
+        // Blue right hang & park
+        Action testAct2 = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(0)))
+                .setTangent(Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-20, 45), Math.toRadians(-90.00))
+                .splineToConstantHeading(new Vector2d(-20, 33), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .setTangent(Math.toRadians(90))
+                //.setReversed(true)
+                .splineToConstantHeading(new Vector2d(-54, 59), Math.toRadians(180.00))
+                .splineToConstantHeading(new Vector2d(-57, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
+                //.setReversed(false)
+                .build();
+
+
+        // Blue left hang & park
+        Action testAct3 = myBot.getDrive().actionBuilder(new Pose2d(14, 61, Math.toRadians(0)))
+                .setTangent(Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(12, 38), Math.toRadians(-90.00))
+                .splineToConstantHeading(new Vector2d(12, 34), Math.toRadians(-90.00), new TranslationalVelConstraint(15))
+                .setTangent(Math.toRadians(90))
+               // .setReversed(true)
+                .splineToConstantHeading(new Vector2d(-55, 60), Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-60, 60), Math.toRadians(180.00), new TranslationalVelConstraint(15))
+                //.setReversed(false)
+                .build();
+
+
+
+
+        myBot.runAction(testAct2);
+
+
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
                 .setDarkMode(true)
