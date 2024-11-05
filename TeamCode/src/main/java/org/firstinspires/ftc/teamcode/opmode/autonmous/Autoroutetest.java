@@ -24,15 +24,13 @@ public class Autoroutetest extends OpMode {
         drive = new SparkFunOTOSDrive (hardwareMap, beginPose);
         blueRight = drive.actionBuilder(beginPose)
                 .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(18, 38), Math.toRadians(-90.00), new TranslationalVelConstraint(15))
-                .splineToConstantHeading(new Vector2d(18, 33), Math.toRadians(-90.00), new TranslationalVelConstraint(15))
-                //.setTangent(Math.toRadians(90))
-                // .setReversed(true)
-               // .splineToConstantHeading(new Vector2d(-55, 60), Math.toRadians(180))
-               // .splineToConstantHeading(new Vector2d(-60, 60), Math.toRadians(180.00), new TranslationalVelConstraint(15))
-                //.setReversed(false)
+                .splineToConstantHeading(new Vector2d(13, 45), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(13, 33), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+                .waitSeconds(5)
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-20, 62), Math.toRadians(-180.00))
+                .splineToConstantHeading(new Vector2d(-16, 62), Math.toRadians(-180.00), new TranslationalVelConstraint(20))
                 .build();
-
     }
 
     @Override
