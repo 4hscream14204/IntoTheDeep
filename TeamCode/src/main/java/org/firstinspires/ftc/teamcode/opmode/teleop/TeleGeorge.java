@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.base.ITDEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.FirstLevelAscentCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.HighChamberScoreCommandGroup;
@@ -62,7 +63,14 @@ public class TeleGeorge extends OpMode{
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
         CommandScheduler.getInstance().reset();
-        robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad));
+
+        int intHeadingFix;
+        if (DataStorage.alliance == ITDEnums.EnmAlliance.BLUE) {
+            intHeadingFix = 90;
+        } else {
+            intHeadingFix = -90;
+        }
+        robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
 
 
         armController.getGamepadButton(GamepadKeys.Button.Y)
