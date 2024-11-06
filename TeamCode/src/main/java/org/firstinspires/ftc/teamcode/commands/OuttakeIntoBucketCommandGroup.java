@@ -18,9 +18,10 @@ public class OuttakeIntoBucketCommandGroup extends SequentialCommandGroup {
                 new InstantCommand(wrist::wristTransferPos),
                 new InstantCommand(zlide::zlideBucketPosition),
                 new WaitCommand(500),
-                new InstantCommand(()->intake.intakeSpeed(0))
-                /*new WaitCommand(1000),
-                new InstantCommand(wrist::wristPickupPos)*/
+                new InstantCommand(intake::intakeOuttake),
+                new WaitCommand(250),
+                new InstantCommand(intake::intakeStop),
+                new InstantCommand(wrist::wristPickupPos)
         );
     }
 }
