@@ -62,7 +62,7 @@ public class TeleGeorge extends OpMode{
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
         CommandScheduler.getInstance().reset();
-        robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(DataStorage.dblIMUFinalHeadingRad)));
+        robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad));
 
 
         armController.getGamepadButton(GamepadKeys.Button.Y)
