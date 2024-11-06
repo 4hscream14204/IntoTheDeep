@@ -34,7 +34,7 @@ public class AutoBlueRightHangAndPark extends OpMode {
     @Override
     public void init() {
 
-        startPose = new Pose2d(0, 0, Math.toRadians(0));
+        startPose = new Pose2d(-14, 61, Math.toRadians(180));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
@@ -53,8 +53,7 @@ public class AutoBlueRightHangAndPark extends OpMode {
                 ));
 
         blueRightAction = robotBase.drive.actionBuilder(startPose)
-                .waitSeconds(1)
-                .build();
+
 
         robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
 
