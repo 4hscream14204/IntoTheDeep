@@ -5,6 +5,7 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -26,10 +27,11 @@ import org.firstinspires.ftc.teamcode.commands.OuttakeIntoBucketCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.PickupSpecimenGrabSpecimenCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.PickupSpecimenLineUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.PickupSpecimenLineUpCommandGroup;
+import org.firstinspires.ftc.teamcode.subsystems.DataStorage;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.SpecimenGrabber;
 
-@TeleOp(name="George")
+@TeleOp(name="George TeleOp")
 public class TeleGeorge extends OpMode{
     RobotBase robotBase;
     boolean bolFieldCentric = true;
@@ -60,6 +62,8 @@ public class TeleGeorge extends OpMode{
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
         CommandScheduler.getInstance().reset();
+        robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(DataStorage.dblIMUFinalHeadingRad)));
+
 
         armController.getGamepadButton(GamepadKeys.Button.Y)
                 .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
@@ -94,7 +98,7 @@ public class TeleGeorge extends OpMode{
 
         baseController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand((()->robotBase.imu.resetYaw()))
+                        new InstantCommand (()->robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0))))
                 ));
 
         armController.getGamepadButton(GamepadKeys.Button.X)
@@ -131,7 +135,8 @@ public class TeleGeorge extends OpMode{
 
     @Override
     public void loop() {
-        double botHeading = robotBase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        robotBase.drive.updatePoseEstimate();
+        double botHeading = robotBase.drive.otos.getPosition().h;
 
         armController.readButtons();
         baseController.readButtons();
@@ -186,7 +191,7 @@ public class TeleGeorge extends OpMode{
 
         telemetry.addData("field centric", bolFieldCentric);
 
-        telemetry.addData("Gyro", robotBase.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
+        telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
 
         telemetry.addData("Lift Limit Switch: ", robotBase.liftSubsystem.getSwitchState());
 

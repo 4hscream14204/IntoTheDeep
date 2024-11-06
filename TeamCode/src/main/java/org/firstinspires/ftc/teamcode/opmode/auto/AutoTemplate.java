@@ -87,6 +87,6 @@ public class AutoTemplate extends OpMode {
     @Override
     public void stop() {
         DataStorage.alliance = robotBase.alliance;
-//        DataStorage.dblIMUFinalHeading = RobotBase.Pose2D;
+        DataStorage.dblIMUFinalHeadingRad = robotBase.drive.otos.getPosition().h;
     }
 }
