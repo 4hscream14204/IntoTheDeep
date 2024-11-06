@@ -86,6 +86,7 @@ public class AutoBlueRightHangAndPark extends OpMode {
 
     @Override
     public void stop() {
+        robotBase.drive.updatePoseEstimate();
         DataStorage.alliance = robotBase.alliance;
         DataStorage.dblIMUFinalHeadingRad = robotBase.drive.otos.getPosition().h;
     }
