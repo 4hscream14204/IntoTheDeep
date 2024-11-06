@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.opmode.auto;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.TranslationalVelConstraint;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -34,7 +36,7 @@ public class AutoBlueRightHangAndPark extends OpMode {
     @Override
     public void init() {
 
-        startPose = new Pose2d(0, 0, Math.toRadians(0));
+        startPose = new Pose2d(-14, 61, Math.toRadians(180));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
@@ -53,7 +55,13 @@ public class AutoBlueRightHangAndPark extends OpMode {
                 ));
 
         blueRightAction = robotBase.drive.actionBuilder(startPose)
-                .waitSeconds(1)
+                .setTangent(Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-13, 45), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-13, 31), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .waitSeconds(5)
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-40, 59), Math.toRadians(180.00))
+                .splineToConstantHeading(new Vector2d(-62, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
                 .build();
 
         robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
