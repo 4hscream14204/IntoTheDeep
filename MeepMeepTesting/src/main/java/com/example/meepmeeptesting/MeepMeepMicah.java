@@ -17,23 +17,25 @@ public class MeepMeepMicah {
                 .setConstraints(50, 50, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-      /*  Action blueRight = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(0)))
+        Action blueRight = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(0)))
+                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
+                //.afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERSTART))))
+                .waitSeconds(0.25)
                 .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-20, 40), Math.toRadians(-90.00))
-                .splineToConstantHeading(new Vector2d(-20, 33), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
-                //.setReversed(true)
+                .splineToConstantHeading(new Vector2d(-13, 45), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-13, 32), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                //.afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERCLAMP))))
+                //.afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
                 .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-36, 34), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
-                //.setReversed(false)
                 .splineToConstantHeading(new Vector2d(-36, 13), Math.toRadians(-90.00))
                 //Curve behind sample
                 .splineToConstantHeading(new Vector2d(-47, 14), Math.toRadians(90.00), new TranslationalVelConstraint(20))
-                //.setReversed(true)
-                .splineToConstantHeading(new Vector2d(-47, 31), Math.toRadians(90.00))
-                .splineToConstantHeading(new Vector2d(-47, 57), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(-47, 31), Math.toRadians(90.00), new TranslationalVelConstraint(30))
+                .splineToConstantHeading(new Vector2d(-47, 57), Math.toRadians(90.00), new TranslationalVelConstraint(30))
                 .build();
 
-       */
+
         // Blue right hang & park
         Action blueRighthp = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(180)))
                 .setTangent(Math.toRadians(-90))
@@ -100,7 +102,7 @@ public class MeepMeepMicah {
 
               */
 
-        myBot.runAction(blueRighthp);
+        myBot.runAction(blueRight);
 
 
 
