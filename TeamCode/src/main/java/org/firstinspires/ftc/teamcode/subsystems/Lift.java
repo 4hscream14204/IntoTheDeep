@@ -21,7 +21,8 @@ public class Lift extends SubsystemBase {
         AUTOHIGHCHAMBERSTART (-2500),
         AUTOHIGHCHAMBERCLAMP (-2050),
         HIGHBASKET (-4200),
-        LOWBASKET (-2600);
+        LOWBASKET (-2600),
+        OBSERVATIONZONEDROPOFF (-1500);
         public final int height;
         LiftPosition(int high){
             this.height = high;
@@ -137,6 +138,13 @@ public class Lift extends SubsystemBase {
 
     public boolean isAtHighChamber(){
         if(liftMotor.getCurrentPosition() <= LiftPosition.HIGHCHAMBERSTART.height +10 && liftMotor.getCurrentPosition() >= LiftPosition.HIGHCHAMBERSTART.height -10){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isAtObservationZone(){
+        if(liftMotor.getCurrentPosition() <= LiftPosition.OBSERVATIONZONEDROPOFF.height +10 && liftMotor.getCurrentPosition() >= LiftPosition.OBSERVATIONZONEDROPOFF.height -10){
             return true;
         }
         return false;
