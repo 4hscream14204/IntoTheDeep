@@ -16,7 +16,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.ITDEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.commands.LiftHome;
 import org.firstinspires.ftc.teamcode.subsystems.DataStorage;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 
 @Autonomous(name = "Blue right hang and park")
@@ -55,12 +57,18 @@ public class AutoBlueRightHangAndPark extends OpMode {
                 ));
 
         blueRightAction = robotBase.drive.actionBuilder(startPose)
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
+                .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART))))
+                .waitSeconds(0.25)
                 .setTangent(Math.toRadians(-90))
                 .splineToConstantHeading(new Vector2d(-13, 45), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-13, 31), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-13, 32.5), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERCLAMP))))
+                .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
                 .waitSeconds(5)
                 .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-40, 59), Math.toRadians(180.00))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new LiftHome(robotBase.liftSubsystem)))
                 .splineToConstantHeading(new Vector2d(-62, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
                 .build();
 
