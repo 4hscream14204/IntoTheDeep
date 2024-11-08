@@ -1,6 +1,7 @@
 package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
@@ -14,19 +15,18 @@ public class MeepMeepAizah {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
+// }Blue left; hang & park
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(29, 62, Math.toRadians(-90)))
-                .splineToConstantHeading(new Vector2d(10, 34), Math.toRadians(-90))
-                        .setReversed(true)
-                        .splineToConstantHeading(new Vector2d(36, 37
-                        ), Math.toRadians(-90))
-                        .setReversed(false)
-                        .splineToConstantHeading(new Vector2d(36,16),Math.toRadians(-90))
-                        //.setReversed(false)
-                        .splineToConstantHeading(new Vector2d(45, 39),Math.toRadians(90))
-                        .setReversed(false)
-                        .splineToConstantHeading(new Vector2d(57,51),Math.toRadians(90))
-
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(14, 60, Math.toRadians(-90)))
+                .splineToConstantHeading(new Vector2d(13, 45), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(13,32),Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .setReversed(false)
+                .splineToConstantHeading(new Vector2d(38, 38), Math.toRadians(-90))
+                .setReversed(true)
+                .splineToConstantHeading(new Vector2d(39, 14), Math.toRadians(-90))
+                .setReversed(false)
+                .splineToConstantHeading(new Vector2d(25, 12), Math.toRadians(-90))
+                .setReversed(false)
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
@@ -34,5 +34,6 @@ public class MeepMeepAizah {
                 .setBackgroundAlpha(0.95f)
                 .addEntity(myBot)
                 .start();
+
     }
 }
