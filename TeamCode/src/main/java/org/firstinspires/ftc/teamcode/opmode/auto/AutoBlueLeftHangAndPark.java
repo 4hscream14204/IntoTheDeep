@@ -56,17 +56,17 @@ public class AutoBlueLeftHangAndPark extends OpMode {public TelemetryPacket tele
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERSTART))))
                 .waitSeconds(0.25)
                 .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-13, 45), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-13, 32), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(13, 45), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(13,32),Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERCLAMP))))
                 .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
                 .waitSeconds(5)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))
                 .setTangent(Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-40, 59), Math.toRadians(180.00))
-                .splineToConstantHeading(new Vector2d(-62, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
+                .splineToSplineHeading(new Pose2d(38,32,Math.toRadians(180)),Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(39, 14), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(25, 12), Math.toRadians(180))
                 .build();
-
         robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
 
     }
