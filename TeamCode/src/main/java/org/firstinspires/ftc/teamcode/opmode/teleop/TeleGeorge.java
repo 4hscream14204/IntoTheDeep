@@ -139,6 +139,9 @@ public class TeleGeorge extends OpMode{
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
                 .whenPressed(new FirstLevelAscentCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
+
+        armController.getGamepadButton(GamepadKeys.Button.BACK)
+                .whenPressed(new InstantCommand(()->CommandScheduler.getInstance().cancelAll()));
     }
 
     @Override
