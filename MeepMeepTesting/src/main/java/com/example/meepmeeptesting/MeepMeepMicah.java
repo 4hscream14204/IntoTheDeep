@@ -61,7 +61,7 @@ public class MeepMeepMicah {
 
        */
 
-             /*   //RedRight
+               //RedRight
         Action redRight = myBot.getDrive().actionBuilder(new Pose2d(14, -61, Math.toRadians(0)))
         .setTangent(Math.toRadians(90))
         .splineToConstantHeading(new Vector2d(20, -40), Math.toRadians(90.00))
@@ -100,9 +100,9 @@ public class MeepMeepMicah {
                 .splineToConstantHeading(new Vector2d(16, -62), Math.toRadians(-180.00), new TranslationalVelConstraint(20))
                 .build();
 
-              */
 
-        myBot.runAction(blueRight);
+
+        myBot.runAction(redLeft);
 
 
 
