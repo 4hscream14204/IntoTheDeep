@@ -33,7 +33,7 @@ public class AutoBlueLeftHangAndPark extends OpMode {public TelemetryPacket tele
     @Override
     public void init() {
 
-        startPose = new Pose2d(-14, 61, Math.toRadians(180));
+        startPose = new Pose2d(14, 61, Math.toRadians(180));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
