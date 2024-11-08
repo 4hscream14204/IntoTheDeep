@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 public class LiftHome extends SequentialCommandGroup {
     public LiftHome(Lift lift) {
         addCommands(
-                new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HOME)),
+                new InstantCommand(()->lift.goDown(lift.downPower)),
                 new WaitUntilCommand(lift::getSwitchState),
                 new InstantCommand(lift::reset)
         );
