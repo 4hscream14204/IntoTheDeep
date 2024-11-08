@@ -64,10 +64,10 @@ public class TeleGeorge extends OpMode{
         baseController = new GamepadEx(gamepad1);
         CommandScheduler.getInstance().reset();
 
-        int intHeadingFix;
+        int intHeadingFix = 0;
         if (DataStorage.alliance == ITDEnums.EnmAlliance.BLUE) {
             intHeadingFix = 90;
-        } else {
+        } else if(DataStorage.alliance == ITDEnums.EnmAlliance.RED){
             intHeadingFix = -90;
         }
         robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
