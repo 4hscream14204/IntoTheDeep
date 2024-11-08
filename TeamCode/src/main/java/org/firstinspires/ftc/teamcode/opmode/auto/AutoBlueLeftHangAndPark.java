@@ -63,7 +63,7 @@ public class AutoBlueLeftHangAndPark extends OpMode {public TelemetryPacket tele
                 .waitSeconds(5)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))
                 .setTangent(Math.toRadians(90))
-                .splineToSplineHeading(new Pose2d(38,32,Math.toRadians(180)),Math.toRadians(-90))
+                .splineToSplineHeading(new Pose2d(38,32,Math.toRadians(90)),Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(39, 14), Math.toRadians(-90))
                 .splineToConstantHeading(new Vector2d(25, 12), Math.toRadians(180))
                 .build();
