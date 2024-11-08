@@ -17,7 +17,7 @@ public class ObservationZoneDropoffCommandGroup extends SequentialCommandGroup {
                 new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.OBSERVATIONZONEDROPOFF)),
                 new WaitUntilCommand(lift::isAtObservationZone),
                 new InstantCommand(bucket::bucketUpPosition),
-                new WaitCommand(500),
+                new WaitCommand(2000),
                 new InstantCommand(bucket::bucketDownPosition),
                 new LiftHome(lift)
         );
