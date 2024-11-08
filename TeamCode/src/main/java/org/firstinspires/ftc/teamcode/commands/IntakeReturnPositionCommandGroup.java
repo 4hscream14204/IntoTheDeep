@@ -10,11 +10,9 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 import org.firstinspires.ftc.teamcode.subsystems.Zlide;
 
 public class IntakeReturnPositionCommandGroup extends SequentialCommandGroup {
-    public IntakeReturnPositionCommandGroup(Lift lift, Bucket bucket, Wrist wrist, Zlide zlide){
+    public IntakeReturnPositionCommandGroup(Bucket bucket, Wrist wrist, Zlide zlide){
         addCommands(
         new InstantCommand(bucket::bucketDownPosition),
-        new LiftHome(lift),
-        new WaitUntilCommand(lift::isHome),
         new InstantCommand(zlide::zlideBucketPosition),
         new InstantCommand(wrist::wristTransferPos)
         );

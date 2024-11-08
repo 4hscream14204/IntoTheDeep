@@ -11,10 +11,8 @@ public class PickupSpecimenGrabSpecimenCommandGroup extends SequentialCommandGro
     public PickupSpecimenGrabSpecimenCommandGroup(SpecimenGrabber specimenGrabber, Lift lift){
         addCommands(
                 new InstantCommand(specimenGrabber::grabberClosed),
-                new WaitCommand(2000),
-                new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.PICKUPLIFT)),
-                new WaitCommand(2500),
-                new LiftHome(lift)
+                new WaitCommand(700),
+                new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.PICKUPLIFT))
         );
     }
 }
