@@ -8,10 +8,11 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
+import org.firstinspires.ftc.teamcode.subsystems.Zlide;
 import org.firstinspires.inspection.InspectionActivity;
 
 public class ObservationZoneDropoffCommandGroup extends SequentialCommandGroup {
-    public ObservationZoneDropoffCommandGroup(Lift lift, Bucket bucket, Wrist wrist){
+    public ObservationZoneDropoffCommandGroup(Lift lift, Bucket bucket, Wrist wrist, Zlide zlide){
         addCommands(
                 new InstantCommand(wrist::wristPickupPos),
                 new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.OBSERVATIONZONEDROPOFF)),
@@ -19,7 +20,7 @@ public class ObservationZoneDropoffCommandGroup extends SequentialCommandGroup {
                 new InstantCommand(bucket::bucketUpPosition),
                 new WaitCommand(2000),
                 new InstantCommand(bucket::bucketDownPosition),
-                new LiftHome(lift)
+                new LiftHome(lift, zlide)
         );
     }
 }

@@ -8,9 +8,10 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import org.firstinspires.ftc.teamcode.subsystems.Bucket;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
+import org.firstinspires.ftc.teamcode.subsystems.Zlide;
 
 public class LiftHighBasketCommandGroup extends SequentialCommandGroup {
-    public LiftHighBasketCommandGroup(Lift lift, Bucket bucket, Wrist wrist, int liftPosition){
+    public LiftHighBasketCommandGroup(Lift lift, Bucket bucket, Wrist wrist, Zlide zlide, int liftPosition){
         addCommands(
             new InstantCommand(wrist::wristPickupPos),
             new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHBASKET)),
@@ -19,7 +20,7 @@ public class LiftHighBasketCommandGroup extends SequentialCommandGroup {
             new InstantCommand(bucket::bucketUpPosition),
             new WaitCommand(1500),
             new InstantCommand(bucket::bucketDownPosition),
-            new LiftHome(lift)
+            new LiftHome(lift, zlide)
         );
 }
 }

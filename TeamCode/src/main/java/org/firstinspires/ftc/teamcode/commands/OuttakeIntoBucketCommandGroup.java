@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Zlide;
 public class OuttakeIntoBucketCommandGroup extends SequentialCommandGroup {
     public OuttakeIntoBucketCommandGroup(Lift lift, Bucket bucket, Zlide zlide, Wrist wrist, Intake intake){
         addCommands(
-                new LiftHome(lift),
+                new LiftHome(lift, zlide),
                 new InstantCommand(bucket::bucketDownPosition),
                 new InstantCommand(wrist::wristTransferPos),
                 new InstantCommand(zlide::zlideBucketPosition),

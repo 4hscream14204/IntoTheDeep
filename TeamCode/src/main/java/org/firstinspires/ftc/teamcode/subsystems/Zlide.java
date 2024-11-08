@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Zlide extends SubsystemBase {
 
-    double startPosition = 1;
-    double extendedPosition = 0;
-    double bucketPosition = 0.526;
+    public double zlideStartPosition = 1;
+    public double zlideExtendedPosition = 0;
+    public double zlideBucketPosition = 0.526;
 
     private Servo srvZlide;
 
@@ -19,19 +19,19 @@ public class Zlide extends SubsystemBase {
 
     public void zlideStartPosition() {
 
-        srvZlide.setPosition(startPosition);
+        srvZlide.setPosition(zlideStartPosition);
 
     }
 
     public void zlideExtendPosition() {
 
-        srvZlide.setPosition(extendedPosition);
+        srvZlide.setPosition(zlideExtendedPosition);
 
     }
 
     public void zlideBucketPosition() {
 
-        srvZlide.setPosition(bucketPosition);
+        srvZlide.setPosition(zlideBucketPosition);
 
     }
 

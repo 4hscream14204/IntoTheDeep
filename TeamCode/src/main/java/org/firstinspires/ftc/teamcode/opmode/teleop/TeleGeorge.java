@@ -85,7 +85,7 @@ public class TeleGeorge extends OpMode{
 
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(new LiftHome(robotBase.liftSubsystem));
+                .whenActive(new LiftHome(robotBase.liftSubsystem, robotBase.zlideSubsystem));
 
         baseController.getGamepadButton((GamepadKeys.Button.Y))
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
@@ -94,11 +94,11 @@ public class TeleGeorge extends OpMode{
 
         armController.getGamepadButton(GamepadKeys.Button.Y)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, Lift.LiftPosition.HIGHBASKET));
+                .whenActive(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem, Lift.LiftPosition.HIGHBASKET));
 
         armController.getGamepadButton(GamepadKeys.Button.X)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, Lift.LiftPosition.LOWBASKET));
+                .whenActive(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem, Lift.LiftPosition.LOWBASKET));
 
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
