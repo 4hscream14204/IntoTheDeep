@@ -60,6 +60,16 @@ public class MeepMeepMicah {
                 .build();
 
        */
+        Action blueRight2drops = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(180)))
+       // .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
+                //.afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERSTART))))
+                .waitSeconds(0.25)
+                .setTangent(Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-13, 45), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-13, 32), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+              //  .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERCLAMP))))
+                //.afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
+                .build();
 
                //RedRight
         Action redRight = myBot.getDrive().actionBuilder(new Pose2d(14, -61, Math.toRadians(0)))
@@ -102,7 +112,7 @@ public class MeepMeepMicah {
 
 
 
-        myBot.runAction(redLeft);
+        myBot.runAction(blueRight2drops);
 
 
 
