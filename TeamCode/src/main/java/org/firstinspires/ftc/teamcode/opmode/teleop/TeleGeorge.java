@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.base.ITDEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.FirstLevelAscentCommandGroup;
@@ -43,7 +44,6 @@ public class TeleGeorge extends OpMode{
     double dubBackRightPower;
     public GamepadEx armController;
     public GamepadEx baseController;
-    private double dblCurrentHeading;
     private double dblTargetHeading = 0;
     private double dblHeadingDeviation = 0;
     private double dblHeadingOutput = 0;
@@ -52,8 +52,8 @@ public class TeleGeorge extends OpMode{
     private double dblLastStickTime = 0;
 
     private double dblBlueBasketHeading = Math.toRadians(-45);
-    private double dblBlueChamberHeading = Math.toRadians(0);
-    private double dblBlueSpecimenPickupHeading = Math.toRadians(180);
+    private double dblBlueChamberHeading = Math.toRadians(-90);
+    private double dblBlueSpecimenPickupHeading = Math.toRadians(90);
 
     private ElapsedTime timer;
 
@@ -143,6 +143,7 @@ public class TeleGeorge extends OpMode{
 
     @Override
     public void loop() {
+        dblCurrentTime = timer.milliseconds();
         robotBase.drive.updatePoseEstimate();
         double botHeading = robotBase.drive.otos.getPosition().h;
 
