@@ -14,7 +14,7 @@ public class Lift extends SubsystemBase {
     public enum LiftPosition{
         HOME (15),
         FIRSTLEVELASCENT (-1300),
-        PICKUP (-204),
+        PICKUP (-175),
         PICKUPLIFT (-700),
         HIGHCHAMBERSTART (-2110),
         HIGHCHAMBERCLAMP (-1580),
