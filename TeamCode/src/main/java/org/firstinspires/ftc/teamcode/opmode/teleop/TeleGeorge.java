@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import com.acmerobotics.roadrunner.Vector2d;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
@@ -162,8 +163,13 @@ public class TeleGeorge extends OpMode{
 
         if(Math.abs(baseController.getLeftX()) > 0.05){
             dblLastStickTime = dblCurrentTime;
-
-
+        }
+        else if((dblCurrentTime-dblLastStickTime) < dblDelayTime){
+            dblTargetHeading = botHeading;
+        }
+        else{
+            dblHeadingDeviation = botHeading - dblTargetHeading;
+            dblHeadingDeviation = AngleUnit.normalizeRadians(dblHeadingDeviation);
         }
 
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
