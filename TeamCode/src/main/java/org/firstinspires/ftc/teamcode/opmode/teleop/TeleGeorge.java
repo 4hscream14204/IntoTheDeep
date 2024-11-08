@@ -160,6 +160,12 @@ public class TeleGeorge extends OpMode{
 
         }
 
+        if(Math.abs(baseController.getLeftX()) > 0.05){
+            dblLastStickTime = dblCurrentTime;
+
+
+        }
+
         double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
 
