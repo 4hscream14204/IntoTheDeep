@@ -56,16 +56,18 @@ public class AutoBlueLeftHangAndPark extends OpMode {public TelemetryPacket tele
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERSTART))))
                 .waitSeconds(0.25)
                 .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(13, 45), Math.toRadians(-90),new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(13,32),Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(3, 45), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(3,32),Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERCLAMP))))
                 .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
-                .waitSeconds(5)
-                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))
+                .waitSeconds(1)
+               // .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))//
                 .setTangent(Math.toRadians(90))
-                .splineToSplineHeading(new Pose2d(38,32,Math.toRadians(90)),Math.toRadians(-90),new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(39, 14), Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(25, 12), Math.toRadians(180))
+                .splineToSplineHeading(new Pose2d(42,32,Math.toRadians(90)),Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.FIRSTLEVELASCENT))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
+                .splineToConstantHeading(new Vector2d(39, 22), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(26, 18), Math.toRadians(180),new TranslationalVelConstraint(20))
                 .build();
         robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
 
