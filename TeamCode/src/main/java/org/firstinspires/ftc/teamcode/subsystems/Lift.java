@@ -19,7 +19,7 @@ public class Lift extends SubsystemBase {
         HIGHCHAMBERSTART (-2110),
         HIGHCHAMBERCLAMP (-1580),
         AUTOHIGHCHAMBERSTART (-2500),
-        AUTOHIGHCHAMBERCLAMP (-2086),
+        AUTOHIGHCHAMBERCLAMP (-2050),
         HIGHBASKET (-4200),
         LOWBASKET (-2600);
         public final int height;
