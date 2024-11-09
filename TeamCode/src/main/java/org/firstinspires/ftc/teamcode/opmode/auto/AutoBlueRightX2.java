@@ -73,7 +73,7 @@ public class AutoBlueRightX2 extends OpMode {
                 .waitSeconds(1)
                 .setTangent(0)
                 .splineToSplineHeading(new Pose2d(-10, 40, Math.toRadians(180)), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-10, 34), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-10, 33.5), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
                 .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERCLAMP))))
                 .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
                 .waitSeconds(1)
