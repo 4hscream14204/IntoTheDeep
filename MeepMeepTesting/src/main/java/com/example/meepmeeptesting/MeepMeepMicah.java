@@ -61,14 +61,20 @@ public class MeepMeepMicah {
 
        */
         Action blueRight2drops = myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(180)))
-       // .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
+                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
                 //.afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERSTART))))
                 .waitSeconds(0.25)
                 .setTangent(Math.toRadians(-90))
                 .splineToConstantHeading(new Vector2d(-13, 45), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-13, 32), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
-              //  .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERCLAMP))))
+                //.afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERCLAMP))))
                 //.afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
+                .waitSeconds(5)
+                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))
+                .setTangent(Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-40, 59, Math.toRadians(90)), Math.toRadians(180.00))
+                //.splineToConstantHeading(new Vector2d(-40, 59), Math.toRadians(180.00))
+                .splineToConstantHeading(new Vector2d(-62, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
                 .build();
 
                //RedRight
