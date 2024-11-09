@@ -121,7 +121,7 @@ public class TeleGeorge extends OpMode{
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
-                        new ObservationZoneDropoffCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.wristSubsystem)
+                        new ObservationZoneDropoffCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem)
                 ));
 
         armController.getGamepadButton(GamepadKeys.Button.B)

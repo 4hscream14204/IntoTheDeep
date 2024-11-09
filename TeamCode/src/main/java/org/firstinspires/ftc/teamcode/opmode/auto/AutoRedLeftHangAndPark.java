@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.DataStorage;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-@Autonomous(name = "Blue left hang and park")
+@Autonomous(name = "Red left hang and park")
 public class AutoRedLeftHangAndPark extends OpMode {public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
@@ -55,18 +55,18 @@ public class AutoRedLeftHangAndPark extends OpMode {public TelemetryPacket telem
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERSTART))))
                 .waitSeconds(0.25)
-                .setTangent(Math.toRadians(-90))
+                .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-3, -45), Math.toRadians(90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-3,-32),Math.toRadians(90),new TranslationalVelConstraint(20))
                 .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERCLAMP))))
                 .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
                 .waitSeconds(1)
                 // .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))//
-                .setTangent(Math.toRadians(90))
+                .setTangent(Math.toRadians(-90))
                 .splineToSplineHeading(new Pose2d(-42,-32,Math.toRadians(-90)),Math.toRadians(90),new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.FIRSTLEVELASCENT))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
-                .splineToConstantHeading(new Vector2d(-39, -22), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-39, -22), Math.toRadians(90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-26, -18), Math.toRadians(-180),new TranslationalVelConstraint(20))
                 .build();
         robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
