@@ -65,14 +65,13 @@ public class AutoBlueRightHangAndPark extends OpMode {
                 .splineToConstantHeading(new Vector2d(-13, 32), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
                 .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERCLAMP))))
                 .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
-
-                /*.waitSeconds(5)
+                .waitSeconds(5)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))
                 .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-40, 59), Math.toRadians(180.00))
                 .splineToConstantHeading(new Vector2d(-62, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
 
-                 */
+
                 .build();
 
         robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
