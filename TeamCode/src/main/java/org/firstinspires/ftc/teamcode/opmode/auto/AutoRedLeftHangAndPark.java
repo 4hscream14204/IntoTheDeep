@@ -33,7 +33,7 @@ public class AutoRedLeftHangAndPark extends OpMode {public TelemetryPacket telem
     @Override
     public void init() {
 
-        startPose = new Pose2d(-14, -61, Math.toRadians(-180));
+        startPose = new Pose2d(-14, -61, Math.toRadians(0));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
@@ -66,8 +66,8 @@ public class AutoRedLeftHangAndPark extends OpMode {public TelemetryPacket telem
                 .splineToSplineHeading(new Pose2d(-42,-32,Math.toRadians(-90)),Math.toRadians(90),new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.FIRSTLEVELASCENT))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
-                .splineToConstantHeading(new Vector2d(-39, -22), Math.toRadians(90),new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-26, -18), Math.toRadians(-180),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-39, -20), Math.toRadians(90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-26, -16), Math.toRadians(-180),new TranslationalVelConstraint(20))
                 .build();
         robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
 
