@@ -36,7 +36,7 @@ public class AutoRedRightX2 extends OpMode {
     @Override
     public void init() {
 
-        startPose = new Pose2d(-14, 61, Math.toRadians(180));
+        startPose = new Pose2d(14, -61, Math.toRadians(0));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
@@ -58,27 +58,27 @@ public class AutoRedRightX2 extends OpMode {
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERSTART))))
                 .waitSeconds(0.25)
-                .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-13, 45), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-13, 32), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(13, -45), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(13, -32), Math.toRadians(90.00), new TranslationalVelConstraint(20))
                 .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERCLAMP))))
                 .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
                 .waitSeconds(2)
-                .setTangent(Math.toRadians(90))
-                .splineToSplineHeading(new Pose2d(-40, 67, Math.toRadians(90)), Math.toRadians(180.00))
+                .setTangent(Math.toRadians(-90))
+                .splineToSplineHeading(new Pose2d(40, -67, Math.toRadians(-90)), Math.toRadians(0))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.PICKUP))))
-                .splineToConstantHeading(new Vector2d(-55.5, 67), Math.toRadians(180.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(55.5, -67), Math.toRadians(0), new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART))))
                 .waitSeconds(1)
                 .setTangent(0)
-                .splineToSplineHeading(new Pose2d(-10, 40, Math.toRadians(180)), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-10, 33.5), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
+                .splineToSplineHeading(new Pose2d(10, -40, Math.toRadians(0)), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(10, -33.5), Math.toRadians(90.00), new TranslationalVelConstraint(20))
                 .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERCLAMP))))
                 .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
                 .waitSeconds(1)
-                .setTangent(Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-56, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
+                .setTangent(Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(56, -59), Math.toRadians(0), new TranslationalVelConstraint(20))
                  .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))
                 .build();
 
