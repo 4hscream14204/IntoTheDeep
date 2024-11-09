@@ -90,20 +90,32 @@ public class MeepMeepMicah {
 
                //RedRight
         Action redRight = myBot.getDrive().actionBuilder(new Pose2d(14, -61, Math.toRadians(0)))
-        .setTangent(Math.toRadians(90))
-        .splineToConstantHeading(new Vector2d(20, -40), Math.toRadians(90.00))
-        .splineToConstantHeading(new Vector2d(20, -33), Math.toRadians(90.00), new TranslationalVelConstraint(20))
-        //.setReversed(true)
-        .setTangent(Math.toRadians(-90))
-        .splineToConstantHeading(new Vector2d(36, -34), Math.toRadians(90.00), new TranslationalVelConstraint(20))
-        //.setReversed(false)
-        .splineToConstantHeading(new Vector2d(36, -13), Math.toRadians(90.00))
-        //Curve behind sample
-        .splineToConstantHeading(new Vector2d(47, -14), Math.toRadians(-90.00), new TranslationalVelConstraint(20))
-        //.setReversed(true)
-        .splineToConstantHeading(new Vector2d(47, -31), Math.toRadians(-90.00))
-        .splineToConstantHeading(new Vector2d(47, -57), Math.toRadians(-90.00))
-        .build();
+                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
+               // .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERSTART))))
+                .waitSeconds(0.25)
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(13, -45), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(13, -32), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+               // .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERCLAMP))))
+               // .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
+                .waitSeconds(2)
+                .setTangent(Math.toRadians(-90))
+                .splineToSplineHeading(new Pose2d(40, -67, Math.toRadians(-90)), Math.toRadians(0))
+               // .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.PICKUP))))
+                .splineToConstantHeading(new Vector2d(55.5, -67), Math.toRadians(0), new TranslationalVelConstraint(20))
+                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
+                //.afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART))))
+                .waitSeconds(1)
+                .setTangent(Math.toRadians(180))
+                .splineToSplineHeading(new Pose2d(10, -40, Math.toRadians(0)), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(10, -33.5), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+              //  .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERCLAMP))))
+                //.afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
+                .waitSeconds(1)
+                .setTangent(Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(56, -59), Math.toRadians(0), new TranslationalVelConstraint(20))
+               // .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))
+                .build();
 
         // Blue right hang & park
         Action redLeft = myBot.getDrive().actionBuilder(new Pose2d(14, -61, Math.toRadians(0)))
@@ -129,7 +141,7 @@ public class MeepMeepMicah {
 
 
 
-        myBot.runAction(blueRight2drops);
+        myBot.runAction(redRight);
 
 
 
