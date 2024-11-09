@@ -66,13 +66,13 @@ public class AutoBlueLeftX2 extends OpMode {public TelemetryPacket telemetryPack
                 .splineToConstantHeading(new Vector2d(38,32),Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(35, 14), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(46,10),Math.toRadians(90),new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(53, 61), Math.toRadians(45.00),new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(40.27, 15.78), Math.toRadians(-90.00),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(53, 59), Math.toRadians(45.00),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(49, 15), Math.toRadians(-90.00),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(58,10),Math.toRadians(90),new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(58, 61), Math.toRadians(45),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(58, 59), Math.toRadians(45),new TranslationalVelConstraint(20))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.FIRSTLEVELASCENT))))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
-                .splineToConstantHeading(new Vector2d(39, 14), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToSplineHeading(new Pose2d(39, 14, Math.toRadians(90)), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(25, 12), Math.toRadians(180),new TranslationalVelConstraint(20))
                 .build();
         robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
