@@ -20,7 +20,7 @@ public class ObservationZoneDropoffCommandGroup extends SequentialCommandGroup {
                 new InstantCommand(bucket::bucketUpPosition),
                 new WaitCommand(2000),
                 new InstantCommand(bucket::bucketDownPosition),
-                new LiftHome(lift, zlide)
+                new LiftHome(lift, wrist)
         );
     }
 }

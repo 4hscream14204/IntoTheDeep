@@ -20,7 +20,7 @@ public class LiftGoToBasketCommandGroup extends SequentialCommandGroup {
             new InstantCommand(bucket::bucketUpPosition),
             new WaitCommand(1500),
             new InstantCommand(bucket::bucketDownPosition),
-            new LiftHome(lift, zlide)
+            new LiftHome(lift, wrist)
         );
     }
 }
