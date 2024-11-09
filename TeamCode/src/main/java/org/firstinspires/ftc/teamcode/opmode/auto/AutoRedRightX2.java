@@ -19,8 +19,8 @@ import org.firstinspires.ftc.teamcode.subsystems.DataStorage;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 
-@Autonomous(name = "Blue Right pickup two")
-public class AutoBlueRightX2 extends OpMode {
+@Autonomous(name = "Red Right pickup two")
+public class AutoRedRightX2 extends OpMode {
 
     public TelemetryPacket telemetryPacket;
 
