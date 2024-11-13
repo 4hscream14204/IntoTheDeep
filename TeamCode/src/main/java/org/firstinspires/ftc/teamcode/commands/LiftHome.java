@@ -11,8 +11,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Zlide;
 public class LiftHome extends SequentialCommandGroup {
     public LiftHome(Lift lift, Wrist wrist) {
         if(wrist.getPosition() == wrist.wristTransfer){
-            new InstantCommand(wrist::wristPickupPos);
-        };
+            addCommands(
+                    new InstantCommand(wrist::wristPickupPos)
+            );
+        }
         addCommands(
                 new InstantCommand(()->lift.goDown(lift.downPower)),
                 new WaitUntilCommand(lift::getSwitchState),
