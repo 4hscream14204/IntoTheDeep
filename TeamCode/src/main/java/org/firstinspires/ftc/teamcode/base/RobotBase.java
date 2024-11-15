@@ -10,16 +10,12 @@ public class RobotBase {
     public DcMotor frontRightMotor;
     public DcMotor backLeftMotor;
     public DcMotor backRightMotor;
-    public DcMotor shoulder;
-    public DcMotor extension;
 
     public RobotBase(HardwareMap hwMap) {
         frontLeftMotor = hwMap.dcMotor.get("left_front");
         backLeftMotor = hwMap.dcMotor.get("left_back");
         frontRightMotor = hwMap.dcMotor.get("right_front");
         backRightMotor = hwMap.dcMotor.get("right_back");
-        extension = hwMap.dcMotor.get("extension");
-        shoulder = hwMap.dcMotor.get("shoulder");
 
     }
 }
