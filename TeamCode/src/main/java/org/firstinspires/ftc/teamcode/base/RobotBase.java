@@ -36,7 +36,6 @@ public class RobotBase {
                 hwMap.servo.get("intakeServoRight"),
                 hwMap.servo.get("gateServo"),
                 hwMap.get(NormalizedColorSensor.class, "intakeColorSensor"));
-
         clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
         elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
         extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionMotor"));
