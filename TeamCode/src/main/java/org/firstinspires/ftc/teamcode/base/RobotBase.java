@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.base;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
@@ -31,7 +32,17 @@ public class RobotBase {
         frontRightMotor = hwMap.dcMotor.get("right_front");
         backRightMotor = hwMap.dcMotor.get("right_back");
 
-        public intakeSubsystem
+        intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
+                hwMap.servo.get("intakeServoRight"),
+                hwMap.servo.get("gateServo"),
+                hwMap.get(NormalizedColorSensor.class, "intakeColorSensor"));
+
+        clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
+        elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
+        extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionMotor"));
+        shoulderSubsystem = new Shoulder(hwMap.dcMotor.get("shoulderMotor"));
+        wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
+
 
     }
 }
