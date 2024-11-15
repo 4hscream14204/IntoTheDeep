@@ -1,13 +1,16 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 @TeleOp(name="Itd example robot")
@@ -20,10 +23,11 @@ public class Itd_example_robot_code extends OpMode{
     DcMotor  armMotor    = null; //the arm motor
     CRServo  intake      = null; //the active intake servo
     Servo    wrist       = null; //the wrist servo
+    IMU imu;
 
     final double ARM_TICKS_PER_DEGREE = 19.7924893140647;
-    final double ARM_COLLAPSED_INTO_ROBOT  = 0;
-    final double ARM_COLLECT               = -(248 * ARM_TICKS_PER_DEGREE);
+    final double ARM_COLLAPSED_INTO_ROBOT  = -100;
+    final double ARM_COLLECT               = -(249 * ARM_TICKS_PER_DEGREE);
     final double ARM_CLEAR_BARRIER         = -(230 * ARM_TICKS_PER_DEGREE);
     final double ARM_SCORE_SPECIMEN        = -(165 * ARM_TICKS_PER_DEGREE);
     final double ARM_SCORE_SAMPLE_IN_LOW   = -(160 * ARM_TICKS_PER_DEGREE);
@@ -57,6 +61,11 @@ public class Itd_example_robot_code extends OpMode{
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
 
+        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         armMotor   = hardwareMap.get(DcMotor.class, "left_arm");
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setTargetPosition(0);
@@ -75,6 +84,15 @@ public class Itd_example_robot_code extends OpMode{
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         ((DcMotorEx) armMotor).setCurrentAlert(5,CurrentUnit.AMPS);
+
+        // Retrieve the IMU from the hardware map
+        imu = hardwareMap.get(IMU.class, "imu");
+        // Adjust the orientation parameters to match your robot
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
+        imu.initialize(parameters);
     }
 
     @Override
@@ -83,14 +101,31 @@ public class Itd_example_robot_code extends OpMode{
         double x = gamepad1.left_stick_x * Math.abs (gamepad1.left_stick_x);
         double rx = gamepad1.right_stick_x * Math.abs (gamepad1.right_stick_x);
 
+        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+        // Rotate the movement direction counter to the bot's rotation
+        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+        rotX = rotX * 1.1;  // Counteract imperfect strafing
+
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,
         // but only if at least one is out of the range [-1, 1]
-        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+        double frontLeftPower = (rotY + rotX + rx) / denominator;
+        double backLeftPower = (rotY - rotX + rx) / denominator;
+        double frontRightPower = (rotY - rotX - rx) / denominator;
+        double backRightPower = (rotY + rotX - rx) / denominator;
+
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio,
+        // but only if at least one is out of the range [-1, 1]
+       /* double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double frontLeftPower = (y + x + rx) / denominator;
         double backLeftPower = (y - x + rx) / denominator;
         double frontRightPower = (y - x - rx) / denominator;
-        double backRightPower = (y + x - rx) / denominator;
+        double backRightPower = (y + x - rx) / denominator;*/
 
         frontLeftMotor.setPower(frontLeftPower);
         backLeftMotor.setPower(backLeftPower);
@@ -99,6 +134,10 @@ public class Itd_example_robot_code extends OpMode{
         telemetry.addData("Left Stick y", y);
         telemetry.addData("Left Stick x", x);
         telemetry.addData("Right Stick x", rx);
+
+        if (gamepad1.options) {
+            imu.resetYaw();
+        }
 
         if (gamepad1.a) {
             intake.setPower(INTAKE_COLLECT);
@@ -130,6 +169,7 @@ public class Itd_example_robot_code extends OpMode{
         else if (gamepad1.y){
             /* This is the correct height to score the sample in the LOW BASKET */
             armPosition = ARM_SCORE_SAMPLE_IN_LOW;
+            wrist.setPosition(WRIST_FOLDED_OUT);
         }
 
         else if (gamepad1.dpad_left) {
@@ -173,6 +213,7 @@ public class Itd_example_robot_code extends OpMode{
         /* send telemetry to the driver of the arm's current position and target position */
         telemetry.addData("armTarget: ", armMotor.getTargetPosition());
         telemetry.addData("arm Encoder: ", armMotor.getCurrentPosition());
+        telemetry.addData("Gyro:", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
         telemetry.update();
 
     }
