@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-public class Intake {
+import com.arcrobotics.ftclib.command.SubsystemBase;
+
+public class Intake extends SubsystemBase {
 }

@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-public class Claw {
+import com.arcrobotics.ftclib.command.SubsystemBase;
+
+public class Claw extends SubsystemBase {
 }

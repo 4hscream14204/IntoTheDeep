@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-public class Wrist {
+import com.arcrobotics.ftclib.command.SubsystemBase;
+
+public class Wrist extends SubsystemBase {
 }

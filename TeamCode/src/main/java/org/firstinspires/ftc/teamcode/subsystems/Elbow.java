@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-public class Elbow {
+import com.arcrobotics.ftclib.command.SubsystemBase;
+
+public class Elbow extends SubsystemBase {
 }

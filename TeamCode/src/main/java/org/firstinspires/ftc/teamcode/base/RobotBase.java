@@ -31,5 +31,7 @@ public class RobotBase {
         frontRightMotor = hwMap.dcMotor.get("right_front");
         backRightMotor = hwMap.dcMotor.get("right_back");
 
+        public intakeSubsystem
+
     }
 }

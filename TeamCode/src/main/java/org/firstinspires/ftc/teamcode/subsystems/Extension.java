@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-public class Extension {
+import com.arcrobotics.ftclib.command.SubsystemBase;
+
+public class Extension extends SubsystemBase {
 }

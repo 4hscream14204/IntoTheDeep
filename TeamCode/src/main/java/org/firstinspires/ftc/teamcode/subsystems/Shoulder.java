@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-public class Shoulder {
+import com.arcrobotics.ftclib.command.SubsystemBase;
+
+public class Shoulder extends SubsystemBase {
 }
