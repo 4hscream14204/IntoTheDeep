@@ -1,4 +1,4 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-public class WristSubsystem {
+public class Elbow {
 }
