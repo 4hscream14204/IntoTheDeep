@@ -17,9 +17,21 @@ public class MeepMeepAizah {
                 .build();
 // }Blue left; hang & park
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(14, 61, Math.toRadians(-90)))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-9, 60, Math.toRadians(-90)))
                         .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(13, 45), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-8, 34), Math.toRadians(-90))
+                        .setReversed(true)
+                .splineToConstantHeading(new Vector2d(-36, 22), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-50, 57), Math.toRadians(-90))
+
+
+
+
+
+                .build());
+
+
+               /* .splineToConstantHeading(new Vector2d(13, 45), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(13,32),Math.toRadians(-90),new TranslationalVelConstraint(20))
                         .setTangent(Math.toRadians(90))
                 .splineToSplineHeading(new Pose2d(38,32,Math.toRadians(180)),Math.toRadians(-90),new TranslationalVelConstraint(20))
@@ -34,7 +46,7 @@ public class MeepMeepAizah {
                 .splineToConstantHeading(new Vector2d(58, 61), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(39, 14), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(25, 12), Math.toRadians(180),new TranslationalVelConstraint(20))
-                .build());
+               */
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
                 .setDarkMode(true)
