@@ -5,17 +5,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Claw extends SubsystemBase {
 
+    Servo srvClaw;
+
+    double dblOpenPosition = 99;
+
     public Claw (Servo clawServo) {
 
-        srvBucket = blawServo;
-        srvBucket.setPosition();
+        srvClaw = clawServo;
+        srvClaw.setPosition(dblOpenPosition);
 
     }
 
-
-
-
-    }
-
-
+    public OpenClaw ()
 }
