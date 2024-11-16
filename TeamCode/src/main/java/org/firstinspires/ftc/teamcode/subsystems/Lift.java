@@ -62,7 +62,8 @@ public class Lift extends SubsystemBase {
             reset();
 
         } else {
-            liftMotor.setPower(power * 1);
+            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            liftMotor.setPower(power);
             stopped=false;
         }
     }
@@ -74,7 +75,6 @@ public class Lift extends SubsystemBase {
             liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             liftMotor.setPower(power * -1);
             stopped=false;
-            liftMotor.setPower(power * -1);
         }
     }
 
