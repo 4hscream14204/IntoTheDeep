@@ -5,6 +5,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Claw extends SubsystemBase {
 
-    public Claw(Servo clawServo) {
+    private void closed() {
+
+
     }
+
+
+
+
+    }
+
+
 }
