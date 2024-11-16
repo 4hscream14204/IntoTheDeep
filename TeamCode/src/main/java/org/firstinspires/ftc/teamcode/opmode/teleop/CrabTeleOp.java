@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 
 @TeleOp(name = ("Crab TeleOp"))
 public class CrabTeleOp extends OpMode {
@@ -41,6 +42,7 @@ public class CrabTeleOp extends OpMode {
     }
 
     public void loop(){
+        telemetry.update();
         chassisController.readButtons();
         armController.readButtons();
         double botHeading = robotBase.drive.otos.getPosition().h;
@@ -74,8 +76,17 @@ public class CrabTeleOp extends OpMode {
 
         robotBase.intakeSubsystem.intakeSpeed(chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) / 2 + -1 * chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) / 2 + 0.5);
 
+        if(armController.getRightY() > 0.01){
+            robotBase.shoulderSubsystem.goUp(armController.getRightY());
+        }
+
+        if(armController.getRightY() < -0.01){
+            robotBase.shoulderSubsystem.goDown(armController.getRightY());
+        }
+
         telemetry.addData("Left Stick Y", chassisLeftStickY);
         telemetry.addData("Left Stick X", chassisLeftStickX);
         telemetry.addData("Right Stick X", chassisRightStickX);
+        telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
     }
 }
