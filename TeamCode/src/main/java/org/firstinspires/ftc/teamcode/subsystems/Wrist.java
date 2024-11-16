@@ -38,7 +38,7 @@ public class Wrist extends SubsystemBase {
         }
     }
 
-    public double getPosition(){
+    public double getPosition() {
         return srvWrist.getPosition();
     }
 }
