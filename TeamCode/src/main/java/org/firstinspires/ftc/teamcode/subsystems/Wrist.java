@@ -30,7 +30,12 @@ public class Wrist extends SubsystemBase {
 
     }
 
-    public isAtPostition(WristPosition enmCheckPosition) {
-            if ()
+    public boolean isAtPosition(WristPosition enmCheckPosition) {
+        if(enmWristPosition == enmCheckPosition){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
