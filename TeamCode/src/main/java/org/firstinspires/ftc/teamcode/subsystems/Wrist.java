@@ -20,8 +20,8 @@ public class Wrist extends SubsystemBase {
     srvWrist.setPosition(WristPosition.HOME.position);
     }
 
-    public void goToPosition() {
-srvWrist.setPosition()
+    public void goToPosition(WristPosition m_enmTargetPosition) {
+srvWrist.setPosition(m_enmTargetPosition);
 
     }
 }
