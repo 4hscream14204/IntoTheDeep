@@ -5,8 +5,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Claw extends SubsystemBase {
 
-    private void closed() {
+    public Claw (Servo clawServo) {
 
+        srvBucket = blawServo;
+        srvBucket.setPosition();
 
     }
 
