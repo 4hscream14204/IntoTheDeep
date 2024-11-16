@@ -7,9 +7,9 @@ public class Wrist extends SubsystemBase {
 
     public enum WristPosition{
         HOME (0);
-        public final double position;
+        public final double value;
         WristPosition(double m_position) {
-            this.position = m_position;
+            this.value = m_position;
         }
     }
 
@@ -17,11 +17,11 @@ public class Wrist extends SubsystemBase {
 
     public Wrist(Servo wristServo) {
     srvWrist = wristServo;
-    srvWrist.setPosition(WristPosition.HOME.position);
+    srvWrist.setPosition(WristPosition.HOME.value);
     }
 
-    public void goToPosition(WristPosition m_enmTargetPosition) {
-srvWrist.setPosition(m_enmTargetPosition);
+    public void goToPosition(WristPosition enmTargetPosition) {
+        srvWrist.setPosition(enmTargetPosition.value);
 
     }
 }
