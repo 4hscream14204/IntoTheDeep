@@ -6,14 +6,18 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Wrist extends SubsystemBase {
 
     public enum WristPosition{
-        HOME (0);
+        HOME (0),
+        PICKUP (0),
+        DROPOFF (0);
         public final double value;
         WristPosition(double m_position) {
             this.value = m_position;
         }
     }
 
-    Servo srvWrist;
+    private Servo srvWrist;
+
+    public WristPosition enmWristPosition;
 
     public Wrist(Servo wristServo) {
     srvWrist = wristServo;
@@ -22,6 +26,11 @@ public class Wrist extends SubsystemBase {
 
     public void goToPosition(WristPosition enmTargetPosition) {
         srvWrist.setPosition(enmTargetPosition.value);
+        enmWristPosition = enmTargetPosition;
+
+    }
+
+    public isAtPostition(WristPosition enmTargetPosition) {
 
     }
 }
