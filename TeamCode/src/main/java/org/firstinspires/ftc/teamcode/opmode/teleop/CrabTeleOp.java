@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.acmerobotics.roadrunner.ftc.SparkFunOTOSCorrected;
+import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
@@ -27,6 +29,15 @@ public class CrabTeleOp extends OpMode {
         robotBase = new RobotBase(hardwareMap);
         chassisController = new GamepadEx(gamepad1);
         armController = new GamepadEx(gamepad2);
+
+        chassisController.getGamepadButton(GamepadKeys.Button.START)
+                .whenPressed(()-> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0))))
+                ));
+        chassisController.getGamepadButton(GamepadKeys.Button.Y)
+                .whenPressed(()-> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->bolFieldCentric = !bolFieldCentric)
+                ));
     }
 
     public void loop(){
