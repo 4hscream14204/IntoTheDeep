@@ -19,12 +19,18 @@ public class MeepMeepAizah {
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-9, 60, Math.toRadians(-90)))
                         .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-8, 34), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-12, 34), Math.toRadians(-90))
                         .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-36, 22), Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-50, 57), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-35, 31), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-37, 15), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-56, 57), Math.toRadians(-90))
 
+         /*       .splineToConstantHeading(new Vector2d(-36.52, 28.73), Math.toRadians(-90.00))
+                .setReversed(true)
+                .splineTo(new Vector2d(-39.26, 17.51), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-46.59, 58.95), Math.toRadians(-90))
 
+*/
 
 
 
