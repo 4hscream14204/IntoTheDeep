@@ -9,10 +9,10 @@ public class Extension extends SubsystemBase {
     DcMotor extendMotor;
     public DigitalChannel tsExtensionLimitSwitch;
 
-    public enum extensionPosition{
+    public enum ExtensionPosition{
         HOME (0);
         public final int height;
-        extensionPosition(int high){
+        ExtensionPosition(int high){
             this.height = high;
         }
     }
@@ -21,11 +21,13 @@ public class Extension extends SubsystemBase {
     double dblDownPower = 0;
     boolean bolStopped = true;
 
+    public ExtensionPosition enmExtensionPosition;
+
     public Extension(DcMotor extensionMotor) {
         extendMotor = extensionMotor;
         extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extendMotor.setTargetPosition(extensionPosition.HOME.height);
-        extendMotor.setPower(dblDownPower);
+        extendMotor.setTargetPosition(ExtensionPosition.HOME.height);
+        extendMotor.setPower(0);
     }
 
     public void extendDown(double power) {
@@ -38,9 +40,8 @@ public class Extension extends SubsystemBase {
         extendMotor.setPower(power);
     }
 
-    public extensionPosition enmExtensionPosition;
 
-    public void extensionGoToPosition(extensionPosition enmTargetPosition) {
+    public void extensionGoToPosition(ExtensionPosition enmTargetPosition) {
         if(extendMotor.getCurrentPosition() < enmTargetPosition.height){
             enmExtensionPosition = enmTargetPosition;
             extendMotor.setPower(dblDownPower);
@@ -74,7 +75,7 @@ public class Extension extends SubsystemBase {
         }
     }
 
-    public boolean isAtPosition(Shoulder.shoulderPosition targetPosition){
+    public boolean isAtPosition(Shoulder.ShoulderPosition targetPosition){
         if(Math.abs(extendMotor.getCurrentPosition() - targetPosition.height) <= 10){
             return true;
         }

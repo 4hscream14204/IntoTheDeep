@@ -12,32 +12,36 @@ public class Shoulder extends SubsystemBase {
     public double downPower = 0.3;
     public boolean bolStoppedInPlace = true;
 
-    public Shoulder(DcMotor conShoulderMotor, DigitalChannel conShoulderLimitSwitch) {
-        dcShoulderMotor = conShoulderMotor;
-    }
-
-    public enum shoulderPosition{
-        HOME (0);
+    public enum ShoulderPosition{
+        HOME (0),
+        HIGHCHAMBER (0),
+        BASKET (0);
         public final int height;
-        shoulderPosition(int high){
+        ShoulderPosition(int high){
             this.height = high;
         }
     }
-    public shoulderPosition enmShoulderPosition;
 
-    public void goToPosition(shoulderPosition enmTargetPosition){
+    public Shoulder(DcMotor conShoulderMotor, DigitalChannel conShoulderLimitSwitch) {
+        dcShoulderMotor = conShoulderMotor;
+        dcShoulderMotor.setPower(0);
+    }
+
+
+    public ShoulderPosition enmShoulderPosition;
+
+    public void goToPosition(ShoulderPosition enmTargetPosition){
         if(dcShoulderMotor.getCurrentPosition() < enmTargetPosition.height){
-            enmShoulderPosition = enmTargetPosition;
             dcShoulderMotor.setPower(downPower);
         }
         else if(dcShoulderMotor.getCurrentPosition() > enmTargetPosition.height){
-            enmShoulderPosition = enmTargetPosition;
             dcShoulderMotor.setPower(upPower);
         }
         else{
             stopInPlace();
             return;
         }
+        enmShoulderPosition = enmTargetPosition;
         dcShoulderMotor.setTargetPosition(enmTargetPosition.height);
         dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -56,7 +60,7 @@ public class Shoulder extends SubsystemBase {
         bolStoppedInPlace = false;
     }
 
-    public boolean isAtPosition(shoulderPosition targetPosition){
+    public boolean isAtPosition(ShoulderPosition targetPosition){
         if(Math.abs(dcShoulderMotor.getCurrentPosition() - targetPosition.height) <= 10){
             return true;
         }
@@ -68,7 +72,7 @@ public class Shoulder extends SubsystemBase {
             return;
         }
         bolStoppedInPlace = true;
-        if(isShoulderDown()){
+        if(isShoulderHome()){
             reset();
         }
         else{
@@ -82,7 +86,7 @@ public class Shoulder extends SubsystemBase {
         return(dcShoulderMotor.getCurrentPosition());
     }
 
-    public boolean isShoulderDown(){
+    public boolean isShoulderHome(){
        return tsShoulderLimitSwitch.getState();
     }
 

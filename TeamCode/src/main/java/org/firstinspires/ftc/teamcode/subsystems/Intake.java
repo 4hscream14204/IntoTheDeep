@@ -31,7 +31,7 @@ public class Intake extends SubsystemBase {
 
     public void intakeSpeed (double speed){
         intakeServoLeft.setPosition(speed);
-        intakeServoRight.setPosition(speed);
+        intakeServoRight.setPosition(-speed);
     }
 
     public NormalizedRGBA checkSampleColor(){
@@ -40,7 +40,7 @@ public class Intake extends SubsystemBase {
 
     public void intakeOuttake(){
         intakeServoLeft.setPosition(0);
-        intakeServoRight.setPosition(0);
+        intakeServoRight.setPosition(1);
     }
 
     public void gateGoToPosition(Intake.GatePosition enmTargetPosition) {

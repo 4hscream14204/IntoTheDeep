@@ -60,7 +60,7 @@ public class CrabTeleOp extends OpMode {
                 ));
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(()-> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() -> robotBase.extensionSubsystem.extensionGoToPosition(Extension.extensionPosition.HOME))
+                        new InstantCommand(() -> robotBase.extensionSubsystem.extensionGoToPosition(Extension.ExtensionPosition.HOME))
                 ));
         armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
@@ -128,7 +128,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Color Sensor", robotBase.intakeSubsystem.checkSampleColor());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
-        telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderDown());
+        telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionDown());
 
         CommandScheduler.getInstance().run();

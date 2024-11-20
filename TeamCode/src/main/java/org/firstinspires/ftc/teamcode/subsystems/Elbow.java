@@ -20,7 +20,6 @@ public class Elbow extends SubsystemBase {
     public Elbow(Servo conElbowServo) {
         elbowServo = conElbowServo;
         goToPosition(ElbowPosition.HOME);
-        enmElbowPosition = ElbowPosition.HOME;
     }
 
     public boolean isAtPosition(ElbowPosition elbowTarget){
@@ -31,7 +30,7 @@ public class Elbow extends SubsystemBase {
     }
 
     public void goToPosition(ElbowPosition m_position){
-        enmElbowPosition = ElbowPosition.HOME;
+        enmElbowPosition = m_position;
         elbowServo.setPosition(m_position.value);
     }
 
