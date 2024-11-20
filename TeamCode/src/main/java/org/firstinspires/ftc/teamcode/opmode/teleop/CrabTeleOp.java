@@ -46,7 +46,7 @@ public class CrabTeleOp extends OpMode {
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() -> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME))
                 ));
-        armController.getGamepadButton(GamepadKeys.Button.A)
+        armController.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME))
                 ));
@@ -60,11 +60,11 @@ public class CrabTeleOp extends OpMode {
                 ));
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(()-> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()-> robotBase.extensionSubsystem.extensionGoToPosition(Extension.extensionPosition.HOME))
+                        new InstantCommand(() -> robotBase.extensionSubsystem.extensionGoToPosition(Extension.extensionPosition.HOME))
                 ));
         armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.clawSubsystem.ToggleClaw())
+                        new InstantCommand(() ->robotBase.clawSubsystem.ToggleClaw())
                 ));
         armController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
@@ -130,6 +130,8 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderDown());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionDown());
+
+        CommandScheduler.getInstance().run();
 
     }
 }
