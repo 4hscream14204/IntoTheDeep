@@ -41,7 +41,7 @@ public class Extension extends SubsystemBase {
     }
 
 
-    public void extensionGoToPosition(ExtensionPosition enmTargetPosition) {
+    public void goToPosition(ExtensionPosition enmTargetPosition) {
         if(extendMotor.getCurrentPosition() < enmTargetPosition.height){
             enmExtensionPosition = enmTargetPosition;
             extendMotor.setPower(dblDownPower);
@@ -65,7 +65,7 @@ public class Extension extends SubsystemBase {
             return;
         }
         bolStopped = true;
-        if(isExtensionDown()){
+        if(isExtensionHome()){
             reset();
         }
         else{
@@ -82,7 +82,7 @@ public class Extension extends SubsystemBase {
         return false;
     }
 
-    public boolean isExtensionDown(){
+    public boolean isExtensionHome(){
         return tsExtensionLimitSwitch.getState();
     }
 
