@@ -43,32 +43,25 @@ public class Lift extends SubsystemBase {
     public void goToPosition(LiftPosition enmTargetPosition){
         if(liftMotor.getCurrentPosition()<enmTargetPosition.height){
             liftMotor.setPower(downPower);
-            if (liftMotor.getCurrentPosition() >= enmTargetPosition.height) {
-                stop();
-            }
-        }
-        else if(liftMotor.getCurrentPosition()>enmTargetPosition.height){
+
+        } else if (liftMotor.getCurrentPosition()>enmTargetPosition.height){
             liftMotor.setPower(upPower);
 
-            if (liftMotor.getCurrentPosition() <= enmTargetPosition.height) {
-                stop();
-            }
+        } else {
+            stop();
+            return;
         }
         liftMotor.setTargetPosition(enmTargetPosition.height);
         liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         stopped = false;
     }
+
     public void goDown(double power){
         if(tsLimitSwitch.getState()){
             reset();
-            return;
-        }
-        if(liftMotor.getCurrentPosition()>LiftPosition.HOME.height - 10){
-            stop();
-        }
-        else {
-            liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        } else {
             liftMotor.setPower(power * 1);
             stopped=false;
         }
@@ -77,8 +70,7 @@ public class Lift extends SubsystemBase {
     public void goUp(double power){
         if(liftMotor.getCurrentPosition()<(LiftPosition.HIGHBASKET.height)){
             stop();
-        }
-        else{
+        } else {
             liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             liftMotor.setPower(power * -1);
             stopped=false;
