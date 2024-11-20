@@ -7,22 +7,30 @@ public class Claw extends SubsystemBase {
 
     Servo srvClaw;
 
-    double dblOpenPosition = 0;
-    double dblClosedPostion = 0;
+    public enum clawPosition {
+        OPEN(0),
+        CLOSED(0);
+        public final int value;
+        clawPosition(int m_pos){
+            this.value = m_pos;
+        }
+    }
 
     boolean bolClawOpen = true;
 
     public Claw(Servo clawServo) {
         srvClaw = clawServo;
-        srvClaw.setPosition(dblOpenPosition);
+        srvClaw.setPosition(clawPosition.OPEN.value);
     }
 
     public void OpenClaw() {
-        srvClaw.setPosition(dblOpenPosition);
+        srvClaw.setPosition(clawPosition.OPEN.value);
+        bolClawOpen = true;
     }
 
     public void CloseClaw() {
-        srvClaw.setPosition(dblClosedPostion);
+        srvClaw.setPosition(clawPosition.CLOSED.value);
+        bolClawOpen = false;
     }
 
     public void ToggleClaw() {
