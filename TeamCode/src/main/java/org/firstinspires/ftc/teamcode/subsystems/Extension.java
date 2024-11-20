@@ -28,14 +28,14 @@ public class Extension extends SubsystemBase {
         extendMotor.setPower(dblDownPower);
     }
 
-    public void extendDown() {
+    public void extendDown(double power) {
         extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        extendMotor.setPower(dblDownPower);
+        extendMotor.setPower(power);
     }
 
-    public void extendUp() {
+    public void extendUp(double power) {
         extendMotor.setMode((DcMotor.RunMode.RUN_USING_ENCODER));
-        extendMotor.setPower(dblUpPower);
+        extendMotor.setPower(power);
     }
 
     public extensionPosition enmExtensionPosition;

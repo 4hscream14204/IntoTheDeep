@@ -111,11 +111,11 @@ public class CrabTeleOp extends OpMode {
         }
 
         if(armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1){
-            robotBase.extensionSubsystem.extendUp();
+            robotBase.extensionSubsystem.extendUp(gamepad2.right_trigger);
         }
 
         if(armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1){
-            robotBase.extensionSubsystem.extendDown();
+            robotBase.extensionSubsystem.extendDown(gamepad2.left_trigger);
         }
         //Connor: I don't think we need these but I commented them just in case.
         /*telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
@@ -129,6 +129,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderDown());
+        telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionDown());
 
     }
 }
