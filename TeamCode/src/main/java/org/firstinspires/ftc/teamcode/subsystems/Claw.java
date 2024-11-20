@@ -40,7 +40,9 @@ public class Claw extends SubsystemBase {
         } else {
             CloseClaw();
         }
+    }
 
-        bolClawOpen = !bolClawOpen;
+    public boolean isBolClawOpen() {
+        return bolClawOpen;
     }
 }
