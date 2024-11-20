@@ -93,4 +93,8 @@ public class Shoulder extends SubsystemBase {
         dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         dcShoulderMotor.setPower(0);
     }
+
+    public double getPower(){
+        return dcShoulderMotor.getPower();
+    }
 }

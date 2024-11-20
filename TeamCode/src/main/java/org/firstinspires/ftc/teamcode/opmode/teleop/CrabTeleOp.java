@@ -11,7 +11,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Elbow;
+import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @TeleOp(name = ("Crab TeleOp"))
 public class CrabTeleOp extends OpMode {
@@ -26,19 +29,45 @@ public class CrabTeleOp extends OpMode {
     public GamepadEx chassisController;
 
     @Override
-    public void init(){
+    public void init() {
         robotBase = new RobotBase(hardwareMap);
         chassisController = new GamepadEx(gamepad1);
         armController = new GamepadEx(gamepad2);
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
-                .whenPressed(()-> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0))))
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(() -> robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0))))
                 ));
         chassisController.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(()-> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->bolFieldCentric = !bolFieldCentric)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(() -> bolFieldCentric = !bolFieldCentric)
                 ));
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(() -> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME))
+                ));
+        armController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME))
+                ));
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))
+                ));
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.DROPOFF))
+                ));
+        armController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(()-> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()-> robotBase.extensionSubsystem.extensionGoToPosition(Extension.extensionPosition.HOME))
+                ));
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.clawSubsystem.ToggleClaw())
+                ));
+        armController.getGamepadButton(GamepadKeys.Button.BACK)
+                .whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
     }
 
     public void loop(){
@@ -54,9 +83,6 @@ public class CrabTeleOp extends OpMode {
         double rotY = chassisLeftStickX * Math.sin(-botHeading) + chassisLeftStickY * Math.cos(-botHeading);
 
         if (bolFieldCentric) {
-            // Denominator is the largest motor power (absolute value) or 1
-            // This ensures all the powers maintain the same ratio,
-            // but only if at least one is out of the range [-1, 1]
             dubDenominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(chassisRightStickX), 1);
             dubFrontLeftPower = (rotY + rotX + chassisRightStickX) / dubDenominator;
             dubBackLeftPower = (rotY - rotX + chassisRightStickX) / dubDenominator;
@@ -76,17 +102,33 @@ public class CrabTeleOp extends OpMode {
 
         robotBase.intakeSubsystem.intakeSpeed(chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) / 2 + -1 * chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) / 2 + 0.5);
 
-        if(armController.getRightY() > 0.01){
+        if(armController.getRightY() > 0.1){
             robotBase.shoulderSubsystem.goUp(armController.getRightY());
         }
 
-        if(armController.getRightY() < -0.01){
+        if(armController.getRightY() < -0.1){
             robotBase.shoulderSubsystem.goDown(armController.getRightY());
         }
 
-        telemetry.addData("Left Stick Y", chassisLeftStickY);
-        telemetry.addData("Left Stick X", chassisLeftStickX);
-        telemetry.addData("Right Stick X", chassisRightStickX);
+        if(armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1){
+            robotBase.extensionSubsystem.extendUp();
+        }
+
+        if(armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1){
+            robotBase.extensionSubsystem.extendDown();
+        }
+        //Connor: I don't think we need these but I commented them just in case.
+        /*telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
+        telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
+        telemetry.addData("Chassis Right Stick X", chassisRightStickX);
+        */
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
+        telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
+        telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
+        telemetry.addData("Color Sensor", robotBase.intakeSubsystem.checkSampleColor());
+        telemetry.addData("FieldCentric", bolFieldCentric);
+        telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
+        telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderDown());
+
     }
 }
