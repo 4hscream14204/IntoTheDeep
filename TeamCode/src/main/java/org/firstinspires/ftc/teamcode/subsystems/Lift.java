@@ -14,13 +14,13 @@ public class Lift extends SubsystemBase {
     public enum LiftPosition{
         HOME (15),
         FIRSTLEVELASCENT (-1300),
-        PICKUP (-175),
+        PICKUP (-195),
         PICKUPLIFT (-700),
         HIGHCHAMBERSTART (-2110),
         HIGHCHAMBERCLAMP (-1580),
         AUTOHIGHCHAMBERSTART (-2500),
         AUTOHIGHCHAMBERCLAMP (-2050),
-        HIGHBASKET (-4200),
+        HIGHBASKET (-4260),
         LOWBASKET (-2600),
         OBSERVATIONZONEDROPOFF (-1500);
         public final int height;
