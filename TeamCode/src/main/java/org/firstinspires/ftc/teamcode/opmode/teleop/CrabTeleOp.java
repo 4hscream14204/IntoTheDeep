@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
@@ -71,7 +72,10 @@ public class CrabTeleOp extends OpMode {
         telemetry.update();
         chassisController.readButtons();
         armController.readButtons();
+        gamepad1.setLedColor(0, 1, 0, 120000);
+        gamepad2.setLedColor(0, 1, 0, 120000);
         double botHeading = robotBase.drive.otos.getPosition().h;
+        ElapsedTime timer = new ElapsedTime();
 
         double chassisLeftStickY = -chassisController.getLeftY() * Math.abs(chassisController.getLeftY());
         double chassisLeftStickX = chassisController.getLeftX() * Math.abs(chassisController.getLeftX());
@@ -128,6 +132,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
+        telemetry.addData("Timer", timer.seconds());
 
         CommandScheduler.getInstance().run();
 
