@@ -17,8 +17,8 @@ public class Extension extends SubsystemBase {
         }
     }
 
-    double dblUpPower = 0;
-    double dblDownPower = 0;
+    double dblUpPower = 0.3;
+    double dblDownPower = -0.3;
     boolean bolStopped = true;
 
     public ExtensionPosition enmExtensionPosition;
