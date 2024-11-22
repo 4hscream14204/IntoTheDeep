@@ -64,15 +64,17 @@ public class MeepMeepMicah {
                .splineToSplineHeading(new Pose2d(37, 25, Math.toRadians(90)), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(37, 6), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(46,10),Math.toRadians(90),new TranslationalVelConstraint(20))
-                .splineToSplineHeading(new Pose2d(53, 59, Math.toRadians(45.00)), Math.toRadians(225),new TranslationalVelConstraint(20))
-                .splineToLinearHeading(new Pose2d(49, 15, Math.toRadians(90.00)), Math.toRadians(45),new TranslationalVelConstraint(20))
-               .splineToConstantHeading(new Vector2d(51,59), Math.toRadians(45),new TranslationalVelConstraint(20))
-               .splineToSplineHeading(new Pose2d(53, 15, Math.toRadians(45.00)), Math.toRadians(270),new TranslationalVelConstraint(20))
+                .splineToSplineHeading(new Pose2d(53, 55, Math.toRadians(45.00)), Math.toRadians(225),new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(57, 15, Math.toRadians(90.00)), Math.toRadians(45),new TranslationalVelConstraint(20))
+               .setTangent(Math.toRadians(90))
+               .splineToLinearHeading(new Pose2d(54,55, Math.toRadians(45)), Math.toRadians(45),new TranslationalVelConstraint(20))
+               .splineToSplineHeading(new Pose2d(46, 12, Math.toRadians(45.00)), Math.toRadians(90),new TranslationalVelConstraint(20))
                 //.splineToConstantHeading(new Vector2d(58,59), Math.toRadians(45),new TranslationalVelConstraint(20))
                 //.afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.FIRSTLEVELASCENT))))
                 //.afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
-                .splineToSplineHeading(new Pose2d(39, 14, Math.toRadians(90)), Math.toRadians(45),new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(25, 12), Math.toRadians(180),new TranslationalVelConstraint(20))
+               // .splineToSplineHeading(new Pose2d(39, 14, Math.toRadians(90)), Math.toRadians(45),new TranslationalVelConstraint(20))
+              // .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(25, 12,Math.toRadians(90)), Math.toRadians(180),new TranslationalVelConstraint(20))
                 .build();
 
 
