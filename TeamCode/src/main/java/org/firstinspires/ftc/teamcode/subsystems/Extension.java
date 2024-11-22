@@ -97,4 +97,8 @@ public class Extension extends SubsystemBase {
     public int extensionGetPosition(){
         return(extendMotor.getCurrentPosition());
     }
+
+    public double getPower(){
+        return extendMotor.getPower();
+    }
 }

@@ -120,8 +120,9 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Chassis Right Stick X", chassisRightStickX);
         */
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
-        telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
+        telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
+        telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
         telemetry.addData("Color Sensor", robotBase.intakeSubsystem.checkSampleColor());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
