@@ -76,6 +76,7 @@ public class CrabTeleOp extends OpMode {
         gamepad2.setLedColor(0, 1, 0, 120000);
         double botHeading = robotBase.drive.otos.getPosition().h;
         ElapsedTime timer = new ElapsedTime();
+        int dblCurrentTime = (int) Math.round(timer.milliseconds());
 
         double chassisLeftStickY = -chassisController.getLeftY() * Math.abs(chassisController.getLeftY());
         double chassisLeftStickX = chassisController.getLeftX() * Math.abs(chassisController.getLeftX());
@@ -123,6 +124,12 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
         telemetry.addData("Chassis Right Stick X", chassisRightStickX);
         */
+
+        if(robotBase.timerSubsystem.endgamePassed(dblCurrentTime)){
+            gamepad1.rumble(500);
+            gamepad2.rumble(500);
+        };
+
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
@@ -133,6 +140,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("Timer", timer.seconds());
+        telemetry.addData("dblCurrentTime", dblCurrentTime);
 
         CommandScheduler.getInstance().run();
 

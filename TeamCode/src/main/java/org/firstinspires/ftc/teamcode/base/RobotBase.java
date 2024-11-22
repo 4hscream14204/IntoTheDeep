@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.base;
 
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Time;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Timer;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class RobotBase {
@@ -27,6 +29,7 @@ public class RobotBase {
     public Extension extensionSubsystem;
     public Shoulder shoulderSubsystem;
     public Wrist wristSubsystem;
+    public Timer timerSubsystem;
 
     public SparkFunOTOSDrive drive;
 

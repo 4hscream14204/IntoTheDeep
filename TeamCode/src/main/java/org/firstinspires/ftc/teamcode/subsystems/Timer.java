@@ -5,9 +5,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Timer extends SubsystemBase {
         public int intEndgame = 120;
-        public boolean endgamePassed(int intTimerLength, ElapsedTime timer){
-            boolean bolEndgamePassed = false;
-            if (timer.milliseconds() == intTimerLength || timer.milliseconds() > intTimerLength){
+        public boolean bolEndgamePassed;
+        public boolean endgamePassed(int intTimerLength){
+            bolEndgamePassed = false;
+            if (intEndgame == intTimerLength || intEndgame > intTimerLength){
                 bolEndgamePassed = true;
             }
             return bolEndgamePassed;
