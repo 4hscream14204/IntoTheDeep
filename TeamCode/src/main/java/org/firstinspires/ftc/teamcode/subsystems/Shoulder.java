@@ -83,7 +83,7 @@ public class Shoulder extends SubsystemBase {
     }
 
     public int shoulderGetPosition(){
-        return(dcShoulderMotor.getCurrentPosition());
+        return dcShoulderMotor.getCurrentPosition();
     }
 
     public boolean isShoulderHome(){

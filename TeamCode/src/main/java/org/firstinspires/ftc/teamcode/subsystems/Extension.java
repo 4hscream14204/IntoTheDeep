@@ -10,15 +10,16 @@ public class Extension extends SubsystemBase {
     public DigitalChannel tsExtensionLimitSwitch;
 
     public enum ExtensionPosition{
-        HOME (0);
+        HOME (0),
+        MAXPOSITION (-2330);
         public final int height;
         ExtensionPosition(int high){
             this.height = high;
         }
     }
 
-    double dblUpPower = 0.3;
-    double dblDownPower = -0.3;
+    double dblUpPower = -0.3;
+    double dblDownPower = 0.3;
     boolean bolStopped = true;
 
     public ExtensionPosition enmExtensionPosition;
@@ -30,14 +31,24 @@ public class Extension extends SubsystemBase {
         extendMotor.setPower(0);
     }
 
-    public void extendDown(double power) {
-        extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        extendMotor.setPower(power);
+    public void extendBack(double power) {
+        if(extendMotor.getCurrentPosition() > 0){
+            stopInPlace();
+        }
+        else {
+            extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            extendMotor.setPower(power);
+        }
     }
 
-    public void extendUp(double power) {
-        extendMotor.setMode((DcMotor.RunMode.RUN_USING_ENCODER));
-        extendMotor.setPower(power);
+    public void extendForward(double power) {
+        if(extendMotor.getCurrentPosition() < -2330){
+            stopInPlace();
+        }
+        else {
+            extendMotor.setMode((DcMotor.RunMode.RUN_USING_ENCODER));
+            extendMotor.setPower(power);
+        }
     }
 
 
@@ -69,7 +80,7 @@ public class Extension extends SubsystemBase {
             reset();
         }
         else{
-            extendMotor.setPower(dblUpPower);
+            extendMotor.setPower(dblDownPower);
             extendMotor.setTargetPosition(extendMotor.getCurrentPosition());
             extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
@@ -95,7 +106,7 @@ public class Extension extends SubsystemBase {
     }
 
     public int extensionGetPosition(){
-        return(extendMotor.getCurrentPosition());
+        return extendMotor.getCurrentPosition();
     }
 
     public double getPower(){
