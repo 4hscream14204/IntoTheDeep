@@ -25,8 +25,8 @@ public class Extension extends SubsystemBase {
 
     public Extension(DcMotor extensionMotor) {
         extendMotor = extensionMotor;
-        extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extendMotor.setTargetPosition(ExtensionPosition.HOME.height);
+        /*extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        extendMotor.setTargetPosition(ExtensionPosition.HOME.height);*/
         extendMotor.setPower(0);
     }
 

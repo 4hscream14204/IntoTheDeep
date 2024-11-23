@@ -22,7 +22,7 @@ public class Shoulder extends SubsystemBase {
         }
     }
 
-    public Shoulder(DcMotor conShoulderMotor, DigitalChannel conShoulderLimitSwitch) {
+    public Shoulder(DcMotor conShoulderMotor/*, DigitalChannel conShoulderLimitSwitch*/) {
         dcShoulderMotor = conShoulderMotor;
         dcShoulderMotor.setPower(0);
     }
