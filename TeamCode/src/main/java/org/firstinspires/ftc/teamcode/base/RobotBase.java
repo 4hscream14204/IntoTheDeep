@@ -46,8 +46,8 @@ public class RobotBase {
                 hwMap.get(NormalizedColorSensor.class, "intakeColorSensor"));
         clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
         elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));*/
-        extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionMotor"));
-        shoulderSubsystem = new Shoulder(hwMap.dcMotor.get("shoulderMotor"));//, hwMap.digitalChannel.get("shoulderLimitSwitch"));
+        extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionMotor"), hwMap.digitalChannel.get("extensionLimitSwitch"));
+        shoulderSubsystem = new Shoulder(hwMap.dcMotor.get("shoulderMotor"), hwMap.digitalChannel.get("shoulderLimitSwitch"));;
         //wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

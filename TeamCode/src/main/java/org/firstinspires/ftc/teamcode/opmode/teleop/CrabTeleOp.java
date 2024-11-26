@@ -109,12 +109,20 @@ public class CrabTeleOp extends OpMode {
             robotBase.shoulderSubsystem.goDown(armController.getRightY());
         }
 
-        if(armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1){
+        if(armController.getRightY() < 0.1 && armController.getRightY() > -0.1){
+            robotBase.shoulderSubsystem.stopInPlace();
+        }
+
+        if(gamepad2.right_trigger > 0.1){
             robotBase.extensionSubsystem.extendForward(gamepad2.right_trigger);
         }
 
-        if(armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1){
+        if(gamepad2.left_trigger > 0.1){
             robotBase.extensionSubsystem.extendBack(gamepad2.left_trigger);
+        }
+
+        if(gamepad2.left_trigger < 0.1 && gamepad2.right_trigger < 0.1){
+            robotBase.extensionSubsystem.stopInPlace();
         }
         //Connor: I don't think we need these but I commented them just in case.
         /*telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
@@ -135,6 +143,8 @@ public class CrabTeleOp extends OpMode {
         //telemetry.addData("Color Sensor", robotBase.intakeSubsystem.checkSampleColor());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
+        telemetry.addData("Arm Right Trigger", gamepad2.right_trigger);
+        telemetry.addData("Arm Left Trigger", gamepad2.left_trigger);
         //telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         //telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
 

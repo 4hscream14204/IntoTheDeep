@@ -18,36 +18,42 @@ public class Extension extends SubsystemBase {
         }
     }
 
-    double dblUpPower = -0.3;
-    double dblDownPower = 0.3;
-    boolean bolStopped = true;
+    public double dblUpPower = -0.3;
+    public double dblDownPower = 0.3;
+    public boolean bolStopped = true;
 
     public ExtensionPosition enmExtensionPosition;
 
-    public Extension(DcMotor extensionMotor) {
+    public Extension(DcMotor extensionMotor, DigitalChannel tsExtensionLimitSwitch) {
         extendMotor = extensionMotor;
         /*extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         extendMotor.setTargetPosition(ExtensionPosition.HOME.height);*/
+        extendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extendMotor.setTargetPosition(0);
+        extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         extendMotor.setPower(0);
+        extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void extendBack(double power) {
-        if(extendMotor.getCurrentPosition() > 0){
+        if(tsExtensionLimitSwitch.getState()){
             stopInPlace();
         }
-        else {
+        //else {
             extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             extendMotor.setPower(power);
-        }
+            bolStopped = false;
+      //  }
     }
 
     public void extendForward(double power) {
-        if(extendMotor.getCurrentPosition() < -2330){
+        if(extendMotor.getCurrentPosition() < ExtensionPosition.MAXPOSITION.height){
             stopInPlace();
         }
         else {
             extendMotor.setMode((DcMotor.RunMode.RUN_USING_ENCODER));
-            extendMotor.setPower(power);
+            extendMotor.setPower(power * -1);
+            bolStopped = false;
         }
     }
 
@@ -76,11 +82,14 @@ public class Extension extends SubsystemBase {
             return;
         }
         bolStopped = true;
+        extendMotor.setTargetPosition(extensionGetPosition());
+        extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        extendMotor.setPower(0.3);
         if(isExtensionHome()){
             reset();
         }
         else{
-            extendMotor.setPower(dblDownPower);
+            extendMotor.setPower(0.3);
             extendMotor.setTargetPosition(extendMotor.getCurrentPosition());
             extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
