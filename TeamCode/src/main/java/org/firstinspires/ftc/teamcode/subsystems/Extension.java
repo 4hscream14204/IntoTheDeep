@@ -21,6 +21,7 @@ public class Extension extends SubsystemBase {
     public double dblUpPower = -0.3;
     public double dblDownPower = 0.3;
     public boolean bolStopped = true;
+    public int intCurrentPos;
 
     public ExtensionPosition enmExtensionPosition;
 
@@ -88,9 +89,10 @@ public class Extension extends SubsystemBase {
             reset();
         }
         else{
-            extendMotor.setPower(-0.3);
-            extendMotor.setTargetPosition(extendMotor.getCurrentPosition());
             extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            intCurrentPos = extendMotor.getCurrentPosition();
+            extendMotor.setTargetPosition(intCurrentPos);
+            extendMotor.setPower(-0.1);
         }
     }
 

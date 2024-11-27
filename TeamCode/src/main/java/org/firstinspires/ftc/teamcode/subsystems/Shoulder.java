@@ -11,6 +11,7 @@ public class Shoulder extends SubsystemBase {
     public double dblUpPower = 0.3;
     public double dblDownPower = -0.3;
     public boolean bolStoppedInPlace = true;
+    public int intCurrentPos;
 
     public enum ShoulderPosition{
         HOME (10),
@@ -60,7 +61,7 @@ public class Shoulder extends SubsystemBase {
             stopInPlace();
         }
         else {
-            dcShoulderMotor.setPower(power * -1);
+            dcShoulderMotor.setPower(power);
             dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bolStoppedInPlace = false;
         }
@@ -70,7 +71,7 @@ public class Shoulder extends SubsystemBase {
         if(tsShoulderLimitSwitch.getState()){
             reset();
         }
-        dcShoulderMotor.setPower(power * -1);
+        dcShoulderMotor.setPower(power);
         dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bolStoppedInPlace = false;
     }
@@ -87,16 +88,14 @@ public class Shoulder extends SubsystemBase {
             return;
         }
         bolStoppedInPlace = true;
-        dcShoulderMotor.setTargetPosition(shoulderGetPosition());
-        dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        dcShoulderMotor.setPower(-0.3);
         if(isShoulderHome()){
             reset();
         }
         else{
-            dcShoulderMotor.setPower(dblUpPower);
-            dcShoulderMotor.setTargetPosition(dcShoulderMotor.getCurrentPosition());
             dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            intCurrentPos = dcShoulderMotor.getCurrentPosition();
+            dcShoulderMotor.setTargetPosition(intCurrentPos);
+            dcShoulderMotor.setPower(0.1);
         }
     }
 
@@ -109,6 +108,7 @@ public class Shoulder extends SubsystemBase {
     }
 
     public void reset(){
+        bolStoppedInPlace = false;
         dcShoulderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcShoulderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         dcShoulderMotor.setTargetPosition(0);

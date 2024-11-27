@@ -112,8 +112,8 @@ public class CrabTeleOp extends OpMode {
 
         //robotBase.intakeSubsystem.intakeSpeed(chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) / 2 + -1 * chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) / 2 + 0.5);
 
-       /* if(armController.getRightY() > 0.1){
-            robotBase.shoulderSubsystem.goUp(armController.getRightY());
+        if(armController.getRightY() > 0.1){
+            robotBase.shoulderSubsystem.goUp(-armController.getRightY());
         }
 
         if(armController.getRightY() < -0.1){
@@ -122,7 +122,7 @@ public class CrabTeleOp extends OpMode {
 
         if(armController.getRightY() < 0.1 && armController.getRightY() > -0.1){
             robotBase.shoulderSubsystem.stopInPlace();
-        }*/
+        }
 
         if(gamepad2.right_trigger > 0.1){
             robotBase.extensionSubsystem.extendForward(gamepad2.right_trigger);
