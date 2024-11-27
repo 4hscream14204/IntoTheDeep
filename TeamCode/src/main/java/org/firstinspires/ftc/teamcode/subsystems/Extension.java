@@ -24,8 +24,9 @@ public class Extension extends SubsystemBase {
 
     public ExtensionPosition enmExtensionPosition;
 
-    public Extension(DcMotor extensionMotor, DigitalChannel tsExtensionLimitSwitch) {
+    public Extension(DcMotor extensionMotor, DigitalChannel conTsExtensionLimitSwitch) {
         extendMotor = extensionMotor;
+        tsExtensionLimitSwitch = conTsExtensionLimitSwitch;
         /*extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         extendMotor.setTargetPosition(ExtensionPosition.HOME.height);*/
         extendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -33,11 +34,12 @@ public class Extension extends SubsystemBase {
         extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         extendMotor.setPower(0);
         extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        enmExtensionPosition = ExtensionPosition.HOME;
     }
 
     public void extendBack(double power) {
-        if(tsExtensionLimitSwitch.getState()){
-            stopInPlace();
+        if(isExtensionHome()){
+            reset();
         }
         //else {
             extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -82,20 +84,17 @@ public class Extension extends SubsystemBase {
             return;
         }
         bolStopped = true;
-        extendMotor.setTargetPosition(extensionGetPosition());
-        extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extendMotor.setPower(0.3);
         if(isExtensionHome()){
             reset();
         }
         else{
-            extendMotor.setPower(0.3);
+            extendMotor.setPower(-0.3);
             extendMotor.setTargetPosition(extendMotor.getCurrentPosition());
             extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
     }
 
-    public boolean isAtPosition(Shoulder.ShoulderPosition targetPosition){
+    public boolean isAtPosition(ExtensionPosition targetPosition){
         if(Math.abs(extendMotor.getCurrentPosition() - targetPosition.height) <= 10){
             return true;
         }
@@ -107,8 +106,8 @@ public class Extension extends SubsystemBase {
     }
 
     public void reset(){
+        bolStopped = false;
         extendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         extendMotor.setTargetPosition(0);
         extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         extendMotor.setPower(0);

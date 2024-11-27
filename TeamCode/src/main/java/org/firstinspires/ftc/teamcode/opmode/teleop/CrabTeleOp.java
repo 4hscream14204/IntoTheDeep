@@ -101,7 +101,7 @@ public class CrabTeleOp extends OpMode {
 
         //robotBase.intakeSubsystem.intakeSpeed(chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) / 2 + -1 * chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) / 2 + 0.5);
 
-        if(armController.getRightY() > 0.1){
+       /* if(armController.getRightY() > 0.1){
             robotBase.shoulderSubsystem.goUp(armController.getRightY());
         }
 
@@ -111,7 +111,7 @@ public class CrabTeleOp extends OpMode {
 
         if(armController.getRightY() < 0.1 && armController.getRightY() > -0.1){
             robotBase.shoulderSubsystem.stopInPlace();
-        }
+        }*/
 
         if(gamepad2.right_trigger > 0.1){
             robotBase.extensionSubsystem.extendForward(gamepad2.right_trigger);
@@ -135,7 +135,7 @@ public class CrabTeleOp extends OpMode {
             gamepad2.rumble(0.25, 0.25, 500);
         };
         */
-
+        telemetry.addData("Arm Right Stick Y", armController.getRightY());
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
@@ -145,8 +145,8 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
         telemetry.addData("Arm Right Trigger", gamepad2.right_trigger);
         telemetry.addData("Arm Left Trigger", gamepad2.left_trigger);
-        //telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
-        //telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
+        telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
+        telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
 
         CommandScheduler.getInstance().run();
 
