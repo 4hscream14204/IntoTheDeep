@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 
@@ -27,11 +28,11 @@ public class CrabTeleOp extends OpMode {
     @Override
     public void init() {
 
-        int intHeadingFix = 0;
-        if (DataStorage.alliance == ITDEnums.EnmAlliance.BLUE) {
+        int intHeadingFix = -90;
+        if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
             intHeadingFix = 90;
-        } else if(DataStorage.alliance == ITDEnums.EnmAlliance.RED){
-            intHeadingFix = -90;
+        } else if(DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED){
+            intHeadingFix = -0;
         }
         robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
 
