@@ -28,13 +28,13 @@ public class CrabTeleOp extends OpMode {
     @Override
     public void init() {
 
-        int intHeadingFix = -90;
+        /*int intHeadingFix = -90;
         if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
             intHeadingFix = 90;
         } else if(DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED){
             intHeadingFix = -0;
         }
-        robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
+        robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));*/
 
         robotBase = new RobotBase(hardwareMap);
         chassisController = new GamepadEx(gamepad1);
