@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 
 @TeleOp(name = ("Crab TeleOp"))
@@ -23,8 +24,12 @@ public class CrabTeleOp extends OpMode {
     public GamepadEx armController;
     public GamepadEx chassisController;
 
+    int headingFix = 0;
+    if(ITDCrabEnums.EnmAlliance)
+
     @Override
     public void init() {
+
         robotBase = new RobotBase(hardwareMap);
         chassisController = new GamepadEx(gamepad1);
         armController = new GamepadEx(gamepad2);
