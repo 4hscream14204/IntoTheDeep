@@ -24,6 +24,10 @@ public class MeepMeepAizah {
                 .splineToConstantHeading(new Vector2d(-35, 31), Math.toRadians(-90))
                 .splineToConstantHeading(new Vector2d(-37, 15), Math.toRadians(-90))
                 .splineToConstantHeading(new Vector2d(-56, 57), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-36, 11), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-58, 10), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-58, 58), Math.toRadians(-90))
+
 
          /*       .splineToConstantHeading(new Vector2d(-36.52, 28.73), Math.toRadians(-90.00))
                 .setReversed(true)
