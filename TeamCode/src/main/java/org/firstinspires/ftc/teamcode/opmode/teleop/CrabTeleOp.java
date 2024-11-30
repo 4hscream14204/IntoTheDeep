@@ -15,10 +15,11 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Claw;
 
 @TeleOp(name = ("Crab TeleOp"))
 public class CrabTeleOp extends OpMode {
-    RobotBase robotBase;
+    public RobotBase robotBase;
     boolean bolFieldCentric = true;
     double dubFrontRightPower;
     double dubFrontLeftPower;
@@ -77,10 +78,10 @@ public class CrabTeleOp extends OpMode {
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
                                 new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.MAXPOSITION))
                         ));
-        /*armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() ->robotBase.clawSubsystem.ToggleClaw())
-                ));*/
+                        new InstantCommand(() ->robotBase.clawSubsystem.toggleClaw())
+                ));
         armController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
 
@@ -122,7 +123,7 @@ public class CrabTeleOp extends OpMode {
 
         //robotBase.intakeSubsystem.intakeSpeed(chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) / 2 + -1 * chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) / 2 + 0.5);
 
-        if(armController.getRightY() > 0.1){
+       if(armController.getRightY() > 0.1){
             robotBase.shoulderSubsystem.goUp(armController.getRightY());
         }
 
@@ -133,6 +134,7 @@ public class CrabTeleOp extends OpMode {
         if(armController.getRightY() <= 0.1 && armController.getRightY() >= -0.1){
             robotBase.shoulderSubsystem.stopInPlace();
         }
+
 
         if(gamepad2.right_trigger > 0.1 && robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;

@@ -45,11 +45,11 @@ public class Extension extends SubsystemBase {
         if(isExtensionHome()){
             reset();
         }
-        //else {
+        else {
             extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             extendMotor.setPower(power);
             bolStopped = false;
-      //  }
+      }
     }
 
     public void extendForward(double power) {
