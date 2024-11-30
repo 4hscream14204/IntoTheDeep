@@ -11,7 +11,9 @@ public class Extension extends SubsystemBase {
 
     public enum ExtensionPosition{
         HOME (0),
-        MAXPOSITION (-2330);
+        TESTPOSITION (-500),
+        MAXSHOULDERDOWNPOSITION(-2000),
+        MAXSHOULDERUPPOSITION (-2300);
         public final int height;
         ExtensionPosition(int high){
             this.height = high;
@@ -22,6 +24,7 @@ public class Extension extends SubsystemBase {
     public double dblDownPower = 0.3;
     public boolean bolStopped = true;
     public int intCurrentPos;
+    public int intMaxPosition;
 
     public ExtensionPosition enmExtensionPosition;
 
@@ -50,7 +53,7 @@ public class Extension extends SubsystemBase {
     }
 
     public void extendForward(double power) {
-        if(extendMotor.getCurrentPosition() < ExtensionPosition.MAXPOSITION.height){
+        if(extendMotor.getCurrentPosition() < intMaxPosition){
             stopInPlace();
         }
         else {
@@ -121,5 +124,9 @@ public class Extension extends SubsystemBase {
 
     public double getPower(){
         return extendMotor.getPower();
+    }
+
+    public int getTargetPosition(){
+        return extendMotor.getTargetPosition();
     }
 }
