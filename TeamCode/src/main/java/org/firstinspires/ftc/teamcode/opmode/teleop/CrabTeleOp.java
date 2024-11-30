@@ -80,8 +80,6 @@ public class CrabTeleOp extends OpMode {
         telemetry.update();
         chassisController.readButtons();
         armController.readButtons();
-        gamepad1.setLedColor(0, 1, 0, 120000);
-        gamepad2.setLedColor(0, 1, 0, 120000);
         double botHeading = robotBase.drive.otos.getPosition().h;
         ElapsedTime timer = new ElapsedTime();
         int dblCurrentTime = (int) timer.seconds();
@@ -113,14 +111,14 @@ public class CrabTeleOp extends OpMode {
         //robotBase.intakeSubsystem.intakeSpeed(chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) / 2 + -1 * chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) / 2 + 0.5);
 
         if(armController.getRightY() > 0.1){
-            robotBase.shoulderSubsystem.goUp(-armController.getRightY());
+            robotBase.shoulderSubsystem.goUp(armController.getRightY());
         }
 
         if(armController.getRightY() < -0.1){
             robotBase.shoulderSubsystem.goDown(armController.getRightY());
         }
 
-        if(armController.getRightY() < 0.1 && armController.getRightY() > -0.1){
+        if(armController.getRightY() <= 0.1 && armController.getRightY() >= -0.1){
             robotBase.shoulderSubsystem.stopInPlace();
         }
 
@@ -132,7 +130,7 @@ public class CrabTeleOp extends OpMode {
             robotBase.extensionSubsystem.extendBack(gamepad2.left_trigger);
         }
 
-        if(gamepad2.left_trigger < 0.1 && gamepad2.right_trigger < 0.1){
+        if(gamepad2.left_trigger <= 0.1 && gamepad2.right_trigger <= 0.1){
             robotBase.extensionSubsystem.stopInPlace();
         }
         //Connor: I don't think we need these but I commented them just in case.

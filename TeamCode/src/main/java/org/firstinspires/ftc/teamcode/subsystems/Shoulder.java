@@ -57,7 +57,7 @@ public class Shoulder extends SubsystemBase {
     }
 
     public void goUp(double power){
-        if(dcShoulderMotor.getCurrentPosition() < ShoulderPosition.MAXPOSITION.height){
+        if(dcShoulderMotor.getCurrentPosition() > ShoulderPosition.MAXPOSITION.height){
             stopInPlace();
         }
         else {
@@ -68,10 +68,10 @@ public class Shoulder extends SubsystemBase {
     }
 
     public void goDown(double power){
-        if(tsShoulderLimitSwitch.getState()){
+       if(tsShoulderLimitSwitch.getState()){
             reset();
         }
-        dcShoulderMotor.setPower(power);
+        dcShoulderMotor.setPower(power * -1);
         dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bolStoppedInPlace = false;
     }
@@ -95,7 +95,7 @@ public class Shoulder extends SubsystemBase {
             dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             intCurrentPos = dcShoulderMotor.getCurrentPosition();
             dcShoulderMotor.setTargetPosition(intCurrentPos);
-            dcShoulderMotor.setPower(0.1);
+            dcShoulderMotor.setPower(0.3);
         }
     }
 
