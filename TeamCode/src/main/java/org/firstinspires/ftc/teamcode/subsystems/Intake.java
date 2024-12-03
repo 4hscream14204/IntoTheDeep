@@ -22,11 +22,11 @@ public class Intake extends SubsystemBase {
     public Servo intakeServoGate;
     public NormalizedColorSensor intakeColorSensor;
 
-    public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate, NormalizedColorSensor m_intakesensor ) {
+    public Intake(Servo m_intakeLeft, Servo m_intakeRight /*Servo m_intakeGate, NormalizedColorSensor m_intakesensor*/ ) {
             intakeServoLeft = m_intakeLeft;
             intakeServoRight = m_intakeRight;
-            intakeServoGate = m_intakeGate;
-            intakeColorSensor = m_intakesensor;
+            //intakeServoGate = m_intakeGate;
+            //intakeColorSensor = m_intakesensor;
     }
 
     public void intakeSpeed (double speed){

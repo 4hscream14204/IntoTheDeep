@@ -40,15 +40,15 @@ public class RobotBase {
         frontRightMotor = hwMap.dcMotor.get("right_front");
         backRightMotor = hwMap.dcMotor.get("right_back");
 
-        /*intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
-                hwMap.servo.get("intakeServoRight"),
-                hwMap.servo.get("gateServo"),
-                //hwMap.get(NormalizedColorSensor.class, "intakeColorSensor"));*/
+        intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
+                hwMap.servo.get("intakeServoRight"));
+                //hwMap.servo.get("gateServo"),
+                //hwMap.get(NormalizedColorSensor.class, "intakeColorSensor"));
         clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
-       /* elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));*/
+        elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
         extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionMotor"), hwMap.digitalChannel.get("extensionLimitSwitch"));
         shoulderSubsystem = new Shoulder(hwMap.dcMotor.get("shoulderMotor"), hwMap.digitalChannel.get("shoulderLimitSwitch"));
-        //wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
+        wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

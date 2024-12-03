@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Wrist extends SubsystemBase {
 
     public enum WristPosition{
-        HOME (0),
-        PICKUP (0),
-        DROPOFF (0);
+        HOME (0.6555),
+        PICKUP (0.5666),
+        BUCKETDROPOFF (0.291666);
         public final double value;
         WristPosition(double m_position) {
             this.value = m_position;
