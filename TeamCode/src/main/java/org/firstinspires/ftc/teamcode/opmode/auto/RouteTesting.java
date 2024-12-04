@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.autonmous;
+package org.firstinspires.ftc.teamcode.opmode.auto;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
 
 @Autonomous
-public class Autoroutetest extends OpMode {
-
+public class RouteTesting extends OpMode {
+    public RobotBase robotBase;
     private Action blueRight;
     SparkFunOTOSDrive drive;
     @Override
@@ -26,7 +26,7 @@ public class Autoroutetest extends OpMode {
         Pose2d beginPose = new Pose2d(14, 61, Math.toRadians(180));
         drive = new SparkFunOTOSDrive (hardwareMap, beginPose);
         blueRight = drive.actionBuilder(beginPose)
-                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->Base.RobotBase.specimenGrabberSubsystem.grabberClosed())))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
                 .afterTime(0.5, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERSTART))))
                 .waitSeconds(0.25)
                 .setTangent(Math.toRadians(-90))
@@ -51,6 +51,7 @@ public class Autoroutetest extends OpMode {
                 .splineToSplineHeading(new Pose2d(39, 14, Math.toRadians(90)), Math.toRadians(45),new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(new Pose2d(25, 12,Math.toRadians(90)), Math.toRadians(180),new TranslationalVelConstraint(20))
+                .build();
     }
 
     @Override
