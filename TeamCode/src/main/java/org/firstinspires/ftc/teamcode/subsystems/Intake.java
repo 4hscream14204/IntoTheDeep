@@ -30,8 +30,18 @@ public class Intake extends SubsystemBase {
     }
 
     public void intakeSpeed (double speed){
-        intakeServoLeft.setPosition(speed);
-        intakeServoRight.setPosition(-speed);
+        if(speed > 0.5){
+            intakeServoLeft.setPosition(1 - speed);
+            intakeServoRight.setPosition(speed);
+        }
+        else if (speed < 0.5){
+            intakeServoLeft.setPosition(speed + 1);
+            intakeServoRight.setPosition(speed - 1);
+        }
+        else{
+            intakeServoLeft.setPosition(0.5);
+            intakeServoRight.setPosition(0.5);
+        }
     }
 
     public NormalizedRGBA checkSampleColor(){

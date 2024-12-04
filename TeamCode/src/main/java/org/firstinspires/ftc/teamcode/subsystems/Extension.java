@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 public class Extension extends SubsystemBase {
@@ -31,14 +32,11 @@ public class Extension extends SubsystemBase {
     public Extension(DcMotor extensionMotor, DigitalChannel conTsExtensionLimitSwitch) {
         extendMotor = extensionMotor;
         tsExtensionLimitSwitch = conTsExtensionLimitSwitch;
-        /*extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extendMotor.setTargetPosition(ExtensionPosition.HOME.height);*/
         extendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         extendMotor.setTargetPosition(0);
         extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         extendMotor.setPower(0);
         extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        enmExtensionPosition = ExtensionPosition.HOME;
     }
 
     public void extendBack(double power) {
@@ -65,7 +63,7 @@ public class Extension extends SubsystemBase {
 
 
     public void goToPosition(ExtensionPosition enmTargetPosition) {
-        if(extendMotor.getCurrentPosition() < enmTargetPosition.height){
+       if(extendMotor.getCurrentPosition() < enmTargetPosition.height){
             enmExtensionPosition = enmTargetPosition;
             extendMotor.setPower(dblDownPower);
         }
@@ -73,12 +71,13 @@ public class Extension extends SubsystemBase {
             enmExtensionPosition = enmTargetPosition;
             extendMotor.setPower(dblUpPower);
         }
-        else{
+        else if(isAtPosition(enmTargetPosition)){
             stopInPlace();
             return;
         }
-        extendMotor.setTargetPosition(enmTargetPosition.height);
         extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        extendMotor.setPower(dblUpPower);
+        extendMotor.setTargetPosition(enmTargetPosition.height);
 
         bolStopped = false;
     }

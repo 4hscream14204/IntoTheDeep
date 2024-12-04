@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.PickupElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
@@ -104,6 +105,9 @@ public class CrabTeleOp extends OpMode {
 
         armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)));
+
+        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(new PickupElbowWristCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
     }
 
     public void loop(){

@@ -7,7 +7,7 @@ public class Elbow extends SubsystemBase {
 
     public enum ElbowPosition {
         HOME (0.4888),
-        PICKUP (0.9111),
+        PICKUP (0.82),
         DROPOFF (0.777);
         public final double value;
         ElbowPosition(double m_pos){
