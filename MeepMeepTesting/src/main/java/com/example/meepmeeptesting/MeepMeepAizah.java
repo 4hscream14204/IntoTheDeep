@@ -25,13 +25,12 @@ public class MeepMeepAizah {
                 .splineToConstantHeading(new Vector2d(-38, 12), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-47, 57), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-36, 12), Math.toRadians(-90),new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-58, 10.8), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-58, 10.8),Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-58, 58), Math.toRadians(-90),new TranslationalVelConstraint(20))
                         .setTangent(Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(-28, 50), Math.toRadians(-90),new TranslationalVelConstraint(20))
-
-                .splineToConstantHeading(new Vector2d(-10 ,33), Math.toRadians(-90),new TranslationalVelConstraint(20))
-                        .splineToConstantHeading(new Vector2d(-9,60),Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-10, 33), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-9 , 60), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .build());
          /*       .splineToConstantHeading(new Vector2d(-36.52, 28.73), Math.toRadians(-90.00))
                 .setReversed(true)
