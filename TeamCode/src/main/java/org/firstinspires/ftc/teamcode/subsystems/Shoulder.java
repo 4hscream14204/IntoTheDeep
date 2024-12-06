@@ -11,6 +11,7 @@ public class Shoulder extends SubsystemBase {
     public double dblUpPower = 0.3;
     public double dblDownPower = -0.3;
     public boolean bolStoppedInPlace = true;
+    public int intCurrentPos;
 
     public enum ShoulderPosition{
         HOME (10),
@@ -39,10 +40,10 @@ public class Shoulder extends SubsystemBase {
 
     public void goToPosition(ShoulderPosition enmTargetPosition){
         if(dcShoulderMotor.getCurrentPosition() < enmTargetPosition.height){
-            dcShoulderMotor.setPower(dblDownPower);
+            dcShoulderMotor.setPower(dblUpPower);
         }
         else if(dcShoulderMotor.getCurrentPosition() > enmTargetPosition.height){
-            dcShoulderMotor.setPower(dblUpPower);
+            dcShoulderMotor.setPower(dblDownPower);
         }
         else{
             stopInPlace();
@@ -56,21 +57,21 @@ public class Shoulder extends SubsystemBase {
     }
 
     public void goUp(double power){
-        if(dcShoulderMotor.getCurrentPosition() < ShoulderPosition.MAXPOSITION.height){
+        if(dcShoulderMotor.getCurrentPosition() > ShoulderPosition.MAXPOSITION.height){
             stopInPlace();
         }
         else {
-            dcShoulderMotor.setPower(power * -1);
+            dcShoulderMotor.setPower(power);
             dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bolStoppedInPlace = false;
         }
     }
 
     public void goDown(double power){
-        if(tsShoulderLimitSwitch.getState()){
+       if(tsShoulderLimitSwitch.getState()){
             reset();
         }
-        dcShoulderMotor.setPower(power * -1);
+        dcShoulderMotor.setPower(power);
         dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bolStoppedInPlace = false;
     }
@@ -87,16 +88,14 @@ public class Shoulder extends SubsystemBase {
             return;
         }
         bolStoppedInPlace = true;
-        dcShoulderMotor.setTargetPosition(shoulderGetPosition());
-        dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        dcShoulderMotor.setPower(-0.3);
         if(isShoulderHome()){
             reset();
         }
         else{
-            dcShoulderMotor.setPower(dblUpPower);
-            dcShoulderMotor.setTargetPosition(dcShoulderMotor.getCurrentPosition());
             dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            intCurrentPos = dcShoulderMotor.getCurrentPosition();
+            dcShoulderMotor.setTargetPosition(intCurrentPos);
+            dcShoulderMotor.setPower(1);
         }
     }
 

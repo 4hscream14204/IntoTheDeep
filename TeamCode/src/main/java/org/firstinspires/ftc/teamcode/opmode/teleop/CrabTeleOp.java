@@ -12,10 +12,17 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.PickupElbowWristCommandGroup;
+import org.firstinspires.ftc.teamcode.subsystems.Elbow;
+import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Claw;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @TeleOp(name = ("Crab TeleOp"))
 public class CrabTeleOp extends OpMode {
-    RobotBase robotBase;
+    public RobotBase robotBase;
     boolean bolFieldCentric = true;
     double dubFrontRightPower;
     double dubFrontLeftPower;
@@ -27,6 +34,7 @@ public class CrabTeleOp extends OpMode {
 
     @Override
     public void init() {
+        CommandScheduler.getInstance().reset();
 
         /*int intHeadingFix = -90;
         if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
@@ -64,24 +72,48 @@ public class CrabTeleOp extends OpMode {
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.DROPOFF))
                 ));
+                */
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(()-> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() -> robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME))
+                        new ExtensionHomeCommandGroup(robotBase.extensionSubsystem)
                 ));
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                        .whenPressed(()->CommandScheduler.getInstance().schedule(
+                                new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.MAXPOSITION))
+                        ));
         armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() ->robotBase.clawSubsystem.ToggleClaw())
+                        new InstantCommand(() ->robotBase.clawSubsystem.toggleClaw())
                 ));
         armController.getGamepadButton(GamepadKeys.Button.BACK)
-                .whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));*/
+                .whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
+
+        armController.getGamepadButton(GamepadKeys.Button.Y)
+                .whenPressed(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.TESTPOSITION)));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)));
+
+        armController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)));
+
+        armController.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME)));
+
+        armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenPressed(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)));
+
+        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(new PickupElbowWristCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
     }
 
     public void loop(){
         telemetry.update();
         chassisController.readButtons();
         armController.readButtons();
-        gamepad1.setLedColor(0, 1, 0, 120000);
-        gamepad2.setLedColor(0, 1, 0, 120000);
         double botHeading = robotBase.drive.otos.getPosition().h;
         ElapsedTime timer = new ElapsedTime();
         int dblCurrentTime = (int) timer.seconds();
@@ -110,21 +142,28 @@ public class CrabTeleOp extends OpMode {
         robotBase.frontRightMotor.setPower(dubFrontRightPower);
         robotBase.backRightMotor.setPower(dubBackRightPower);
 
-        //robotBase.intakeSubsystem.intakeSpeed(chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) / 2 + -1 * chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) / 2 + 0.5);
+        robotBase.intakeSubsystem.intakeSpeed(((chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)-chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER))/2)+0.5);
 
-       /* if(armController.getRightY() > 0.1){
+       if(armController.getRightY() > 0.1){
             robotBase.shoulderSubsystem.goUp(armController.getRightY());
         }
 
-        if(armController.getRightY() < -0.1){
+        if(armController.getRightY() < -0.05 && armController.getRightY() >= -0.3){
             robotBase.shoulderSubsystem.goDown(armController.getRightY());
         }
 
-        if(armController.getRightY() < 0.1 && armController.getRightY() > -0.1){
+        if(armController.getRightY() <= 0.1 && armController.getRightY() >= -0.1){
             robotBase.shoulderSubsystem.stopInPlace();
-        }*/
+        }
 
-        if(gamepad2.right_trigger > 0.1){
+
+        if(gamepad2.right_trigger > 0.1 && robotBase.shoulderSubsystem.isShoulderHome()){
+            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
+            robotBase.extensionSubsystem.extendForward(gamepad2.right_trigger);
+        }
+
+        if(gamepad2.right_trigger > 0.1 && !robotBase.shoulderSubsystem.isShoulderHome()){
+            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
             robotBase.extensionSubsystem.extendForward(gamepad2.right_trigger);
         }
 
@@ -132,7 +171,7 @@ public class CrabTeleOp extends OpMode {
             robotBase.extensionSubsystem.extendBack(gamepad2.left_trigger);
         }
 
-        if(gamepad2.left_trigger < 0.1 && gamepad2.right_trigger < 0.1){
+        if(gamepad2.left_trigger <= 0.1 && gamepad2.right_trigger <= 0.1){
             robotBase.extensionSubsystem.stopInPlace();
         }
         //Connor: I don't think we need these but I commented them just in case.
@@ -151,6 +190,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
         telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
+        telemetry.addData("Extension Target Position:", robotBase.extensionSubsystem.getTargetPosition());
         //telemetry.addData("Color Sensor", robotBase.intakeSubsystem.checkSampleColor());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
