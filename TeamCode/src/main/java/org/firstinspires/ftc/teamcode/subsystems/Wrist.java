@@ -8,7 +8,7 @@ public class Wrist extends SubsystemBase {
     private Servo srvWrist;
     public double wristHome = 0.776;
     public double wristPickup = 1;
-    public double wristTransfer = .7016;
+    public double wristTransfer = .75;
 
     public Wrist (Servo conWristServo){
         srvWrist = conWristServo;

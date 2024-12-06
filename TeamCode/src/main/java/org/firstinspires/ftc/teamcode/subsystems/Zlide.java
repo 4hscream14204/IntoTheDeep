@@ -39,7 +39,17 @@ public class Zlide extends SubsystemBase {
         return(srvZlide.getPosition());
     }
 
-
+public void setPostion(double position){
+        if(position == 1){
+            srvZlide.setPosition(0);
+        }
+        else if(position == 0){
+            srvZlide.setPosition(1);
+        }
+        else {
+            srvZlide.setPosition(position);
+        }
+}
 
 
 }

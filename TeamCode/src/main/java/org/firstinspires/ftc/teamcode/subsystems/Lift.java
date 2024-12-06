@@ -18,6 +18,7 @@ public class Lift extends SubsystemBase {
         PICKUPLIFT (-700),
         HIGHCHAMBERSTART (-2110),
         HIGHCHAMBERCLAMP (-1580),
+        LOWCHAMBERSTART (-600),
         AUTOHIGHCHAMBERSTART (-2500),
         AUTOHIGHCHAMBERCLAMP (-2050),
         HIGHBASKET (-4200),
