@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.PickupElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
@@ -81,7 +82,7 @@ public class CrabTeleOp extends OpMode {
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
                                 new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.MAXPOSITION))
                         ));
-        armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+        chassisController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() ->robotBase.clawSubsystem.toggleClaw())
                 ));
@@ -108,6 +109,9 @@ public class CrabTeleOp extends OpMode {
 
         armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new PickupElbowWristCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed((new EjectCommandGroup(robotBase.intakeSubsystem)));
     }
 
     public void loop(){
@@ -157,21 +161,21 @@ public class CrabTeleOp extends OpMode {
         }
 
 
-        if(gamepad2.right_trigger > 0.1 && robotBase.shoulderSubsystem.isShoulderHome()){
+        if(gamepad1.right_trigger > 0.1 && robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
-            robotBase.extensionSubsystem.extendForward(gamepad2.right_trigger);
+            robotBase.extensionSubsystem.extendForward(gamepad1.right_trigger);
         }
 
-        if(gamepad2.right_trigger > 0.1 && !robotBase.shoulderSubsystem.isShoulderHome()){
+        if(gamepad1.right_trigger > 0.1 && !robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
-            robotBase.extensionSubsystem.extendForward(gamepad2.right_trigger);
+            robotBase.extensionSubsystem.extendForward(gamepad1.right_trigger);
         }
 
-        if(gamepad2.left_trigger > 0.1){
+        if(gamepad1.left_trigger > 0.1){
             robotBase.extensionSubsystem.extendBack(gamepad2.left_trigger);
         }
 
-        if(gamepad2.left_trigger <= 0.1 && gamepad2.right_trigger <= 0.1){
+        if(gamepad1.left_trigger <= 0.1 && gamepad2.right_trigger <= 0.1){
             robotBase.extensionSubsystem.stopInPlace();
         }
         //Connor: I don't think we need these but I commented them just in case.
