@@ -5,10 +5,10 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-public class subPickupToggle extends SequentialCommandGroup {
+public class SubPickupToggleCommandGroup extends SequentialCommandGroup {
 
     boolean bolIsPreSub = false;
-    public subPickupToggle(Wrist wrist, Elbow elbow){
+    public SubPickupToggleCommandGroup(Wrist wrist, Elbow elbow){
         if (bolIsPreSub) {
             addCommands(
                     new InstantCommand(()-> wrist.goToPosition(Wrist.WristPosition.PICKUP)),
