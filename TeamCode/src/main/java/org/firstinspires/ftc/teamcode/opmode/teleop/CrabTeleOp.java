@@ -13,6 +13,8 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.PickupElbowWristCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.subPickupToggle;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
@@ -109,6 +111,15 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed((new EjectCommandGroup(robotBase.intakeSubsystem)));
+
+        armController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed((new subPickupToggle(robotBase.wristSubsystem, robotBase.elbowSubsystem)));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                .whenPressed((new ExtensionHomeCommandGroup(robotBase.extensionSubsystem)));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(((new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem))));
     }
 
     public void loop(){
