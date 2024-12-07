@@ -9,15 +9,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.base.DataStorage;
-import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.PickupElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
-import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @TeleOp(name = ("Crab TeleOp"))
