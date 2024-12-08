@@ -173,21 +173,21 @@ public class CrabTeleOp extends OpMode {
         }
 
 
-        if(gamepad1.right_trigger > 0.1 && robotBase.shoulderSubsystem.isShoulderHome()){
+        if(gamepad2.right_trigger > 0.1 && robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
             robotBase.extensionSubsystem.extendForward(gamepad1.right_trigger);
         }
 
-        if(gamepad1.right_trigger > 0.1 && !robotBase.shoulderSubsystem.isShoulderHome()){
+        if(gamepad2.right_trigger > 0.1 && !robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
             robotBase.extensionSubsystem.extendForward(gamepad1.right_trigger);
         }
 
-        if(gamepad1.left_trigger > 0.1){
+        if(gamepad2.left_trigger > 0.1){
             robotBase.extensionSubsystem.extendBack(gamepad2.left_trigger);
         }
 
-        if(gamepad1.left_trigger <= 0.1 && gamepad2.right_trigger <= 0.1){
+        if(gamepad2.left_trigger <= 0.1 && gamepad2.right_trigger <= 0.1){
             robotBase.extensionSubsystem.stopInPlace();
         }
         //Connor: I don't think we need these but I commented them just in case.
