@@ -14,7 +14,11 @@ public class Extension extends SubsystemBase {
         HOME (0),
         TESTPOSITION (-500),
         MAXSHOULDERDOWNPOSITION(-2000),
-        MAXSHOULDERUPPOSITION (-2300);
+        MAXSHOULDERUPPOSITION (-2300),
+        LOWBUCKET (0),
+        HIGHBUCKET (0),
+        LOWCHAMBER (0),
+        HIGHCHAMBER (0);
         public final int height;
         ExtensionPosition(int high){
             this.height = high;

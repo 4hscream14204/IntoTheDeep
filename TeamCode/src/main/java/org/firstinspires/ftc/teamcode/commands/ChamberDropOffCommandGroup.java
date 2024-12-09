@@ -6,22 +6,20 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
-import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-public class BucketDropOffCommandGroup extends SequentialCommandGroup {
-    public BucketDropOffCommandGroup (RobotBase robotBase, Shoulder.ShoulderPosition basketPosition, Extension.ExtensionPosition extensionBasket){
+public class ChamberDropOffCommandGroup extends SequentialCommandGroup {
+    public ChamberDropOffCommandGroup(RobotBase robotBase, Shoulder.ShoulderPosition chamberPosition, Extension.ExtensionPosition extensionChamber){
       addCommands(
-        new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(basketPosition)),
-                new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
-        new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionBasket))
+        new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(chamberPosition)),
+               // new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
+        new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionChamber))
        /* new WaitCommand(1500),
-        new InstantCommand(()-> robotBase.intakeSubsystem.intakeOuttake()),
-        new WaitCommand(2000),
-        new InstantCommand(()->  robotBase.intakeSubsystem.intakeSpeed(0)),
+       //new InstantCommand(()-> robotBase.intakeSubsystem.intakeOuttake()),
+        //new WaitCommand(2000),
+      //  new InstantCommand(()->  robotBase.intakeSubsystem.intakeSpeed(0)),
         new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)),
                 new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
               new WaitUntilCommand(robotBase.extensionSubsystem::isExtensionHome),
