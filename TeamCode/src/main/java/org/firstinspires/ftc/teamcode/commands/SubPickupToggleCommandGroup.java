@@ -7,20 +7,17 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class SubPickupToggleCommandGroup extends SequentialCommandGroup {
 
-    boolean bolIsPreSub = false;
     public SubPickupToggleCommandGroup(Wrist wrist, Elbow elbow){
-        if (bolIsPreSub) {
+        if (wrist.isAtPosition(Wrist.WristPosition.PRESUBPICKUP)) {
             addCommands(
                     new InstantCommand(()-> wrist.goToPosition(Wrist.WristPosition.PICKUP)),
                     new InstantCommand(()-> elbow.goToPosition(Elbow.ElbowPosition.PICKUP))
             );
-            bolIsPreSub = false;
         } else {
             addCommands(
                     new InstantCommand(()-> wrist.goToPosition(Wrist.WristPosition.PRESUBPICKUP)),
                     new InstantCommand(()-> elbow.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))
             );
-            bolIsPreSub = true;
         }
     }
 }

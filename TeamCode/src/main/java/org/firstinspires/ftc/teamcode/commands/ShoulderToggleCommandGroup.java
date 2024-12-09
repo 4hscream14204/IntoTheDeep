@@ -9,23 +9,22 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class ShoulderToggleCommandGroup extends SequentialCommandGroup {
 
-    boolean bolIsShoulderUp = false;
     public ShoulderToggleCommandGroup(Shoulder shoulder, Elbow elbow, Wrist wrist){
-        if (bolIsShoulderUp) {
-            addCommands(
-                    new InstantCommand(()-> shoulder.goToPosition(Shoulder.ShoulderPosition.HOME)),
-                    new InstantCommand(()-> elbow.goToPosition(Elbow.ElbowPosition.HOME)),
-                    new InstantCommand(()-> wrist.goToPosition(Wrist.WristPosition.HOME))
-
-            );
-            bolIsShoulderUp = false;
-        }else {
+        if (shoulder.isShoulderHome()) {
             addCommands(
                     new InstantCommand(()-> shoulder.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
                     new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
                     new InstantCommand(()-> wrist.goToPosition(Wrist.WristPosition.PICKUP))
             );
-            bolIsShoulderUp = true;
+
+        }else {
+            addCommands(
+
+            new InstantCommand(()-> shoulder.goToPosition(Shoulder.ShoulderPosition.HOME)),
+                    new InstantCommand(()-> elbow.goToPosition(Elbow.ElbowPosition.HOME)),
+                    new InstantCommand(()-> wrist.goToPosition(Wrist.WristPosition.HOME))
+            );
+
         }
     }
 }

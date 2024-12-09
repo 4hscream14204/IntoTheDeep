@@ -20,7 +20,7 @@ public class Shoulder extends SubsystemBase {
         MAXPOSITION (1100),
         LOWBASKET (0),
         HIGHBASKET (0),
-        TOGGLE (0);
+        TOGGLE (2935);
         public final int height;
         ShoulderPosition(int high){
             this.height = high;

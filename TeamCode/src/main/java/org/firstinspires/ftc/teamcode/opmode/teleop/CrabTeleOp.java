@@ -60,6 +60,13 @@ public class CrabTeleOp extends OpMode {
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() -> bolFieldCentric = !bolFieldCentric)
                 ));
+        chassisController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(() -> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(() ->robotBase.clawSubsystem.toggleClaw())
+                ));
+        chassisController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed((new EjectCommandGroup(robotBase.intakeSubsystem)));
+
        /* armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() -> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME))
@@ -77,18 +84,16 @@ public class CrabTeleOp extends OpMode {
                         new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.DROPOFF))
                 ));
                 */
-        armController.getGamepadButton(GamepadKeys.Button.A)
+      /*  armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(()-> CommandScheduler.getInstance().schedule(
-                        new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem)
+                        new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem)
                 ));
+
+       */
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
                                 new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.MAXPOSITION))
                         ));
-        chassisController.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() ->robotBase.clawSubsystem.toggleClaw())
-                ));
         armController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
 
@@ -104,8 +109,10 @@ public class CrabTeleOp extends OpMode {
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)));
 
-        armController.getGamepadButton(GamepadKeys.Button.X)
+   /*     armController.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME)));
+
+    */
 
         armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)));
@@ -113,8 +120,6 @@ public class CrabTeleOp extends OpMode {
         armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new PickupElbowWristCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
 
-        chassisController.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed((new EjectCommandGroup(robotBase.intakeSubsystem)));
 
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed((new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem)));

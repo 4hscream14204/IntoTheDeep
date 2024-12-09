@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Intake extends SubsystemBase {
 
     public enum GatePosition{
-        OPEN (0),
-        ClOSED (0);
+        OPEN (0.2777),
+        ClOSED (0.0555);
         public final double value;
         GatePosition(double m_position) {
             this.value = m_position;
