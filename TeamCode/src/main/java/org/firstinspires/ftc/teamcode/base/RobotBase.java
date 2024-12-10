@@ -41,8 +41,8 @@ public class RobotBase {
         backRightMotor = hwMap.dcMotor.get("right_back");
 
         intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
-                hwMap.servo.get("intakeServoRight"));
-                //hwMap.servo.get("gateServo"),
+                hwMap.servo.get("intakeServoRight"),
+                hwMap.servo.get("gateServo"));
                 //hwMap.get(NormalizedColorSensor.class, "intakeColorSensor"));
         clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
         elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
