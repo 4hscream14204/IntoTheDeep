@@ -13,12 +13,7 @@ public class HighChamberScoreCommandGroup extends SequentialCommandGroup {
     public HighChamberScoreCommandGroup(Lift lift, SpecimenGrabber specimenGrabber, Wrist wrist){
         addCommands(
                 new InstantCommand(wrist::wristPickupPos),
-                new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART)),
-                new WaitUntilCommand(lift::isAtHighChamber),
-                new WaitCommand(2000),
-                new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHCHAMBERCLAMP)),
-                new WaitCommand(500),
-                new InstantCommand(specimenGrabber::grabberOpen)
+                new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART))
         );
     }
 }

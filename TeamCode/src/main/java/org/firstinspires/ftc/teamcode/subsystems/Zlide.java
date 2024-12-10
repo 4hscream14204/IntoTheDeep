@@ -35,7 +35,7 @@ public class Zlide extends SubsystemBase {
 
     }
 
-    public double GetPostion() {
+    public double getPostion() {
         return(srvZlide.getPosition());
     }
 

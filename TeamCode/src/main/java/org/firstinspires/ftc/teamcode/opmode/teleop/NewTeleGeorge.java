@@ -15,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.base.ITDEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.FirstLevelAscentCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.HighChamberScoreClampCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.HighChamberScoreCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.IntakeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.IntakeReturnPositionCommandGroup;
@@ -108,7 +109,8 @@ public class NewTeleGeorge extends OpMode{
                 .whenPressed(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem, Lift.LiftPosition.LOWBASKET));
 
         armController.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
+                .toggleWhenPressed(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem),
+                        new HighChamberScoreClampCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem));
 
       /*      armController.getGamepadButton(GamepadKeys.Button.X)
                     .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
@@ -140,11 +142,14 @@ public class NewTeleGeorge extends OpMode{
         /*baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new OuttakeIntoBucketCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.zlideSubsystem, robotBase.wristSubsystem, robotBase.intakeSubsystem));
 */
-        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+        armController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(new FirstLevelAscentCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(new LowChamberCommandGroup(robotBase.liftSubsystem,  robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .whenPressed(new IntakeCommandGroup(robotBase.zlideSubsystem, robotBase.wristSubsystem));
     }
 
     @Override
@@ -155,15 +160,18 @@ public class NewTeleGeorge extends OpMode{
         armController.readButtons();
         baseController.readButtons();
 
-        if(gamepad2.right_trigger >= 0){
+        /*if(gamepad2.right_trigger >= 0){
             robotBase.zlideSubsystem.setPostion(gamepad2.right_trigger);
-        }
+        }*/
 
+        /*if(robotBase.zlideSubsystem.getPostion() != robotBase.zlideSubsystem.zlideBucketPosition && robotBase.zlideSubsystem.getPostion() != robotBase.zlideSubsystem.zlideStartPosition){
+            robotBase.wristSubsystem.wristPickupPos();
+        }*/
         double y = -gamepad1.left_stick_y * Math.abs(gamepad1.left_stick_y); // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x * Math.abs(gamepad1.left_stick_x);
         double rx = gamepad1.right_stick_x * Math.abs(gamepad1.right_stick_x);
 
-        if (robotBase.zlideSubsystem.GetPostion() == 0) {
+        if (robotBase.zlideSubsystem.getPostion() == 0) {
             rx = gamepad1.right_stick_x / 2;
 
         }

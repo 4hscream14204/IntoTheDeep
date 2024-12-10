@@ -75,15 +75,71 @@ public class TeleGeorge extends OpMode{
         }
         robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
 
+        armController.getGamepadButton(GamepadKeys.Button.Y)
+                .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
+                .whenActive(new IntakeCommandGroup(robotBase.zlideSubsystem,robotBase.wristSubsystem));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.specimenGrabberSubsystem.toggleGrabber())
+                ));
+
+        armController.getGamepadButton(GamepadKeys.Button.A)
+                .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
+                .whenActive(new LiftHome(robotBase.liftSubsystem, robotBase.wristSubsystem));
+
         baseController.getGamepadButton((GamepadKeys.Button.Y))
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()-> bolFieldCentric = !bolFieldCentric)
                 ));
 
+        armController.getGamepadButton(GamepadKeys.Button.Y)
+                .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
+                .whenActive(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem, Lift.LiftPosition.HIGHBASKET));
+
+        armController.getGamepadButton(GamepadKeys.Button.X)
+                .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
+                .whenActive(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem, Lift.LiftPosition.LOWBASKET));
+
+        armController.getGamepadButton(GamepadKeys.Button.B)
+                .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
+                .whenActive(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
+
         baseController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand (()->robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0))))
                 ));
+
+        armController.getGamepadButton(GamepadKeys.Button.X)
+                .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
+                .whenActive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.wristSubsystem.wristPickupPos())
+                ));
+
+        armController.getGamepadButton(GamepadKeys.Button.A)
+                .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
+                .whenActive(new IntakeReturnPositionCommandGroup(robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new ObservationZoneDropoffCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem)
+                ));
+
+        armController.getGamepadButton(GamepadKeys.Button.B)
+                .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
+                .whenActive(()->CommandScheduler.getInstance().schedule(
+                        new ZlideStartPositionCommandGroup(robotBase.zlideSubsystem, robotBase.wristSubsystem)
+                ));
+
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                .toggleWhenPressed(new PickupSpecimenLineUpCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem),
+                        new PickupSpecimenGrabSpecimenCommandGroup(robotBase.specimenGrabberSubsystem, robotBase.liftSubsystem));
+
+        /*baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(new OuttakeIntoBucketCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.zlideSubsystem, robotBase.wristSubsystem, robotBase.intakeSubsystem));
+*/
+        armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                .whenPressed(new FirstLevelAscentCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(new InstantCommand(()->CommandScheduler.getInstance().cancelAll()));
@@ -99,131 +155,11 @@ public class TeleGeorge extends OpMode{
         armController.readButtons();
         baseController.readButtons();
 
-        armController.getGamepadButton(GamepadKeys.Button.START)
-                .whenPressed(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->bolNewControlScheme = !bolNewControlScheme)
-                ));
-        if (bolNewControlScheme){
-            armController.getGamepadButton(GamepadKeys.Button.Y)
-                    .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
-                    .whenActive(new IntakeCommandGroup(robotBase.zlideSubsystem,robotBase.wristSubsystem));
-
-            armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                    .whenPressed(()->CommandScheduler.getInstance().schedule(
-                            new InstantCommand(()->robotBase.specimenGrabberSubsystem.toggleGrabber())
-                    ));
-
-            armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                    .whenPressed(new LiftHome(robotBase.liftSubsystem, robotBase.wristSubsystem));
-
-            armController.getGamepadButton(GamepadKeys.Button.Y)
-                    .whenPressed(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem, Lift.LiftPosition.HIGHBASKET));
-
-            armController.getGamepadButton(GamepadKeys.Button.B)
-                    .whenPressed(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem,robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem, Lift.LiftPosition.LOWBASKET));
-
-            armController.getGamepadButton(GamepadKeys.Button.X)
-                    .whenPressed(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
-
-      /*      armController.getGamepadButton(GamepadKeys.Button.X)
-                    .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
-                    .whenActive(()->CommandScheduler.getInstance().schedule(
-                            new InstantCommand(()->robotBase.wristSubsystem.wristPickupPos())
-                    ));
-
-       */
-
-            armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                    .whenPressed(new IntakeReturnPositionCommandGroup(robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem));
-
-       /*     armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                    .whenPressed(()->CommandScheduler.getInstance().schedule(
-                            new ObservationZoneDropoffCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem)
-                    ));
-
-        */
-
-            armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                    .whenPressed(()->CommandScheduler.getInstance().schedule(
-                            new ZlideStartPositionCommandGroup(robotBase.zlideSubsystem, robotBase.wristSubsystem)
-                    ));
-
-            armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                    .toggleWhenPressed(new PickupSpecimenLineUpCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem),
-                            new PickupSpecimenGrabSpecimenCommandGroup(robotBase.specimenGrabberSubsystem, robotBase.liftSubsystem));
-
-        /*baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(new OuttakeIntoBucketCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.zlideSubsystem, robotBase.wristSubsystem, robotBase.intakeSubsystem));
-*/
-            armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                    .whenPressed(new FirstLevelAscentCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
-
-        }
-        else {
-
-            armController.getGamepadButton(GamepadKeys.Button.Y)
-                    .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
-                    .whenActive(new IntakeCommandGroup(robotBase.zlideSubsystem, robotBase.wristSubsystem));
-
-            armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                    .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                            new InstantCommand(() -> robotBase.specimenGrabberSubsystem.toggleGrabber())
-                    ));
-
-            armController.getGamepadButton(GamepadKeys.Button.A)
-                    .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                    .whenActive(new LiftHome(robotBase.liftSubsystem, robotBase.wristSubsystem));
-
-            armController.getGamepadButton(GamepadKeys.Button.Y)
-                    .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                    .whenActive(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem, Lift.LiftPosition.HIGHBASKET));
-
-            armController.getGamepadButton(GamepadKeys.Button.X)
-                    .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                    .whenActive(new LiftGoToBasketCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem, Lift.LiftPosition.LOWBASKET));
-
-            armController.getGamepadButton(GamepadKeys.Button.B)
-                    .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                    .whenActive(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
-
-            armController.getGamepadButton(GamepadKeys.Button.X)
-                    .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
-                    .whenActive(() -> CommandScheduler.getInstance().schedule(
-                            new InstantCommand(() -> robotBase.wristSubsystem.wristPickupPos())
-                    ));
-
-            armController.getGamepadButton(GamepadKeys.Button.A)
-                    .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
-                    .whenActive(new IntakeReturnPositionCommandGroup(robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem));
-
-            armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
-                    .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                            new ObservationZoneDropoffCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.wristSubsystem, robotBase.zlideSubsystem)
-                    ));
-
-            armController.getGamepadButton(GamepadKeys.Button.B)
-                    .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
-                    .whenActive(() -> CommandScheduler.getInstance().schedule(
-                            new ZlideStartPositionCommandGroup(robotBase.zlideSubsystem, robotBase.wristSubsystem)
-                    ));
-
-            armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                    .toggleWhenPressed(new PickupSpecimenLineUpCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem),
-                            new PickupSpecimenGrabSpecimenCommandGroup(robotBase.specimenGrabberSubsystem, robotBase.liftSubsystem));
-
-        /*baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(new OuttakeIntoBucketCommandGroup(robotBase.liftSubsystem, robotBase.bucketSubsystem, robotBase.zlideSubsystem, robotBase.wristSubsystem, robotBase.intakeSubsystem));
-*/
-            armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                    .whenPressed(new FirstLevelAscentCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
-
-        }
-
         double y = -gamepad1.left_stick_y * Math.abs(gamepad1.left_stick_y); // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x * Math.abs(gamepad1.left_stick_x);
         double rx = gamepad1.right_stick_x * Math.abs(gamepad1.right_stick_x);
 
-        if (robotBase.zlideSubsystem.GetPostion() == 0) {
+        if (robotBase.zlideSubsystem.getPostion() == 0) {
             rx = gamepad1.right_stick_x / 2;
 
         }
