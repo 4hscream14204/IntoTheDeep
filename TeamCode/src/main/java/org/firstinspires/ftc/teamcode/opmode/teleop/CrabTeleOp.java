@@ -152,10 +152,6 @@ public class CrabTeleOp extends OpMode {
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
                 .whenActive(new ChamberDropOffCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWCHAMBER, Extension.ExtensionPosition.LOWCHAMBER));
-
-
-
-
     }
 
     public void loop(){
@@ -219,9 +215,9 @@ public class CrabTeleOp extends OpMode {
             robotBase.extensionSubsystem.extendBack(gamepad1.right_trigger);
         }
 
-        /*if(gamepad1.right_trigger <= 0.1 && gamepad1.left_trigger <= 0.1){
+        if(gamepad1.right_trigger <= 0.1 && gamepad1.left_trigger <= 0.1){
             robotBase.extensionSubsystem.stopInPlace();
-        }*/
+        }
         //Connor: I don't think we need these but I commented them just in case.
         /*telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
         telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
@@ -248,6 +244,5 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
 
         CommandScheduler.getInstance().run();
-
     }
 }
