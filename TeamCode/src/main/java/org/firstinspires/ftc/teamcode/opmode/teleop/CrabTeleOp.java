@@ -219,9 +219,9 @@ public class CrabTeleOp extends OpMode {
             robotBase.extensionSubsystem.extendBack(gamepad1.right_trigger);
         }
 
-        if(gamepad1.right_trigger <= 0.1 && gamepad1.left_trigger <= 0.1){
+        /*if(gamepad1.right_trigger <= 0.1 && gamepad1.left_trigger <= 0.1){
             robotBase.extensionSubsystem.stopInPlace();
-        }
+        }*/
         //Connor: I don't think we need these but I commented them just in case.
         /*telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
         telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
