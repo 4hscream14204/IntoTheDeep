@@ -25,7 +25,7 @@ public class Intake extends SubsystemBase {
     public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate/*NormalizedColorSensor m_intakesensor*/ ) {
             intakeServoLeft = m_intakeLeft;
             intakeServoRight = m_intakeRight;
-            //intakeServoGate = m_intakeGate;
+            intakeServoGate = m_intakeGate;
             //intakeColorSensor = m_intakesensor;
     }
 
@@ -63,6 +63,11 @@ public class Intake extends SubsystemBase {
         } else {
             return false;
         }
+    }
+
+    public void intakeStop(){
+        intakeServoLeft.setPosition(0.5);
+        intakeServoRight.setPosition(0.5);
     }
 
     public double getPosition() {
