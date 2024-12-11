@@ -26,6 +26,7 @@ public class Intake extends SubsystemBase {
             intakeServoLeft = m_intakeLeft;
             intakeServoRight = m_intakeRight;
             intakeServoGate = m_intakeGate;
+            intakeServoGate.setPosition(GatePosition.ClOSED.value);
             //intakeColorSensor = m_intakesensor;
     }
 
