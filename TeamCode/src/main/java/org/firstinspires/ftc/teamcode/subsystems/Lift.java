@@ -23,7 +23,9 @@ public class Lift extends SubsystemBase {
         AUTOHIGHCHAMBERCLAMP (-2050),
         HIGHBASKET (-4200),
         LOWBASKET (-2600),
-        OBSERVATIONZONEDROPOFF (-1500);
+        OBSERVATIONZONEDROPOFF (-1500),
+        SECONDACENTSTART (-1585),
+        SECONDACENTCLAMP (-1160);
         public final int height;
         LiftPosition(int high){
             this.height = high;
