@@ -78,6 +78,16 @@ public class CrabTeleOp extends OpMode {
                                 new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
                         ));
 
+        chassisController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenActive(()-> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()-> robotBase.intakeSubsystem.intakeOuttake())
+                ));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
+                ));
+
        /* armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() -> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME))
