@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
+import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
@@ -150,6 +151,12 @@ public class NewTeleGeorge extends OpMode{
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new IntakeCommandGroup(robotBase.zlideSubsystem, robotBase.wristSubsystem));
+
+        new Trigger(()->armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
+                .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.zlideSubsystem.setPostion(armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)))
+                ))
+                .whenInactive(new InstantCommand(()->robotBase.zlideSubsystem.zlideStartPosition()));
     }
 
     @Override
