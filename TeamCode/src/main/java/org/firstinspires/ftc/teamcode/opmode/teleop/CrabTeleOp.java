@@ -182,12 +182,6 @@ public class CrabTeleOp extends OpMode {
                         .whenInactive(()->CommandScheduler.getInstance().schedule(
                                 new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
                         )));
-
-        /*new Trigger(()->
-                armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
-                .or(new Trigger(()->
-                        armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
-                        .whileActiveContinuous())*/
     }
 
     public void loop(){
@@ -234,21 +228,6 @@ public class CrabTeleOp extends OpMode {
 
         if(armController.getRightY() <= 0.1 && armController.getRightY() >= -0.1){
             robotBase.shoulderSubsystem.stopInPlace();
-        }
-
-
-        /*if(gamepad1.left_trigger > 0.1 && robotBase.shoulderSubsystem.isShoulderHome()){
-            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
-            robotBase.extensionSubsystem.extend(gamepad1.left_trigger);
-        }
-
-        if(gamepad1.left_trigger > 0.1 && !robotBase.shoulderSubsystem.isShoulderHome()){
-            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
-            robotBase.extensionSubsystem.extend(gamepad1.left_trigger);
-        }*/
-
-        if(gamepad1.right_trigger > 0.1 || gamepad1.left_trigger >0.1){
-            robotBase.extensionSubsystem.extend(gamepad1.right_trigger - gamepad1.left_trigger);
         }
 
         //Connor: I don't think we need these but I commented them just in case.
