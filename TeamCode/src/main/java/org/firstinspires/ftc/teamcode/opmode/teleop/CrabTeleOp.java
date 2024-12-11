@@ -174,6 +174,15 @@ public class CrabTeleOp extends OpMode {
                 .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
                 .whenActive(new ChamberDropOffCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWCHAMBER, Extension.ExtensionPosition.LOWCHAMBER));
 
+        new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
+                .or(new Trigger(()->armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
+                        .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                                new InstantCommand(()->robotBase.extensionSubsystem.extend(armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)-armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)))
+                        ))
+                        .whenInactive(()->CommandScheduler.getInstance().schedule(
+                                new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
+                        )));
+
         /*new Trigger(()->
                 armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
                 .or(new Trigger(()->
