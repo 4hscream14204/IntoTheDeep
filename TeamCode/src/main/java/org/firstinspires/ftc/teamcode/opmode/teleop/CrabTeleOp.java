@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
+import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
@@ -152,6 +153,12 @@ public class CrabTeleOp extends OpMode {
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
                 .whenActive(new ChamberDropOffCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWCHAMBER, Extension.ExtensionPosition.LOWCHAMBER));
+
+        /*new Trigger(()->
+                armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
+                .or(new Trigger(()->
+                        armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
+                        .whileActiveContinuous())*/
     }
 
     public void loop(){
@@ -201,23 +208,20 @@ public class CrabTeleOp extends OpMode {
         }
 
 
-        if(gamepad1.left_trigger > 0.1 && robotBase.shoulderSubsystem.isShoulderHome()){
+        /*if(gamepad1.left_trigger > 0.1 && robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
-            robotBase.extensionSubsystem.extendForward(gamepad1.left_trigger);
+            robotBase.extensionSubsystem.extend(gamepad1.left_trigger);
         }
 
         if(gamepad1.left_trigger > 0.1 && !robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
-            robotBase.extensionSubsystem.extendForward(gamepad1.left_trigger);
+            robotBase.extensionSubsystem.extend(gamepad1.left_trigger);
+        }*/
+
+        if(gamepad1.right_trigger > 0.1 || gamepad1.left_trigger >0.1){
+            robotBase.extensionSubsystem.extend(gamepad1.right_trigger - gamepad1.left_trigger);
         }
 
-        if(gamepad1.right_trigger > 0.1){
-            robotBase.extensionSubsystem.extendBack(gamepad1.right_trigger);
-        }
-
-        if(!robotBase.extensionSubsystem.bolHasStopRan){
-            robotBase.extensionSubsystem.stopInPlace();
-        }
         //Connor: I don't think we need these but I commented them just in case.
         /*telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
         telemetry.addData("Chassis Left Stick X", chassisLeftStickX);

@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Extension;
 public class ExtensionHomeCommandGroup  extends SequentialCommandGroup {
     public ExtensionHomeCommandGroup(Extension extension, Elbow elbow){
         addCommands(
-                new InstantCommand(()-> extension.extendBack(extension.dblDownPower)),
+                new InstantCommand(()-> extension.extend(extension.dblDownPower)),
                 new WaitUntilCommand(extension::isExtensionHome),
                 new InstantCommand(extension::reset),
                 new WaitCommand(500),
