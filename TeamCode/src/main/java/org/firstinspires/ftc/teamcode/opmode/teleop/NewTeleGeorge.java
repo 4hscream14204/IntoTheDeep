@@ -152,9 +152,9 @@ public class NewTeleGeorge extends OpMode{
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new IntakeCommandGroup(robotBase.zlideSubsystem, robotBase.wristSubsystem));
 
-        new Trigger(()->armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
+        new Trigger(()->baseController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
                 .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.zlideSubsystem.setPostion(armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)))
+                        new InstantCommand(()->robotBase.zlideSubsystem.setPostion(baseController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)))
                 ))
                 .whenInactive(new InstantCommand(()->robotBase.zlideSubsystem.zlideStartPosition()));
     }
@@ -215,9 +215,9 @@ public class NewTeleGeorge extends OpMode{
 
         telemetry.addData("lift motor", robotBase.liftSubsystem.getPosition());
 
-        telemetry.addData("right trigger value", gamepad2.right_trigger);
+        telemetry.addData("right trigger value", armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
-        telemetry.addData("left trigger value", gamepad2.left_trigger);
+        telemetry.addData("left trigger value", armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
 
         telemetry.addData("Lift motor power", robotBase.liftSubsystem.getPower());
 
@@ -227,7 +227,7 @@ public class NewTeleGeorge extends OpMode{
 
         telemetry.addData("Lift Limit Switch: ", robotBase.liftSubsystem.getSwitchState());
 
-        telemetry.addData("New control :)", bolNewControlScheme);
+        telemetry.addData("Zlide position", robotBase.zlideSubsystem.getPostion());
 
         CommandScheduler.getInstance().run();
 

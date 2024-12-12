@@ -121,7 +121,7 @@ public class AutoBlueRightX3 extends OpMode {
 
 
 
-TrajectorySequence trajectory0 = drive.trajectorySequenceBuilder(new Pose2d(-10.00, 33.50, Math.toRadians(180.00)))
+/*TrajectorySequence trajectory0 = drive.trajectorySequenceBuilder(new Pose2d(-10.00, 33.50, Math.toRadians(180.00)))
         .splineToSplineHeading(new Pose2d(-32.11, 14.01, Math.toRadians(90.00)), Math.toRadians(270.00))
         .splineToConstantHeading(new Vector2d(-48.12, 11.64), Math.toRadians(180.00))
         .splineToConstantHeading(new Vector2d(-47.98, 62.81), Math.toRadians(89.84))
@@ -131,4 +131,4 @@ TrajectorySequence trajectory0 = drive.trajectorySequenceBuilder(new Pose2d(-10.
         .splineToSplineHeading(new Pose2d(-14.01, 49.46, Math.toRadians(-19.60)), Math.toRadians(-19.60))
         .splineToConstantHeading(new Vector2d(-1.11, 33.74), Math.toRadians(180.00))
         .setReversed(false)
-        .build();
+        .build();*/
