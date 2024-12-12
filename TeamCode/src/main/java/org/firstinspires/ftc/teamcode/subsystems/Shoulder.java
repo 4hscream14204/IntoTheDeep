@@ -59,6 +59,18 @@ public class Shoulder extends SubsystemBase {
         bolStoppedInPlace = false;
     }
 
+    public void goUpOrDown(double power){
+        if(isShoulderHome() && power == 0){
+            dcShoulderMotor.setPower(0);
+            return;
+        }
+        else{
+            dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            dcShoulderMotor.setPower(power);
+            bolStoppedInPlace = false;
+        }
+    }
+
     public void goUp(double power){
         if(dcShoulderMotor.getCurrentPosition() > ShoulderPosition.MAXPOSITION.height){
             stopInPlace();

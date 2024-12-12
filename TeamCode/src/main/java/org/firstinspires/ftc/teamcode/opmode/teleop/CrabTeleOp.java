@@ -36,7 +36,6 @@ public class CrabTeleOp extends OpMode {
     double dubDenominator;
     public GamepadEx armController;
     public GamepadEx chassisController;
-    public Trigger manualExtensionControl;
 
     @Override
     public void init() {
@@ -175,7 +174,7 @@ public class CrabTeleOp extends OpMode {
                 .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
                 .whenActive(new ChamberDropOffCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWCHAMBER, Extension.ExtensionPosition.LOWCHAMBER));
 
-        manualExtensionControl = new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
+        new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
                 .or(new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1))
                         .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
                                 new InstantCommand(()->robotBase.extensionSubsystem.extend(chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)-chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)))
@@ -183,6 +182,15 @@ public class CrabTeleOp extends OpMode {
                         .whenInactive(()->CommandScheduler.getInstance().schedule(
                                 new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
                         ));
+
+        new Trigger(()->armController.getRightY() > 0.01)
+                .or(new Trigger(()->armController.getRightY() < -0.01))
+                .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.shoulderSubsystem.goUpOrDown(armController.getRightY())))
+                )
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.shoulderSubsystem.stopInPlace())
+                ));
 
         /*new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
                 .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
@@ -203,6 +211,11 @@ public class CrabTeleOp extends OpMode {
         new Trigger(()->robotBase.extensionSubsystem.isExtensionHome())
                 .whenActive(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.extensionSubsystem.reset())
+                ));
+
+        new Trigger(()->robotBase.shoulderSubsystem.isShoulderHome())
+                .whenActive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.shoulderSubsystem.reset())
                 ));
     }
 
