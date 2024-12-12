@@ -43,12 +43,15 @@ public class Extension extends SubsystemBase {
     }
 
     public void extend(double power) {
-        if(isExtensionHome() && getPower() > 0){
+        if(isExtensionHome() && power > 0){
             extendMotor.setPower(0);
+            return;
         }
+        else {
             extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             extendMotor.setPower(power);
-            bolStopped = false;;
+            bolStopped = false;
+        }
     }
 
     public void extendForward(double power) {
