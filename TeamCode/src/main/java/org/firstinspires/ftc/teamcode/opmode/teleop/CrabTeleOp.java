@@ -254,6 +254,8 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Arm Left Trigger", gamepad2.left_trigger);
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
+        telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
+        telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
         CommandScheduler.getInstance().run();
     }
