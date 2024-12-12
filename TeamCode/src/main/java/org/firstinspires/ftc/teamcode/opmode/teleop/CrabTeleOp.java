@@ -253,7 +253,7 @@ public class CrabTeleOp extends OpMode {
 
      //   robotBase.intakeSubsystem.intakeSpeed(((chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)-chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER))/2)+0.5);
 
-       if(armController.getRightY() > 0.1){
+       /*if(armController.getRightY() > 0.1){
             robotBase.shoulderSubsystem.goUp(armController.getRightY());
         }
 
@@ -263,7 +263,7 @@ public class CrabTeleOp extends OpMode {
 
         if(armController.getRightY() <= 0.1 && armController.getRightY() >= -0.1){
             robotBase.shoulderSubsystem.stopInPlace();
-        }
+        }*/
 
         //Connor: I don't think we need these but I commented them just in case.
         /*telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
