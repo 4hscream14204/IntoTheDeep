@@ -129,6 +129,7 @@ public class AutoBlueRightX3 extends OpMode {
         .splineToConstantHeading(new Vector2d(-64.14, 63.25), Math.toRadians(90.00))
         .setReversed(true)
         .splineToSplineHeading(new Pose2d(-14.01, 49.46, Math.toRadians(-19.60)), Math.toRadians(-19.60))
-        .splineToConstantHeading(new Vector2d(-1.11, 33.74), Math.toRadians(180.00))
+        .splineToConstantHeading(new Vector2d(-2.11, 27.87), Math.toRadians(270.00))
+        .splineToConstantHeading(new Vector2d(-60.55, 59.95), Math.toRadians(180.00))
         .setReversed(false)
         .build();*/
