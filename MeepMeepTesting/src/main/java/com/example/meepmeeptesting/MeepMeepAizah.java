@@ -19,12 +19,19 @@ public class MeepMeepAizah {
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-9, 60, Math.toRadians(-90)))
                         .setTangent(Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-12, 34), Math.toRadians(-90))
-                        .setReversed(true)
-                .splineToConstantHeading(new Vector2d(-35, 31), Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-37, 15), Math.toRadians(-90))
-                .splineToConstantHeading(new Vector2d(-56, 57), Math.toRadians(-90))
-
+                .splineToConstantHeading(new Vector2d(-10, 30), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                    .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-35, 24), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-38, 12), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-47, 57), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-36, 12), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-58, 10.8),Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-58, 58), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                        .setTangent(Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(-28, 50), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-10, 33), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-9 , 60), Math.toRadians(-90),new TranslationalVelConstraint(20))
+                .build());
          /*       .splineToConstantHeading(new Vector2d(-36.52, 28.73), Math.toRadians(-90.00))
                 .setReversed(true)
                 .splineTo(new Vector2d(-39.26, 17.51), Math.toRadians(-90))
@@ -34,7 +41,7 @@ public class MeepMeepAizah {
 
 
 
-                .build());
+
 
 
                /* .splineToConstantHeading(new Vector2d(13, 45), Math.toRadians(-90),new TranslationalVelConstraint(20))
@@ -44,7 +51,7 @@ public class MeepMeepAizah {
                 //.splineToConstantHeading(new Vector2d(38, 38), Math.toRadians(-90))
                 .splineToConstantHeading(new Vector2d(35, 14), Math.toRadians(-90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(46,10),Math.toRadians(-90),new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(53, 61), Math.toRadians(-90.00),new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(53, 61), Math.toRadians(90.00),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(40.27, 15.78), Math.toRadians(-90.00),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(58,10),Math.toRadians(-90),new TranslationalVelConstraint(20))
                 //.splineToConstantHeading(new Vector2d(45.88, 13.98), Math.toRadians(-90),new TranslationalVelConstraint(20))
