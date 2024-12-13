@@ -160,7 +160,7 @@ public class NewTeleGeorge extends OpMode{
 
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenActive(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1))
+                        new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0))
 
                 ))
                 .whenInactive(()->CommandScheduler.getInstance().schedule(
@@ -169,7 +169,7 @@ public class NewTeleGeorge extends OpMode{
 
         baseController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenActive(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())
+                        new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1))
 
                 ))
                 .whenInactive(()->CommandScheduler.getInstance().schedule(
