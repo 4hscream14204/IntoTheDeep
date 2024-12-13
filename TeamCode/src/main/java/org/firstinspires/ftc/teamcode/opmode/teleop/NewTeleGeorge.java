@@ -157,6 +157,24 @@ public class NewTeleGeorge extends OpMode{
                         new InstantCommand(()->robotBase.zlideSubsystem.setPostion(baseController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)))
                 ))
                 .whenInactive(new InstantCommand(()->robotBase.zlideSubsystem.zlideStartPosition()));
+
+        baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenActive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1))
+
+                ))
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
+                ));
+
+        baseController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenActive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())
+
+                ))
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
+                ));
     }
 
     @Override
@@ -211,7 +229,7 @@ public class NewTeleGeorge extends OpMode{
         telemetry.addData("Left Stick x", x);
         telemetry.addData("Right Stick rx", rx);
 
-        robotBase.intakeSubsystem.intakeSpeed(gamepad1.left_trigger / 2 + -1 * gamepad1.right_trigger / 2 + 0.5);
+        //robotBase.intakeSubsystem.intakeSpeed(gamepad1.left_trigger / 2 + -1 * gamepad1.right_trigger / 2 + 0.5);
 
         telemetry.addData("lift motor", robotBase.liftSubsystem.getPosition());
 
