@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.DataStorage;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-@Disabled
+
 @Autonomous(name = "Blue Right pickup three")
 public class AutoBlueRightX3 extends OpMode {
 
@@ -79,23 +79,24 @@ public class AutoBlueRightX3 extends OpMode {
                 .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
                 .waitSeconds(1)
                 .setTangent(Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-10, 50), Math.toRadians(-90))
+                .splineToConstantHeading(new Vector2d(-10, 38), Math.toRadians(-90), new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))
-                .splineToSplineHeading(new Pose2d(-32, 14, Math.toRadians(90.00)), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(-48, 11), Math.toRadians(180.00))
-                .splineToConstantHeading(new Vector2d(-47, 62), Math.toRadians(89.84))
-                .splineToConstantHeading(new Vector2d(-48, 46), Math.toRadians(90.00))
+                .splineToSplineHeading(new Pose2d(-32, 14, Math.toRadians(90.00)), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-48, 11), Math.toRadians(180.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-47, 62), Math.toRadians(89.84), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-48, 46), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+                .waitSeconds(1)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.PICKUP))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
-                .splineToConstantHeading(new Vector2d(-64, 63), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(-64, 63), Math.toRadians(90.00), new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART))))
-                .splineToSplineHeading(new Pose2d(-14, 49, Math.toRadians(-19.60)), Math.toRadians(-19.60))
-                .splineToConstantHeading(new Vector2d(-2, 27), Math.toRadians(270.00))
+                .splineToSplineHeading(new Pose2d(-14, 49, Math.toRadians(-19.60)), Math.toRadians(-19.60), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-2, 27), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .afterTime(0.25, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERCLAMP))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberOpen())))
                 .waitSeconds(1.5)
-                .splineToConstantHeading(new Vector2d(-60, 59), Math.toRadians(180.00))
+                .splineToConstantHeading(new Vector2d(-60, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
              //   .splineToConstantHeading(new Vector2d(-56, 59), Math.toRadians(180.00), new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HOME))))
                 .build();
