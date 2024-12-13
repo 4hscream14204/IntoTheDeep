@@ -247,6 +247,8 @@ public class NewTeleGeorge extends OpMode{
 
         telemetry.addData("Zlide position", robotBase.zlideSubsystem.getPostion());
 
+        telemetry.addData("Is updating?", robotBase.wristSubsystem.getPosition());
+
         CommandScheduler.getInstance().run();
 
     }
