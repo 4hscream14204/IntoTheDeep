@@ -70,7 +70,7 @@ public class AutoRedRightX2 extends OpMode {
                 .splineToConstantHeading(new Vector2d(53.5, -67), Math.toRadians(0), new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.specimenGrabberSubsystem.grabberClosed())))
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.HIGHCHAMBERSTART))))
-                .waitSeconds(1)
+                .waitSeconds(1.2)
                 .setTangent(Math.toRadians(180))
                 .splineToSplineHeading(new Pose2d(10, -40, Math.toRadians(0)), Math.toRadians(90.00), new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(10, -33.5), Math.toRadians(90.00), new TranslationalVelConstraint(20))
