@@ -12,7 +12,6 @@ public class HighChamberScoreClampCommandGroup extends SequentialCommandGroup {
     public HighChamberScoreClampCommandGroup(Lift lift, SpecimenGrabber specimenGrabber){
         addCommands(
                 new WaitUntilCommand(lift::isAtHighChamber),
-                new WaitCommand(500),
                 new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HIGHCHAMBERCLAMP)),
                 new WaitCommand(500),
                 new InstantCommand(specimenGrabber::grabberOpen)
