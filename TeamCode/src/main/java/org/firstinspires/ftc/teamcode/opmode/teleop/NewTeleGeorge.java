@@ -152,7 +152,7 @@ public class NewTeleGeorge extends OpMode{
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(new IntakeCommandGroup(robotBase.zlideSubsystem, robotBase.wristSubsystem));
 
-        new Trigger(()->baseController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
+        /*new Trigger(()->baseController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
                 .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.zlideSubsystem.setPostion(baseController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)))
                 ))
@@ -174,7 +174,7 @@ public class NewTeleGeorge extends OpMode{
                 ))
                 .whenInactive(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
-                ));
+                ));*/
     }
 
     @Override
@@ -229,7 +229,7 @@ public class NewTeleGeorge extends OpMode{
         telemetry.addData("Left Stick x", x);
         telemetry.addData("Right Stick rx", rx);
 
-        //robotBase.intakeSubsystem.intakeSpeed(gamepad1.left_trigger / 2 + -1 * gamepad1.right_trigger / 2 + 0.5);
+        robotBase.intakeSubsystem.intakeSpeed(gamepad1.left_trigger / 2 + -1 * gamepad1.right_trigger / 2 + 0.5);
 
         telemetry.addData("lift motor", robotBase.liftSubsystem.getPosition());
 

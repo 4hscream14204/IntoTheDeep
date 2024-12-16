@@ -7,7 +7,7 @@ public class Zlide extends SubsystemBase {
 
     public double zlideStartPosition = 1;
     public double zlideExtendedPosition = 0;
-    public double zlideBucketPosition = 0.526;
+    public double zlideBucketPosition = 0.6 ;//0.526
 
     private Servo srvZlide;
 

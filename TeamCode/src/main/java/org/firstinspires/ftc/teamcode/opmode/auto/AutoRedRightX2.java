@@ -83,7 +83,7 @@ public class AutoRedRightX2 extends OpMode {
                 .build();
 
 
-        robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
+        robotBase.alliance = ITDEnums.EnmAlliance.RED;
 
     }
 

@@ -69,7 +69,7 @@ public class AutoRedLeftHangAndPark extends OpMode {public TelemetryPacket telem
                 .splineToConstantHeading(new Vector2d(-38, -20), Math.toRadians(90),new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-26, -16), Math.toRadians(-180),new TranslationalVelConstraint(20))
                 .build();
-        robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
+        robotBase.alliance = ITDEnums.EnmAlliance.RED;
 
     }
 
