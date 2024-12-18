@@ -61,6 +61,7 @@ public class Shoulder extends SubsystemBase {
 
     public void goUpOrDown(double power){
         if(isShoulderHome() && power < 0){
+            reset();
             dcShoulderMotor.setPower(0);
             return;
         }

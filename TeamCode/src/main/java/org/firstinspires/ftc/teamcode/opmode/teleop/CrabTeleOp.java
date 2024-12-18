@@ -19,7 +19,8 @@ import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.PickupElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.SubPickupTogglePickupCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.SubPickupTogglePreSubPickupCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
@@ -107,7 +108,7 @@ public class CrabTeleOp extends OpMode {
                 */
       /*  armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(()-> CommandScheduler.getInstance().schedule(
-                        new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem)
+                        new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem)
                 ));
 
        */
@@ -143,7 +144,8 @@ public class CrabTeleOp extends OpMode {
 
 
         armController.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed((new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem)));
+                .whenPressed((new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem)))
+                .toggleWhenPressed(new SubPickupTogglePickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed((new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem)));
