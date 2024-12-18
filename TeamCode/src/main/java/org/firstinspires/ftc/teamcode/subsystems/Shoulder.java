@@ -103,9 +103,9 @@ public class Shoulder extends SubsystemBase {
             return;
         }
         bolStoppedInPlace = true;
-        /*if(isShoulderHome()){
+        if(isShoulderHome()){
             reset();
-        }*/
+        }
             dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             intCurrentPos = dcShoulderMotor.getCurrentPosition();
             dcShoulderMotor.setTargetPosition(intCurrentPos);
