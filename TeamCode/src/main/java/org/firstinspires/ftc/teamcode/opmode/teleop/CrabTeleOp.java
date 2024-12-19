@@ -119,12 +119,6 @@ public class CrabTeleOp extends OpMode {
         armController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
 
-        armController.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.TESTPOSITION)));
-
-        armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)));
-
         armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)));
 
@@ -142,10 +136,9 @@ public class CrabTeleOp extends OpMode {
         armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new PickupElbowWristCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
 
-
         armController.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed((new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem)))
-                .toggleWhenPressed(new SubPickupTogglePickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
+                .toggleWhenPressed(new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem),
+                        new SubPickupTogglePickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed((new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem)));
@@ -179,7 +172,7 @@ public class CrabTeleOp extends OpMode {
         new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
                 .or(new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1))
                         .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
-                                new InstantCommand(()->robotBase.extensionSubsystem.extend(chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)-chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)))
+                                new InstantCommand(()->robotBase.extensionSubsystem.extend(chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)-chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)))
                         ))
                         .whenInactive(()->CommandScheduler.getInstance().schedule(
                                 new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
