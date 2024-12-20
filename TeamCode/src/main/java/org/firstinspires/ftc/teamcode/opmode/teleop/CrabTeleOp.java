@@ -71,7 +71,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenActive(()-> CommandScheduler.getInstance().schedule(
-                                new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(1))
+                                new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0.7))
                         ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
@@ -81,7 +81,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenActive(()-> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0))
+                        new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0.3))
                 ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
