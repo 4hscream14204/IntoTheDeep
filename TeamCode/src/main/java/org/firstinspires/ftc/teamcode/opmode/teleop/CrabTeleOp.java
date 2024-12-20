@@ -18,7 +18,8 @@ import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.PickupElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.ShoulderToggleCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ShoulderToggleIfHomeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ShoulderToggleIfNotHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupTogglePickupCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupTogglePreSubPickupCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
@@ -147,7 +148,7 @@ public class CrabTeleOp extends OpMode {
                 .whenPressed(((new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem))));
 
         armController.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(((new ShoulderToggleCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))));
+                .toggleWhenPressed(new ShoulderToggleIfNotHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem), new ShoulderToggleIfHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem));
 
         //high basket button combo
         armController.getGamepadButton(GamepadKeys.Button.Y)
