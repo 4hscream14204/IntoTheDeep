@@ -280,12 +280,12 @@ public class CrabTeleOp extends OpMode {
         //telemetry.addData("Color Sensor", robotBase.intakeSubsystem.checkSampleColor());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
-        telemetry.addData("Arm Right Trigger", gamepad2.right_trigger);
-        telemetry.addData("Arm Left Trigger", gamepad2.left_trigger);
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
         telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+        telemetry.addData("Elbow position", robotBase.elbowSubsystem.getPosition());
+        telemetry.addData("Wrist position", robotBase.wristSubsystem.getPosition());
 
         CommandScheduler.getInstance().run();
     }
