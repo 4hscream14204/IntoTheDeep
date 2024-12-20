@@ -20,7 +20,7 @@ public class OTOSPositionOffsetTuner extends LinearOpMode {
         while (opModeIsActive()) {
             drive.updatePoseEstimate();
             telemetry.addData("Heading (deg)",Math.toDegrees(drive.pose.heading.toDouble()));
-            if (Math.abs(Math.toDegrees(drive.pose.heading.toDouble())) > 175) {
+            if (Math.abs(Math.toDegrees(drive.pose.heading.toDouble())) > 180) {
                 telemetry.addData("X Offset", drive.pose.position.x / 2);
                 telemetry.addData("Y Offset", drive.pose.position.y / 2);
             } else {
