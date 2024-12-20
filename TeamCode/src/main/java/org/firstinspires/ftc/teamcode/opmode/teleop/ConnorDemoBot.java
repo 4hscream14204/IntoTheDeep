@@ -62,11 +62,12 @@ public class ConnorDemoBot extends OpMode {
             double backRightPower = (rotY + rotX - rx) / denominator;
 
             if (gamepad1.a) {
-                claw.setPosition(0.40833);
-            }
-
-            if (gamepad1.b) {
-                claw.setPosition(0.1188);
+                if(claw.getPosition() == 0.5){
+                    claw.setPosition(0.8944);
+                }
+                else{
+                    claw.setPosition(0.5);
+                }
             }
 
             if (gamepad1.right_trigger > 0.1) {
