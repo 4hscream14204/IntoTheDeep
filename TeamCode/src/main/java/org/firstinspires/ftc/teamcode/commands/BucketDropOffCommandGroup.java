@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 public class BucketDropOffCommandGroup extends SequentialCommandGroup {
     public BucketDropOffCommandGroup (RobotBase robotBase, Shoulder.ShoulderPosition basketPosition, Extension.ExtensionPosition extensionBasket){
       addCommands(
+              new InstantCommand(()-> robotBase.intakeSubsystem.intakeOuttake()),
         new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(basketPosition)),
         new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
         new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF))
