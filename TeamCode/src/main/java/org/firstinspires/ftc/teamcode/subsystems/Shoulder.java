@@ -18,8 +18,8 @@ public class Shoulder extends SubsystemBase {
         HIGHCHAMBER (0),
         LOWCHAMBER (0),
         MAXPOSITION (2935),
-        LOWBASKET (0),
-        HIGHBASKET (0),
+        LOWBASKET (2900),
+        HIGHBASKET (2900),
         TOGGLE (2935);
         public final int height;
         ShoulderPosition(int high){

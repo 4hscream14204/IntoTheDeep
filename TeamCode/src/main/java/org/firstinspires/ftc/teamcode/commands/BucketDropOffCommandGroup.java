@@ -17,18 +17,17 @@ public class BucketDropOffCommandGroup extends SequentialCommandGroup {
       addCommands(
         new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(basketPosition)),
         new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
-        new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(basketPosition)),
-        new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionBasket))
-       /* new WaitCommand(1500),
+        new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF))
+        /*new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(basketPosition)),
+        new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionBasket)),
+        new WaitCommand(1500),
         new InstantCommand(()-> robotBase.intakeSubsystem.intakeOuttake()),
         new WaitCommand(2000),
         new InstantCommand(()->  robotBase.intakeSubsystem.intakeSpeed(0)),
         new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)),
                 new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
               new WaitUntilCommand(robotBase.extensionSubsystem::isExtensionHome),
-        new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem)
-
-        */
+        new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem)*/
 
       );
     }

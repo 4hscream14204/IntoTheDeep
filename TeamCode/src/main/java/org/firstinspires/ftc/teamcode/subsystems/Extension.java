@@ -15,7 +15,7 @@ public class Extension extends SubsystemBase {
         MAXSHOULDERDOWNPOSITION(-2000),
         MAXSHOULDERUPPOSITION (-2300),
         LOWBUCKET (0),
-        HIGHBUCKET (0),
+        HIGHBUCKET (-2100),
         LOWCHAMBER (0),
         HIGHCHAMBER (0);
         public final int height;
