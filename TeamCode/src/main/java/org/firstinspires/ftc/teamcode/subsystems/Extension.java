@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 public class Extension extends SubsystemBase {
@@ -43,15 +42,16 @@ public class Extension extends SubsystemBase {
         extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public void extendBack(double power) {
-        if(isExtensionHome()){
-            reset();
+    public void extend(double power) {
+        if(isExtensionHome() && power > 0){
+            extendMotor.setPower(0);
+            return;
         }
         else {
             extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             extendMotor.setPower(power);
             bolStopped = false;
-      }
+        }
     }
 
     public void extendForward(double power) {

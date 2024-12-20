@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
+import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
@@ -66,6 +67,26 @@ public class CrabTeleOp extends OpMode {
                 ));
         chassisController.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed((new EjectCommandGroup(robotBase.intakeSubsystem)));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                        .whenActive(()-> CommandScheduler.getInstance().schedule(
+                                new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(1))
+                        ));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                        .whenInactive(()->CommandScheduler.getInstance().schedule(
+                                new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
+                        ));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenActive(()-> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0))
+                ));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
+                ));
 
        /* armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
@@ -153,9 +174,49 @@ public class CrabTeleOp extends OpMode {
                 .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
                 .whenActive(new ChamberDropOffCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWCHAMBER, Extension.ExtensionPosition.LOWCHAMBER));
 
+        new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
+                .or(new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1))
+                        .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                                new InstantCommand(()->robotBase.extensionSubsystem.extend(chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)-chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)))
+                        ))
+                        .whenInactive(()->CommandScheduler.getInstance().schedule(
+                                new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
+                        ));
 
+        new Trigger(()->armController.getRightY() > 0.01)
+                .or(new Trigger(()->armController.getRightY() < -0.01))
+                .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.shoulderSubsystem.goUpOrDown(armController.getRightY())))
+                )
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.shoulderSubsystem.stopInPlace())
+                ));
 
+        /*new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
+                .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                   new InstantCommand(()->robotBase.extensionSubsystem.extend(-chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)))
+                ))
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
+                ));
 
+        new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1)
+                .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.extensionSubsystem.extend(chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)))
+                ))
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
+                ));*/
+
+        new Trigger(()->robotBase.extensionSubsystem.isExtensionHome())
+                .whenActive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.extensionSubsystem.reset())
+                ));
+
+        new Trigger(()->robotBase.shoulderSubsystem.isShoulderHome())
+                .whenActive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.shoulderSubsystem.reset())
+                ));
     }
 
     public void loop(){
@@ -192,7 +253,7 @@ public class CrabTeleOp extends OpMode {
 
      //   robotBase.intakeSubsystem.intakeSpeed(((chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)-chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER))/2)+0.5);
 
-       if(armController.getRightY() > 0.1){
+       /*if(armController.getRightY() > 0.1){
             robotBase.shoulderSubsystem.goUp(armController.getRightY());
         }
 
@@ -202,26 +263,8 @@ public class CrabTeleOp extends OpMode {
 
         if(armController.getRightY() <= 0.1 && armController.getRightY() >= -0.1){
             robotBase.shoulderSubsystem.stopInPlace();
-        }
+        }*/
 
-
-        if(gamepad1.left_trigger > 0.1 && robotBase.shoulderSubsystem.isShoulderHome()){
-            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
-            robotBase.extensionSubsystem.extendForward(gamepad1.left_trigger);
-        }
-
-        if(gamepad1.left_trigger > 0.1 && !robotBase.shoulderSubsystem.isShoulderHome()){
-            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
-            robotBase.extensionSubsystem.extendForward(gamepad1.left_trigger);
-        }
-
-        if(gamepad1.right_trigger > 0.1){
-            robotBase.extensionSubsystem.extendBack(gamepad1.right_trigger);
-        }
-
-        if(gamepad1.right_trigger <= 0.1 && gamepad1.left_trigger <= 0.1){
-            robotBase.extensionSubsystem.stopInPlace();
-        }
         //Connor: I don't think we need these but I commented them just in case.
         /*telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
         telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
@@ -246,8 +289,9 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Arm Left Trigger", gamepad2.left_trigger);
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
+        telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
+        telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
         CommandScheduler.getInstance().run();
-
     }
 }
