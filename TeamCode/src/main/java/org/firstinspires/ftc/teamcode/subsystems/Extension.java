@@ -11,7 +11,6 @@ public class Extension extends SubsystemBase {
 
     public enum ExtensionPosition{
         HOME (0),
-        TESTPOSITION (-500),
         MAXSHOULDERDOWNPOSITION(-2000),
         MAXSHOULDERUPPOSITION (-2300),
         LOWBUCKET (0),
@@ -40,6 +39,7 @@ public class Extension extends SubsystemBase {
         extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         extendMotor.setPower(0);
         extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        enmExtensionPosition = ExtensionPosition.HOME;
     }
 
     public void extend(double power) {

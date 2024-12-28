@@ -35,6 +35,7 @@ public class Shoulder extends SubsystemBase {
         dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         dcShoulderMotor.setPower(0);
         dcShoulderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        enmShoulderPosition = ShoulderPosition.HOME;
 
     }
 
