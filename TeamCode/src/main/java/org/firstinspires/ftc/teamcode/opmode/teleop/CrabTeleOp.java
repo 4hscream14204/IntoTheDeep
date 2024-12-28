@@ -12,11 +12,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
-import org.firstinspires.ftc.teamcode.commands.BucketDropOffCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.BucketEjectAndHomeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.BucketExtendUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ChamberDropOffCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.PickupElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleIfHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleIfNotHomeCommandGroup;
@@ -134,8 +134,8 @@ public class CrabTeleOp extends OpMode {
         armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenPressed(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)));
 
-        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(new PickupElbowWristCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
+        /*armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(new PickupElbowWristCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));*/
 
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .toggleWhenPressed(new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem),
@@ -152,13 +152,14 @@ public class CrabTeleOp extends OpMode {
 
         //high basket button combo
         armController.getGamepadButton(GamepadKeys.Button.Y)
-                .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(new BucketDropOffCommandGroup(robotBase, Shoulder.ShoulderPosition.HIGHBASKET, Extension.ExtensionPosition.HIGHBUCKET));
+                .and(armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER))
+                .toggleWhenActive(new BucketExtendUpCommandGroup(robotBase, Shoulder.ShoulderPosition.HIGHBASKET, Extension.ExtensionPosition.HIGHBUCKET),
+                        new BucketEjectAndHomeCommandGroup( robotBase, robotBase.intakeSubsystem, robotBase.shoulderSubsystem, robotBase.extensionSubsystem, robotBase.wristSubsystem));
 
                 //low basket button combo
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(new BucketDropOffCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWBASKET, Extension.ExtensionPosition.LOWBUCKET));
+                .whenActive(new BucketExtendUpCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWBASKET, Extension.ExtensionPosition.LOWBUCKET));
 
         //high Chamber button combo
         armController.getGamepadButton(GamepadKeys.Button.Y)
