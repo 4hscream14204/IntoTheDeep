@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
@@ -111,7 +112,7 @@ public class BlueRightx4 extends OpMode {
 
                 .build();
 
-        //robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
+      //  robotBase. = ITDCrabEnumsEnums.EnmAlliance.BLUE;
 
 
     }
