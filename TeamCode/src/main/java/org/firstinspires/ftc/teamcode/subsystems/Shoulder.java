@@ -15,12 +15,12 @@ public class Shoulder extends SubsystemBase {
 
     public enum ShoulderPosition{
         HOME (0),
-        HIGHCHAMBER (1475),
+        HIGHCHAMBER (1730),
         LOWCHAMBER (0),
-        MAXPOSITION (2775),
-        LOWBASKET (2775),
+        MAXPOSITION (2935),
+        LOWBASKET (2935),
         HIGHBASKET (2935/*2775*/),
-        TOGGLE (2775);
+        TOGGLE (2935);
         public final int height;
         ShoulderPosition(int high){
             this.height = high;

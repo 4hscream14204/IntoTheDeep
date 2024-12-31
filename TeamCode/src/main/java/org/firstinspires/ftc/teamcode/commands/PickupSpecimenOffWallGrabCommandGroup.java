@@ -14,8 +14,7 @@ public class PickupSpecimenOffWallGrabCommandGroup extends SequentialCommandGrou
     public PickupSpecimenOffWallGrabCommandGroup(Extension extension, Shoulder shoulder, Claw claw, Elbow elbow, Wrist wrist){
         addCommands(
                 new InstantCommand(claw::closeClaw),
-                new WaitCommand(250),
-                new ShoulderHomeCommandGroup(shoulder)
+                new InstantCommand(()->shoulder.goToPosition(Shoulder.ShoulderPosition.HIGHCHAMBER))
         );
     }
 }

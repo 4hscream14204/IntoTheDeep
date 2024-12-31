@@ -16,7 +16,7 @@ public class Extension extends SubsystemBase {
         LOWBUCKET (0),
         HIGHBUCKET (-3150),
         LOWCHAMBER (0),
-        HIGHCHAMBER (-2000);
+        HIGHCHAMBER (-1975);
         public final int height;
         ExtensionPosition(int high){
             this.height = high;
