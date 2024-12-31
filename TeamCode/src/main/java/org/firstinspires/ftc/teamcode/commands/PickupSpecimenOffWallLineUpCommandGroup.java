@@ -13,8 +13,8 @@ public class PickupSpecimenOffWallLineUpCommandGroup extends SequentialCommandGr
     public PickupSpecimenOffWallLineUpCommandGroup(Extension extension, Shoulder shoulder, Elbow elbow, Wrist wrist, Claw claw){
         addCommands(
                 new ExtensionHomeCommandGroup(extension, elbow),
-                new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PRESUBPICKUP)),
-                new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
+                new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PICKUP)),
+                new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
                 new InstantCommand(claw::openClaw),
                 new InstantCommand(()->shoulder.goToPosition(Shoulder.ShoulderPosition.TOGGLE))
         );

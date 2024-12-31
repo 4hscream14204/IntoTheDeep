@@ -12,11 +12,11 @@ public class Extension extends SubsystemBase {
     public enum ExtensionPosition{
         HOME (0),
         MAXSHOULDERDOWNPOSITION(-2000),
-        MAXSHOULDERUPPOSITION (-2300),
+        MAXSHOULDERUPPOSITION (-3300),
         LOWBUCKET (0),
-        HIGHBUCKET (-3100),
+        HIGHBUCKET (-3150),
         LOWCHAMBER (0),
-        HIGHCHAMBER (0);
+        HIGHCHAMBER (-2000);
         public final int height;
         ExtensionPosition(int high){
             this.height = high;
