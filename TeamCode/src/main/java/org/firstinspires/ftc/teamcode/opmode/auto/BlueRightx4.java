@@ -48,7 +48,8 @@ public class BlueRightx4 extends OpMode {
                 ));
 
 
-        blueRightx4Action = robotBase.drive.action(startpose)
+        blueRightx4Action = robotBase.drive.actionBuilder(startPose)
+
                 .splineToConstantHeading(new Vector2d(-5.56, 30.62), Math.toRadians(300.00))
                 .splineToSplineHeading(new Pose2d(-33.15, 34.78, Math.toRadians(120.00)), Math.toRadians(200.00))
                 .splineToLinearHeading(new Pose2d(-35.96, 40.26, Math.toRadians(50.00)), Math.toRadians(120.00))
@@ -66,7 +67,7 @@ public class BlueRightx4 extends OpMode {
 
                 .build();
 
-        robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
+        //robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
 
 
     }
@@ -99,7 +100,7 @@ public class BlueRightx4 extends OpMode {
     @Override
     public void stop() {
         robotBase.drive.updatePoseEstimate();
-        DataStorage.alliance = robotBase.alliance;
+        //DataStorage.alliance = robotBase.alliance;
         DataStorage.dblIMUFinalHeadingRad = robotBase.drive.otos.getPosition().h;
 
     }
