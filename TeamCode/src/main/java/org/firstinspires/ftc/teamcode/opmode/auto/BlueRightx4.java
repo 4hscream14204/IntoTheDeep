@@ -9,11 +9,17 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.subsystems.Elbow;
+import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
+@Autonomous (name = "BlueRight4x")
 public class BlueRightx4 extends OpMode {
     public TelemetryPacket telemetryPacket;
 
@@ -49,20 +55,58 @@ public class BlueRightx4 extends OpMode {
 
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
+                .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HIGHCHAMBER))))
+                //drive up to highchamber
+                .splineToConstantHeading(new Vector2d(-6.00, 31.00), Math.toRadians(300.00))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER))))
 
-                .splineToConstantHeading(new Vector2d(-5.56, 30.62), Math.toRadians(300.00))
-                .splineToSplineHeading(new Pose2d(-33.15, 34.78, Math.toRadians(120.00)), Math.toRadians(200.00))
-                .splineToLinearHeading(new Pose2d(-35.96, 40.26, Math.toRadians(50.00)), Math.toRadians(120.00))
-                .splineToLinearHeading(new Pose2d(-41.45, 34.33, Math.toRadians(120.00)), Math.toRadians(200.00))
-                .splineToLinearHeading(new Pose2d(-45.90, 41.01, Math.toRadians(50.00)), Math.toRadians(120.00))
-                .splineToLinearHeading(new Pose2d(-50.20, 34.04, Math.toRadians(120.00)), Math.toRadians(200.00))
-                .splineToLinearHeading(new Pose2d(-54.20, 39.52, Math.toRadians(20.00)), Math.toRadians(120.00))
-                .splineToSplineHeading(new Pose2d(-49.01, 55.84, Math.toRadians(180.00)), Math.toRadians(87.06))
-                .splineToConstantHeading(new Vector2d(-5.86, 29.14), Math.toRadians(270.00))
-                .splineToConstantHeading(new Vector2d(-49.16, 56.28), Math.toRadians(150.00))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.openClaw())))
+
+                //move to pick up first sample
+                .splineToSplineHeading(new Pose2d(-33.00, 34.78, Math.toRadians(120.00)), Math.toRadians(200.00))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
+                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed())))
+                .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))))
+                //Drop off sample
+                .splineToLinearHeading(new Pose2d(-35.96, 40.00, Math.toRadians(50.00)), Math.toRadians(120.00))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
+                //pick up second sample
+                .splineToLinearHeading(new Pose2d(-41.00, 34.00, Math.toRadians(120.00)), Math.toRadians(200.00))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
+
+                .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))))
+                //drop off sample
+                .splineToLinearHeading(new Pose2d(-45.90, 41.00, Math.toRadians(50.00)), Math.toRadians(120.00))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())))
+                //pick up third sample
+                .splineToLinearHeading(new Pose2d(-50.00, 34.00, Math.toRadians(120.00)), Math.toRadians(200.00))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
+
+                .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))))
+                //drop off sample
+                .splineToLinearHeading(new Pose2d(-54.00, 39.52, Math.toRadians(20.00)), Math.toRadians(120.00))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
+                //line up for first pick up for specimen?
+                .splineToSplineHeading(new Pose2d(-49.00, 55.84, Math.toRadians(180.00)), Math.toRadians(87.06))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
+                //pick up and drop of specimens
+                .splineToConstantHeading(new Vector2d(-5.86, 29.00), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(-49.00, 56.00), Math.toRadians(150.00))
                 .splineToConstantHeading(new Vector2d(-2.60, 28.70), Math.toRadians(270.00))
                 .splineToConstantHeading(new Vector2d(-49.31, 55.98), Math.toRadians(150.00))
-                .splineToConstantHeading(new Vector2d(0.07, 28.99), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(0.00, 28.99), Math.toRadians(270.00))
+                //park
                 .splineToConstantHeading(new Vector2d(-62.81, 62.66), Math.toRadians(90.00))
 
                 .build();
