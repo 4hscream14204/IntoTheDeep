@@ -59,10 +59,9 @@ public class BlueRightx4 extends OpMode {
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
                 .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HIGHCHAMBER))))
+                .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER))))
                 //drive up to highchamber
-                .splineToConstantHeading(new Vector2d(-6.00, 31.00), Math.toRadians(300.00), new TranslationalVelConstraint(20))
-                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER))))
-
+                .splineToConstantHeading(new Vector2d(-6.00, 47.00), Math.toRadians(300.00), new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.openClaw())))
 
                 //move to pick up first sample
