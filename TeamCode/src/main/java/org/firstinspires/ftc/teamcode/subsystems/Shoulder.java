@@ -123,6 +123,7 @@ public class Shoulder extends SubsystemBase {
     }
 
     public void reset(){
+        bolStoppedInPlace = false;
         dcShoulderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcShoulderMotor.setTargetPosition(0);
         dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
