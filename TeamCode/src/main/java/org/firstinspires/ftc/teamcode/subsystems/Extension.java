@@ -13,7 +13,7 @@ public class Extension extends SubsystemBase {
         HOME (0),
         MAXSHOULDERDOWNPOSITION(-2000),
         MAXSHOULDERUPPOSITION (-3300),
-        LOWBUCKET (0),
+        LOWBUCKET (-1300),
         HIGHBUCKET (-3150),
         LOWCHAMBER (0),
         HIGHCHAMBER (-1975);
@@ -40,9 +40,13 @@ public class Extension extends SubsystemBase {
         extendMotor.setPower(0);
         extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         enmExtensionPosition = ExtensionPosition.HOME;
+        intMaxPosition = ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
     }
 
     public void extend(double power) {
+        if(extendMotor.getCurrentPosition() < intMaxPosition){
+            stopInPlace();
+        }
         if(isExtensionHome() && power > 0){
             extendMotor.setPower(0);
             return;

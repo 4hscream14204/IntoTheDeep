@@ -16,9 +16,9 @@ public class BucketEjectAndHomeCommandGroup extends SequentialCommandGroup {
         addCommands(
                 new EjectCommandGroup(robotBase.intakeSubsystem),
                 new WaitCommand(1000),
-                new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)),
                 new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
                 new WaitUntilCommand(robotBase.extensionSubsystem::isExtensionHome),
+                new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)),
                 new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem));
     }
 }
