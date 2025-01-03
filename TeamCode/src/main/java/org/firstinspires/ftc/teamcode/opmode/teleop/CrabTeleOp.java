@@ -257,10 +257,10 @@ public class CrabTeleOp extends OpMode {
         robotBase.frontRightMotor.setPower(dubFrontRightPower);
         robotBase.backRightMotor.setPower(dubBackRightPower);
 
-        if(!robotBase.shoulderSubsystem.isShoulderHome()){
+        if(!robotBase.shoulderSubsystem.isShoulderHome() && chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
         }
-        else{
+        else if(robotBase.shoulderSubsystem.isShoulderHome() && chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
         }
 
@@ -294,7 +294,6 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
         telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
-        telemetry.addData("Extension Target Position:", robotBase.extensionSubsystem.getTargetPosition());
         //telemetry.addData("Color Sensor", robotBase.intakeSubsystem.checkSampleColor());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
@@ -302,9 +301,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
         telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
-        telemetry.addData("Elbow position", robotBase.elbowSubsystem.getPosition());
-        telemetry.addData("Wrist position", robotBase.wristSubsystem.getPosition());
-        telemetry.addData("Gate position", robotBase.intakeSubsystem.intakeServoGate.getPosition());
+        telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
 
         CommandScheduler.getInstance().run();
     }
