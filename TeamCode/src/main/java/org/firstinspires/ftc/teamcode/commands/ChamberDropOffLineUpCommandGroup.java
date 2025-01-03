@@ -10,12 +10,13 @@ import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-public class ChamberDropOffCommandGroup extends SequentialCommandGroup {
-    public ChamberDropOffCommandGroup(RobotBase robotBase, Shoulder.ShoulderPosition chamberPosition, Extension.ExtensionPosition extensionChamber){
+public class ChamberDropOffLineUpCommandGroup extends SequentialCommandGroup {
+    public ChamberDropOffLineUpCommandGroup(RobotBase robotBase, Shoulder.ShoulderPosition chamberPosition, Extension.ExtensionPosition extensionChamber){
       addCommands(
         new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(chamberPosition)),
-               // new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
+        new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
         new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(chamberPosition)),
+        new WaitCommand(250),
         new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionChamber))
        /* new WaitCommand(1500),
        //new InstantCommand(()-> robotBase.intakeSubsystem.intakeOuttake()),

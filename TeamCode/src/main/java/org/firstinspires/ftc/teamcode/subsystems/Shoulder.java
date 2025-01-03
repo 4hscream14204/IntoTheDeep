@@ -8,18 +8,18 @@ public class Shoulder extends SubsystemBase {
 
     public DcMotor dcShoulderMotor;
     public DigitalChannel tsShoulderLimitSwitch;
-    public double dblUpPower = 0.3;
-    public double dblDownPower = -0.3;
+    public double dblUpPower = 0.5;
+    public double dblDownPower = -0.5;
     public boolean bolStoppedInPlace = true;
     public int intCurrentPos;
 
     public enum ShoulderPosition{
         HOME (0),
-        HIGHCHAMBER (0),
+        HIGHCHAMBER (1730),
         LOWCHAMBER (0),
         MAXPOSITION (2935),
-        LOWBASKET (2900),
-        HIGHBASKET (2900),
+        LOWBASKET (2935),
+        HIGHBASKET (2775/*2935*/),
         TOGGLE (2935);
         public final int height;
         ShoulderPosition(int high){
@@ -35,6 +35,7 @@ public class Shoulder extends SubsystemBase {
         dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         dcShoulderMotor.setPower(0);
         dcShoulderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        enmShoulderPosition = ShoulderPosition.HOME;
 
     }
 
@@ -122,6 +123,7 @@ public class Shoulder extends SubsystemBase {
     }
 
     public void reset(){
+        bolStoppedInPlace = false;
         dcShoulderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcShoulderMotor.setTargetPosition(0);
         dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);

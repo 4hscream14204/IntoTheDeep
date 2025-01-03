@@ -11,21 +11,20 @@ public class Extension extends SubsystemBase {
 
     public enum ExtensionPosition{
         HOME (0),
-        TESTPOSITION (-500),
         MAXSHOULDERDOWNPOSITION(-2000),
-        MAXSHOULDERUPPOSITION (-2300),
-        LOWBUCKET (0),
-        HIGHBUCKET (-2100),
+        MAXSHOULDERUPPOSITION (-3300),
+        LOWBUCKET (-1300),
+        HIGHBUCKET (-3150),
         LOWCHAMBER (0),
-        HIGHCHAMBER (0);
+        HIGHCHAMBER (-1975);
         public final int height;
         ExtensionPosition(int high){
             this.height = high;
         }
     }
 
-    public double dblUpPower = -0.3;
-    public double dblDownPower = 0.3;
+    public double dblUpPower = -0.5;
+    public double dblDownPower = 0.5;
     public boolean bolStopped = true;
     public int intCurrentPos;
     public int intMaxPosition;
@@ -40,9 +39,14 @@ public class Extension extends SubsystemBase {
         extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         extendMotor.setPower(0);
         extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        enmExtensionPosition = ExtensionPosition.HOME;
+        intMaxPosition = ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
     }
 
     public void extend(double power) {
+        if(extendMotor.getCurrentPosition() < intMaxPosition){
+            stopInPlace();
+        }
         if(isExtensionHome() && power > 0){
             extendMotor.setPower(0);
             return;
