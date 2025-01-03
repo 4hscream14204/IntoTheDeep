@@ -40,7 +40,6 @@ public class Extension extends SubsystemBase {
         extendMotor.setPower(0);
         extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         enmExtensionPosition = ExtensionPosition.HOME;
-        intMaxPosition = ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
     }
 
     public void extend(double power) {
