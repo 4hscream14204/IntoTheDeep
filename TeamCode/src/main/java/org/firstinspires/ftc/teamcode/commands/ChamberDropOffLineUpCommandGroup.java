@@ -6,18 +6,32 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class ChamberDropOffLineUpCommandGroup extends SequentialCommandGroup {
     public ChamberDropOffLineUpCommandGroup(RobotBase robotBase, Shoulder.ShoulderPosition chamberPosition, Extension.ExtensionPosition extensionChamber){
-      addCommands(
-        new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(chamberPosition)),
-        new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
-        new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(chamberPosition)),
-        new WaitCommand(250),
-        new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionChamber))
+              if(chamberPosition == Shoulder.ShoulderPosition.HIGHCHAMBER){
+                  addCommands(
+            new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(chamberPosition)),
+                    new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
+                    new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(chamberPosition)),
+                    new WaitCommand(250),
+                    new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionChamber))
+                  );
+        }
+          else {
+              addCommands(
+                      new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem),
+                        new InstantCommand(() -> robotBase.extensionSubsystem.goToPosition(extensionChamber)),
+                          new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
+                          new InstantCommand(()-> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF)),
+                          new WaitUntilCommand(() -> robotBase.extensionSubsystem.isAtPosition(extensionChamber)),
+                          new WaitCommand(500),
+                          new InstantCommand(() -> robotBase.shoulderSubsystem.goToPosition(chamberPosition)));
+              }
        /* new WaitCommand(1500),
        //new InstantCommand(()-> robotBase.intakeSubsystem.intakeOuttake()),
         //new WaitCommand(2000),
@@ -28,7 +42,5 @@ public class ChamberDropOffLineUpCommandGroup extends SequentialCommandGroup {
         new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem)
 
         */
-
-      );
     }
 }
