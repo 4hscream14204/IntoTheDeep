@@ -6,16 +6,16 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 public class Extension extends SubsystemBase {
 
-    DcMotor extendMotor;
+    public DcMotor extendMotor;
     public DigitalChannel tsExtensionLimitSwitch;
 
     public enum ExtensionPosition{
         HOME (0),
-        MAXSHOULDERDOWNPOSITION(-2000),
-        MAXSHOULDERUPPOSITION (-3300),
-        LOWBUCKET (-1300),
+        MAXSHOULDERDOWNPOSITION(-1950),
+        MAXSHOULDERUPPOSITION (-3200),
+        LOWBUCKET (-1350),
         HIGHBUCKET (-3150),
-        LOWCHAMBER (0),
+        LOWCHAMBER (-700),
         HIGHCHAMBER (-1975);
         public final int height;
         ExtensionPosition(int high){
@@ -134,5 +134,9 @@ public class Extension extends SubsystemBase {
 
     public int getTargetPosition(){
         return extendMotor.getTargetPosition();
+    }
+
+    public boolean isPastMaxPosition(){
+        return extensionGetPosition() <= intMaxPosition;
     }
 }

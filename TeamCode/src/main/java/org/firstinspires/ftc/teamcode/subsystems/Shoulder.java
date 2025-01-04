@@ -16,7 +16,7 @@ public class Shoulder extends SubsystemBase {
     public enum ShoulderPosition{
         HOME (0),
         HIGHCHAMBER (1730),
-        LOWCHAMBER (0),
+        LOWCHAMBER (680),
         MAXPOSITION (2935),
         LOWBASKET (2935),
         HIGHBASKET (2775/*2935*/),
