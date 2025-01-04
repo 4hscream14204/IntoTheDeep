@@ -60,23 +60,24 @@ public class BlueRightx4 extends OpMode {
            //     .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
                 //drive up to highchamber
                 .splineToConstantHeading(new Vector2d(-4.0, 22.00), Math.toRadians(180.00), new TranslationalVelConstraint(20))
+                .setTangent(180)
               /*  .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HIGHCHAMBER))))
                 .afterTime(2.0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.openClaw())))
 
                */
+
                 .splineToConstantHeading(new Vector2d(0.0, 40.00), Math.toRadians(180.00), new TranslationalVelConstraint(20))
+                .setTangent(180)
                 //move to pick up first sample
-                .splineToSplineHeading(new Pose2d(-33.00, 40.00, Math.toRadians(120.00)), Math.toRadians(200.00), new TranslationalVelConstraint(20))
+                .splineTo(new Vector2d(-33.00, 40.00), Math.toRadians(90.00), new TranslationalVelConstraint(20))
                // .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
               //  .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
-                // keep commented.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed())))
                 //.afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 //.afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))))
                 //Drop off sample
                 .splineToLinearHeading(new Pose2d(-35.96, 40.00, Math.toRadians(50.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
                 //pick up second sample
                 .splineToLinearHeading(new Pose2d(-41.00, 34.00, Math.toRadians(120.00)), Math.toRadians(200.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
@@ -89,9 +90,6 @@ public class BlueRightx4 extends OpMode {
                 //drop off sample
                 .splineToLinearHeading(new Pose2d(-45.90, 41.00, Math.toRadians(50.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
-
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())))
                 //pick up third sample
                 .splineToLinearHeading(new Pose2d(-50.00, 34.00, Math.toRadians(120.00)), Math.toRadians(200.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
@@ -105,7 +103,6 @@ public class BlueRightx4 extends OpMode {
                 .splineToLinearHeading(new Pose2d(-54.00, 39.52, Math.toRadians(20.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
 
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
                 //line up for first pick up for specimen?
                 .splineToSplineHeading(new Pose2d(-49.00, 55.84, Math.toRadians(180.00)), Math.toRadians(87.06), new TranslationalVelConstraint(20))
                 //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
