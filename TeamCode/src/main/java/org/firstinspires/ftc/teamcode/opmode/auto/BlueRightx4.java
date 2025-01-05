@@ -57,22 +57,24 @@ public class BlueRightx4 extends OpMode {
 
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
-                .splineToConstantHeading(new Vector2d(-8.0, 26.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .setTangent(90)
+                .setTangent(Math.toRadians(270))
+                .splineToConstantHeading(new Vector2d(-6.0, 26.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                //    .setTangent(90)
                 //line up for first specimen
-                .splineToConstantHeading(new Vector2d(-8.0, 30), Math.toRadians(90), new TranslationalVelConstraint(20))
-                .setTangent(90)
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-6.0, 30), Math.toRadians(90), new TranslationalVelConstraint(20))
+                // .setTangent(90)
                 .splineToLinearHeading(new Pose2d(-34.00, 35.00, Math.toRadians(130.00)), Math.toRadians(180.00), new TranslationalVelConstraint(20))
-                .setTangent(180)
+                .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(new Pose2d(-35.00, 40, Math.toRadians(50)), Math.toRadians(90), new TranslationalVelConstraint(20))
                 //  .splineToLinearHeading(new Pose2d(-35.96, 40.00, Math.toRadians(50.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
-                .setTangent(200)
+                .setTangent(Math.toRadians(200))
                 .splineToLinearHeading(new Pose2d(-44.00, 34.00, Math.toRadians(120.00)), Math.toRadians(200.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
 
                 .splineToLinearHeading(new Pose2d(-45.90, 41.00, Math.toRadians(50.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
-                .setTangent(120)
+                .setTangent(Math.toRadians(120))
                 .splineToLinearHeading(new Pose2d(-50.00, 34.00, Math.toRadians(120.00)), Math.toRadians(200.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
                 .splineToLinearHeading(new Pose2d(-58.00, 39.52, Math.toRadians(20.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
@@ -80,89 +82,25 @@ public class BlueRightx4 extends OpMode {
                 .splineToSplineHeading(new Pose2d(-49.00, 55.84, Math.toRadians(180.00)), Math.toRadians(87.06), new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-49, 60.00), Math.toRadians(90.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
-                .setTangent(270)
+                .setTangent(Math.toRadians(270))
                 .splineToLinearHeading(new Pose2d(-6.00, 29.00, Math.toRadians(180.00)) , Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .waitSeconds(0.1)
-                .setTangent(90)
+                .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-49.00, 56.00), Math.toRadians(90.00), new TranslationalVelConstraint(30))
                 .splineToConstantHeading(new Vector2d(-49, 60.00), Math.toRadians(90.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
-                .setTangent(320)
+                .setTangent(Math.toRadians(320))
                 .splineToConstantHeading(new Vector2d(-5.60, 28.70), Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .waitSeconds(0.1)
-                .setTangent(90)
+                .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-49.31, 55.98), Math.toRadians(90.00), new TranslationalVelConstraint(30))
                 .splineToConstantHeading(new Vector2d(-49, 60.00), Math.toRadians(90.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
-                .setTangent(320)
+                .setTangent(Math.toRadians(320))
                 .splineToConstantHeading(new Vector2d(-2.00, 28.99), Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .waitSeconds(0.1)
-                .setTangent(90)
+                .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-61.81, 62.66), Math.toRadians(90.00), new TranslationalVelConstraint(30))
-                /*
-           //     .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
-                //drive up to highchamber
-                .splineToConstantHeading(new Vector2d(-4.0, 22.00), Math.toRadians(180.00), new TranslationalVelConstraint(20))
-                .setTangent(180)
-              /*  .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HIGHCHAMBER))))
-                .afterTime(2.0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER))))
-                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.openClaw())))
-
-               */
-/*
-                .splineToConstantHeading(new Vector2d(0.0, 40.00), Math.toRadians(180.00), new TranslationalVelConstraint(20))
-                .setTangent(180)
-                //move to pick up first sample
-                .splineTo(new Vector2d(-33.00, 40.00), Math.toRadians(90.00), new TranslationalVelConstraint(20))
-               // .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
-              //  .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
-                //.afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
-                //.afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))))
-                //Drop off sample
-                .splineToLinearHeading(new Pose2d(-35.96, 40.00, Math.toRadians(50.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
-                .waitSeconds(0.1)
-                //pick up second sample
-                .splineToLinearHeading(new Pose2d(-41.00, 34.00, Math.toRadians(120.00)), Math.toRadians(200.00), new TranslationalVelConstraint(20))
-                .waitSeconds(0.1)
-
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
-
-               // .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
-                //.afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))))
-                //drop off sample
-                .splineToLinearHeading(new Pose2d(-45.90, 41.00, Math.toRadians(50.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
-                .waitSeconds(0.1)
-                //pick up third sample
-                .splineToLinearHeading(new Pose2d(-50.00, 34.00, Math.toRadians(120.00)), Math.toRadians(200.00), new TranslationalVelConstraint(20))
-                .waitSeconds(0.1)
-
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
-
-                //.afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
-                //.afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))))
-                //drop off sample
-                .splineToLinearHeading(new Pose2d(-54.00, 39.52, Math.toRadians(20.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
-                .waitSeconds(0.1)
-
-                //line up for first pick up for specimen?
-                .splineToSplineHeading(new Pose2d(-49.00, 55.84, Math.toRadians(180.00)), Math.toRadians(87.06), new TranslationalVelConstraint(20))
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))))
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
-                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
-                //pick up and drop of specimens
-                .splineToConstantHeading(new Vector2d(-5.86, 29.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-49.00, 56.00), Math.toRadians(150.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-2.60, 28.70), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-49.31, 55.98), Math.toRadians(150.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(0.00, 28.99), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                //park
-                .splineToConstantHeading(new Vector2d(-62.81, 62.66), Math.toRadians(90.00), new TranslationalVelConstraint(20))
-
-
- */
                 .build();
 
         //robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
