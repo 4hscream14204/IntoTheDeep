@@ -34,7 +34,7 @@ public class AutoTest2 extends OpMode {public TelemetryPacket telemetryPacket;
     @Override
     public void init() {
 
-        startPose = new Pose2d(-14, 61, Math.toRadians(270));
+        startPose = new Pose2d(-14, 61, Math.toRadians(180));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
@@ -64,20 +64,20 @@ public class AutoTest2 extends OpMode {public TelemetryPacket telemetryPacket;
                 // .setTangent(90)
                 .splineToLinearHeading(new Pose2d(-34.00, 35.00, Math.toRadians(130.00)), Math.toRadians(180.00), new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(180))
-                .splineToLinearHeading(new Pose2d(-35.00, 40, Math.toRadians(50)), Math.toRadians(90), new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(-33.00, 40, Math.toRadians(50)), Math.toRadians(90), new TranslationalVelConstraint(20))
                 //  .splineToLinearHeading(new Pose2d(-35.96, 40.00, Math.toRadians(50.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(200))
                 .splineToLinearHeading(new Pose2d(-44.00, 34.00, Math.toRadians(120.00)), Math.toRadians(200.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
 
-                .splineToLinearHeading(new Pose2d(-45.90, 41.00, Math.toRadians(50.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(-45.00, 41.00, Math.toRadians(50.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
                 .setTangent(Math.toRadians(120))
                 .splineToLinearHeading(new Pose2d(-50.00, 34.00, Math.toRadians(120.00)), Math.toRadians(200.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
-                .splineToLinearHeading(new Pose2d(-58.00, 39.52, Math.toRadians(20.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(-58.00, 39.00, Math.toRadians(20.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
-                .splineToSplineHeading(new Pose2d(-49.00, 55.84, Math.toRadians(180.00)), Math.toRadians(87.06), new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(-45.00, 55.00, Math.toRadians(180.00)), Math.toRadians(87.06), new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-49, 60.00), Math.toRadians(90.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
                 .setTangent(Math.toRadians(270))
