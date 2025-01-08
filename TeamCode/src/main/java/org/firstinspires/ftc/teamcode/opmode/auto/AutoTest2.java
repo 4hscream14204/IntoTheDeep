@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.opmode.auto;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Trajectory;
-import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
@@ -12,31 +10,32 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.ITDEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import org.firstinspires.ftc.teamcode.subsystems.DataStorage;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
-import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
 
-@Autonomous(name = "RoutTest")
-public class RouteTesting extends OpMode {
-    public TelemetryPacket telemetryPacket;
+@Disabled
+@Autonomous(name = "BlueLeftX2")
+public class AutoTest2 extends OpMode {public TelemetryPacket telemetryPacket;
+
     public Pose2d startPose;
+
     public RobotBase robotBase;
     public GamepadEx armController;
     public GamepadEx baseController;
     public int waitSec = 0;
     public Action waitAction;
-    private Action routTest;
-    SparkFunOTOSDrive drive;
+    public  Action blueLeftAction;
 
     @Override
-    public void init (){
-        Pose2d beginPose = new Pose2d(-14, 61, Math.toRadians(180));
+    public void init() {
 
+        startPose = new Pose2d(-14, 61, Math.toRadians(180));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
@@ -53,7 +52,8 @@ public class RouteTesting extends OpMode {
                 .whenPressed(new InstantCommand(
                         ()-> waitSec--
                 ));
-        routTest = drive.actionBuilder(beginPose)
+
+        blueLeftAction = robotBase.drive.actionBuilder(startPose)
                 .setTangent(Math.toRadians(270))
                 .splineToConstantHeading(new Vector2d(-6.0, 26.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 //    .setTangent(90)
@@ -100,12 +100,15 @@ public class RouteTesting extends OpMode {
                 .splineToConstantHeading(new Vector2d(-61.81, 62.66), Math.toRadians(90.00), new TranslationalVelConstraint(30))
                 .build();
         robotBase.alliance = ITDEnums.EnmAlliance.BLUE;
+
     }
+
     @Override
     public void init_loop() {
         CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", waitSec);
     }
+
     @Override
     public void start() {
         if (waitSec > 0) {
@@ -118,9 +121,16 @@ public class RouteTesting extends OpMode {
     }
 
     @Override
-    public void loop (){
+    public void loop() {
         CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", 0);
-        routTest.run(telemetryPacket);
+        blueLeftAction.run(telemetryPacket);
+    }
+
+    @Override
+    public void stop() {
+        robotBase.drive.updatePoseEstimate();
+        DataStorage.alliance = robotBase.alliance;
+        DataStorage.dblIMUFinalHeadingRad = robotBase.drive.otos.getPosition().h;
     }
 }
