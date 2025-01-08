@@ -73,7 +73,7 @@ public class CrabTeleOp extends OpMode {
                         new InstantCommand(() ->robotBase.clawSubsystem.toggleClaw())
                 ));
         chassisController.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed((new EjectCommandGroup(robotBase.intakeSubsystem)));
+                .whenPressed((new BucketEjectAndHomeCommandGroup(robotBase, robotBase.intakeSubsystem, robotBase.shoulderSubsystem, robotBase.extensionSubsystem, robotBase.wristSubsystem)));
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenActive(()-> CommandScheduler.getInstance().schedule(
@@ -163,14 +163,12 @@ public class CrabTeleOp extends OpMode {
         //high basket button combo
         armController.getGamepadButton(GamepadKeys.Button.Y)
                 .and(armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER))
-                .toggleWhenActive(new BucketExtendUpCommandGroup(robotBase, Shoulder.ShoulderPosition.HIGHBASKET, Extension.ExtensionPosition.HIGHBUCKET),
-                        new BucketEjectAndHomeCommandGroup( robotBase, robotBase.intakeSubsystem, robotBase.shoulderSubsystem, robotBase.extensionSubsystem, robotBase.wristSubsystem));
+                .whenActive(new BucketExtendUpCommandGroup(robotBase, Shoulder.ShoulderPosition.HIGHBASKET, Extension.ExtensionPosition.HIGHBUCKET));
 
                 //low basket button combo
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
-                .toggleWhenActive(new BucketExtendUpCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWBASKET, Extension.ExtensionPosition.LOWBUCKET),
-                        new BucketEjectAndHomeCommandGroup(robotBase, robotBase.intakeSubsystem, robotBase.shoulderSubsystem, robotBase.extensionSubsystem, robotBase.wristSubsystem));
+                .whenActive(new BucketExtendUpCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWBASKET, Extension.ExtensionPosition.LOWBUCKET));
 
         //high Chamber button combo
         armController.getGamepadButton(GamepadKeys.Button.Y)

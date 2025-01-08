@@ -23,8 +23,8 @@ public class Extension extends SubsystemBase {
         }
     }
 
-    public double dblUpPower = -0.5;
-    public double dblDownPower = 0.5;
+    public double dblUpPower = -1;
+    public double dblDownPower = 1;
     public boolean bolStopped = true;
     public int intCurrentPos;
     public int intMaxPosition;

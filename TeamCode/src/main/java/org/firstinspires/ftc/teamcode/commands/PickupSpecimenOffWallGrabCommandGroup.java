@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.commands;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.arcrobotics.ftclib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
@@ -14,6 +15,7 @@ public class PickupSpecimenOffWallGrabCommandGroup extends SequentialCommandGrou
     public PickupSpecimenOffWallGrabCommandGroup(Extension extension, Shoulder shoulder, Claw claw, Elbow elbow, Wrist wrist){
         addCommands(
                 new InstantCommand(claw::closeClaw),
+                new WaitUntilCommand(()->!claw.isBolClawOpen()),
                 new InstantCommand(()->shoulder.goToPosition(Shoulder.ShoulderPosition.HIGHCHAMBER))
         );
     }

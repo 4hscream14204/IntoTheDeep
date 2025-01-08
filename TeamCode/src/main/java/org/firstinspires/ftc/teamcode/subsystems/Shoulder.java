@@ -8,8 +8,8 @@ public class Shoulder extends SubsystemBase {
 
     public DcMotor dcShoulderMotor;
     public DigitalChannel tsShoulderLimitSwitch;
-    public double dblUpPower = 0.5;
-    public double dblDownPower = -0.5;
+    public double dblUpPower = 1;
+    public double dblDownPower = -0.75;
     public boolean bolStoppedInPlace = true;
     public int intCurrentPos;
 
@@ -19,7 +19,7 @@ public class Shoulder extends SubsystemBase {
         LOWCHAMBER (680),
         MAXPOSITION (2935),
         LOWBASKET (2935),
-        HIGHBASKET (2775/*2935*/),
+        HIGHBASKET (2935/*2935*/),
         TOGGLE (2935);
         public final int height;
         ShoulderPosition(int high){
