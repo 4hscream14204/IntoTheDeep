@@ -19,8 +19,7 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.DataStorage;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
-@Disabled
-@Autonomous(name = "BlueLeftX2")
+@Autonomous(name = "test2")
 public class AutoTest2 extends OpMode {public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
@@ -35,7 +34,7 @@ public class AutoTest2 extends OpMode {public TelemetryPacket telemetryPacket;
     @Override
     public void init() {
 
-        startPose = new Pose2d(-14, 61, Math.toRadians(180));
+        startPose = new Pose2d(-14, 61, Math.toRadians(270));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
@@ -55,11 +54,13 @@ public class AutoTest2 extends OpMode {public TelemetryPacket telemetryPacket;
 
         blueLeftAction = robotBase.drive.actionBuilder(startPose)
                 .setTangent(Math.toRadians(270))
-                .splineToConstantHeading(new Vector2d(-6.0, 26.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-6.0, 30.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                                                                //26
                 //    .setTangent(90)
                 //line up for first specimen
                 .setTangent(Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-6.0, 30), Math.toRadians(90), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-6.0, 34), Math.toRadians(90), new TranslationalVelConstraint(20))
+                                                                //30
                 // .setTangent(90)
                 .splineToLinearHeading(new Pose2d(-34.00, 35.00, Math.toRadians(130.00)), Math.toRadians(180.00), new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(180))
