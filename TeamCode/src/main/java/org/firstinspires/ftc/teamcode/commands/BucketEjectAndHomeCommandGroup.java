@@ -12,10 +12,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class BucketEjectAndHomeCommandGroup extends SequentialCommandGroup {
-    public BucketEjectAndHomeCommandGroup(RobotBase robotBase, Intake intake, Shoulder shoulder, Extension extension, Wrist wrist){
+    public BucketEjectAndHomeCommandGroup(RobotBase robotBase, Intake intake, Shoulder shoulder, Extension extension, Wrist wrist, EjectCommandGroup ejectCommandGroup){
         addCommands(
                 new EjectCommandGroup(robotBase.intakeSubsystem),
-                new WaitCommand(1000),
+                new WaitUntilCommand(()->ejectCommandGroup.hasRan = true),
                 new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
                 new WaitUntilCommand(robotBase.extensionSubsystem::isExtensionHome),
                 new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)),
