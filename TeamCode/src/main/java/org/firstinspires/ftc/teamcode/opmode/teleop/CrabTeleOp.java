@@ -147,13 +147,14 @@ public class CrabTeleOp extends OpMode {
                 .whenPressed(new PickupElbowWristCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));*/
 
         armController.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
+                .toggleWhenPressed(new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem),
+                        new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed((new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem)));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(((new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem))));
+                .whenPressed(((new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))));
 
         armController.getGamepadButton(GamepadKeys.Button.X)
                 .toggleWhenPressed(new ShoulderToggleIfNotHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem), new ShoulderToggleIfHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem));
