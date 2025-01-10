@@ -1,28 +1,62 @@
 package org.firstinspires.ftc.teamcode.opmode.auto;
 
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
+import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.subsystems.Elbow;
+import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
+@Autonomous (name = "BlueRight4x")
+public class BlueRightx4 extends OpMode {
+    public TelemetryPacket telemetryPacket;
 
-public class BlueRight {
-    @Autonomous
-    public class blueRight extends OpMode {
+    public Pose2d startPose;
+
+    public RobotBase robotBase;
+    public GamepadEx armController;
+    public GamepadEx baseController;
+    public int waitSec = 0;
+    public Action waitAction;
+    public Action blueRightx4Action;
 
 
-        private Action blueRight;
-        SparkFunOTOSDrive drive;
-        @Override
-        public void init (){
+    @Override
+    public void init() {
+        startPose = new Pose2d(-14, 61, Math.toRadians(270));
+        robotBase =new RobotBase(hardwareMap);
+        armController = new GamepadEx(gamepad2);
+        baseController = new GamepadEx(gamepad1);
+        CommandScheduler.getInstance().reset();
+        robotBase.drive.pose = startPose;
+        telemetryPacket = new TelemetryPacket();
+
+        baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenPressed(new InstantCommand(
+                        ()-> waitSec++
+                ));
+
+        baseController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenPressed(new InstantCommand(
+                        ()-> waitSec--
+                ));
+
+
+        blueRightx4Action = robotBase.drive.actionBuilder(startPose)
                           .setTangent(Math.toRadians(270))
                     .splineToConstantHeading(new Vector2d(-6.0, 26.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                     //    .setTangent(90)
