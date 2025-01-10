@@ -157,9 +157,19 @@ public class MeepMeepMicah {
                 .splineToConstantHeading(new Vector2d(16, -62), Math.toRadians(-180.00), new TranslationalVelConstraint(20))
                 .build();
 
-
-
-        myBot.runAction(blueLefthp);
+        Action bluetesting3x  = myBot.getDrive().actionBuilder(new Pose2d(-10.00, 33.50, Math.toRadians(180.00)))
+                .splineToSplineHeading(new Pose2d(-32.11, 14.01, Math.toRadians(90.00)), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(-48.12, 11.64), Math.toRadians(180.00))
+                .splineToConstantHeading(new Vector2d(-47.98, 62.81), Math.toRadians(89.84))
+                .splineToConstantHeading(new Vector2d(-48.12, 46.20), Math.toRadians(90.00))
+                .splineToConstantHeading(new Vector2d(-64.14, 63.25), Math.toRadians(90.00))
+                .setReversed(true)
+                .splineToSplineHeading(new Pose2d(-14.01, 49.46, Math.toRadians(-19.60)), Math.toRadians(-19.60))
+                .splineToConstantHeading(new Vector2d(-2.11, 27.87), Math.toRadians(270.00))
+                .splineToConstantHeading(new Vector2d(-60.55, 59.95), Math.toRadians(180.00))
+                .setReversed(false)
+                .build();
+        myBot.runAction(bluetesting3x);
 
 
 
