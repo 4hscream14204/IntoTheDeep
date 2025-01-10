@@ -18,6 +18,7 @@ public class ConnorDemoBot extends OpMode {
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
     Servo claw;
+    Servo test;
     DcMotorSimple arm = null;
 
     @Override
@@ -29,6 +30,7 @@ public class ConnorDemoBot extends OpMode {
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
         claw = hardwareMap.servo.get("clawServo");
         arm = hardwareMap.get(DcMotorSimple.class, "armMotor");
+        test = hardwareMap.get(Servo.class, "test");
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -84,6 +86,14 @@ public class ConnorDemoBot extends OpMode {
 
             if (gamepad1.start) {
                 imu.resetYaw();
+            }
+
+            if(gamepad1.b){
+                test.setPosition(0);
+            }
+
+            if(gamepad1.y){
+                test.setPosition(1);
             }
 
             frontLeftMotor.setPower(frontLeftPower);
