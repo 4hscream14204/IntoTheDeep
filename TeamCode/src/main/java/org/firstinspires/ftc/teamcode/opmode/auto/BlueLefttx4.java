@@ -52,8 +52,7 @@ public class BlueLefttx4 extends OpMode {
 
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
-                .splineToConstantHeading(new Vector2d(7.79, 26.00), Math.toRadians(270))
-                .setTangent(90)
+                .splineToConstantHeading(new Vector2d(7.79, 26.00), Math.toRadians(270), new TranslationalVelConstraint(20))
                 .splineToLinearHeading(new Pose2d(40.00, 33, Math.toRadians(230)), Math.toRadians(310))
                 .setTangent(45)
                 //    .splineToConstantHeading(new Vector2d(40.12, 33.44), Math.toRadians(-12.77))
