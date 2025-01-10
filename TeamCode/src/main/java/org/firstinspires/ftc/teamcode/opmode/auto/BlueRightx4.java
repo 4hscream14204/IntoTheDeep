@@ -80,7 +80,7 @@ public class BlueRightx4 extends OpMode {
                 .splineToLinearHeading(new Pose2d(-58.00, 39.52, Math.toRadians(20.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
                 .splineToSplineHeading(new Pose2d(-49.00, 55.84, Math.toRadians(180.00)), Math.toRadians(87.06), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-49, 60.00), Math.toRadians(90.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-49.00, 60.00), Math.toRadians(90.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.1)
                 .setTangent(Math.toRadians(270))
                 .splineToLinearHeading(new Pose2d(-6.00, 29.00, Math.toRadians(180.00)) , Math.toRadians(270.00), new TranslationalVelConstraint(30))
