@@ -12,19 +12,30 @@ import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class ChamberDropOffLineUpCommandGroup extends SequentialCommandGroup {
-    public ChamberDropOffLineUpCommandGroup(RobotBase robotBase, Shoulder.ShoulderPosition chamberPosition, Extension.ExtensionPosition extensionChamber){
+    public ChamberDropOffLineUpCommandGroup(RobotBase robotBase, Shoulder.ShoulderPosition chamberPosition, Extension.ExtensionPosition extensionChamber, Shoulder.ShoulderPosition clampPosition, Extension.ExtensionPosition extendClamp){
               if(chamberPosition == Shoulder.ShoulderPosition.HIGHCHAMBER){
                   addCommands(
-            new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(chamberPosition)),
+                    new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(chamberPosition)),
                     new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
                     new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(chamberPosition)),
                     new WaitCommand(250),
-                    new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionChamber))
+                    new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionChamber)),
+                    new WaitCommand(1500),
+                    new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(clampPosition)),
+                    new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(clampPosition)),
+                    new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(extendClamp)),
+                    new WaitCommand(500),
+                    new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF)),
+                    new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
+                    new WaitCommand(250),
+                    new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
+                    new WaitUntilCommand(()->robotBase.extensionSubsystem.isExtensionHome()),
+                    new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
                   );
         }
           else {
               addCommands(
-                      new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem),
+                      new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
                         new InstantCommand(() -> robotBase.extensionSubsystem.goToPosition(extensionChamber)),
                           new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
                           new InstantCommand(()-> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF)),

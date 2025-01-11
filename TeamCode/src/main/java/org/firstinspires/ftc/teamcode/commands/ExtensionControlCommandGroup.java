@@ -28,5 +28,11 @@ public class ExtensionControlCommandGroup extends SequentialCommandGroup {
         else if(robotBase.extensionSubsystem.isPastMaxPosition() && triggerPower > 0.1){
             robotBase.extensionSubsystem.extend(triggerPower);
         }
+        else if(robotBase.shoulderSubsystem.isShoulderHome()){
+            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
+        }
+        else if(!robotBase.shoulderSubsystem.isShoulderHome()){
+            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
+        }
     }
 }
