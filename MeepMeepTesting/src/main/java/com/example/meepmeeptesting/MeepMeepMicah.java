@@ -9,30 +9,33 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class MeepMeepMicah {
     public static void main(String[] args) {
-        MeepMeep meepMeep = new MeepMeep(800);
+        MeepMeep meepMeep = new MeepMeep(720);
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
 
 
                 .build();
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(14, 61, Math.toRadians(180)))
-                .splineToConstantHeading(new Vector2d(7.79, 34.48), Math.toRadians(264.37), new TranslationalVelConstraint(20))
-                        .setTangent(45)
-                .splineToLinearHeading(new Pose2d(40.12, 33, Math.toRadians(230)), Math.toRadians(310))
-                                .setTangent(45)
+                        .waitSeconds(2)
+                        .setTangent(Math.toRadians(270))
+                .splineToConstantHeading(new Vector2d(8, 34), Math.toRadians(270), new TranslationalVelConstraint(20))
+                        .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(40, 33, Math.toRadians(230)), Math.toRadians(310))
+                                .setTangent(Math.toRadians(55))
             //    .splineToConstantHeading(new Vector2d(40.12, 33.44), Math.toRadians(-12.77))
-                .splineToLinearHeading(new Pose2d(54.06, 56.25, Math.toRadians(-42.00)), Math.toRadians(58.68))
-                        .setTangent(180)
-                .splineToLinearHeading(new Pose2d(56.16, 29.29, Math.toRadians(180.00)), Math.toRadians(-86.71), new TranslationalVelConstraint(20))
-                        .setTangent(45)
-                .splineToLinearHeading(new Pose2d(54.95, 57.54, Math.toRadians(330.00)), Math.toRadians(54.73), new TranslationalVelConstraint(20))
-                                .setTangent(270)
+                .splineToLinearHeading(new Pose2d(50, 56, Math.toRadians(-42)), Math.toRadians(59))
+                        .setTangent(Math.toRadians(250))
+                .splineToLinearHeading(new Pose2d(52, 29, Math.toRadians(180)), Math.toRadians(-87), new TranslationalVelConstraint(20))
+                        .setTangent(Math.toRadians(45))
+                .splineToLinearHeading(new Pose2d(50, 56, Math.toRadians(317)), Math.toRadians(55), new TranslationalVelConstraint(20))
+                                .setTangent(Math.toRadians(270))
                // .splineTo(new Vector2d(67.55, 56.43), Math.toRadians(254.77))
-                .splineToLinearHeading(new Pose2d(58.25, 31.22, Math.toRadians(180.00)), Math.toRadians(45), new TranslationalVelConstraint(20))
-                        .setTangent(220)
-                .splineTo(new Vector2d(63.99, 50.17), Math.toRadians(90.00), new TranslationalVelConstraint(20))
-                .splineTo(new Vector2d(48.27, 18.91), Math.toRadians(230.56), new TranslationalVelConstraint(20))
-                .splineTo(new Vector2d(24.40, 12.23), Math.toRadians(179.50), new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(54, 31, Math.toRadians(180)), Math.toRadians(45), new TranslationalVelConstraint(20))
+                        .setTangent(Math.toRadians(45))
+                .splineToLinearHeading(new Pose2d(57, 50, Math.toRadians(320)), Math.toRadians(45), new TranslationalVelConstraint(20))
+                .setTangent(Math.toRadians(270))
+                .splineTo(new Vector2d(50, 19), Math.toRadians(220), new TranslationalVelConstraint(20))
+                .splineTo(new Vector2d(24, 12), Math.toRadians(180), new TranslationalVelConstraint(20))
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
