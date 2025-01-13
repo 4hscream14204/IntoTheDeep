@@ -9,7 +9,8 @@ public class Wrist extends SubsystemBase {
         HOME (0.6555),
         PICKUP(0.580555),
         PRESUBPICKUP(0.6666),
-        BUCKETDROPOFF (0.3/*0.36,0.4166,0.291666*/);
+        BUCKETDROPOFF (0.3/*0.36,0.4166,0.291666*/),
+        AUTOINIT (0.00056);
         public final double value;
         WristPosition(double m_position) {
             this.value = m_position;
@@ -22,7 +23,7 @@ public class Wrist extends SubsystemBase {
 
     public Wrist(Servo wristServo) {
     srvWrist = wristServo;
-    srvWrist.setPosition(WristPosition.HOME.value);
+    srvWrist.setPosition(WristPosition.AUTOINIT.value);
     }
 
     public void goToPosition(WristPosition enmTargetPosition) {

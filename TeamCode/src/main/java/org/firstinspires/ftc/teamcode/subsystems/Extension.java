@@ -20,8 +20,8 @@ public class Extension extends SubsystemBase {
         NEWLOWCHAMBER (0),
         HIGHCHAMBER (-1975),
         HIGHCHAMBERCLAMP (-1425),
-        NEWHIGHCHAMBER (-1870),
-        NEWHIGHCHAMBERCLAMP (-1150);
+        NEWHIGHCHAMBER (-1827),//-1870
+        NEWHIGHCHAMBERCLAMP (-1388);//-1150
         public final int height;
         ExtensionPosition(int high){
             this.height = high;

@@ -29,7 +29,7 @@ public class RobotBase {
     public Extension extensionSubsystem;
     public Shoulder shoulderSubsystem;
     public Wrist wristSubsystem;
-    public ITDCrabEnums alliance;
+    public ITDCrabEnums.EnmAlliance alliance;
     //public Timer timerSubsystem;
 
     public SparkFunOTOSDrive drive;
