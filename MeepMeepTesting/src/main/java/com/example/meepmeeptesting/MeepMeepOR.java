@@ -17,6 +17,7 @@ public class MeepMeepOR {
 
                         .build();
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(270)))
+                        .waitSeconds(2)
                 .setTangent(Math.toRadians(270))
                 .splineToConstantHeading(new Vector2d(-6.0, 30.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 //26
