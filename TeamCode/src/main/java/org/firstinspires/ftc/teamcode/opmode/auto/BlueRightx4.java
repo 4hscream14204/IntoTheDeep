@@ -76,6 +76,7 @@ public class BlueRightx4 extends OpMode {
                 .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-2.0, 40), Math.toRadians(90), new TranslationalVelConstraint(20))
                 //30
+                //.afterTime(1,()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.))
                 // .setTangent(90)
                 .splineToLinearHeading(new Pose2d(-20.0, 40.00, Math.toRadians(130.00)), Math.toRadians(180.00), new TranslationalVelConstraint(30))
                 .splineToLinearHeading(new Pose2d(-30.0, 28.00, Math.toRadians(130.00)), Math.toRadians(200.00), new TranslationalVelConstraint(30))
