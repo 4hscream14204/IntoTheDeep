@@ -70,6 +70,10 @@ public class Shoulder extends SubsystemBase {
             dcShoulderMotor.setPower(0);
             return;
         }
+        if(isShoulderHome() && power == 0){
+            reset();
+            dcShoulderMotor.setPower(0);
+        }
         else{
             dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             dcShoulderMotor.setPower(power);

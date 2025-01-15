@@ -17,6 +17,7 @@ public class ChamberDropOffLineUpCommandGroup extends SequentialCommandGroup {
                   addCommands(
                     new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(chamberPosition)),
                     new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
+                    new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
                     new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(chamberPosition)),
                     new WaitCommand(250),
                     new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionChamber)),

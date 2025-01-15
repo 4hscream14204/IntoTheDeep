@@ -53,6 +53,7 @@ public class Extension extends SubsystemBase {
         }
         if(isExtensionHome() && power > 0){
             extendMotor.setPower(0);
+            reset();
             return;
         }
         else {

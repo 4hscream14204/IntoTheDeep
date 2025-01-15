@@ -11,11 +11,11 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 public class ShoulderHomeCommandGroup extends SequentialCommandGroup {
     public ShoulderHomeCommandGroup(Shoulder shoulder, Elbow elbow, Wrist wrist){
         addCommands(
-                new InstantCommand(()-> shoulder.goDown(shoulder.dblDownPower)),
+                new InstantCommand(()-> shoulder.goUpOrDown(shoulder.dblDownPower)),
                 new WaitUntilCommand(shoulder::isShoulderHome),
-                new InstantCommand(shoulder::reset),
                 new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
-                new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PRESUBPICKUP))
+                new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PRESUBPICKUP)),
+                new InstantCommand(shoulder::reset)
         );
     }
 }
