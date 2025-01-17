@@ -58,19 +58,24 @@ public class autotest extends OpMode {
         blueRightAction = robotBase.drive.actionBuilder(startPose)
                 .waitSeconds(2)
                 .setTangent(Math.toRadians(270))
+                //Go to sub
                 .splineToConstantHeading(new Vector2d(8, 34), Math.toRadians(270), new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(35, 33,Math.toRadians(230)), Math.toRadians(310), new TranslationalVelConstraint(20))
+                //Goes to first sample
+                .splineToLinearHeading(new Pose2d(27, 36,Math.toRadians(230)), Math.toRadians(310), new TranslationalVelConstraint(20))
                 //.afterTime(new InstantCommand(()->robotBase.
-                /*.setTangent(Math.toRadians(55))
-
-                    .splineToConstantHeading(new Vector2d(40.12, 33.44), Math.toRadians(-12.77))
-                .splineToLinearHeading(new Pose2d(50, 56, Math.toRadians(-42)), Math.toRadians(59))
-                .setTangent(Math.toRadians(250))
-                .splineToLinearHeading(new Pose2d(52, 29, Math.toRadians(180)), Math.toRadians(-87), new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(45))
-                .splineToLinearHeading(new Pose2d(50, 56, Math.toRadians(317)), Math.toRadians(55), new TranslationalVelConstraint(20))
+                //goes to basket and drops off
+                .splineToLinearHeading(new Pose2d(45, 57, Math.toRadians(135 )), Math.toRadians(45))
+                //getting second sample
+                .setTangent(270)
+               .splineToLinearHeading(new Pose2d(45, 40, Math.toRadians(180)), Math.toRadians(270))
+                // dropping off last sample
+                .setTangent(Math.toRadians(45))
+                .splineToLinearHeading(new Pose2d(45, 57, Math.toRadians(135)), Math.toRadians(45), new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(270))
+                .splineToSplineHeading(new Pose2d(24, 12, Math.toRadians(88)), Math.toRadians(180), new TranslationalVelConstraint(20))
+              /*  .setTangent(Math.toRadians(270))
                 // .splineTo(new Vector2d(67.55, 56.43), Math.toRadians(254.77))
                 .splineToLinearHeading(new Pose2d(54, 31, Math.toRadians(180)), Math.toRadians(45), new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(45))
@@ -106,6 +111,14 @@ public class autotest extends OpMode {
         CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", 0);
         blueRightAction.run(telemetryPacket);
+        robotBase.drive.updatePoseEstimate();
+//If you are running trajectories you can check if a trajectory is running and if it is not then do a pose update
+
+//Roadrunner provides subclasses with the pose data
+//Poses have the x and y coordinates and heading, heading is in radians not degrees
+        telemetry.addData("x", robotBase.drive.pose.position.x);
+        telemetry.addData("y", robotBase.drive.pose.position.y);
+        telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
     }
 
     @Override
