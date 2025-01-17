@@ -166,7 +166,7 @@ public class CrabTeleOp extends OpMode {
 
         //high basket button combo
         armController.getGamepadButton(GamepadKeys.Button.Y)
-                .and(armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER))
+                .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
                 .whenActive(()->CommandScheduler.getInstance().schedule( new BucketExtendUpCommandGroup(robotBase, Shoulder.ShoulderPosition.HIGHBASKET, Extension.ExtensionPosition.HIGHBUCKET)));
 
                 //low basket button combo
