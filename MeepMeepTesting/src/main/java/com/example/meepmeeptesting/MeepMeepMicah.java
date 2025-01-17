@@ -53,7 +53,7 @@ public class MeepMeepMicah {
                         //.afterTime(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
                 .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(new Pose2d(40, 33, Math.toRadians(230)), Math.toRadians(310))
-
+                        //.afterTime(new InstantCommand(()->robotBase.
                 .setTangent(Math.toRadians(55))
 
             //  .splineToConstantHeading(new Vector2d(40.12, 33.44), Math.toRadians(-12.77))
