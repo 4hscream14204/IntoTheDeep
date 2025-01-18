@@ -35,6 +35,14 @@ public class Intake extends SubsystemBase {
         Blue(double m_colorAmounts){this.value = m_colorAmounts;}
     }
 
+    public enum Yellow{
+        RED (0),
+        BLUE (0),
+        GREEN (0);
+        public final double value;
+        Yellow(double m_colorAmounts){this.value = m_colorAmounts;}
+    }
+
     public Intake.GatePosition enmGatePosition;
     public Servo intakeServoLeft;
     public Servo intakeServoRight;
@@ -103,10 +111,17 @@ public class Intake extends SubsystemBase {
             }
         } else if (checkSampleColor().red == Blue.RED.value && checkSampleColor().blue == Blue.BLUE.value && checkSampleColor().green == Blue.GREEN.value) {
             if (DataStorage.alliance.equals(ITDCrabEnums.EnmAlliance.BLUE)) {
-
+                return true;
+            }
+            else{
+                return false;
             }
         }
-
-        return false;
+        else if(checkSampleColor().red == Yellow.RED.value && checkSampleColor().blue == Yellow.BLUE.value && checkSampleColor().green == Yellow.GREEN.value){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

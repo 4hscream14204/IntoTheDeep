@@ -312,7 +312,6 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
         telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
-        //telemetry.addData("Color Sensor", robotBase.intakeSubsystem.checkSampleColor());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
@@ -322,6 +321,10 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
         telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
         telemetry.addData("IsShoulderHome", robotBase.shoulderSubsystem.isShoulderHome());
+        telemetry.addLine()
+                .addData("Red: ", robotBase.intakeSubsystem.checkSampleColor().red)
+                .addData("Blue: ", robotBase.intakeSubsystem.checkSampleColor().blue)
+                .addData("Green: ", robotBase.intakeSubsystem.checkSampleColor().green);
 
         CommandScheduler.getInstance().run();
     }
