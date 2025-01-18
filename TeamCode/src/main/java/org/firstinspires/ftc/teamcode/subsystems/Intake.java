@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
+
 public class Intake extends SubsystemBase {
 
     public enum GatePosition{
@@ -16,18 +19,34 @@ public class Intake extends SubsystemBase {
         }
     }
 
+    public enum Red{
+        RED (0),
+        BLUE (0),
+        GREEN (0);
+        public final double value;
+        Red(double m_colorAmounts){this.value = m_colorAmounts;}
+    }
+
+    public enum Blue{
+        RED (0),
+        BLUE (0),
+        GREEN (0);
+        public final double value;
+        Blue(double m_colorAmounts){this.value = m_colorAmounts;}
+    }
+
     public Intake.GatePosition enmGatePosition;
     public Servo intakeServoLeft;
     public Servo intakeServoRight;
     public Servo intakeServoGate;
     public NormalizedColorSensor intakeColorSensor;
 
-    public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate/*NormalizedColorSensor m_intakesensor*/ ) {
+    public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate, NormalizedColorSensor m_intakesensor ) {
             intakeServoLeft = m_intakeLeft;
             intakeServoRight = m_intakeRight;
             intakeServoGate = m_intakeGate;
             intakeServoGate.setPosition(GatePosition.ClOSED.value);
-            //intakeColorSensor = m_intakesensor;
+            intakeColorSensor = m_intakesensor;
     }
 
     public void intakeSpeed (double speed){
@@ -46,7 +65,7 @@ public class Intake extends SubsystemBase {
     }
 
     public NormalizedRGBA checkSampleColor(){
-        return(intakeColorSensor.getNormalizedColors());
+        return intakeColorSensor.getNormalizedColors();
     }
 
     public void intakeOuttake(){
@@ -73,5 +92,17 @@ public class Intake extends SubsystemBase {
 
     public double getPosition() {
         return intakeServoGate.getPosition();
+    }
+
+    public boolean isMyColor(){
+        if (checkSampleColor().red == Red.RED.value && checkSampleColor().blue == Red.BLUE.value && checkSampleColor().green == Red.GREEN.value) {
+            if (DataStorage.alliance.equals(ITDCrabEnums.EnmAlliance.RED)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (checkSampleColor().red == Blue.RED.value && checkSampleColor().blue == Blue.BLUE.value && checkSampleColor().green == Blue.GREEN.value) {
+            if (DataStorage.alliance.equals(ITDCrabEnums.EnmAlliance.BLUE)) {
+        }
     }
 }
