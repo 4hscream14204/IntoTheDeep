@@ -17,14 +17,15 @@ public class Shoulder extends SubsystemBase {
         HOME (0),
         HIGHCHAMBER (1730),
         HIGHCHAMBERCLAMP (1975),
-        NEWHIGHCHAMBER(3396),//2750
+        NEWHIGHCHAMBER(3296),//2750
         LOWCHAMBER (680),
         LOWCHAMBERCLAMP (0),
         NEWLOWCHAMBER(2750),
         MAXPOSITION (2750),
         LOWBASKET (2870),
         HIGHBASKET (2870),
-        TOGGLE (2750);
+        TOGGLE (2750),
+        SECONDLEVELASCENT (-3);
         public final int height;
         ShoulderPosition(int high){
             this.height = high;
@@ -69,6 +70,10 @@ public class Shoulder extends SubsystemBase {
             reset();
             dcShoulderMotor.setPower(0);
             return;
+        }
+        if(isShoulderHome() && power == 0){
+            reset();
+            dcShoulderMotor.setPower(0);
         }
         else{
             dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
