@@ -5,5 +5,5 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 
 public class DataStorage {
     public static double dblIMUFinalHeadingRad = 0;
-    public static ITDCrabEnums.EnmAlliance alliance;
+    public static ITDCrabEnums.EnmAlliance alliance = ITDCrabEnums.EnmAlliance.BLUE;
 }

@@ -103,13 +103,13 @@ public class Intake extends SubsystemBase {
     }
 
     public boolean isMyColor(){
-        if (checkSampleColor().red == Red.RED.value && checkSampleColor().blue == Red.BLUE.value && checkSampleColor().green == Red.GREEN.value) {
+        if (checkSampleColor().red == Red.RED.value) {
             if (DataStorage.alliance.equals(ITDCrabEnums.EnmAlliance.RED)) {
                 return true;
             } else {
                 return false;
             }
-        } else if (checkSampleColor().red == Blue.RED.value && checkSampleColor().blue == Blue.BLUE.value && checkSampleColor().green == Blue.GREEN.value) {
+        } else if (checkSampleColor().blue == Blue.BLUE.value) {
             if (DataStorage.alliance.equals(ITDCrabEnums.EnmAlliance.BLUE)) {
                 return true;
             }
@@ -117,7 +117,7 @@ public class Intake extends SubsystemBase {
                 return false;
             }
         }
-        else if(checkSampleColor().red == Yellow.RED.value && checkSampleColor().blue == Yellow.BLUE.value && checkSampleColor().green == Yellow.GREEN.value){
+        else if(checkSampleColor().green == Yellow.GREEN.value){
             return true;
         }
         else{

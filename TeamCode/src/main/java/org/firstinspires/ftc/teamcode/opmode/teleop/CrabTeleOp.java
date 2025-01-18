@@ -243,6 +243,11 @@ public class CrabTeleOp extends OpMode {
                         new NewChamberReleaseCommandGroup(robotBase, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP));
     }
 
+    public void init_loop(){
+        CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem));
+        CommandScheduler.getInstance().schedule(new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem));
+    }
+
     public void loop(){
         telemetry.update();
         chassisController.readButtons();
