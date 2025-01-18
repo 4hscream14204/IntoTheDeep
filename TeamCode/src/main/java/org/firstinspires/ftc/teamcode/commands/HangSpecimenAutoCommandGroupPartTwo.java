@@ -20,12 +20,12 @@ public class HangSpecimenAutoCommandGroupPartTwo extends SequentialCommandGroup 
                 new WaitCommand(250),
                 new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
                 new WaitCommand(500),
-                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
+                new InstantCommand(()-> robotBase.extensionSubsystem.extend(robotBase.extensionSubsystem.dblDownPower)),
+                new WaitUntilCommand(robotBase.extensionSubsystem::isExtensionHome),
+                new InstantCommand(robotBase.extensionSubsystem::reset),
+                // new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
                 new WaitUntilCommand(()->robotBase.extensionSubsystem.isExtensionHome()),
                 new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))
-             //   new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
-               // new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME)),
-              //  new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.AUTOINIT))
                 );
     }
 }
