@@ -16,8 +16,7 @@ public class SubPickupToggleCommandGroup extends SequentialCommandGroup {
             addCommands(
                     new InstantCommand(() -> wrist.goToPosition(Wrist.WristPosition.PICKUP)),
                     new InstantCommand(() -> elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
-                    new InstantCommand(()-> intake.intakeSpeed(1)),
-                    new WaitUntilCommand(()->)
+                    new InstantCommand(()-> intake.intakeSpeed(1))
             );
         }
         else if(elbow.getPosition() == Elbow.ElbowPosition.PICKUP.value){

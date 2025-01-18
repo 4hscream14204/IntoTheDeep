@@ -103,6 +103,10 @@ public class Intake extends SubsystemBase {
             }
         } else if (checkSampleColor().red == Blue.RED.value && checkSampleColor().blue == Blue.BLUE.value && checkSampleColor().green == Blue.GREEN.value) {
             if (DataStorage.alliance.equals(ITDCrabEnums.EnmAlliance.BLUE)) {
+
+            }
         }
+
+        return false;
     }
 }
