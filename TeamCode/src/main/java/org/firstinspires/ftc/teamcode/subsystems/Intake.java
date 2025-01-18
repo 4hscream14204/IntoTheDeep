@@ -49,6 +49,8 @@ public class Intake extends SubsystemBase {
     public Servo intakeServoGate;
     public NormalizedColorSensor intakeColorSensor;
 
+    public double dblColorMarginOfError = 0;
+
     public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate, NormalizedColorSensor m_intakesensor ) {
             intakeServoLeft = m_intakeLeft;
             intakeServoRight = m_intakeRight;
@@ -103,13 +105,13 @@ public class Intake extends SubsystemBase {
     }
 
     public boolean isMyColor(){
-        if (checkSampleColor().red == Red.RED.value) {
+        if (Math.abs(checkSampleColor().red - Red.RED.value) <= dblColorMarginOfError) {
             if (DataStorage.alliance.equals(ITDCrabEnums.EnmAlliance.RED)) {
                 return true;
             } else {
                 return false;
             }
-        } else if (checkSampleColor().blue == Blue.BLUE.value) {
+        } else if (Math.abs(checkSampleColor().blue - Blue.BLUE.value) <= dblColorMarginOfError) {
             if (DataStorage.alliance.equals(ITDCrabEnums.EnmAlliance.BLUE)) {
                 return true;
             }
@@ -117,7 +119,7 @@ public class Intake extends SubsystemBase {
                 return false;
             }
         }
-        else if(checkSampleColor().green == Yellow.GREEN.value){
+        else if(Math.abs(checkSampleColor().green - Yellow.GREEN.value) <= dblColorMarginOfError){
             return true;
         }
         else{
