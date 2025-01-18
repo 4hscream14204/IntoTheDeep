@@ -59,44 +59,69 @@ public class BlueRightx4 extends OpMode {
 
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
-                //.afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.liftSubsystem.goToPosition(Lift.LiftPosition.AUTOHIGHCHAMBERSTART))))
                 .setTangent(Math.toRadians(270))
-                .afterTime(0.3, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
-                /*
-                .afterTime(0.3, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER))))
-                .afterTime(0.4, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
-                .afterTime(0.4, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
-                .afterTime(0.6, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.NEWHIGHCHAMBER))))
-
-                 */
+                 .afterTime(0.39, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
                 .splineToConstantHeading(new Vector2d(-2.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-2.0, 22.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .waitSeconds(0.5)
+                .splineToConstantHeading(new Vector2d(-2.0, 30.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .waitSeconds(0.2)
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
-                /*.afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP))))
-                .afterTime(0.75, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.openClaw())))
-                //.waitSeconds(0.5)
-                .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME))))
-                .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
-
-                 */
-             //   .waitSeconds(1.5)
-                //line up for first specimen
                 .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-2.0, 40), Math.toRadians(90), new TranslationalVelConstraint(20))
-                //30
-                // .setTangent(90)
-                .splineToLinearHeading(new Pose2d(-20.0, 40.00, Math.toRadians(130.00)), Math.toRadians(180.00), new TranslationalVelConstraint(30))
-                .splineToLinearHeading(new Pose2d(-30.0, 28.00, Math.toRadians(130.00)), Math.toRadians(200.00), new TranslationalVelConstraint(30))
+                //drive over to samples and move them to human player area
+                .splineToLinearHeading(new Pose2d(-40.0, 40.00, Math.toRadians(180.00)), Math.toRadians(180.00), new TranslationalVelConstraint(30))
+                .setTangent(Math.toRadians(270))
+                .splineToLinearHeading(new Pose2d(-40.0, 12.00, Math.toRadians(90.00)), Math.toRadians(200.00), new TranslationalVelConstraint(50))
+                //.splineToLinearHeading(new Pose2d(-47.0, 12.00, Math.toRadians(180.00)), Math.toRadians(200.00), new TranslationalVelConstraint(30))
+                .setTangent(180)
+                .splineToConstantHeading(new Vector2d(-45, 12), Math.toRadians(270),new TranslationalVelConstraint(50))
                 .setTangent(Math.toRadians(90))
+                //push into player area
+                .splineToConstantHeading(new Vector2d(-47, 55), Math.toRadians(90),new TranslationalVelConstraint(50))
+                .setTangent(270)
+                //line up for second sample
+                //  .splineToLinearHeading(new Pose2d(-43.0, 12.00, Math.toRadians(130.00)), Math.toRadians(180.00), new TranslationalVelConstraint(30))
+               // .splineToConstantHeading(new Vector2d(-46, 12), Math.toRadians(270),new TranslationalVelConstraint(50))
+                //.setTangent(0)
+                .splineToConstantHeading(new Vector2d(-56, 12), Math.toRadians(180),new TranslationalVelConstraint(50))
+                //.splineToLinearHeading(new Pose2d(-56.00, 12.00, Math.toRadians(130.00)), Math.toRadians(200.00), new TranslationalVelConstraint(30))
+                .setTangent(90)
+                //push to human player
+                .splineToConstantHeading(new Vector2d(-56, 55), Math.toRadians(90),new TranslationalVelConstraint(50))
+                //.splineToLinearHeading(new Pose2d(-42.00, 55.00, Math.toRadians(90.00)), Math.toRadians(120.00), new TranslationalVelConstraint(30))
+                .setTangent(270)
+                //back up and wait
+                .splineToLinearHeading(new Pose2d(-44.00, 42.00, Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(50))
+                //hang first preload
+                /*.setTangent(Math.toRadians(270))
+                .afterTime(0.39, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
+                .splineToConstantHeading(new Vector2d(-2.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-2.0, 30.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .waitSeconds(0.2)
+                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
+                .setTangent(Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(-2.0, 40), Math.toRadians(90), new TranslationalVelConstraint(20))
+                //drive over to samples and move them to human player area
+                .splineToLinearHeading(new Pose2d(-36.0, 40.00, Math.toRadians(130.00)), Math.toRadians(180.00), new TranslationalVelConstraint(30))
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-35.0, 28.00, Math.toRadians(130.00)), Math.toRadians(200.00), new TranslationalVelConstraint(30))
+                .setTangent(Math.toRadians(90))
+                //push into player area
                 .splineToLinearHeading(new Pose2d(-33.00, 55, Math.toRadians(90)), Math.toRadians(90), new TranslationalVelConstraint(30))
                 //  .splineToLinearHeading(new Pose2d(-35.96, 40.00, Math.toRadians(50.00)), Math.toRadians(120.00), new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(270))
-                .splineToLinearHeading(new Pose2d(-38.0, 28.00, Math.toRadians(130.00)), Math.toRadians(180.00), new TranslationalVelConstraint(30))
-                .splineToLinearHeading(new Pose2d(-41.00, 36.00, Math.toRadians(130.00)), Math.toRadians(200.00), new TranslationalVelConstraint(30))
-                .waitSeconds(0.1)
-
+                //line up for second sample
+                .splineToLinearHeading(new Pose2d(-45.0, 28.00, Math.toRadians(130.00)), Math.toRadians(180.00), new TranslationalVelConstraint(30))
+                .setTangent(90)
+                .splineToLinearHeading(new Pose2d(-45.00, 36.00, Math.toRadians(130.00)), Math.toRadians(200.00), new TranslationalVelConstraint(30))
+                .setTangent(90)
+                //push to human player
                 .splineToLinearHeading(new Pose2d(-42.00, 55.00, Math.toRadians(90.00)), Math.toRadians(120.00), new TranslationalVelConstraint(30))
+                .setTangent(270)
+                //back up and wait
+                .splineToLinearHeading(new Pose2d(-42.00, 42.00, Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(40))
+
+
+                 */
               /*  .waitSeconds(0.1)
 
                 .setTangent(Math.toRadians(200))
@@ -161,9 +186,11 @@ public class BlueRightx4 extends OpMode {
     @Override
     public void loop() {
         CommandScheduler.getInstance().run();
-        telemetry.addData("Wait time", 0);
-   //     telemetry.addData("Feild Position x", robotBase.drive.)
-   //     telemetry.addData("Feild Position y")
+        robotBase.drive.updatePoseEstimate();
+        telemetry.addData("x", robotBase.drive.pose.position.x);
+        telemetry.addData("y", robotBase.drive.pose.position.y);
+        telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
+      //  telemetry.addData("Feild Position y")
         blueRightx4Action.run(telemetryPacket);
     }
 
