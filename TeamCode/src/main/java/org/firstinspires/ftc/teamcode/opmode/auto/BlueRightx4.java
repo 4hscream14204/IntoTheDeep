@@ -121,7 +121,7 @@ public class BlueRightx4 extends OpMode {
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.AUTOINIT))))
                 .setTangent(Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-58.00, 60.66), Math.toRadians(180.00), new TranslationalVelConstraint(50))
+                .splineToLinearHeading(new Pose2d(-58.00, 55, Math.toRadians(180)), Math.toRadians(180.00), new TranslationalVelConstraint(50))
 
                                 .build();
 
