@@ -15,10 +15,8 @@ public class GrabSpecimenAndHangPosCommandGroup extends SequentialCommandGroup {
 
     public GrabSpecimenAndHangPosCommandGroup (RobotBase robotBase) {
         addCommands(
-                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
-                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                 new InstantCommand(()->robotBase.clawSubsystem.closeClaw()),
-               // new WaitCommand(250),
+                new WaitCommand(250),
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.NEWHIGHCHAMBER)),
                 new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER))
         );
