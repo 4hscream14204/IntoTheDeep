@@ -59,22 +59,22 @@ public class autotest extends OpMode {
                 .waitSeconds(2)
                 .setTangent(Math.toRadians(270))
                 //Go to sub
-                .splineToConstantHeading(new Vector2d(8, 34), Math.toRadians(270), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(10, 34), Math.toRadians(270), new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(90))
                 //Goes to first sample
-                .splineToLinearHeading(new Pose2d(27, 36,Math.toRadians(230)), Math.toRadians(310), new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(29, 36,Math.toRadians(230)), Math.toRadians(310), new TranslationalVelConstraint(20))
                 //.afterTime(new InstantCommand(()->robotBase.
                 .setTangent(Math.toRadians(45))
                 //goes to basket and drops off
-                .splineToLinearHeading(new Pose2d(45, 57, Math.toRadians(135 )), Math.toRadians(45))
+                .splineToLinearHeading(new Pose2d(40, 57, Math.toRadians(135 )), Math.toRadians(45))
                 //getting second sample
                 .setTangent(270)
-               .splineToLinearHeading(new Pose2d(45, 40, Math.toRadians(180)), Math.toRadians(270))
+               .splineToLinearHeading(new Pose2d(40, 40, Math.toRadians(180)), Math.toRadians(270))
                 // dropping off last sample
                 .setTangent(Math.toRadians(45))
-                .splineToLinearHeading(new Pose2d(45, 57, Math.toRadians(135)), Math.toRadians(45), new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(44, 57, Math.toRadians(135)), Math.toRadians(45), new TranslationalVelConstraint(20))
                 .setTangent(Math.toRadians(270))
-                .splineToSplineHeading(new Pose2d(24, 12, Math.toRadians(88)), Math.toRadians(180), new TranslationalVelConstraint(20))
+                .splineToSplineHeading(new Pose2d(18, 20, Math.toRadians(88)), Math.toRadians(180), new TranslationalVelConstraint(20))
               /*  .setTangent(Math.toRadians(270))
                 // .splineTo(new Vector2d(67.55, 56.43), Math.toRadians(254.77))
                 .splineToLinearHeading(new Pose2d(54, 31, Math.toRadians(180)), Math.toRadians(45), new TranslationalVelConstraint(20))
