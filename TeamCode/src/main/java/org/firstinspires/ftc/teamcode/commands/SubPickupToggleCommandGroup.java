@@ -20,5 +20,11 @@ public class SubPickupToggleCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))
             );
         }
+        else if(elbow.getPosition() == Elbow.ElbowPosition.HOME.value && wrist.getPosition() == Wrist.WristPosition.AUTOINIT.value){
+            addCommands(
+            new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
+            new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PRESUBPICKUP))
+            );
+        }
     }
 }

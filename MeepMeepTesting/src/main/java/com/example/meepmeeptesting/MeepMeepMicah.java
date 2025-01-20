@@ -1,4 +1,4 @@
-package com.example.meepmeeptesting;
+/*package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -29,8 +29,8 @@ public class MeepMeepMicah {
     public class HangSpecimenAutoCommandGroupPartOne extends SequentialCommandGroup {
    // public static void main(String[] args);
 
-    public GamepadEx armController;
-    public GamepadEx baseController;
+    //public GamepadEx armController;
+   // public GamepadEx baseController;
     public int waitSec = 0;
     public Action waitAction;
     public Action blueRightx4Action;{
@@ -79,3 +79,5 @@ public class MeepMeepMicah {
                 .start();
     }
 }
+
+ */
