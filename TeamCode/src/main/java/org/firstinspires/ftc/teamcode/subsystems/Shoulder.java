@@ -35,6 +35,7 @@ public class Shoulder extends SubsystemBase {
 
     public Shoulder(DcMotor conShoulderMotor, DcMotor rightShoulderMotor, DigitalChannel conShoulderLimitSwitch) {
         dcShoulderMotorLeft = conShoulderMotor;
+        dcShoulderMotorRight = rightShoulderMotor;
         tsShoulderLimitSwitch = conShoulderLimitSwitch;
         dcShoulderMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcShoulderMotorLeft.setTargetPosition(0);
@@ -43,6 +44,11 @@ public class Shoulder extends SubsystemBase {
         dcShoulderMotorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         enmShoulderPosition = ShoulderPosition.HOME;
         dcShoulderMotorRight.setDirection(DcMotor.Direction.REVERSE);
+        dcShoulderMotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        dcShoulderMotorRight.setTargetPosition(0);
+        dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        dcShoulderMotorRight.setPower(0);
+        dcShoulderMotorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 
