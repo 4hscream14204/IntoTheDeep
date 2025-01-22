@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Elbow extends SubsystemBase {
 
     public enum ElbowPosition {
-        HOME (0.36111/*0.72220.4888*/),
-        PICKUP (0.9666666666666667),
-        PRESUBPICKUP (0.6777),
-        DROPOFF (0.777);
+        HOME (0.38888/*0.72220.4888*/),//0.36111
+        PICKUP (0.813888888888889),//0.9666666666666667
+        PRESUBPICKUP (0.6888),//0.67777
+        DROPOFF (0.6888);//0.777
         public final double value;
         ElbowPosition(double m_pos){
             this.value = m_pos;

@@ -15,6 +15,17 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.commands.AutoBlueLeftHangSpecimenCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.AutoSamplePickUpCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.BucketEjectAndHomeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.BucketExtendUpCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartOne;
+import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartTwo;
+import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @Autonomous (name = "BlueLeft4x")
 public class BlueLefttx4 extends OpMode {
@@ -32,7 +43,7 @@ public class BlueLefttx4 extends OpMode {
 
     @Override
     public void init() {
-        startPose = new Pose2d(14, 61, Math.toRadians(270));
+        startPose = new Pose2d(14, 61, Math.toRadians(0));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
@@ -52,6 +63,27 @@ public class BlueLefttx4 extends OpMode {
 
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
+                .setTangent(Math.toRadians(270))
+                .afterTime(0.39, ()-> CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
+                .splineToConstantHeading(new Vector2d(1.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(1.0, 24.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .waitSeconds(0.2)
+                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new AutoBlueLeftHangSpecimenCommandGroup(robotBase)))
+                .waitSeconds(0.3)
+                .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new AutoSamplePickUpCommandGroup(robotBase)))
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(37, 34, Math.toRadians(230)), Math.toRadians(0), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(43, 32.00), Math.toRadians(0.00), new TranslationalVelConstraint(20))
+                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new BucketExtendUpCommandGroup(robotBase, Shoulder.ShoulderPosition.HIGHBASKET, Extension.ExtensionPosition.HIGHBUCKET)))
+                //.waitSeconds(0.2)
+                .splineToLinearHeading(new Pose2d(55, 55, Math.toRadians(135)), Math.toRadians(0), new TranslationalVelConstraint(30))
+                .waitSeconds(0.5)
+                .afterTime(0.9, ()->CommandScheduler.getInstance().schedule(new BucketEjectAndHomeCommandGroup(robotBase, new EjectCommandGroup(robotBase.intakeSubsystem))))
+                //.waitSeconds(0.5)
+                //.afterTime(0.5, ()-> CommandScheduler.getInstance().schedule(new AutoSamplePickUpCommandGroup(robotBase)))
+                //.splineToLinearHeading(new Pose2d(54, 29, Math.toRadians(180)), Math.toRadians(270), new TranslationalVelConstraint(30))
+               // .splineToConstantHeading(new Vector2d(54, 32.00), Math.toRadians(0.00), new TranslationalVelConstraint(20))
+                /*
                 .waitSeconds(2)
                 .setTangent(Math.toRadians(270))
                 .splineToConstantHeading(new Vector2d(8, 34), Math.toRadians(270), new TranslationalVelConstraint(20))
