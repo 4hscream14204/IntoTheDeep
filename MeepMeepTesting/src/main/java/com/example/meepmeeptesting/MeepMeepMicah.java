@@ -1,4 +1,4 @@
-package com.example.meepmeeptesting;
+/*package com.example.meepmeeptesting;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -29,8 +29,8 @@ public class MeepMeepMicah {
     public class HangSpecimenAutoCommandGroupPartOne extends SequentialCommandGroup {
    // public static void main(String[] args);
 
-    public GamepadEx armController;
-    public GamepadEx baseController;
+    //public GamepadEx armController;
+   // public GamepadEx baseController;
     public int waitSec = 0;
     public Action waitAction;
     public Action blueRightx4Action;{
@@ -53,7 +53,7 @@ public class MeepMeepMicah {
                         //.afterTime(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
                 .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(new Pose2d(40, 33, Math.toRadians(230)), Math.toRadians(310))
-
+                        //.afterTime(new InstantCommand(()->robotBase.
                 .setTangent(Math.toRadians(55))
 
             //  .splineToConstantHeading(new Vector2d(40.12, 33.44), Math.toRadians(-12.77))
@@ -79,3 +79,5 @@ public class MeepMeepMicah {
                 .start();
     }
 }
+
+ */

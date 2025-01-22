@@ -172,10 +172,10 @@ public class CrabTeleOp extends OpMode {
         armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
                 .whenPressed(((new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))));
 
-        /*armController.getGamepadButton(GamepadKeys.Button.X)
+        armController.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
                         new ShoulderToggleCommandGroup(robotBase)
-                ));*/
+                ));
 
         //high basket button combo
         armController.getGamepadButton(GamepadKeys.Button.Y)
@@ -250,10 +250,10 @@ public class CrabTeleOp extends OpMode {
                         new ExtensionMaximumPositionCommandGroup(robotBase)
                 ));*/
 
-        armController.getGamepadButton(GamepadKeys.Button.X)
+        /*armController.getGamepadButton(GamepadKeys.Button.X)
                 .and(new GamepadButton( armController, GamepadKeys.Button.RIGHT_BUMPER))
                 .toggleWhenActive(new NewChamberLineUpCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.NEWHIGHCHAMBER),
-                        new NewChamberReleaseCommandGroup(robotBase, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP));
+                        new NewChamberReleaseCommandGroup(robotBase, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP));*/
     }
 
     /*public void init_loop(){

@@ -21,7 +21,7 @@ public class Extension extends SubsystemBase {
         HIGHCHAMBER (-1975),
         HIGHCHAMBERCLAMP (-1425),
         NEWHIGHCHAMBER (-1827),//-1870
-        NEWHIGHCHAMBERCLAMP (-1388),//-1150
+        NEWHIGHCHAMBERCLAMP (-1200),//-1150
         SECONDLEVELASCENT (7),
         SECONDLEVELASCENTPULL (45);
         public final int height;
