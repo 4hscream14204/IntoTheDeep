@@ -15,7 +15,7 @@ public class NewChamberReleaseCommandGroup extends SequentialCommandGroup {
                 new WaitCommand(500),
                 new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
                 new WaitCommand(750),
-                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
+                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
                 new WaitUntilCommand(()->robotBase.extensionSubsystem.isExtensionHome()),
                 new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
         );
