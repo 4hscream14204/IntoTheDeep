@@ -29,7 +29,7 @@ public class ChamberDropOffLineUpCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF)),
                     new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
                     new WaitCommand(250),
-                    new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
+                    new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
                     new WaitUntilCommand(()->robotBase.extensionSubsystem.isExtensionHome()),
                     new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
                   );

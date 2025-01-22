@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class NewChamberReleaseCommandGroup extends SequentialCommandGroup {
     public NewChamberReleaseCommandGroup(RobotBase robotBase, Extension.ExtensionPosition clampPosition){
@@ -15,7 +16,7 @@ public class NewChamberReleaseCommandGroup extends SequentialCommandGroup {
                 new WaitCommand(500),
                 new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
                 new WaitCommand(750),
-                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
+                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
                 new WaitUntilCommand(()->robotBase.extensionSubsystem.isExtensionHome()),
                 new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
         );
