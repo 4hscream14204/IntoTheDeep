@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
@@ -16,9 +17,10 @@ public class BucketEjectAndHomeCommandGroup extends SequentialCommandGroup {
         addCommands(
                 new EjectCommandGroup(robotBase.intakeSubsystem),
                 new WaitUntilCommand(()->ejectCommandGroup.hasRan = true),
-                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem),
+                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
                 new WaitUntilCommand(robotBase.extensionSubsystem::isExtensionHome),
                 new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)),
+                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
                 new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
                 new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)));
     }

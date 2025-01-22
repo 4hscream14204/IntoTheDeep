@@ -13,7 +13,7 @@ public class SubPickupReturnCommandGroup extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP)),
                 new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
-                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem)
+                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
         );
     }
 }
