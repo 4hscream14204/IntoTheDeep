@@ -58,18 +58,19 @@ public class BlueLeftHangAndPark extends OpMode {
 
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
-                // hang preload
                 .setTangent(Math.toRadians(270))
-                .afterTime(0.39, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
+                .afterTime(0.39, ()-> CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
                 .splineToConstantHeading(new Vector2d(-2.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-2.0, 27.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.2)
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
                 .waitSeconds(0.4)
                 .setTangent(Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(17, 43), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(36, 36), Math.toRadians(0.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(24, 12), Math.toRadians(180.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(37, 28), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(37, 18), Math.toRadians(270), new TranslationalVelConstraint(20))
+                .splineToSplineHeading(new Pose2d( 37, 18, Math.toRadians(180)), Math.toRadians(270))
+                .splineToConstantHeading(new Vector2d(30, 11), Math.toRadians(180), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(20, 11), Math.toRadians(180), new TranslationalVelConstraint(20))
                 .build();
 
         robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
