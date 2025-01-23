@@ -24,6 +24,7 @@ public class Wrist extends SubsystemBase {
     public Wrist(Servo wristServo) {
     srvWrist = wristServo;
     srvWrist.setPosition(WristPosition.HOME.value);
+    enmWristPosition = WristPosition.HOME;
     }
 
     public void goToPosition(WristPosition enmTargetPosition) {
@@ -33,11 +34,10 @@ public class Wrist extends SubsystemBase {
     }
 
     public boolean isAtPosition(WristPosition enmCheckPosition) {
-        if(enmWristPosition == enmCheckPosition){
+        if(enmCheckPosition == enmWristPosition){
             return true;
-        } else {
-            return false;
         }
+            return false;
     }
 
     public double getPosition() {

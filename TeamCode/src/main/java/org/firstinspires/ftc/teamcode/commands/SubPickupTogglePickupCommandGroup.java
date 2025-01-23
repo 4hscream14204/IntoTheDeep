@@ -12,8 +12,7 @@ public class SubPickupTogglePickupCommandGroup extends SequentialCommandGroup {
     public SubPickupTogglePickupCommandGroup(RobotBase robotBase){
         addCommands(
                 new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
-                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
-                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1))
+                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))
         );
         /*if(robotBase.intakeSubsystem.isMyColor()){
             addCommands(

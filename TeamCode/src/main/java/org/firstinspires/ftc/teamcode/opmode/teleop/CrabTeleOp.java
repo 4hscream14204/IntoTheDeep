@@ -83,7 +83,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenActive(()-> CommandScheduler.getInstance().schedule(
-                                new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0.7))
+                                new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0.6))
                         ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
@@ -93,7 +93,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
                 .whenActive(()-> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0.3))
+                        new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0))
                 ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
@@ -109,6 +109,11 @@ public class CrabTeleOp extends OpMode {
         chassisController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
                                 new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))
+                        ));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
+                        .whenPressed(()->CommandScheduler.getInstance().schedule(
+                                new EjectCommandGroup(robotBase.intakeSubsystem)
                         ));
 
        /* armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
@@ -164,7 +169,7 @@ public class CrabTeleOp extends OpMode {
                 .whenPressed(new PickupElbowWristCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));*/
 
         armController.getGamepadButton(GamepadKeys.Button.A)
-                .toggleWhenPressed(new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem), new SubPickupTogglePickupCommandGroup(robotBase));
+                .whenPressed(()->CommandScheduler.getInstance().schedule(new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem, robotBase.intakeSubsystem, robotBase.shoulderSubsystem)/*new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem), new SubPickupTogglePickupCommandGroup(robotBase)*/));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                 .whenPressed((new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)));
@@ -315,9 +320,9 @@ public class CrabTeleOp extends OpMode {
         }*/
 
         //Connor: I don't think we need these but I commented them just in case.
-        telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
+       /* telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
         telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
-        telemetry.addData("Chassis Right Stick X", chassisRightStickX);
+        telemetry.addData("Chassis Right Stick X", chassisRightStickX);*/
 
 
        /* if(robotBase.timerSubsystem.hasEndgamePassed(dblCurrentTime)){
@@ -327,6 +332,10 @@ public class CrabTeleOp extends OpMode {
         */
         telemetry.addData("Elbow", robotBase.elbowSubsystem.getPosition());
         telemetry.addData("Wrist", robotBase.wristSubsystem.getPosition());
+        telemetry.addData("Wrist Enum: ", robotBase.wristSubsystem.enmWristPosition);
+        telemetry.addData("Elbow Enum: ", robotBase.elbowSubsystem.enmElbowPosition);
+        telemetry.addData("Elbow isAtPosition", robotBase.elbowSubsystem.isAtPosition(Elbow.ElbowPosition.PRESUBPICKUP));
+        telemetry.addData("Wrist isAtPosition", robotBase.wristSubsystem.isAtPosition(Wrist.WristPosition.PRESUBPICKUP));
         telemetry.addData("Arm Right Stick Y", armController.getRightY());
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
@@ -336,11 +345,10 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
-        telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
-        telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+        /*telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
+        telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));*/
         telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
         telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
-        telemetry.addData("IsShoulderHome", robotBase.shoulderSubsystem.isShoulderHome());
        /* telemetry.addLine()
                 .addData("Red: ", robotBase.intakeSubsystem.checkSampleColor().red)
                 .addData("Blue: ", robotBase.intakeSubsystem.checkSampleColor().blue)

@@ -26,7 +26,7 @@ public class Elbow extends SubsystemBase {
     }
 
     public boolean isAtPosition(ElbowPosition elbowTarget){
-        if(Math.abs(elbowServo.getPosition() - elbowTarget.value) <= 0.05){
+        if(elbowTarget == enmElbowPosition){
             return true;
         }
         return false;

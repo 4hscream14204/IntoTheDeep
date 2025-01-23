@@ -13,26 +13,31 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class SubPickupToggleCommandGroup extends SequentialCommandGroup {
     public SubPickupToggleCommandGroup(Wrist wrist, Elbow elbow, Intake intake, Shoulder shoulder){
-        if(elbow.getPosition() == Elbow.ElbowPosition.PRESUBPICKUP.value && wrist.getPosition() == Wrist.WristPosition.PRESUBPICKUP.value && shoulder.isShoulderHome()) {
+        if(elbow.isAtPosition(Elbow.ElbowPosition.PRESUBPICKUP) && wrist.isAtPosition(Wrist.WristPosition.PRESUBPICKUP) && shoulder.isShoulderHome()) {
             addCommands(
                     new InstantCommand(() -> wrist.goToPosition(Wrist.WristPosition.PICKUP)),
-                    new InstantCommand(() -> elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
-                    new InstantCommand(()-> intake.intakeSpeed(0.7))
+                    new InstantCommand(() -> elbow.goToPosition(Elbow.ElbowPosition.PICKUP))
             );
         }
-        else if(elbow.getPosition() == Elbow.ElbowPosition.PICKUP.value && wrist.getPosition() == Wrist.WristPosition.PICKUP.value && shoulder.isShoulderHome()){
+        else if(elbow.isAtPosition(Elbow.ElbowPosition.PICKUP) && wrist.isAtPosition(Wrist.WristPosition.PICKUP) && shoulder.isShoulderHome()){
             addCommands(
                     new InstantCommand(()-> wrist.goToPosition(Wrist.WristPosition.PRESUBPICKUP)),
                     new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))
             );
         }
-        else if(elbow.getPosition() == Elbow.ElbowPosition.HOME.value && wrist.getPosition() == Wrist.WristPosition.AUTOINIT.value && shoulder.isShoulderHome()){
+        else if(elbow.isAtPosition(Elbow.ElbowPosition.HOME) && wrist.isAtPosition(Wrist.WristPosition.HOME) && shoulder.isShoulderHome()){
             addCommands(
                     new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
                     new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PRESUBPICKUP))
             );
         }
-        else if(elbow.getPosition() == Elbow.ElbowPosition.PRESUBPICKUP.value && wrist.getPosition() == Wrist.WristPosition.HOME.value){
+        else if(elbow.isAtPosition(Elbow.ElbowPosition.PRESUBPICKUP) && wrist.isAtPosition(Wrist.WristPosition.HOME)){
+            addCommands(
+                    new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                    new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PICKUP))
+            );
+        }
+        else{
             addCommands(
                     new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
                     new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PICKUP))

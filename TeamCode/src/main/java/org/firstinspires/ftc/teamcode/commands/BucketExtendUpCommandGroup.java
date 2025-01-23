@@ -13,11 +13,12 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 public class BucketExtendUpCommandGroup extends SequentialCommandGroup {
     public BucketExtendUpCommandGroup(RobotBase robotBase, Shoulder.ShoulderPosition basketPosition, Extension.ExtensionPosition extensionBasket){
       addCommands(
+        new InstantCommand(()-> robotBase.clawSubsystem.openClaw()),
         new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(basketPosition)),
         new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
         new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF)),
         new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(basketPosition)),
-        new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.6)),
+        //new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.55)),
         new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionBasket))
       );
     }
