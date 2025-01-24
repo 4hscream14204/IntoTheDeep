@@ -58,16 +58,15 @@ public class CrabTeleOp extends OpMode {
     @Override
     public void init() {
         CommandScheduler.getInstance().reset();
-
+        robotBase = new RobotBase(hardwareMap);
         int intHeadingFix = 0;
-        if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
+        /*if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
             intHeadingFix = 90;
         } else if(DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED){
             intHeadingFix = -90;
-        }
+        }*/
         robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
 
-        robotBase = new RobotBase(hardwareMap);
         chassisController = new GamepadEx(gamepad1);
         armController = new GamepadEx(gamepad2);
         robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
