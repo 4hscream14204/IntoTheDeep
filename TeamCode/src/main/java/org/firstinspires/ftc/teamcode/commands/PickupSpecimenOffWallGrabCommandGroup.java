@@ -16,8 +16,8 @@ public class PickupSpecimenOffWallGrabCommandGroup extends SequentialCommandGrou
         addCommands(
                 new InstantCommand(claw::closeClaw),
                 new WaitCommand(250),
-                new InstantCommand(()->shoulder.goToPosition(Shoulder.ShoulderPosition.HIGHCHAMBER)),
-                new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))
+                new InstantCommand(()->extension.goToPosition(Extension.ExtensionPosition.SPECIMENPICKUP)),
+                new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP))
         );
     }
 }

@@ -8,8 +8,8 @@ public class Claw extends SubsystemBase {
     Servo srvClaw;
 
     public enum clawPosition {
-        OPEN(0.1166),
-        CLOSED(0);
+        OPEN(1),
+        CLOSED(0.9);
         public final double value;
         clawPosition(double m_pos){
             this.value = m_pos;

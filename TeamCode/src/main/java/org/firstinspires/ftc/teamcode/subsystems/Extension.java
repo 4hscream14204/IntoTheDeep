@@ -12,18 +12,20 @@ public class Extension extends SubsystemBase {
     public enum ExtensionPosition{
         HOME (0),
         MAXSHOULDERDOWNPOSITION(-2390),
-        MAXSHOULDERUPPOSITION (-4300),
+        MAXSHOULDERUPPOSITION (-4400),
         LOWBUCKET (-1530),
         HIGHBUCKET (-4250),
         LOWCHAMBER (-700),
         LOWCHAMBERCLAMP(0),
-        NEWLOWCHAMBER (0),
+        NEWLOWCHAMBER (-750),
+        NEWLOWCHAMBERCLAMP (0),
         HIGHCHAMBER (-1975),
         HIGHCHAMBERCLAMP (-1425),
-        NEWHIGHCHAMBER (-1827),//-1870
-        NEWHIGHCHAMBERCLAMP (-1200),//-1150
-        SECONDLEVELASCENT (-7),
-        SECONDLEVELASCENTPULL (-45);
+        NEWHIGHCHAMBER (-2550),//-1870
+        NEWHIGHCHAMBERCLAMP (-1750),//-1150
+        SECONDLEVELASCENT (-4400),
+        SECONDLEVELASCENTPULL (-2275),
+        SPECIMENPICKUP(-750);
         public final int height;
         ExtensionPosition(int high){
             this.height = high;

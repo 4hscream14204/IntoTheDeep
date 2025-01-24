@@ -18,15 +18,15 @@ public class Shoulder extends SubsystemBase {
         HOME (0),
         HIGHCHAMBER (1730),
         HIGHCHAMBERCLAMP (1975),
-        NEWHIGHCHAMBER(3050),//2750, 3396
+        NEWHIGHCHAMBER(1070),//2750, 3396
         LOWCHAMBER (680),
         LOWCHAMBERCLAMP (0),
         NEWLOWCHAMBER(2750),
         MAXPOSITION (2750),
         LOWBASKET (1070),
         HIGHBASKET (1070),
-        TOGGLE (3050),
-        SECONDLEVELASCENT (-3);
+        TOGGLE (1070),
+        SECONDLEVELASCENT (1132);
         public final int height;
         ShoulderPosition(int high){
             this.height = high;
