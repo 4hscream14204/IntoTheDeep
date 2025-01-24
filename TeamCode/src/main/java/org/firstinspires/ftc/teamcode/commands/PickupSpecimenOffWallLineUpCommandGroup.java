@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.commands;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.arcrobotics.ftclib.command.WaitUntilCommand;
 
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
@@ -13,6 +14,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 public class PickupSpecimenOffWallLineUpCommandGroup extends SequentialCommandGroup {
     public PickupSpecimenOffWallLineUpCommandGroup(Extension extension, Shoulder shoulder, Elbow elbow, Wrist wrist, Claw claw){
         addCommands(
+                new ExtensionHomeCommandGroup(extension, elbow, wrist),
+                new WaitUntilCommand(extension::isExtensionHome),
                 new ShoulderHomeCommandGroup(shoulder, elbow, wrist),
                 new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PICKUP)),
                 new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),

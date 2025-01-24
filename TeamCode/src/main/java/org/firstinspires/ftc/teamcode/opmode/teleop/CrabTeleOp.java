@@ -41,7 +41,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@TeleOp(name = ("Crab TeleOp"))
+@TeleOp(name = ("Aristocrab TeleOp"))
 public class CrabTeleOp extends OpMode {
     public RobotBase robotBase;
     boolean bolFieldCentric = true;
@@ -78,16 +78,20 @@ public class CrabTeleOp extends OpMode {
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() -> bolFieldCentric = !bolFieldCentric)
                 ));
-        chassisController.getGamepadButton(GamepadKeys.Button.A)
+        chassisController.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() ->robotBase.clawSubsystem.toggleClaw())
                 ));
+        chassisController.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(()->CommandScheduler.getInstance().schedule(
+                                new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem, robotBase.intakeSubsystem, robotBase.shoulderSubsystem)
+                        ));
         chassisController.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed((new BucketEjectAndHomeCommandGroup(robotBase, robotBase.intakeSubsystem, robotBase.shoulderSubsystem, robotBase.extensionSubsystem, robotBase.wristSubsystem, new EjectCommandGroup(robotBase.intakeSubsystem))));
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenActive(()-> CommandScheduler.getInstance().schedule(
-                                new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0.6))
+                                new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0.8))
                         ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
@@ -340,10 +344,10 @@ public class CrabTeleOp extends OpMode {
         */
         telemetry.addData("Elbow", robotBase.elbowSubsystem.getPosition());
         telemetry.addData("Wrist", robotBase.wristSubsystem.getPosition());
-        telemetry.addData("Wrist Enum: ", robotBase.wristSubsystem.enmWristPosition);
+        /*telemetry.addData("Wrist Enum: ", robotBase.wristSubsystem.enmWristPosition);
         telemetry.addData("Elbow Enum: ", robotBase.elbowSubsystem.enmElbowPosition);
         telemetry.addData("Elbow isAtPosition", robotBase.elbowSubsystem.isAtPosition(Elbow.ElbowPosition.PRESUBPICKUP));
-        telemetry.addData("Wrist isAtPosition", robotBase.wristSubsystem.isAtPosition(Wrist.WristPosition.PRESUBPICKUP));
+        telemetry.addData("Wrist isAtPosition", robotBase.wristSubsystem.isAtPosition(Wrist.WristPosition.PRESUBPICKUP));*/
         telemetry.addData("Arm Right Stick Y", armController.getRightY());
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
