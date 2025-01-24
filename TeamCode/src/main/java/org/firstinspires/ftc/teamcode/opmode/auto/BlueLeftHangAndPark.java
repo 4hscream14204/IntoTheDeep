@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.commands.GrabSpecimenAndHangPosCommandGrou
 import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartOne;
 import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartTwo;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
+import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @Autonomous(name = "BlueLeftHangAndPArk")
@@ -60,19 +61,22 @@ public class BlueLeftHangAndPark extends OpMode {
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
                 .setTangent(Math.toRadians(270))
                 .afterTime(0.39, ()-> CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
-                .splineToConstantHeading(new Vector2d(1.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(1.0, 24.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(1.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(30))
+                .splineToConstantHeading(new Vector2d(1.0, 23.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.2)
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
                 .waitSeconds(0.5)
                 .setTangent(Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(37, 28), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(37, 18), Math.toRadians(270), new TranslationalVelConstraint(20))
-                .splineToSplineHeading(new Pose2d( 37, 18, Math.toRadians(270)), Math.toRadians(270))
-                .splineToConstantHeading(new Vector2d(30, 10), Math.toRadians(180), new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(35, 30, Math.toRadians(270)), Math.toRadians(0), new TranslationalVelConstraint(30))
+                .waitSeconds(0.5)
+                .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
+                .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET))))
+                .splineToConstantHeading(new Vector2d(37, 18), Math.toRadians(270), new TranslationalVelConstraint(30))
+                .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .splineToConstantHeading(new Vector2d(30, 10), Math.toRadians(180), new TranslationalVelConstraint(30))
                 .splineToConstantHeading(new Vector2d(20, 9.5), Math.toRadians(180), new TranslationalVelConstraint(20))
-               // .afterTime(0.0, ()-> CommandScheduler.getInstance().schedule(new ))
                 .build();
+
 
         robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
 
