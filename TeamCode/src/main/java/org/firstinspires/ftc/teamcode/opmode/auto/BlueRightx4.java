@@ -11,6 +11,7 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
@@ -23,7 +24,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
-
+@Disabled
 @Autonomous (name = "BlueRight4x")
 public class BlueRightx4 extends OpMode {
     public TelemetryPacket telemetryPacket;
@@ -64,7 +65,7 @@ public class BlueRightx4 extends OpMode {
                 .setTangent(Math.toRadians(270))
                 .afterTime(0.39, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
                 .splineToConstantHeading(new Vector2d(-2.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-2.0, 27.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-2.0, 25.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.2)
                  .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
                 .waitSeconds(0.4)
@@ -102,7 +103,7 @@ public class BlueRightx4 extends OpMode {
                 .splineToSplineHeading(new Pose2d(-4.50, 35.00, Math.toRadians(0.00)), Math.toRadians(270.00), new TranslationalVelConstraint(35))
                 .waitSeconds(0.2)
                 .setTangent(Math.toRadians(270))
-                .splineToConstantHeading(new Vector2d(-4.5, 27), Math.toRadians(270), new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-4.5, 25), Math.toRadians(270), new TranslationalVelConstraint(35))
                 //.waitSeconds(0.2)
                 //go back and grab next specimen
                 .afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
@@ -114,7 +115,7 @@ public class BlueRightx4 extends OpMode {
                 //hang specimen
                 .setTangent(Math.toRadians(270))
                 .splineToLinearHeading(new Pose2d(-6.00, 35.00, Math.toRadians(0.00)), Math.toRadians(270.00), new TranslationalVelConstraint(35))
-                .splineToConstantHeading(new Vector2d(-6, 27), Math.toRadians(270), new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-6, 25), Math.toRadians(270), new TranslationalVelConstraint(35))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
                 .waitSeconds(0.2)
                 //park

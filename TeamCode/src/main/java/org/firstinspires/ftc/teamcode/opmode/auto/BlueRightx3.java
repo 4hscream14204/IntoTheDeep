@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartT
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous (name = "BlueRight4x")
+@Autonomous (name = "BlueRight3x")
 public class BlueRightx3 extends OpMode {
     public TelemetryPacket telemetryPacket;
 
@@ -77,23 +77,23 @@ public class BlueRightx3 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-45, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
                 .setTangent(Math.toRadians(90))
                 //push into player area
-                .splineToConstantHeading(new Vector2d(-45, 55), Math.toRadians(90),new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-45, 50), Math.toRadians(90),new TranslationalVelConstraint(35))
                 .setTangent(Math.toRadians(270))
                 //line up for second sample
                 .splineToConstantHeading(new Vector2d(-45, 17), Math.toRadians(270),new TranslationalVelConstraint(35))
                 // .setTangent(90)
                 //push to human player
                 .splineToConstantHeading(new Vector2d(-55, 18), Math.toRadians(90),new TranslationalVelConstraint(30))
-                .splineToConstantHeading(new Vector2d(-55, 50), Math.toRadians(90),new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-55, 49), Math.toRadians(90),new TranslationalVelConstraint(35))
                 .setTangent(Math.toRadians(270))
                 //back up and wait
                 .splineToLinearHeading(new Pose2d(-47.25, 45.00, Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .waitSeconds(0.5)
                 // go forward and grab specimen
                 .setTangent(Math.toRadians(90))
-                .splineToConstantHeading(new Vector2d(-47.25, 54), Math.toRadians(90), new TranslationalVelConstraint(35))
-                .splineToConstantHeading(new Vector2d(-47.25, 64), Math.toRadians(90), new TranslationalVelConstraint(35))
-                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
+                .splineToConstantHeading(new Vector2d(-43.00, 54), Math.toRadians(90), new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-43.00, 64), Math.toRadians(90), new TranslationalVelConstraint(35))
+                /*.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.2)
                 //hang specimen
                 .setTangent(Math.toRadians(270))
@@ -114,13 +114,13 @@ public class BlueRightx3 extends OpMode {
                 .splineToLinearHeading(new Pose2d(-6.00, 35.00, Math.toRadians(0.00)), Math.toRadians(270.00), new TranslationalVelConstraint(35))
                 .splineToConstantHeading(new Vector2d(-6, 27), Math.toRadians(270), new TranslationalVelConstraint(35))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
-                .waitSeconds(0.2)
+                .waitSeconds(0.4)
                 //park
-                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME))))
+              //  .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.AUTOINIT))))
                 .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(new Pose2d(-58.00, 55, Math.toRadians(180)), Math.toRadians(180.00), new TranslationalVelConstraint(50))
-
+*/
                                 .build();
 
         robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
