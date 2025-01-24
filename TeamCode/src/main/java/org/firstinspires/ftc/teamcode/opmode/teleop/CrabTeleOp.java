@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.BucketEjectAndHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketElbowWristCommandGroup;
@@ -41,6 +42,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
+
 @TeleOp(name = ("Aristocrab TeleOp"))
 public class CrabTeleOp extends OpMode {
     public RobotBase robotBase;
@@ -58,11 +60,11 @@ public class CrabTeleOp extends OpMode {
         CommandScheduler.getInstance().reset();
 
         int intHeadingFix = 0;
-        /*if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
+        if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
             intHeadingFix = 90;
         } else if(DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED){
             intHeadingFix = -0;
-        }*/
+        }
         robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
 
         robotBase = new RobotBase(hardwareMap);
