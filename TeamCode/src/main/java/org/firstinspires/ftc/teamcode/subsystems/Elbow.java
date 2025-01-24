@@ -7,6 +7,7 @@ public class Elbow extends SubsystemBase {
 
     public enum ElbowPosition {
         HOME (0.36111),
+        INIT (0.34),
         PICKUP (0.9666666666666667),
         PRESUBPICKUP (0.6777),
         DROPOFF (0.777);
@@ -22,7 +23,8 @@ public class Elbow extends SubsystemBase {
 
     public Elbow(Servo conElbowServo) {
         elbowServo = conElbowServo;
-        goToPosition(ElbowPosition.HOME);
+        goToPosition(ElbowPosition.INIT);
+        enmElbowPosition = ElbowPosition.HOME;
     }
 
     public boolean isAtPosition(ElbowPosition elbowTarget){
