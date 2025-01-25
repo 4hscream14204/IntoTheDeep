@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartO
 import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartTwo;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @Autonomous(name = "BlueLeftHangAndPArk")
@@ -76,6 +77,7 @@ public class BlueLeftHangAndPark extends OpMode {
                 .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 .splineToConstantHeading(new Vector2d(30, 10), Math.toRadians(180), new TranslationalVelConstraint(30))
                 .splineToConstantHeading(new Vector2d(20, 9.5), Math.toRadians(180), new TranslationalVelConstraint(20))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK))))
                 .build();
 
 

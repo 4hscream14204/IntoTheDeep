@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartO
 import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartTwo;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 
 @Autonomous(name = "RedLeftHangAndPArk")
 public class RedLeftHangAndPark extends OpMode {
@@ -62,18 +63,19 @@ public class RedLeftHangAndPark extends OpMode {
                 .splineToConstantHeading(new Vector2d(1.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.2)
                 .splineToConstantHeading(new Vector2d(1.0, 23.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .waitSeconds(0.2)
+                .waitSeconds(0.3)
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
                 .waitSeconds(0.5)
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(35, 30, Math.toRadians(270)), Math.toRadians(0), new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(35, 34, Math.toRadians(270)), Math.toRadians(0), new TranslationalVelConstraint(30))
                 //.waitSeconds(0.5)
                 .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
                 .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET))))
-                .splineToConstantHeading(new Vector2d(37, 18), Math.toRadians(270), new TranslationalVelConstraint(30))
-                .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .splineToConstantHeading(new Vector2d(35, 18), Math.toRadians(270), new TranslationalVelConstraint(30))
+                //.afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 .splineToConstantHeading(new Vector2d(30, 10), Math.toRadians(180), new TranslationalVelConstraint(30))
                 .splineToConstantHeading(new Vector2d(20, 9.5), Math.toRadians(180), new TranslationalVelConstraint(20))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK))))
                 .build();
 
 
