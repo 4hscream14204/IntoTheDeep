@@ -14,9 +14,9 @@ public class EjectCommandGroup extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(()->hasRan = false),
                 new InstantCommand(()-> intake.gateGoToPosition(Intake.GatePosition.OPEN)),
-                new WaitCommand(500),
+                //new WaitCommand(500),
                 new InstantCommand(()-> intake.intakeOuttake()),
-                new WaitCommand(500),
+                new WaitCommand(200),
                 new InstantCommand(()-> intake.intakeStop()),
                 new InstantCommand(()->hasRan = true)
         );
