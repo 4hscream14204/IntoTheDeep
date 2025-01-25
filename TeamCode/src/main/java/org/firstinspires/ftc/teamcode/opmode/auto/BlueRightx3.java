@@ -125,7 +125,9 @@ public class BlueRightx3 extends OpMode {
                 .splineToLinearHeading(new Pose2d(-54.00, 52, Math.toRadians(180)), Math.toRadians(180.00), new TranslationalVelConstraint(50))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
-                                .build();
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
+
+                .build();
 
         robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
 

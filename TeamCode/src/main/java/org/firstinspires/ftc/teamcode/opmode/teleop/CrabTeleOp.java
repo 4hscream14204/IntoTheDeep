@@ -33,6 +33,7 @@ import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleIfHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleIfNotHomeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.SpecimenWallPickUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupTogglePickupCommandGroup;
@@ -111,12 +112,18 @@ public class CrabTeleOp extends OpMode {
                 .whenInactive(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
                 ));
-
         chassisController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+                        .whenPressed(
+                                ()->CommandScheduler.getInstance().schedule(new SpecimenWallPickUpCommandGroup(robotBase, robotBase.shoulderSubsystem, robotBase.clawSubsystem, robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
+                        );
+
+       /* chassisController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .toggleWhenPressed(
                                 new PickupSpecimenOffWallLineUpCommandGroup(robotBase.extensionSubsystem,robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem, robotBase.clawSubsystem),
                                 new PickupSpecimenOffWallGrabCommandGroup(robotBase.extensionSubsystem, robotBase.shoulderSubsystem, robotBase.clawSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
                         );
+
+        */
 
        /* chassisController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
@@ -218,8 +225,9 @@ public class CrabTeleOp extends OpMode {
                 .toggleWhenActive(new NewChamberLineUpCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWCHAMBER, Extension.ExtensionPosition.NEWLOWCHAMBER), new ChamberDropOffReleaseAndHomeCommandGroup(robotBase));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .toggleWhenPressed(new PickupSpecimenOffWallLineUpCommandGroup(robotBase.extensionSubsystem, robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem, robotBase.clawSubsystem),
-                        new PickupSpecimenOffWallGrabCommandGroup(robotBase.extensionSubsystem, robotBase.shoulderSubsystem, robotBase.clawSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem));
+                .whenPressed(
+                        ()->CommandScheduler.getInstance().schedule(new SpecimenWallPickUpCommandGroup(robotBase, robotBase.shoulderSubsystem, robotBase.clawSubsystem, robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
+                );
 
         new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
                 .or(new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1))
