@@ -23,7 +23,7 @@ public class Elbow extends SubsystemBase {
 
     public Elbow(Servo conElbowServo) {
         elbowServo = conElbowServo;
-        goToPosition(ElbowPosition.INIT);
+      //  goToPosition(ElbowPosition.INIT);
         enmElbowPosition = ElbowPosition.HOME;
     }
 

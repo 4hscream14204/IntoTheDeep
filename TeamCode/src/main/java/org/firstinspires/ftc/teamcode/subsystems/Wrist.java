@@ -23,7 +23,7 @@ public class Wrist extends SubsystemBase {
 
     public Wrist(Servo wristServo) {
     srvWrist = wristServo;
-    srvWrist.setPosition(WristPosition.HOME.value);
+   // srvWrist.setPosition(WristPosition.HOME.value);
     enmWristPosition = WristPosition.HOME;
     }
 
