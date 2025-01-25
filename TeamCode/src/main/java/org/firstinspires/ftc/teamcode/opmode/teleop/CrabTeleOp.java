@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -59,7 +60,7 @@ public class CrabTeleOp extends OpMode {
     public void init() {
         CommandScheduler.getInstance().reset();
         robotBase = new RobotBase(hardwareMap);
-        int intHeadingFix = 0;
+        int intHeadingFix = 180;
         /*if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
             intHeadingFix = 90;
         } else if(DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED){
@@ -70,6 +71,7 @@ public class CrabTeleOp extends OpMode {
         chassisController = new GamepadEx(gamepad1);
         armController = new GamepadEx(gamepad2);
         robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
+
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
@@ -272,11 +274,16 @@ public class CrabTeleOp extends OpMode {
                 .and(new GamepadButton( armController, GamepadKeys.Button.RIGHT_BUMPER))
                 .toggleWhenActive(new NewChamberLineUpCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.NEWHIGHCHAMBER),
                         new NewChamberReleaseCommandGroup(robotBase, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP));*/
+
     }
 
     public void init_loop(){
+        CommandScheduler.getInstance().run();
+    }
+    public void start(){
         CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem));
         CommandScheduler.getInstance().schedule(new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem));
+        CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)));
     }
 
     public void loop(){
