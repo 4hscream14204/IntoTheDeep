@@ -15,7 +15,7 @@ public class ExtensionHomeCommandGroup  extends SequentialCommandGroup {
                 new InstantCommand(()-> extension.extend(extension.dblDownPower)),
                 new WaitUntilCommand(extension::isExtensionHome),
                 new InstantCommand(extension::reset),
-                new WaitCommand(500),
+                //new WaitCommand(500),
                 new InstantCommand(()-> elbow.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
                 new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PRESUBPICKUP))
         );
