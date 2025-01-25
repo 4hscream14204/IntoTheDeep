@@ -21,10 +21,9 @@ import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartO
 import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartTwo;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
-import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous (name = "BlueRight3x")
-public class BlueRightx3 extends OpMode {
+@Autonomous (name = "RedRight3x")
+public class RedRightx3 extends OpMode {
     public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
@@ -63,7 +62,7 @@ public class BlueRightx3 extends OpMode {
                 .setTangent(Math.toRadians(270))
                 .afterTime(0.39, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
                 .splineToConstantHeading(new Vector2d(-2.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
-                .splineToConstantHeading(new Vector2d(-2.0, 24.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(-2.0, 23.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.2)
                  .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
                 .waitSeconds(0.5)
@@ -75,13 +74,13 @@ public class BlueRightx3 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-34.0, 17), Math.toRadians(270), new TranslationalVelConstraint(30))
                 //.splineToLinearHeading(new Pose2d(-42.0, 12.00, Math.toRadians(90.00)), Math.toRadians(200.00), new TranslationalVelConstraint(50))
                 // .setTangent(180)
-                .splineToConstantHeading(new Vector2d(-45, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
+                .splineToConstantHeading(new Vector2d(-43, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
                 .setTangent(Math.toRadians(90))
                 //push into player area
-                .splineToConstantHeading(new Vector2d(-45, 46), Math.toRadians(90),new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-43, 46), Math.toRadians(90),new TranslationalVelConstraint(35))
                 .setTangent(Math.toRadians(270))
                 //line up for second sample
-                .splineToConstantHeading(new Vector2d(-45, 17), Math.toRadians(270),new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-43, 17), Math.toRadians(270),new TranslationalVelConstraint(35))
                 // .setTangent(90)
                 //push to human player
                 .splineToConstantHeading(new Vector2d(-53, 18), Math.toRadians(90),new TranslationalVelConstraint(30))
@@ -124,7 +123,7 @@ public class BlueRightx3 extends OpMode {
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                                 .build();
 
-        robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
+        robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
 
 
     }

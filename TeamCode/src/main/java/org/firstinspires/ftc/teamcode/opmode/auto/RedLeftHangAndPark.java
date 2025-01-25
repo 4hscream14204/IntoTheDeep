@@ -16,15 +16,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
-import org.firstinspires.ftc.teamcode.commands.GrabSpecimenAndHangPosCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartOne;
 import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartTwo;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
-import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous(name = "BlueLeftHangAndPArk")
-public class BlueLeftHangAndPark extends OpMode {
+@Autonomous(name = "RedLeftHangAndPArk")
+public class RedLeftHangAndPark extends OpMode {
     public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
@@ -79,7 +77,7 @@ public class BlueLeftHangAndPark extends OpMode {
                 .build();
 
 
-        robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
+        robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
 
 
     }
