@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartT
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @Autonomous(name = "RedLeftHangAndPArk")
 public class RedLeftHangAndPark extends OpMode {
@@ -45,6 +46,9 @@ public class RedLeftHangAndPark extends OpMode {
         CommandScheduler.getInstance().reset();
         robotBase.drive.pose = startPose;
         telemetryPacket = new TelemetryPacket();
+        robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);
+        robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME);
+        robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
 
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(

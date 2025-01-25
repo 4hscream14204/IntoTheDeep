@@ -15,6 +15,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.subsystems.Elbow;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @Autonomous (name = "BlueLeft4x")
 public class BlueLefttx4 extends OpMode {
@@ -39,6 +41,9 @@ public class BlueLefttx4 extends OpMode {
         CommandScheduler.getInstance().reset();
         robotBase.drive.pose = startPose;
         telemetryPacket = new TelemetryPacket();
+        robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);
+        robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME);
+        robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
 
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(
