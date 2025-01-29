@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.BucketEjectAndHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketExtendUpCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ChamberCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ChamberDropOffLineUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ChamberDropOffReleaseAndHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
@@ -216,13 +217,12 @@ public class CrabTeleOp extends OpMode {
         //high Chamber button combo
         armController.getGamepadButton(GamepadKeys.Button.Y)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .toggleWhenActive(new NewChamberLineUpCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.NEWHIGHCHAMBER),
-                        new NewChamberReleaseCommandGroup(robotBase, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP));
+                .whenActive(()->CommandScheduler.getInstance().schedule(new ChamberCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP)));
 
         //high Low button combo
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .toggleWhenActive(new NewChamberLineUpCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWCHAMBER, Extension.ExtensionPosition.NEWLOWCHAMBER), new ChamberDropOffReleaseAndHomeCommandGroup(robotBase));
+                .whenActive(new ChamberCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWLOWCHAMBER, Extension.ExtensionPosition.NEWLOWCHAMBER, Extension.ExtensionPosition.HOME));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(
