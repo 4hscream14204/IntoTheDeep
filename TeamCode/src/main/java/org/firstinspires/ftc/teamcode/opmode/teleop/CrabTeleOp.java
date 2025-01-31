@@ -222,7 +222,7 @@ public class CrabTeleOp extends OpMode {
         //high Low button combo
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(new ChamberCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWLOWCHAMBER, Extension.ExtensionPosition.NEWLOWCHAMBER, Extension.ExtensionPosition.HOME));
+                .whenActive(()->CommandScheduler.getInstance().schedule( new ChamberCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWLOWCHAMBER, Extension.ExtensionPosition.NEWLOWCHAMBER, Extension.ExtensionPosition.HOME)));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(
