@@ -28,6 +28,7 @@ import org.firstinspires.ftc.teamcode.commands.NewChamberLineUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.NewChamberReleaseCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.PickupSpecimenOffWallGrabCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.PickupSpecimenOffWallLineUpCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroupPartOne;
 import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroupPartTwo;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
@@ -136,7 +137,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.Y)
                         .and(new GamepadButton(chassisController, GamepadKeys.Button.RIGHT_BUMPER))
-                        .toggleWhenActive(new SecondLevelAscentCommandGroupPartOne(robotBase), new SecondLevelAscentCommandGroupPartTwo(robotBase));
+                        .whenActive(new SecondLevelAscentCommandGroup(robotBase));
 
        /* armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(

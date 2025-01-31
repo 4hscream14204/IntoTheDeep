@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 
 public class ChamberCommandGroup extends SequentialCommandGroup {
     public ChamberCommandGroup(RobotBase robotBase, Shoulder.ShoulderPosition chamberPosition, Extension.ExtensionPosition extensionChamberPosition, Extension.ExtensionPosition clampPosition){
-        if(!robotBase.shoulderSubsystem.isAtPosition(chamberPosition) && !robotBase.extensionSubsystem.isAtPosition(extensionChamberPosition)){
+        if(robotBase.shoulderSubsystem.isAtPosition(chamberPosition) && !robotBase.extensionSubsystem.isAtPosition(extensionChamberPosition)){
             addCommands(
                     new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                     new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(chamberPosition)),
