@@ -11,7 +11,7 @@ public class Elbow extends SubsystemBase {
         PICKUP (0.9666666666666667),
         PRESUBPICKUP (0.6777),
         DROPOFF (0.777),
-        GIVETOHUMAN (0);
+        GIVETOHUMAN (0.6777);
         public final double value;
         ElbowPosition(double m_pos){
             this.value = m_pos;
