@@ -7,7 +7,7 @@ public class Wrist extends SubsystemBase {
 
     public enum WristPosition{
         HOME (1/*0.6555*/),
-        PICKUP(0.3055/*0.25*/),
+        PICKUP(0.29277/*0.25*/),
         PRESUBPICKUP(0.3055),
         BUCKETDROPOFF (0.09722/*0.36,0.4166,0.291666*/),
         AUTOINIT (0.00056),

@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 
 public class SecondLevelAscentCommandGroup extends SequentialCommandGroup {
     public SecondLevelAscentCommandGroup(RobotBase robotBase){
-        if(!robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.SECONDLEVELASCENT)){
+        if(!robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.SECONDLEVELASCENT) && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.SECONDLEVELASCENT)){
             addCommands(
                     new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
                     new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE)),

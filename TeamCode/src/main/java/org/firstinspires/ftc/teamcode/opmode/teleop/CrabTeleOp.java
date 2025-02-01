@@ -22,6 +22,7 @@ import org.firstinspires.ftc.teamcode.commands.ChamberCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ChamberDropOffLineUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ChamberDropOffReleaseAndHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ElbowWristHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionControlCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.NewChamberLineUpCommandGroup;
@@ -119,6 +120,11 @@ public class CrabTeleOp extends OpMode {
                                 ()->CommandScheduler.getInstance().schedule(new SpecimenWallPickUpCommandGroup(robotBase, robotBase.shoulderSubsystem, robotBase.clawSubsystem, robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
                         );
 
+        chassisController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                        .whenPressed(
+                                ()->CommandScheduler.getInstance().schedule(new ElbowWristHomeCommandGroup(robotBase))
+                        );
+
        /* chassisController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .toggleWhenPressed(
                                 new PickupSpecimenOffWallLineUpCommandGroup(robotBase.extensionSubsystem,robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem, robotBase.clawSubsystem),
@@ -137,35 +143,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.Y)
                         .and(new GamepadButton(chassisController, GamepadKeys.Button.RIGHT_BUMPER))
-                        .whenActive(new SecondLevelAscentCommandGroup(robotBase));
-
-       /* armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() -> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME))
-                ));
-        armController.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME))
-                ));
-        armController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
-                .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))
-                ));
-        armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.DROPOFF))
-                ));
-                */
-      /*  armController.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(()-> CommandScheduler.getInstance().schedule(
-                        new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem)
-                ));
-
-       */
-        /*armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
-                        .whenPressed(()->CommandScheduler.getInstance().schedule(
-                                new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.MAXPOSITION))
-                        ));*/
+                        .whenActive(()->CommandScheduler.getInstance().schedule( new SecondLevelAscentCommandGroup(robotBase)));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
@@ -173,23 +151,6 @@ public class CrabTeleOp extends OpMode {
                         ));
         armController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
-
-        /*armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                .whenPressed(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)));
-
-        armController.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)));
-
-   /*     armController.getGamepadButton(GamepadKeys.Button.X)
-                .whenPressed(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME)));
-
-    */
-
-        /*armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                .whenPressed(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)));*/
-
-        /*armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .whenPressed(new PickupElbowWristCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem));*/
 
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem, robotBase.intakeSubsystem, robotBase.shoulderSubsystem)/*new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem), new SubPickupTogglePickupCommandGroup(robotBase)*/));
@@ -353,12 +314,6 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
         telemetry.addData("Chassis Right Stick X", chassisRightStickX);*/
 
-
-       /* if(robotBase.timerSubsystem.hasEndgamePassed(dblCurrentTime)){
-            gamepad1.rumble(0.25, 0.25, 500);
-            gamepad2.rumble(0.25, 0.25, 500);
-        };
-        */
         telemetry.addData("Elbow", robotBase.elbowSubsystem.getPosition());
         telemetry.addData("Wrist", robotBase.wristSubsystem.getPosition());
         /*telemetry.addData("Wrist Enum: ", robotBase.wristSubsystem.enmWristPosition);
