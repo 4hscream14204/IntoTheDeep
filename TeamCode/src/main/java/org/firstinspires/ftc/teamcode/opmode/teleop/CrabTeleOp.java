@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -13,39 +12,24 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
-import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.BucketEjectAndHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketExtendUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ChamberCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.ChamberDropOffLineUpCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.ChamberDropOffReleaseAndHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ElbowWristHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionControlCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.NewChamberLineUpCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.NewChamberReleaseCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.PickupSpecimenOffWallGrabCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.PickupSpecimenOffWallLineUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroupPartOne;
-import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroupPartTwo;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.ShoulderToggleIfHomeCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.ShoulderToggleIfNotHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SpecimenWallPickUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.SubPickupTogglePickupCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.SubPickupTogglePreSubPickupCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
-import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 
 @TeleOp(name = ("Aristocrab TeleOp"))
@@ -94,7 +78,10 @@ public class CrabTeleOp extends OpMode {
                                 new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem, robotBase.intakeSubsystem, robotBase.shoulderSubsystem)
                         ));
         chassisController.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed((new BucketEjectAndHomeCommandGroup(robotBase, robotBase.intakeSubsystem, robotBase.shoulderSubsystem, robotBase.extensionSubsystem, robotBase.wristSubsystem, new EjectCommandGroup(robotBase.intakeSubsystem))));
+                .whenPressed((new BucketEjectAndHomeCommandGroup(robotBase, robotBase.intakeSubsystem, robotBase.shoulderSubsystem, robotBase.extensionSubsystem, robotBase.wristSubsystem, new EjectCommandGroup(robotBase.intakeSubsystem, robotBase.clawSubsystem))));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.Y)
+                        .whenPressed(new EjectCommandGroup(robotBase.intakeSubsystem, robotBase.clawSubsystem));
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenActive(()-> CommandScheduler.getInstance().schedule(
@@ -333,6 +320,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));*/
         telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
         telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
+        telemetry.addData("Claw Position", robotBase.clawSubsystem.isBolClawOpen());
        /* telemetry.addLine()
                 .addData("Red: ", robotBase.intakeSubsystem.checkSampleColor().red)
                 .addData("Blue: ", robotBase.intakeSubsystem.checkSampleColor().blue)

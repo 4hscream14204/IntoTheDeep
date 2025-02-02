@@ -21,8 +21,8 @@ public class Shoulder extends SubsystemBase {
         NEWHIGHCHAMBER(1070),//2750, 3396
         LOWCHAMBER (680),
         LOWCHAMBERCLAMP (0),
-        NEWLOWCHAMBER(2750),
-        MAXPOSITION (2750),
+        NEWLOWCHAMBER(1070),
+        MAXPOSITION (1190),
         LOWBASKET (1070),
         HIGHBASKET (1070),
         TOGGLE (1070),
