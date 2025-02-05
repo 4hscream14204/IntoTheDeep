@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.GrabSpecimenAndHangPosCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartOne;
-import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartTwo;
+import org.firstinspires.ftc.teamcode.commands.SpecimenPickupAutoCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
@@ -64,11 +64,11 @@ public class RedRightx3 extends OpMode {
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
                 // hang preload
                 .setTangent(Math.toRadians(270))
-                .afterTime(0.39, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
+                .afterTime(0.39, ()->CommandScheduler.getInstance().schedule(new SpecimenPickupAutoCommandGroup(robotBase)))
                 .splineToConstantHeading(new Vector2d(-2.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .splineToConstantHeading(new Vector2d(-2.0, 23.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.2)
-                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
+                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.5)
                 .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-2.0, 40), Math.toRadians(90), new TranslationalVelConstraint(30))
@@ -107,7 +107,7 @@ public class RedRightx3 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-4.5, 24), Math.toRadians(270), new TranslationalVelConstraint(35))
                 //.waitSeconds(0.2)
                 //go back and grab next specimen
-                .afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
+                .afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.4)
                 .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(new Pose2d(-44.0, 58.00, Math.toRadians(180.00)), Math.toRadians(90.00), new TranslationalVelConstraint(35))
@@ -118,7 +118,7 @@ public class RedRightx3 extends OpMode {
                 .setTangent(Math.toRadians(270))
                 .splineToLinearHeading(new Pose2d(-6.00, 35.00, Math.toRadians(0.00)), Math.toRadians(270.00), new TranslationalVelConstraint(35))
                 .splineToConstantHeading(new Vector2d(-6, 24), Math.toRadians(270), new TranslationalVelConstraint(35))
-                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
+                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.4)
                 //park
                 .setTangent(Math.toRadians(90))

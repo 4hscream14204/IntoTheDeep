@@ -10,9 +10,9 @@ import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-public class HangSpecimenAutoCommandGroupPartOne extends SequentialCommandGroup {
+public class SpecimenPickupAutoCommandGroup extends SequentialCommandGroup {
 
-    public HangSpecimenAutoCommandGroupPartOne(RobotBase robotBase) {
+    public SpecimenPickupAutoCommandGroup(RobotBase robotBase) {
 
         addCommands(
                 new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER)),
