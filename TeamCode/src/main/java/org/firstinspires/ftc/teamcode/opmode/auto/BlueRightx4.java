@@ -48,9 +48,10 @@ public class BlueRightx4 extends OpMode {
         CommandScheduler.getInstance().reset();
         robotBase.drive.pose = startPose;
         telemetryPacket = new TelemetryPacket();
-        //robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);
-        //robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME);
+        robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP);
+        robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP);
         //robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
+        robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER);
 
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(
