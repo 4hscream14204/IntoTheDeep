@@ -78,10 +78,7 @@ public class CrabTeleOp extends OpMode {
                                 new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem, robotBase.intakeSubsystem, robotBase.shoulderSubsystem)
                         ));
         chassisController.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed((new BucketEjectAndHomeCommandGroup(robotBase, robotBase.intakeSubsystem, robotBase.shoulderSubsystem, robotBase.extensionSubsystem, robotBase.wristSubsystem, new EjectCommandGroup(robotBase.intakeSubsystem, robotBase.clawSubsystem))));
-
-        chassisController.getGamepadButton(GamepadKeys.Button.Y)
-                        .whenPressed(new EjectCommandGroup(robotBase.intakeSubsystem, robotBase.clawSubsystem));
+                .whenPressed(()->CommandScheduler.getInstance().schedule( new EjectCommandGroup(robotBase)));
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenActive(()-> CommandScheduler.getInstance().schedule(
@@ -310,17 +307,17 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Arm Right Stick Y", armController.getRightY());
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
+        telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
         telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
+        telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
-        telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
-        telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         /*telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
         telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));*/
         telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
         telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
-        telemetry.addData("Claw Position", robotBase.clawSubsystem.isBolClawOpen());
+        telemetry.addData("Ok to home",robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP.height);
        /* telemetry.addLine()
                 .addData("Red: ", robotBase.intakeSubsystem.checkSampleColor().red)
                 .addData("Blue: ", robotBase.intakeSubsystem.checkSampleColor().blue)
