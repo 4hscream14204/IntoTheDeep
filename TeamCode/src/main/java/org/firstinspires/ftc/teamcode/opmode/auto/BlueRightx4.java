@@ -51,7 +51,7 @@ public class BlueRightx4 extends OpMode {
        // robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP);
        // robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP);
         //robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
-        //robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER);
+        robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER);
 
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(
@@ -67,10 +67,10 @@ public class BlueRightx4 extends OpMode {
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
                 // hang preload
                 .setTangent(Math.toRadians(270))
-                //.afterTime(0.0, ()-> CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
+                .afterTime(0.0, ()-> CommandScheduler.getInstance().schedule(new SpecimenPickupAutoCommandGroup(robotBase)))
                 .splineToConstantHeading(new Vector2d(-2.0, 28.00), Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .waitSeconds(0.2)
-                //.afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
+                .afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.5)
 
                 .setTangent(Math.toRadians(90))
@@ -90,9 +90,9 @@ public class BlueRightx4 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-48, 50), Math.toRadians(90),new TranslationalVelConstraint(35))
                 .setTangent(Math.toRadians(270))
                 // go forward and grab specimen
-                .splineToConstantHeading(new Vector2d(-44.00, 50), Math.toRadians(90), new TranslationalVelConstraint(35))
-                .splineToConstantHeading(new Vector2d(-44.00, 62), Math.toRadians(90), new TranslationalVelConstraint(25))
-                //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
+                .splineToConstantHeading(new Vector2d(-45.00, 50), Math.toRadians(90), new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-45.00, 62), Math.toRadians(90), new TranslationalVelConstraint(25))
+               /* //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.2)
 
                 //hang specimen
@@ -129,7 +129,7 @@ public class BlueRightx4 extends OpMode {
                 //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
 
-
+*/
 
 
                 .build();
