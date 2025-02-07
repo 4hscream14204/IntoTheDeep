@@ -298,8 +298,8 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
         telemetry.addData("Chassis Right Stick X", chassisRightStickX);*/
 
-        telemetry.addData("Elbow", robotBase.elbowSubsystem.getPosition());
-        telemetry.addData("Wrist", robotBase.wristSubsystem.getPosition());
+        //telemetry.addData("Elbow", robotBase.elbowSubsystem.getPosition());
+       // telemetry.addData("Wrist", robotBase.wristSubsystem.getPosition());
         /*telemetry.addData("Wrist Enum: ", robotBase.wristSubsystem.enmWristPosition);
         telemetry.addData("Elbow Enum: ", robotBase.elbowSubsystem.enmElbowPosition);
         telemetry.addData("Elbow isAtPosition", robotBase.elbowSubsystem.isAtPosition(Elbow.ElbowPosition.PRESUBPICKUP));
@@ -317,11 +317,11 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));*/
         telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
         telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
-        telemetry.addData("Ok to home",robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP.height);
-       /* telemetry.addLine()
+        //telemetry.addData("Ok to home",robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP.height);
+        telemetry.addLine()
                 .addData("Red: ", robotBase.intakeSubsystem.checkSampleColor().red)
                 .addData("Blue: ", robotBase.intakeSubsystem.checkSampleColor().blue)
-                .addData("Green: ", robotBase.intakeSubsystem.checkSampleColor().green);*/
+                .addData("Green: ", robotBase.intakeSubsystem.checkSampleColor().green);
 
         CommandScheduler.getInstance().run();
     }
