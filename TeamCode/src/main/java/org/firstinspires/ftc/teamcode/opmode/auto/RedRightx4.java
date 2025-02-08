@@ -70,7 +70,7 @@ public class RedRightx4 extends OpMode {
                 // hang preload
                 .setTangent(Math.toRadians(270))
                 .afterTime(0.0, ()-> CommandScheduler.getInstance().schedule(new SpecimenPickupAutoCommandGroup(robotBase)))
-                .splineToConstantHeading(new Vector2d(-2.0, 28.00), Math.toRadians(270.00), new TranslationalVelConstraint(30))
+                .splineToConstantHeading(new Vector2d(-2.0, 27.00), Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .waitSeconds(0.2)
                 .afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.5)
@@ -99,7 +99,7 @@ public class RedRightx4 extends OpMode {
 
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
+                .splineToSplineHeading(new Pose2d(-4, 27.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
                 .afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.4)
                 //go and grab another specimen
@@ -109,7 +109,7 @@ public class RedRightx4 extends OpMode {
                 .waitSeconds(0.2)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
+                .splineToSplineHeading(new Pose2d(-4, 27.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
 
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.4)
@@ -120,7 +120,7 @@ public class RedRightx4 extends OpMode {
                 .waitSeconds(0.2)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
+                .splineToSplineHeading(new Pose2d(-4, 27.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
 
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.4)
