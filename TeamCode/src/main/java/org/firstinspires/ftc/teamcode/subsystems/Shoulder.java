@@ -10,7 +10,7 @@ public class Shoulder extends SubsystemBase {
     public DcMotor dcShoulderMotorRight;
     public DigitalChannel tsShoulderLimitSwitch;
     public double dblUpPower = 1;
-    public double dblDownPower = -0.5;
+    public double dblDownPower = -1;
     public boolean bolStoppedInPlace = true;
     public int intCurrentPos;
 
