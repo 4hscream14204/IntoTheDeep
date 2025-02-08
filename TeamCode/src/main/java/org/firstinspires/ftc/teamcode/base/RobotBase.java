@@ -45,8 +45,8 @@ public class RobotBase {
 
         intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
                 hwMap.servo.get("intakeServoRight"),
-                hwMap.servo.get("gateServo"),
-                hwMap.get(RevColorSensorV3.class, "intakeColorSensor"));
+                hwMap.servo.get("gateServo"));
+                //hwMap.get(RevColorSensorV3.class, "intakeColorSensor"));
         clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
         elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
         extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionMotor"), hwMap.digitalChannel.get("extensionLimitSwitch"));
