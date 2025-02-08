@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import android.provider.ContactsContract;
+
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
@@ -12,6 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.BucketEjectAndHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketElbowWristCommandGroup;
@@ -21,6 +24,7 @@ import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ElbowWristHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionControlCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.SampleOuttakeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleCommandGroup;
@@ -219,6 +223,16 @@ public class CrabTeleOp extends OpMode {
                         new InstantCommand(()->robotBase.shoulderSubsystem.reset())
                 );
 
+        new Trigger(()->robotBase.intakeSubsystem.isBlueSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)
+                .whenActive(
+                        new SampleOuttakeCommandGroup(robotBase)
+                );
+
+        new Trigger(()->robotBase.intakeSubsystem.isRedSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE)
+                .whenActive(
+                        new SampleOuttakeCommandGroup(robotBase)
+                );
+
         /*new Trigger(()->!robotBase.shoulderSubsystem.isShoulderHome() && robotBase.extensionSubsystem.isPastMaxPosition())
                 .whenActive(()->CommandScheduler.getInstance().schedule(
                         new ExtensionMaximumPositionCommandGroup(robotBase)
@@ -319,9 +333,12 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
         //telemetry.addData("Ok to home",robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP.height);
         telemetry.addLine()
-                .addData("Red: ", robotBase.intakeSubsystem.checkSampleColor().red)
-                .addData("Blue: ", robotBase.intakeSubsystem.checkSampleColor().blue)
-                .addData("Green: ", robotBase.intakeSubsystem.checkSampleColor().green);
+                .addData("Red: ", robotBase.intakeSubsystem.checkSampleColorRed())
+                .addData("Blue: ", robotBase.intakeSubsystem.checkSampleColorBlue())
+                .addData("Green: ", robotBase.intakeSubsystem.checkSampleColorGreen());
+
+        telemetry.addData("IsRed", robotBase.intakeSubsystem.isRedSample());
+        telemetry.addData("IsBlue", robotBase.intakeSubsystem.isBlueSample());
 
         CommandScheduler.getInstance().run();
     }
