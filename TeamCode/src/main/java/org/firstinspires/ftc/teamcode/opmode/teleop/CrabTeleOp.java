@@ -223,7 +223,7 @@ public class CrabTeleOp extends OpMode {
                         new InstantCommand(()->robotBase.shoulderSubsystem.reset())
                 );
 
-        new Trigger(()->robotBase.intakeSubsystem.isBlueSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)
+       /* new Trigger(()->robotBase.intakeSubsystem.isBlueSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)
                 .whenActive(
                         new SampleOuttakeCommandGroup(robotBase)
                 );
@@ -231,7 +231,7 @@ public class CrabTeleOp extends OpMode {
         new Trigger(()->robotBase.intakeSubsystem.isRedSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE)
                 .whenActive(
                         new SampleOuttakeCommandGroup(robotBase)
-                );
+                );*/
 
         /*new Trigger(()->!robotBase.shoulderSubsystem.isShoulderHome() && robotBase.extensionSubsystem.isPastMaxPosition())
                 .whenActive(()->CommandScheduler.getInstance().schedule(
@@ -332,13 +332,13 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
         telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
         //telemetry.addData("Ok to home",robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP.height);
-        telemetry.addLine()
+        /*telemetry.addLine()
                 .addData("Red: ", robotBase.intakeSubsystem.checkSampleColorRed())
                 .addData("Blue: ", robotBase.intakeSubsystem.checkSampleColorBlue())
                 .addData("Green: ", robotBase.intakeSubsystem.checkSampleColorGreen());
 
         telemetry.addData("IsRed", robotBase.intakeSubsystem.isRedSample());
-        telemetry.addData("IsBlue", robotBase.intakeSubsystem.isBlueSample());
+        telemetry.addData("IsBlue", robotBase.intakeSubsystem.isBlueSample());*/
 
         CommandScheduler.getInstance().run();
     }

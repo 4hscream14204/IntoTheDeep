@@ -46,6 +46,7 @@ public class BlueLeftHangAndPark extends OpMode {
         CommandScheduler.getInstance().reset();
         robotBase.drive.pose = startPose;
         telemetryPacket = new TelemetryPacket();
+        robotBase.clawSubsystem.closeClaw();
         robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);
         robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME);
         robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;

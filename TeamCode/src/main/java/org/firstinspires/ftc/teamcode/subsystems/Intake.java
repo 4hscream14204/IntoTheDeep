@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
@@ -21,7 +22,7 @@ public class Intake extends SubsystemBase {
     }
 
     public enum Red{
-        RED (1968),
+        RED (2030),
         BLUE (2455),
         GREEN (2780);
         public final double value;
@@ -30,7 +31,7 @@ public class Intake extends SubsystemBase {
 
     public enum Blue{
         RED (1510),
-        BLUE (2884),
+        BLUE (3025),
         GREEN (2730);
         public final double value;
         Blue(double m_colorAmounts){this.value = m_colorAmounts;}
@@ -48,11 +49,11 @@ public class Intake extends SubsystemBase {
     public Servo intakeServoLeft;
     public Servo intakeServoRight;
     public Servo intakeServoGate;
-    public ColorSensor intakeColorSensor;
+    public RevColorSensorV3 intakeColorSensor;
 
     public double dblColorMarginOfError = 0;
 
-    public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate, ColorSensor m_intakesensor ) {
+    public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate, RevColorSensorV3 m_intakesensor ) {
             intakeServoLeft = m_intakeLeft;
             intakeServoRight = m_intakeRight;
             intakeServoGate = m_intakeGate;
@@ -88,8 +89,8 @@ public class Intake extends SubsystemBase {
     }
 
     public void intakeOuttake(){
-        intakeServoLeft.setPosition(0);
-        intakeServoRight.setPosition(1);
+        intakeServoLeft.setPosition(1);
+        intakeServoRight.setPosition(0);
     }
 
     public void gateGoToPosition(Intake.GatePosition enmTargetPosition) {
@@ -114,7 +115,7 @@ public class Intake extends SubsystemBase {
     }
 
     public boolean isRedSample(){
-        if(Math.abs(Red.RED.value - 5) <= 10 && Math.abs(Red.BLUE.value - 5) <= 10 && Math.abs(Red.GREEN.value - 5) <= 10){
+        if(Math.abs(Red.RED.value - intakeColorSensor.red()) <= 10){
             return true;
         }
         else{
@@ -123,7 +124,7 @@ public class Intake extends SubsystemBase {
     }
 
     public boolean isBlueSample(){
-        if(Math.abs(Blue.RED.value - 5) <= 10 && Math.abs(Blue.BLUE.value - 5) <= 10 && Math.abs(Blue.GREEN.value - 5) <= 10){
+        if(Math.abs(Blue.BLUE.value - intakeColorSensor.blue()) <= 10){
             return true;
         }
         else{

@@ -10,7 +10,7 @@ public class SampleOuttakeCommandGroup extends SequentialCommandGroup {
     public SampleOuttakeCommandGroup(RobotBase robotBase){
         addCommands(
                 new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake()),
-                new WaitCommand(250),
+                new WaitCommand(500),
                 new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
         );
     }

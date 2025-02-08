@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.base;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Time;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -45,7 +46,7 @@ public class RobotBase {
         intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
                 hwMap.servo.get("intakeServoRight"),
                 hwMap.servo.get("gateServo"),
-                hwMap.get(ColorSensor.class, "intakeColorSensor"));
+                hwMap.get(RevColorSensorV3.class, "intakeColorSensor"));
         clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
         elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
         extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionMotor"), hwMap.digitalChannel.get("extensionLimitSwitch"));

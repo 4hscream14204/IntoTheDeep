@@ -50,6 +50,7 @@ public class BlueRightx4 extends OpMode {
         telemetryPacket = new TelemetryPacket();
         //robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);
         robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.AUTOINIT);
+        robotBase.clawSubsystem.closeClaw();
         //robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
         robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER);
 

@@ -48,6 +48,7 @@ public class RedRightx3 extends OpMode {
         telemetryPacket = new TelemetryPacket();
         robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);
         robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME);
+        robotBase.clawSubsystem.closeClaw();
         robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
 
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
