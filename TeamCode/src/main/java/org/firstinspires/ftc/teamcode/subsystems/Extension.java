@@ -116,7 +116,7 @@ public class Extension extends SubsystemBase {
     }
 
     public boolean isAtPosition(ExtensionPosition targetPosition){
-        if(Math.abs(extendMotor.getCurrentPosition() - targetPosition.height) <= 10){
+        if(Math.abs(extendMotor.getCurrentPosition() - targetPosition.height) <= 40){
             return true;
         }
         return false;
