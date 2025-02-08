@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 public class Intake extends SubsystemBase {
 
     public enum GatePosition{
-        OPEN (0.343888),
-        ClOSED (0.1666);
+        OPEN (0.6111),
+        ClOSED (0.29444);
         public final double value;
         GatePosition(double m_position) {
             this.value = m_position;
@@ -53,11 +53,11 @@ public class Intake extends SubsystemBase {
 
     public double dblColorMarginOfError = 0;
 
-    public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate, RevColorSensorV3 m_intakesensor ) {
+    public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate/*, RevColorSensorV3 m_intakesensor*/ ) {
             intakeServoLeft = m_intakeLeft;
             intakeServoRight = m_intakeRight;
             intakeServoGate = m_intakeGate;
-            intakeColorSensor = m_intakesensor;
+           // intakeColorSensor = m_intakesensor;
             intakeServoGate.setPosition(GatePosition.ClOSED.value);
     }
 

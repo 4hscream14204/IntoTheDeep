@@ -36,7 +36,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 
 
-@TeleOp(name = ("Aristocrab TeleOp"))
+@TeleOp(name = ("Crab Bot TeleOp"))
 public class CrabTeleOp extends OpMode {
     public RobotBase robotBase;
     boolean bolFieldCentric = true;
