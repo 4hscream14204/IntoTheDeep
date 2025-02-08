@@ -89,8 +89,8 @@ public class Intake extends SubsystemBase {
     }
 
     public void intakeOuttake(){
-        intakeServoLeft.setPosition(1);
-        intakeServoRight.setPosition(0);
+        intakeServoLeft.setPosition(0);
+        intakeServoRight.setPosition(1);
     }
 
     public void gateGoToPosition(Intake.GatePosition enmTargetPosition) {
