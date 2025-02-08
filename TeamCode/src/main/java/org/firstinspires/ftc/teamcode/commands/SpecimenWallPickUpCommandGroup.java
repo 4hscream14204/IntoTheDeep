@@ -18,7 +18,7 @@ public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, C
         addCommands(
                 new InstantCommand(claw::closeClaw),
                 new WaitCommand(250),
-                new InstantCommand(()->extension.goToPosition(Extension.ExtensionPosition.NEWHIGHCHAMBER)),
+                new InstantCommand(()->extension.goToPosition(Extension.ExtensionPosition.SPECIMENPICKUP)),
                 new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP))
         );
     }
