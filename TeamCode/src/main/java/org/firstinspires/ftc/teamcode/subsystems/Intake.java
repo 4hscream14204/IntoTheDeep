@@ -58,7 +58,7 @@ public class Intake extends SubsystemBase {
             intakeServoRight = m_intakeRight;
             intakeServoGate = m_intakeGate;
            // intakeColorSensor = m_intakesensor;
-            intakeServoGate.setPosition(GatePosition.ClOSED.value);
+            //intakeServoGate.setPosition(GatePosition.ClOSED.value);
     }
 
     public void intakeSpeed (double speed){
