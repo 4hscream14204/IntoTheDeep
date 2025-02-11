@@ -31,6 +31,7 @@ import org.firstinspires.ftc.teamcode.commands.ShoulderToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SpecimenWallPickUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -250,10 +251,7 @@ public class CrabTeleOp extends OpMode {
         CommandScheduler.getInstance().run();
     }*/
     public void start(){
-        CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem));
-        CommandScheduler.getInstance().schedule(new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem));
-        CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)));
-        CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)));
+        CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
     }
 
     public void loop(){
