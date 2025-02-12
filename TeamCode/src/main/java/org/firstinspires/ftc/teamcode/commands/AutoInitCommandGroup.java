@@ -12,16 +12,20 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class AutoInitCommandGroup extends SequentialCommandGroup {
     public AutoInitCommandGroup(RobotBase robotBase){
+        if(!robotBase.shoulderSubsystem.isShoulderHome()) {
+            addCommands(
+                    new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
+            );
+        }
+        if(!robotBase.extensionSubsystem.isExtensionHome()){
+            addCommands(
+                    new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
+            );
+        }
         addCommands(
-                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
-                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP)),
-                new WaitCommand(250),
-                new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
                 new WaitUntilCommand(()->robotBase.shoulderSubsystem.isShoulderHome()),
-                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
-                new WaitUntilCommand(()->robotBase.extensionSubsystem.isExtensionHome()),
-                new WaitCommand(250),
-                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))
+                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
+                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.AUTOINIT))
         );
     }
 }
