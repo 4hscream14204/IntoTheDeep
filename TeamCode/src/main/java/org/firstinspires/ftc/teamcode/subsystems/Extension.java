@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 public class Extension extends SubsystemBase {
 
-    public DcMotor extendMotor;
+    public DcMotor extendLeftMotor;
     public DigitalChannel tsExtensionLimitSwitch;
 
     public enum ExtensionPosition{
@@ -24,7 +24,7 @@ public class Extension extends SubsystemBase {
         NEWHIGHCHAMBER (-2550),//-1870
         NEWHIGHCHAMBERCLAMP (-1600),//-1150
         SECONDLEVELASCENT (-4400),
-        SECONDLEVELASCENTPULL (-1500),
+        SECONDLEVELASCENTPULL (-3400),
         SPECIMENPICKUP(-750);
         public final int height;
         ExtensionPosition(int high){
@@ -40,61 +40,68 @@ public class Extension extends SubsystemBase {
 
     public ExtensionPosition enmExtensionPosition;
 
-    public Extension(DcMotor extensionMotor, DigitalChannel conTsExtensionLimitSwitch) {
-        extendMotor = extensionMotor;
-        tsExtensionLimitSwitch = conTsExtensionLimitSwitch;
-        extendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extendMotor.setTargetPosition(0);
-        extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        extendMotor.setPower(0);
-        extendMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    public Extension(DcMotor m_extensionLeftMotor, DigitalChannel m_TsExtensionLimitSwitch) {
+        extendLeftMotor = m_extensionLeftMotor;
+        tsExtensionLimitSwitch = m_TsExtensionLimitSwitch;
+        extendLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setTargetPosition(0);
+        extendLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        extendLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         enmExtensionPosition = ExtensionPosition.HOME;
     }
 
+    public void setPower(double power){
+        extendLeftMotor.setPower(power);
+    }
+
+    public void setTargetPosition(int position){
+        extendLeftMotor.setTargetPosition(position);
+    }
+
     public void extend(double power) {
-        if(extendMotor.getCurrentPosition() < intMaxPosition){
+        if(extensionGetPosition() < intMaxPosition){
             stopInPlace();
         }
         if(isExtensionHome() && power > 0){
-            extendMotor.setPower(0);
+            setPower(0);
             reset();
             return;
         }
         else {
-            extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            extendMotor.setPower(power);
+            extendLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            setPower(power);
             bolStopped = false;
         }
     }
 
     public void extendForward(double power) {
-        if(extendMotor.getCurrentPosition() < intMaxPosition){
+        if(extensionGetPosition() < intMaxPosition){
             stopInPlace();
         }
         else {
-            extendMotor.setMode((DcMotor.RunMode.RUN_USING_ENCODER));
-            extendMotor.setPower(power * -1);
+            extendLeftMotor.setMode((DcMotor.RunMode.RUN_USING_ENCODER));
+            setPower(power * -1);
             bolStopped = false;
         }
     }
 
 
     public void goToPosition(ExtensionPosition enmTargetPosition) {
-       if(extendMotor.getCurrentPosition() < enmTargetPosition.height){
+       if(extensionGetPosition() < enmTargetPosition.height){
             enmExtensionPosition = enmTargetPosition;
-            extendMotor.setPower(dblDownPower);
+            setPower(dblDownPower);
         }
-        else if(extendMotor.getCurrentPosition() > enmTargetPosition.height){
+        else if(extensionGetPosition() > enmTargetPosition.height){
             enmExtensionPosition = enmTargetPosition;
-            extendMotor.setPower(dblUpPower);
+            setPower(dblUpPower);
         }
         else if(isAtPosition(enmTargetPosition)){
             stopInPlace();
             return;
         }
-        extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extendMotor.setPower(dblUpPower);
-        extendMotor.setTargetPosition(enmTargetPosition.height);
+        extendLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        setPower(dblUpPower);
+        setTargetPosition(enmTargetPosition.height);
 
         bolStopped = false;
     }
@@ -108,15 +115,15 @@ public class Extension extends SubsystemBase {
             reset();
         }
         else{
-            extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            intCurrentPos = extendMotor.getCurrentPosition();
-            extendMotor.setTargetPosition(intCurrentPos);
-            extendMotor.setPower(-0.1);
+            extendLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            intCurrentPos = extensionGetPosition();
+            setTargetPosition(intCurrentPos);
+            setPower(-0.1);
         }
     }
 
     public boolean isAtPosition(ExtensionPosition targetPosition){
-        if(Math.abs(extendMotor.getCurrentPosition() - targetPosition.height) <= 50){
+        if(Math.abs(extensionGetPosition() - targetPosition.height) <= 50){
             return true;
         }
         return false;
@@ -128,22 +135,22 @@ public class Extension extends SubsystemBase {
 
     public void reset(){
         bolStopped = false;
-        extendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extendMotor.setTargetPosition(0);
-        extendMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extendMotor.setPower(0);
+        extendLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setTargetPosition(0);
+        extendLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        setPower(0);
     }
 
     public int extensionGetPosition(){
-        return extendMotor.getCurrentPosition();
+        return extendLeftMotor.getCurrentPosition();
     }
 
     public double getPower(){
-        return extendMotor.getPower();
+        return extendLeftMotor.getPower();
     }
 
     public int getTargetPosition(){
-        return extendMotor.getTargetPosition();
+        return extendLeftMotor.getTargetPosition();
     }
 
     public boolean isPastMaxPosition(){
