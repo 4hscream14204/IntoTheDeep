@@ -20,71 +20,15 @@ public class MeepMeepTesting {
 
 
             // hang preload
-    myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-14, 61, Math.toRadians(0)))
+    myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(14, 61, Math.toRadians(0)))
+
             .setTangent(Math.toRadians(270))
-            //.afterTime(0.0, ()-> CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
-            .splineToConstantHeading(new Vector2d(-2.0, 28.00), Math.toRadians(270.00), new TranslationalVelConstraint(30))
-            .waitSeconds(0.2)
-            //.afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
-            .waitSeconds(0.5)
+            .splineToSplineHeading(new Pose2d(53, 55,Math.toRadians(135.00)), Math.toRadians(45.00))
+                    .setTangent(Math.toRadians(225))
+            .splineToSplineHeading(new Pose2d(36, 26,Math.toRadians(270)), Math.toRadians(270))
 
-            .setTangent(Math.toRadians(90))
-            .splineToConstantHeading(new Vector2d(-2.0, 32), Math.toRadians(90), new TranslationalVelConstraint(35))
-            //drive over to samples and move them to human player area
-            .splineToSplineHeading(new Pose2d(-31.0, 32.00,Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
-            .splineToConstantHeading(new Vector2d(-31.0, 17), Math.toRadians(270), new TranslationalVelConstraint(35))
-            .splineToConstantHeading(new Vector2d(-38, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
-            .setTangent(Math.toRadians(90))
-            //push into player area
-            .splineToConstantHeading(new Vector2d(-38, 54), Math.toRadians(90),new TranslationalVelConstraint(35))
-            .setTangent(Math.toRadians(270))
-            //line up for second sample
-            .splineToConstantHeading(new Vector2d(-38, 17), Math.toRadians(270),new TranslationalVelConstraint(35))
-            //push to human player
-            .splineToConstantHeading(new Vector2d(-48, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
-            .splineToConstantHeading(new Vector2d(-48, 50), Math.toRadians(90),new TranslationalVelConstraint(35))
-            .setTangent(Math.toRadians(270))
-            // go forward and grab specimen
-            .splineToConstantHeading(new Vector2d(-44.00, 50), Math.toRadians(90), new TranslationalVelConstraint(35))
-            .splineToConstantHeading(new Vector2d(-44.00, 62), Math.toRadians(90), new TranslationalVelConstraint(25))
-            //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
-            .waitSeconds(0.2)
-
-            //hang specimen
-            .setTangent(Math.toRadians(315))
-            .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
-            //.afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
-            .waitSeconds(0.4)
-            //go and grab another specimen
-            .setTangent(Math.toRadians(90))
-            .splineToSplineHeading(new Pose2d(-43.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(35))
-            //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
-            .waitSeconds(0.2)
-            //hang specimen
-            .setTangent(Math.toRadians(315))
-            .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
-
-            //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
-            .waitSeconds(0.4)
-            //go and grab another specimen
-            .setTangent(Math.toRadians(90))
-            .splineToSplineHeading(new Pose2d(-43.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(35))
-            //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
-            .waitSeconds(0.2)
-            //hang specimen
-            .setTangent(Math.toRadians(315))
-            .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
-
-            //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
-            .waitSeconds(0.4)
-            //park
-            .setTangent(Math.toRadians(90))
-            .splineToLinearHeading(new Pose2d(-54.00, 52, Math.toRadians(180)), Math.toRadians(180.00), new TranslationalVelConstraint(50))
-            //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
-            //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
-            //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
-
-
+            .splineToConstantHeading(new Vector2d(30, 10), Math.toRadians(180), new TranslationalVelConstraint(30))
+            .splineToConstantHeading(new Vector2d(20, 10), Math.toRadians(180), new TranslationalVelConstraint(20))
             .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
