@@ -25,7 +25,7 @@ public class ChamberCommandGroup extends SequentialCommandGroup {
         if(robotBase.shoulderSubsystem.isAtPosition(chamberPosition) && robotBase.extensionSubsystem.isAtPosition(extensionChamberPosition)){
             addCommands(
                     new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(clampPosition)),
-                    new WaitCommand(500),
+                    new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(clampPosition)),
                     new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
                     new WaitCommand(250),
                     new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),

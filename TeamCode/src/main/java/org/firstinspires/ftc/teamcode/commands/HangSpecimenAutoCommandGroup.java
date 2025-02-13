@@ -14,7 +14,7 @@ public class HangSpecimenAutoCommandGroup extends SequentialCommandGroup {
     public HangSpecimenAutoCommandGroup(RobotBase robotBase) {
 
         addCommands(
-                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP)),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
                 new WaitCommand(400),
                 new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
                 new WaitCommand(250),
