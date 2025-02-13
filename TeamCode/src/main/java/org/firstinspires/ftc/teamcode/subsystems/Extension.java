@@ -38,9 +38,9 @@ public class Extension extends SubsystemBase {
 
     public ExtensionPosition enmExtensionPosition;
 
-    public Extension(DcMotor m_extensionLeftMotor, DcMotor m_extentionRightMotor, DigitalChannel m_TsExtensionLimitSwitch) {
+    public Extension(DcMotor m_extensionLeftMotor, DcMotor m_extensionRightMotor, DigitalChannel m_TsExtensionLimitSwitch) {
         extendLeftMotor = m_extensionLeftMotor;
-        extendRightMotor = m_extentionRightMotor;
+        extendRightMotor = m_extensionRightMotor;
         tsExtensionLimitSwitch = m_TsExtensionLimitSwitch;
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setTargetPosition(0);

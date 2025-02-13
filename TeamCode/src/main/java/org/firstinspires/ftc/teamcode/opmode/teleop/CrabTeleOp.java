@@ -331,9 +331,12 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));*/
         telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
         telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
-        telemetry.addData("Target Extension", robotBase.extensionSubsystem.getTargetPosition());
+        telemetry.addData("Target Left Extension", robotBase.extensionSubsystem.extendLeftMotor.getTargetPosition());
+        telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());
         telemetry.addData("Is Shoulder at Chamber Position", robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER));
         telemetry.addData("Is Extension at Chamber Position", robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER));
+        telemetry.addData("Left Extension Power", robotBase.extensionSubsystem.extendLeftMotor.getPower());
+        telemetry.addData("Right Extension Power", robotBase.extensionSubsystem.extendRightMotor.getPower());
         //telemetry.addData("Ok to home",robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP.height);
         /*telemetry.addLine()
                 .addData("Red: ", robotBase.intakeSubsystem.checkSampleColorRed())

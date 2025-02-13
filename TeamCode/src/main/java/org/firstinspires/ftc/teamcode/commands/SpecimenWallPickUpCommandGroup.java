@@ -19,7 +19,9 @@ public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, C
                 new InstantCommand(claw::closeClaw),
                 new WaitCommand(250),
                 new InstantCommand(()->extension.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
-                new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP))
+                new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                new WaitUntilCommand(()->extension.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
+                new InstantCommand(extension::stopInPlace)
         );
     }
     else {
@@ -31,7 +33,9 @@ public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, C
                 new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
                 new InstantCommand(claw::openClaw),
                 //new WaitCommand(250),
-                new InstantCommand(()->shoulder.goToPosition(Shoulder.ShoulderPosition.TOGGLE))
+                new InstantCommand(()->shoulder.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
+                new WaitUntilCommand(()->shoulder.isAtPosition(Shoulder.ShoulderPosition.TOGGLE)),
+                new InstantCommand(()->shoulder.stopInPlace())
         );
     }
 }
