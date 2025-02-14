@@ -47,6 +47,8 @@ public class RedRightx4 extends OpMode {
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
         CommandScheduler.getInstance().reset();
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().clearButtons();
         robotBase.drive.pose = startPose;
         telemetryPacket = new TelemetryPacket();
         //robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);

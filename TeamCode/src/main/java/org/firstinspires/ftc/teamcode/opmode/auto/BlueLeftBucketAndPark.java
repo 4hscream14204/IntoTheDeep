@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -98,6 +99,9 @@ public class BlueLeftBucketAndPark extends OpMode {
 
         @Override
         public void start() {
+            for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
+                module.clearBulkCache();
+            }
             if (waitSec > 0) {
                 waitAction = robotBase.drive.actionBuilder(startPose)
                         .waitSeconds(waitSec)

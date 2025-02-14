@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -24,13 +25,15 @@ import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
+
+import java.util.List;
+
 //@Disabled
 @Autonomous (name = "BlueRight4x")
 public class BlueRightx4 extends OpMode {
     public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
-
     public RobotBase robotBase;
     public GamepadEx armController;
     public GamepadEx baseController;
@@ -46,6 +49,8 @@ public class BlueRightx4 extends OpMode {
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
         CommandScheduler.getInstance().reset();
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().clearButtons();
         robotBase.drive.pose = startPose;
         telemetryPacket = new TelemetryPacket();
         //robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);
@@ -125,7 +130,7 @@ public class BlueRightx4 extends OpMode {
                 .waitSeconds(0.4)
                 //park
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(-54.00, 52, Math.toRadians(180)), Math.toRadians(180.00), new TranslationalVelConstraint(50))
+                .splineToLinearHeading(new Pose2d(-54.00, 54, Math.toRadians(180)), Math.toRadians(180.00), new TranslationalVelConstraint(50))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
@@ -150,6 +155,12 @@ public class BlueRightx4 extends OpMode {
 
     @Override
     public void start() {
+        for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
+            module.clearBulkCache();
+        }
+        CommandScheduler.getInstance().reset();
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().clearButtons();
         if (waitSec > 0) {
             waitAction = robotBase.drive.actionBuilder(startPose)
                     .waitSeconds(waitSec)

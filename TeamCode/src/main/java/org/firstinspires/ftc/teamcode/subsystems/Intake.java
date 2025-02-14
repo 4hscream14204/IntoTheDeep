@@ -14,7 +14,7 @@ public class Intake extends SubsystemBase {
 
     public enum GatePosition{
         OPEN (0.343888),
-        ClOSED (0.1666);
+        ClOSED (0);
         public final double value;
         GatePosition(double m_position) {
             this.value = m_position;
