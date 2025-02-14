@@ -77,7 +77,7 @@ public class BlueRightx4 extends OpMode {
                 .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-2.0, 32), Math.toRadians(90), new TranslationalVelConstraint(35))
                 //drive over to samples and move them to human player area
-                .splineToSplineHeading(new Pose2d(-31.0, 32.00,Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
+                .splineToSplineHeading(new Pose2d(-28.0, 32.00,Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .splineToConstantHeading(new Vector2d(-31.0, 17), Math.toRadians(270), new TranslationalVelConstraint(35))
                 .splineToConstantHeading(new Vector2d(-38, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
                 .setTangent(Math.toRadians(90))
@@ -166,6 +166,7 @@ public class BlueRightx4 extends OpMode {
         telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
       //  telemetry.addData("Feild Position y")
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
+        telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
         blueRightx4Action.run(telemetryPacket);
     }
 
