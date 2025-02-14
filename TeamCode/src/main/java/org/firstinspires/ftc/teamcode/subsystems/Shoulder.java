@@ -125,7 +125,7 @@ public class Shoulder extends SubsystemBase {
     }
 
     public boolean isAtPosition(ShoulderPosition targetPosition){
-        if(Math.abs(dcShoulderMotorLeft.getCurrentPosition() - targetPosition.height) <= 25){
+        if(Math.abs(dcShoulderMotorLeft.getCurrentPosition() - targetPosition.height) <= 30){
             return true;
         }
         return false;
@@ -142,10 +142,10 @@ public class Shoulder extends SubsystemBase {
             dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             intCurrentPos = dcShoulderMotorLeft.getCurrentPosition();
             dcShoulderMotorLeft.setTargetPosition(intCurrentPos);
-            dcShoulderMotorLeft.setPower(1);
+            dcShoulderMotorLeft.setPower(0.2);
             dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             dcShoulderMotorRight.setTargetPosition(intCurrentPos);
-            dcShoulderMotorRight.setPower(1);
+            dcShoulderMotorRight.setPower(0.2);
     }
 
     public int shoulderGetPosition(){

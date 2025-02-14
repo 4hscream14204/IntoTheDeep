@@ -18,8 +18,10 @@ public class SubPickupReturnCommandGroup extends SequentialCommandGroup {
                 new WaitUntilCommand(()->robotBase.extensionSubsystem.isExtensionHome()),
                 new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
                 new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF)),
-                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
-                new InstantCommand(()->robotBase.clawSubsystem.openClaw())
+                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HUMANPLAYERDROPOFF)),
+                new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
+                new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE)),
+                new InstantCommand(()->robotBase.shoulderSubsystem.stopInPlace())
         );
     }
 }

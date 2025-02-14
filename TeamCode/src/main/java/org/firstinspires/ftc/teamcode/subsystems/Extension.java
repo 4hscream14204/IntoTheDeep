@@ -2,30 +2,28 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 public class Extension extends SubsystemBase {
 
     public DcMotor extendLeftMotor;
+    public DcMotor extendRightMotor;
     public DigitalChannel tsExtensionLimitSwitch;
 
     public enum ExtensionPosition{
         HOME (0),
-        MAXSHOULDERDOWNPOSITION(-2390),
-        MAXSHOULDERUPPOSITION (-4400),
-        LOWBUCKET (-1530),
-        HIGHBUCKET (-4250),
-        LOWCHAMBER (-700),
-        LOWCHAMBERCLAMP(0),
-        NEWLOWCHAMBER (-750),
+        MAXSHOULDERDOWNPOSITION(-1593),
+        MAXSHOULDERUPPOSITION (-2933),
+        LOWBUCKET (-1020),
+        HIGHBUCKET (-2833),
+        LOWCHAMBER (-500),
         NEWLOWCHAMBERCLAMP (0),
-        HIGHCHAMBER (-1975),
-        HIGHCHAMBERCLAMP (-1425),
-        NEWHIGHCHAMBER (-2550),//-1870
-        NEWHIGHCHAMBERCLAMP (-1600),//-1150
-        SECONDLEVELASCENT (-4400),
-        SECONDLEVELASCENTPULL (-3400),
-        SPECIMENPICKUP(-750);
+        HIGHCHAMBER (-1700),//-1870
+        HIGHCHAMBERCLAMP (-1100),//-1150
+        SECONDLEVELASCENT (-2933),
+        SECONDLEVELASCENTPULL (-2266),
+        SPECIMENPICKUP(-500);
         public final int height;
         ExtensionPosition(int high){
             this.height = high;
@@ -40,22 +38,31 @@ public class Extension extends SubsystemBase {
 
     public ExtensionPosition enmExtensionPosition;
 
-    public Extension(DcMotor m_extensionLeftMotor, DigitalChannel m_TsExtensionLimitSwitch) {
+    public Extension(DcMotor m_extensionLeftMotor, DcMotor m_extensionRightMotor, DigitalChannel m_TsExtensionLimitSwitch) {
         extendLeftMotor = m_extensionLeftMotor;
+        extendRightMotor = m_extensionRightMotor;
         tsExtensionLimitSwitch = m_TsExtensionLimitSwitch;
-        extendLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setTargetPosition(0);
-        extendLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         extendLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        extendRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         enmExtensionPosition = ExtensionPosition.HOME;
     }
 
     public void setPower(double power){
         extendLeftMotor.setPower(power);
+        extendRightMotor.setPower(power);
     }
 
     public void setTargetPosition(int position){
         extendLeftMotor.setTargetPosition(position);
+        extendRightMotor.setTargetPosition(position);
+    }
+
+    public void setMode(DcMotor.RunMode mode){
+        extendLeftMotor.setMode(mode);
+        extendRightMotor.setMode(mode);
     }
 
     public void extend(double power) {
@@ -68,7 +75,7 @@ public class Extension extends SubsystemBase {
             return;
         }
         else {
-            extendLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             setPower(power);
             bolStopped = false;
         }
@@ -79,7 +86,7 @@ public class Extension extends SubsystemBase {
             stopInPlace();
         }
         else {
-            extendLeftMotor.setMode((DcMotor.RunMode.RUN_USING_ENCODER));
+            setMode((DcMotor.RunMode.RUN_USING_ENCODER));
             setPower(power * -1);
             bolStopped = false;
         }
@@ -99,8 +106,8 @@ public class Extension extends SubsystemBase {
             stopInPlace();
             return;
         }
-        extendLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        setPower(dblUpPower);
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //setPower(dblUpPower);
         setTargetPosition(enmTargetPosition.height);
 
         bolStopped = false;
@@ -115,7 +122,7 @@ public class Extension extends SubsystemBase {
             reset();
         }
         else{
-            extendLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            setMode(DcMotor.RunMode.RUN_TO_POSITION);
             intCurrentPos = extensionGetPosition();
             setTargetPosition(intCurrentPos);
             setPower(-0.1);
@@ -135,9 +142,9 @@ public class Extension extends SubsystemBase {
 
     public void reset(){
         bolStopped = false;
-        extendLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setTargetPosition(0);
-        extendLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);
         setPower(0);
     }
 

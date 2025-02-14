@@ -49,7 +49,7 @@ public class RobotBase {
                 //hwMap.get(RevColorSensorV3.class, "intakeColorSensor"));
         clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
         elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
-        extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionMotor"), hwMap.digitalChannel.get("extensionLimitSwitch"));
+        extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionLeftMotor"), hwMap.dcMotor.get("extensionRightMotor"), hwMap.digitalChannel.get("extensionLimitSwitch"));
         shoulderSubsystem = new Shoulder(hwMap.dcMotor.get("shoulderMotor"),
                 hwMap.dcMotor.get("rightShoulderMotor"),
                 hwMap.digitalChannel.get("shoulderLimitSwitch"));

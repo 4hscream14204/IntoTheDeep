@@ -12,7 +12,7 @@ public class Wrist extends SubsystemBase {
         ZERO(0),
         BUCKETDROPOFF (0.0211/*0.09722,0.36,0.4166,0.291666*/),
         AUTOINIT (0.25),
-        HUMANPLAYERDROPOFF(0.777);
+        HUMANPLAYERDROPOFF(0.09722);
         public final double value;
         WristPosition(double m_position) {
             this.value = m_position;
