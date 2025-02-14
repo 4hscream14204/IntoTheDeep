@@ -125,7 +125,7 @@ public class Shoulder extends SubsystemBase {
     }
 
     public boolean isAtPosition(ShoulderPosition targetPosition){
-        if(Math.abs(dcShoulderMotorLeft.getCurrentPosition() - targetPosition.height) <= 25){
+        if(Math.abs(dcShoulderMotorLeft.getCurrentPosition() - targetPosition.height) <= 30){
             return true;
         }
         return false;

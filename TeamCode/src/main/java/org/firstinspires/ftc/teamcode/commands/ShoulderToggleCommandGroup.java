@@ -19,7 +19,8 @@ public class ShoulderToggleCommandGroup extends SequentialCommandGroup {
             addCommands(
                     new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
                     new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
-                    new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))
+                    new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
+                    new InstantCommand(()->robotBase.shoulderSubsystem.stopInPlace())
             );
         }
     }

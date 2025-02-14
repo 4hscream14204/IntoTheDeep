@@ -21,7 +21,8 @@ public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, C
                 new InstantCommand(()->extension.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
                 new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
                 new WaitUntilCommand(()->extension.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
-                new InstantCommand(extension::stopInPlace)
+                new InstantCommand(extension::stopInPlace),
+                new InstantCommand(shoulder::stopInPlace)
         );
     }
     else {
