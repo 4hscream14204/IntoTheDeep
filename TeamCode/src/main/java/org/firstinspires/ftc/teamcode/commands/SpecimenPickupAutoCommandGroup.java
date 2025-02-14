@@ -6,25 +6,21 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
+import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-public class SubPickupTogglePickupCommandGroup extends SequentialCommandGroup {
-    public SubPickupTogglePickupCommandGroup(RobotBase robotBase){
+public class SpecimenPickupAutoCommandGroup extends SequentialCommandGroup {
+
+    public SpecimenPickupAutoCommandGroup(RobotBase robotBase) {
+
         addCommands(
+                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER)),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
+                new WaitCommand(200),
                 new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                new WaitCommand(100),
                 new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))
         );
-        /*if(robotBase.intakeSubsystem.isMyColor()){
-            addCommands(
-                    new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
-            );
-        }
-        else{
-            addCommands(
-                    new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake()),
-                    new WaitCommand(250),
-                    new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1))
-            );
-        }*/
     }
 }

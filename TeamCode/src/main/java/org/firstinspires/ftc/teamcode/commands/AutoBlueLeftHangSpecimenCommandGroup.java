@@ -14,7 +14,7 @@ public class AutoBlueLeftHangSpecimenCommandGroup extends SequentialCommandGroup
     public AutoBlueLeftHangSpecimenCommandGroup(RobotBase robotBase) {
 
         addCommands(
-                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP)),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
                 new WaitCommand(250),
                 new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
                 new WaitCommand(500),

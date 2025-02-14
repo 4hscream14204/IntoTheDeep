@@ -21,8 +21,8 @@ public class Shoulder extends SubsystemBase {
         NEWHIGHCHAMBER(1070),//2750, 3396
         LOWCHAMBER (680),
         LOWCHAMBERCLAMP (0),
-        NEWLOWCHAMBER(2750),
-        MAXPOSITION (2750),
+        NEWLOWCHAMBER(1070),
+        MAXPOSITION (1190),
         LOWBASKET (1070),
         HIGHBASKET (1070),
         TOGGLE (1070),
@@ -125,7 +125,7 @@ public class Shoulder extends SubsystemBase {
     }
 
     public boolean isAtPosition(ShoulderPosition targetPosition){
-        if(Math.abs(dcShoulderMotorLeft.getCurrentPosition() - targetPosition.height) <= 10){
+        if(Math.abs(dcShoulderMotorLeft.getCurrentPosition() - targetPosition.height) <= 30){
             return true;
         }
         return false;
@@ -142,10 +142,10 @@ public class Shoulder extends SubsystemBase {
             dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             intCurrentPos = dcShoulderMotorLeft.getCurrentPosition();
             dcShoulderMotorLeft.setTargetPosition(intCurrentPos);
-            dcShoulderMotorLeft.setPower(1);
+            dcShoulderMotorLeft.setPower(0.2);
             dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             dcShoulderMotorRight.setTargetPosition(intCurrentPos);
-            dcShoulderMotorRight.setPower(1);
+            dcShoulderMotorRight.setPower(0.2);
     }
 
     public int shoulderGetPosition(){

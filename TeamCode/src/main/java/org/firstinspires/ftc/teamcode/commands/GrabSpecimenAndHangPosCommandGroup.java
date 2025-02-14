@@ -17,7 +17,7 @@ public class GrabSpecimenAndHangPosCommandGroup extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(()->robotBase.clawSubsystem.closeClaw()),
                 new WaitCommand(250),
-                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.NEWHIGHCHAMBER)),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
                 new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER))
         );
 

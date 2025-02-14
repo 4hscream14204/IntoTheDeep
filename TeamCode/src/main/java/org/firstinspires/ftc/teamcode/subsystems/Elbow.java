@@ -9,6 +9,7 @@ public class Elbow extends SubsystemBase {
         HOME (0.36111),
         INIT (0.32),
         PICKUP (0.9666666666666667),
+        MAX (1),
         PRESUBPICKUP (0.6777),
         DROPOFF (0.777),
         GIVETOHUMAN (0.6777);

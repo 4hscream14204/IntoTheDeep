@@ -44,6 +44,7 @@ public class BlueLefttx4 extends OpMode {
         robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);
         robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME);
         robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
+        robotBase.clawSubsystem.closeClaw();
 
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(

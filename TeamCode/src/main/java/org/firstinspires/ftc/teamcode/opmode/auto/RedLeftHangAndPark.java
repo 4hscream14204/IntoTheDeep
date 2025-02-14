@@ -16,8 +16,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
-import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartOne;
-import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroupPartTwo;
+import org.firstinspires.ftc.teamcode.commands.SpecimenPickupAutoCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
@@ -49,6 +49,7 @@ public class RedLeftHangAndPark extends OpMode {
         robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);
         robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME);
         robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
+        robotBase.clawSubsystem.closeClaw();
 
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(
@@ -63,12 +64,12 @@ public class RedLeftHangAndPark extends OpMode {
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
                 .setTangent(Math.toRadians(270))
-                .afterTime(0.39, ()-> CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartOne(robotBase)))
+                .afterTime(0.39, ()-> CommandScheduler.getInstance().schedule(new SpecimenPickupAutoCommandGroup(robotBase)))
                 .splineToConstantHeading(new Vector2d(1.0, 35.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.2)
                 .splineToConstantHeading(new Vector2d(1.0, 23.00), Math.toRadians(270.00), new TranslationalVelConstraint(20))
                 .waitSeconds(0.3)
-                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroupPartTwo(robotBase)))
+                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.5)
                 .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(new Pose2d(35, 34, Math.toRadians(270)), Math.toRadians(0), new TranslationalVelConstraint(30))

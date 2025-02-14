@@ -20,7 +20,6 @@ public class Claw extends SubsystemBase {
 
     public Claw(Servo clawServo) {
         srvClaw = clawServo;
-        srvClaw.setPosition(clawPosition.CLOSED.value);
     }
 
     public void openClaw() {
