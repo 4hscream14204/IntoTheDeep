@@ -88,7 +88,7 @@ public class BlueRightx3 extends OpMode {
                 // .setTangent(90)
                 //push to human player
                 .splineToConstantHeading(new Vector2d(-53, 18), Math.toRadians(90),new TranslationalVelConstraint(30))
-                .splineToConstantHeading(new Vector2d(-53, 46), Math.toRadians(90),new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-53, 4), Math.toRadians(90),new TranslationalVelConstraint(35))
                 .setTangent(Math.toRadians(270))
                 //back up and wait
                 .splineToLinearHeading(new Pose2d(-47.25, 45.00, Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
