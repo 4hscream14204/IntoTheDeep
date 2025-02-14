@@ -78,7 +78,7 @@ public class BlueRightx4 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-2.0, 32), Math.toRadians(90), new TranslationalVelConstraint(35))
                 //drive over to samples and move them to human player area
                 .splineToSplineHeading(new Pose2d(-28.0, 32.00,Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
-                .splineToConstantHeading(new Vector2d(-31.0, 17), Math.toRadians(270), new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-28.0, 17), Math.toRadians(270), new TranslationalVelConstraint(35))
                 .splineToConstantHeading(new Vector2d(-38, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
                 .setTangent(Math.toRadians(90))
                 //push into player area
@@ -114,7 +114,7 @@ public class BlueRightx4 extends OpMode {
                 .waitSeconds(0.4)
                 //go and grab another specimen
                 .setTangent(Math.toRadians(90))
-               .splineToSplineHeading(new Pose2d(-44.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(35))
+               .splineToSplineHeading(new Pose2d(-44.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(25))
                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.2)
                 //hang specimen
@@ -143,6 +143,9 @@ public class BlueRightx4 extends OpMode {
     public void init_loop() {
         CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", waitSec);
+        telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
+        telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
+
     }
 
     @Override
