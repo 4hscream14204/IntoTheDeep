@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -52,7 +53,7 @@ public class RedRightx4 extends OpMode {
         robotBase.drive.pose = startPose;
         telemetryPacket = new TelemetryPacket();
         //robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.INIT);
-        robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.AUTOINIT);
+        robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.ZERO);
         robotBase.clawSubsystem.closeClaw();
         //robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
         robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER);
@@ -69,7 +70,6 @@ public class RedRightx4 extends OpMode {
 
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
-                // hang preload
                 .setTangent(Math.toRadians(270))
                 .afterTime(0.0, ()-> CommandScheduler.getInstance().schedule(new SpecimenPickupAutoCommandGroup(robotBase)))
                 .splineToConstantHeading(new Vector2d(-2.0, 28.00), Math.toRadians(270.00), new TranslationalVelConstraint(30))
@@ -80,8 +80,8 @@ public class RedRightx4 extends OpMode {
                 .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-2.0, 32), Math.toRadians(90), new TranslationalVelConstraint(35))
                 //drive over to samples and move them to human player area
-                .splineToSplineHeading(new Pose2d(-28.0, 32.00,Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
-                .splineToConstantHeading(new Vector2d(-28.0, 17), Math.toRadians(270), new TranslationalVelConstraint(35))
+                .splineToSplineHeading(new Pose2d(-31.0, 32.00,Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
+                .splineToConstantHeading(new Vector2d(-31.0, 17), Math.toRadians(270), new TranslationalVelConstraint(35))
                 .splineToConstantHeading(new Vector2d(-38, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
                 .setTangent(Math.toRadians(90))
                 //push into player area
@@ -94,8 +94,8 @@ public class RedRightx4 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-48, 50), Math.toRadians(90),new TranslationalVelConstraint(35))
                 .setTangent(Math.toRadians(270))
                 // go forward and grab specimen
-                .splineToConstantHeading(new Vector2d(-45.00, 50), Math.toRadians(90), new TranslationalVelConstraint(35))
-                .splineToConstantHeading(new Vector2d(-45.00, 62), Math.toRadians(90), new TranslationalVelConstraint(25))
+                .splineToConstantHeading(new Vector2d(-46.00, 50), Math.toRadians(90), new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-46.00, 62), Math.toRadians(90), new TranslationalVelConstraint(25))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.2)
 
@@ -128,11 +128,10 @@ public class RedRightx4 extends OpMode {
                 .waitSeconds(0.4)
                 //park
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(-54.00, 52, Math.toRadians(180)), Math.toRadians(180.00), new TranslationalVelConstraint(50))
+                .splineToLinearHeading(new Pose2d(-54.00, 54, Math.toRadians(180)), Math.toRadians(180.00), new TranslationalVelConstraint(50))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
-
 
 
 
@@ -151,6 +150,12 @@ public class RedRightx4 extends OpMode {
 
     @Override
     public void start() {
+        for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
+            module.clearBulkCache();
+        }
+        CommandScheduler.getInstance().reset();
+        CommandScheduler.getInstance().cancelAll();
+        CommandScheduler.getInstance().clearButtons();
         if (waitSec > 0) {
             waitAction = robotBase.drive.actionBuilder(startPose)
                     .waitSeconds(waitSec)
@@ -170,6 +175,7 @@ public class RedRightx4 extends OpMode {
         telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
         //telemetry.addData("Feild Position y")
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
+        telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
         blueRightx4Action.run(telemetryPacket);
     }
 

@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.opmode.auto;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.TranslationalVelConstraint;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -17,17 +15,14 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
-import org.firstinspires.ftc.teamcode.commands.GrabSpecimenAndHangPosCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.SpecimenPickupAutoCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous(name = "RedLeftBucketAndPark")
-public class RedLeftBucketAndPark extends OpMode {
+@Autonomous(name = "BlueLeftBucketx4")
+public class BlueLeftBucketx4DONOTUSE extends OpMode {
     public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
@@ -75,15 +70,19 @@ public class RedLeftBucketAndPark extends OpMode {
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN))))
                 .afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())))
-                .afterTime(1, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET))))
+                .afterTime(1, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME))))
+                .afterTime(1, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
+
                 .waitSeconds(1)
                 .setTangent(Math.toRadians(225))
-                .splineToSplineHeading(new Pose2d(36, 26,Math.toRadians(270)), Math.toRadians(270))
-                .splineToConstantHeading(new Vector2d(30, 17), Math.toRadians(180), new TranslationalVelConstraint(30))
+                .splineToSplineHeading(new Pose2d(52, 52,Math.toRadians(135)), Math.toRadians(225))
+                /*.splineToConstantHeading(new Vector2d(30, 17), Math.toRadians(180), new TranslationalVelConstraint(30))
                 .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
                 .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
                 .splineToConstantHeading(new Vector2d(20, 12), Math.toRadians(180), new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK))))
+
+                 */
                 .build();
 
         robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;

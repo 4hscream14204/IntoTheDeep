@@ -187,7 +187,7 @@ public class BlueRightx4 extends OpMode {
     @Override
     public void stop() {
         robotBase.drive.updatePoseEstimate();
-        //DataStorage.alliance = robotBase.alliance;
+        DataStorage.alliance = robotBase.alliance;
         DataStorage.dblIMUFinalHeadingRad = robotBase.drive.otos.getPosition().h;
 
     }
