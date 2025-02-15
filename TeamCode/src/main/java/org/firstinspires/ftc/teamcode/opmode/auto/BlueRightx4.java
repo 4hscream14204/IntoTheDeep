@@ -57,7 +57,7 @@ public class BlueRightx4 extends OpMode {
         robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.ZERO);
         robotBase.clawSubsystem.closeClaw();
         //robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
-        robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER);
+        robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK);
 
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(

@@ -25,7 +25,7 @@ public class Shoulder extends SubsystemBase {
         MAXPOSITION (1190),
         LOWBASKET (1070),
         HIGHBASKET (1070),
-        TOGGLE (1070),
+        TOGGLE (1060),
         AUTOPARK (1181),
         SECONDLEVELASCENT (1132);
         public final int height;
