@@ -80,7 +80,7 @@ public class RedRightx4 extends OpMode {
                 .setTangent(Math.toRadians(90))
                 .splineToConstantHeading(new Vector2d(-2.0, 32), Math.toRadians(90), new TranslationalVelConstraint(35))
                 //drive over to samples and move them to human player area
-                .splineToSplineHeading(new Pose2d(-31.0, 32.00,Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
+                .splineToSplineHeading(new Pose2d(-31.0, 35.00,Math.toRadians(180.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .splineToConstantHeading(new Vector2d(-31.0, 17), Math.toRadians(270), new TranslationalVelConstraint(35))
                 .splineToConstantHeading(new Vector2d(-38, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
                 .setTangent(Math.toRadians(90))
@@ -117,7 +117,7 @@ public class RedRightx4 extends OpMode {
                 .waitSeconds(0.4)
                 //go and grab another specimen
                 .setTangent(Math.toRadians(90))
-                .splineToSplineHeading(new Pose2d(-44.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(25))
+                .splineToSplineHeading(new Pose2d(-45.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(25))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.2)
                 //hang specimen

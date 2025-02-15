@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class EjectCommandGroup extends SequentialCommandGroup {
     boolean hasRan;
     public EjectCommandGroup(RobotBase robotBase){
-        if(robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE) && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET) && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.LOWBUCKET)) {
+        if(robotBase.shoulderSubsystem.enmShoulderPosition == Shoulder.ShoulderPosition.TOGGLE && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET) && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.LOWBUCKET)) {
             addCommands(
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
                     //new WaitCommand(500),

@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class SpecimenWallPickUpCommandGroup extends SequentialCommandGroup {
 public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, Claw claw, Extension extension, Elbow elbow, Wrist wrist){
-    if (shoulder.isAtPosition(Shoulder.ShoulderPosition.TOGGLE) && extension.isAtPosition(Extension.ExtensionPosition.HOME)){
+    if (shoulder.enmShoulderPosition == Shoulder.ShoulderPosition.TOGGLE && extension.isExtensionHome()){
         addCommands(
                 new InstantCommand(claw::closeClaw),
                 new WaitCommand(250),

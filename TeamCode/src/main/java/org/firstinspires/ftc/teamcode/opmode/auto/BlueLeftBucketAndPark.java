@@ -83,6 +83,7 @@ public class BlueLeftBucketAndPark extends OpMode {
                 .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
                 .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
                 .splineToConstantHeading(new Vector2d(20, 12), Math.toRadians(180), new TranslationalVelConstraint(20))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK))))
                  .build();
 
