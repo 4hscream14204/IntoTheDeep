@@ -99,49 +99,58 @@ public class BlueRightx5 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-48, 48), Math.toRadians(90),new TranslationalVelConstraint(35))
 
                 .splineToConstantHeading(new Vector2d(-48, 17), Math.toRadians(270),new TranslationalVelConstraint(30))
-                .splineToConstantHeading(new Vector2d(-56, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
-                .splineToConstantHeading(new Vector2d(-56, 50), Math.toRadians(90),new TranslationalVelConstraint(30))
-                /*      .setTangent(Math.toRadians(270))
-                           // go forward and grab specimen
-                           .splineToConstantHeading(new Vector2d(-45.00, 50), Math.toRadians(90), new TranslationalVelConstraint(35))
-                           .splineToConstantHeading(new Vector2d(-45.00, 62), Math.toRadians(90), new TranslationalVelConstraint(25))
-                           //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
-                           .waitSeconds(0.2)
+                .splineToConstantHeading(new Vector2d(-55, 17), Math.toRadians(90),new TranslationalVelConstraint(30))
+                .splineToConstantHeading(new Vector2d(-55, 50), Math.toRadians(90),new TranslationalVelConstraint(30))
+                      .setTangent(Math.toRadians(270))
 
-                           //hang specimen
-                           .setTangent(Math.toRadians(315))
-                           .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
-                           //.afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
-                           .waitSeconds(0.4)
-                           //go and grab another specimen
-                           .setTangent(Math.toRadians(90))
-                           .splineToSplineHeading(new Pose2d(-44.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(35))
-                           //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
-                           .waitSeconds(0.2)
-                           //hang specimen
-                           .setTangent(Math.toRadians(315))
-                           .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
+                // go forward and grab specimen
+                .splineToConstantHeading(new Vector2d(-45.00, 50), Math.toRadians(90), new TranslationalVelConstraint(35))
+                .splineToConstantHeading(new Vector2d(-45.00, 62), Math.toRadians(90), new TranslationalVelConstraint(25))
+                //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))                 .waitSeconds(0.2)
 
-                           //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
-                           .waitSeconds(0.4)
-                           //go and grab another specimen
-                           .setTangent(Math.toRadians(90))
-                           .splineToSplineHeading(new Pose2d(-45.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(25))
-                           //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
-                           .waitSeconds(0.2)
-                           //hang specimen
-                           .setTangent(Math.toRadians(315))
-                           .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
+                //hang specimen
+                .setTangent(Math.toRadians(315))
+                .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
+                //.afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
+                .waitSeconds(0.4)
+                //go and grab another specimen
+                .setTangent(Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-44.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(35))
+                //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
+                .waitSeconds(0.2)
+                //hang specimen
+                .setTangent(Math.toRadians(315))
+                .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
 
-                           //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
-                           .waitSeconds(0.4)
-                           //park
-                           .setTangent(Math.toRadians(90))
-                           .splineToLinearHeading(new Pose2d(-54.00, 54, Math.toRadians(180)), Math.toRadians(180.00), new TranslationalVelConstraint(50))
-                           //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
-                           //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
-                           //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
-               */
+                //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
+                .waitSeconds(0.4)
+                //go and grab another specimen
+                .setTangent(Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-45.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(25))
+                //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
+                .waitSeconds(0.2)
+                //hang specimen
+                .setTangent(Math.toRadians(315))
+                .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
+
+                //go and grab another specimen
+                .setTangent(Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-45.0, 63.00, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(25))
+                //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
+                .waitSeconds(0.2)
+                //hang specimen
+                .setTangent(Math.toRadians(315))
+                .splineToSplineHeading(new Pose2d(-4, 28.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(35))
+
+                //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
+                .waitSeconds(0.4)
+                //park
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-54.00, 54, Math.toRadians(180)), Math.toRadians(180.00), new TranslationalVelConstraint(50))
+                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
+                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                //.afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
+
 
                 .build();
 
