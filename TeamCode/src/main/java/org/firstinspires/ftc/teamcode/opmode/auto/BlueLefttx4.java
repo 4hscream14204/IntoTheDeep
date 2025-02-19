@@ -79,7 +79,10 @@ public class BlueLefttx4 extends OpMode{
                 .afterTime(1, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET))))
                 .waitSeconds(1)
                 .setTangent(Math.toRadians(225))
-                .splineToLinearHeading(new Pose2d(55,56,Math.toRadians(159)),Math.toRadians(159),new TranslationalVelConstraint(30);
+                .splineToLinearHeading(new Pose2d(55,56,Math.toRadians(159)),Math.toRadians(159),new TranslationalVelConstraint(30))
+
+
+                        .build();
 
         robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
 
