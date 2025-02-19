@@ -19,6 +19,7 @@ public class EjectCommandGroup extends SequentialCommandGroup {
     boolean hasRan;
     public EjectCommandGroup(RobotBase robotBase){
         if(robotBase.shoulderSubsystem.enmShoulderPosition == Shoulder.ShoulderPosition.TOGGLE && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET) && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.LOWBUCKET)) {
+            robotBase.ledSubsystem.intSpecimensToDeliver ++;
             addCommands(
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
                     //new WaitCommand(500),

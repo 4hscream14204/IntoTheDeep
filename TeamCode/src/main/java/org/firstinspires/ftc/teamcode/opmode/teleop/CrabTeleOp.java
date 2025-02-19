@@ -49,6 +49,9 @@ public class CrabTeleOp extends OpMode {
     double dubDenominator;
     public GamepadEx armController;
     public GamepadEx chassisController;
+    public boolean bolIsInitLoop = true;
+
+    ElapsedTime timer = new ElapsedTime();
 
     @Override
     public void init() {
@@ -65,6 +68,7 @@ public class CrabTeleOp extends OpMode {
         chassisController = new GamepadEx(gamepad1);
         armController = new GamepadEx(gamepad2);
         robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
+
 
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
@@ -245,13 +249,36 @@ public class CrabTeleOp extends OpMode {
                 .toggleWhenActive(new NewChamberLineUpCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.NEWHIGHCHAMBER),
                         new NewChamberReleaseCommandGroup(robotBase, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP));*/
 
+        armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .and(new GamepadButton( armController, GamepadKeys.Button.START))
+                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedCycleTime ++));
+
+        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .and(new GamepadButton( armController, GamepadKeys.Button.START))
+                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedCycleTime --));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON)
+                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedHangTime ++));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_STICK_BUTTON)
+                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedHangTime --));
+
+        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .and(new GamepadButton(armController, GamepadKeys.Button.START))
+                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblMarginOfError --));
+
+        armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .and(new GamepadButton(armController, GamepadKeys.Button.START))
+                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblMarginOfError ++));
     }
 
-    /*public void init_loop(){
+    public void init_loop(){
         CommandScheduler.getInstance().run();
-    }*/
+    }
     public void start(){
         CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
+        timer.reset();
+
     }
 
     public void loop(){
@@ -259,7 +286,6 @@ public class CrabTeleOp extends OpMode {
         chassisController.readButtons();
         armController.readButtons();
         double botHeading = robotBase.drive.otos.getPosition().h;
-        ElapsedTime timer = new ElapsedTime();
         int dblCurrentTime = (int) timer.seconds();
 
         double chassisLeftStickX = (chassisController.getLeftY() * Math.abs(chassisController.getLeftY()) * -1);
@@ -285,6 +311,8 @@ public class CrabTeleOp extends OpMode {
         robotBase.backLeftMotor.setPower(dubBackLeftPower);
         robotBase.frontRightMotor.setPower(dubFrontRightPower);
         robotBase.backRightMotor.setPower(dubBackRightPower);
+
+        robotBase.ledSubsystem.GetSuggestion(dblCurrentTime);
 
         /*if(!robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
@@ -337,6 +365,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Is Extension at Chamber Position", robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER));
         telemetry.addData("Left Extension Power", robotBase.extensionSubsystem.extendLeftMotor.getPower());
         telemetry.addData("Right Extension Power", robotBase.extensionSubsystem.extendRightMotor.getPower());
+        telemetry.addData("Current time", dblCurrentTime);
         //telemetry.addData("Ok to home",robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP.height);
         /*telemetry.addLine()
                 .addData("Red: ", robotBase.intakeSubsystem.checkSampleColorRed())

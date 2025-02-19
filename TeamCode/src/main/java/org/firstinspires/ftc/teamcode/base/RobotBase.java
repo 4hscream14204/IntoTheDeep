@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Timer;
+import org.firstinspires.ftc.teamcode.subsystems.TimerLED;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class RobotBase {
@@ -32,7 +33,8 @@ public class RobotBase {
     public Shoulder shoulderSubsystem;
     public Wrist wristSubsystem;
     public ITDCrabEnums.EnmAlliance alliance;
-    //public Timer timerSubsystem;
+    public Timer timerSubsystem;
+    public TimerLED ledSubsystem;
 
     public SparkFunOTOSDrive drive;
 
@@ -54,6 +56,7 @@ public class RobotBase {
                 hwMap.dcMotor.get("rightShoulderMotor"),
                 hwMap.digitalChannel.get("shoulderLimitSwitch"));
         wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
+        ledSubsystem = new TimerLED (hwMap.servo.get("timerLED"));
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
