@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.ftc.SparkFunOTOSCorrected;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 
 public class Chassis extends SubsystemBase {
 
-    PIDController headingControl = new PIDController(5, 0, 0);
+    PIDController headingControl = new PIDController(2, 0, 0.25);
     DcMotor frontLeftMotor;
     DcMotor frontRightMotor;
     DcMotor backLeftMotor;
@@ -23,19 +24,19 @@ public class Chassis extends SubsystemBase {
     double dblBackRightPower;
     boolean bolFieldCentric = true;
     double dblDenominator;
-    boolean isInPIDControl;
+    boolean isInPIDControl = true;
     double leftStickX;
     double leftStickY;
     double rotationPower;
     double botHeading;
-    double dblLastStickTime;
-    double dblCurrentTime;
+    double dblLastStickTime = 0;
+    public double dblCurrentTime = 0;
     double dblDelayTime = 200;
-    double dblTargetHeading;
+    public double dblTargetHeading = 0;
     double dblHeadingDeviation;
     double dblHeadingOutput = 0;
-    ElapsedTime timer;
-    SparkFunOTOSCorrected otos;
+    public ElapsedTime timer;
+    public SparkFunOTOSCorrected otos;
 
 
     public Chassis(DcMotor m_frontLeftMotor, DcMotor m_frontRightMotor, DcMotor m_backLeftMotor, DcMotor m_backRightMotor, ElapsedTime m_timer, SparkFunOTOSCorrected m_otos){
@@ -45,11 +46,31 @@ public class Chassis extends SubsystemBase {
         backRightMotor = m_backRightMotor;
         timer = m_timer;
         otos = m_otos;
-        headingControl.setSetPoint(0);
+        //headingControl.setSetPoint(0);
+        setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        dblCurrentTime = timer.milliseconds();
+        dblLastStickTime = timer.milliseconds();
+    }
+
+    public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior){
+        frontLeftMotor.setZeroPowerBehavior(zeroPowerBehavior);
+        frontRightMotor.setZeroPowerBehavior(zeroPowerBehavior);
+        backLeftMotor.setZeroPowerBehavior(zeroPowerBehavior);
+        backRightMotor.setZeroPowerBehavior(zeroPowerBehavior);
+    }
+
+    public void setMode(DcMotor.RunMode mode){
+        frontLeftMotor.setMode(mode);
+        frontRightMotor.setMode(mode);
+        backLeftMotor.setMode(mode);
+        backRightMotor.setMode(mode);
     }
 
     public void drive(double m_leftStickX, double m_leftStickY, double m_rightStickX){
-        leftStickX = (m_leftStickX * Math.abs(m_leftStickY) * -1);
+        leftStickX = (m_leftStickY * Math.abs(m_leftStickY) * -1);
         leftStickY = m_leftStickX * Math.abs(m_leftStickX);
         rotationPower = m_rightStickX * Math.abs(m_rightStickX);
         botHeading = otos.getPosition().h;
@@ -59,16 +80,16 @@ public class Chassis extends SubsystemBase {
             double rotX = leftStickX * Math.cos(-botHeading) - leftStickY * Math.sin(-botHeading);
             double rotY = leftStickX * Math.sin(-botHeading) + leftStickY * Math.cos(-botHeading);
 
-            if(rotationPower > 0.01) {
+            if(Math.abs(rotationPower) > 0.01) {
                     dblLastStickTime = dblCurrentTime;
                 }
             else if((dblCurrentTime - dblLastStickTime) < dblDelayTime) {
-                dblTargetHeading = dblCurrentTime;
+                dblTargetHeading = botHeading;
             }
-            if(isInPIDControl){
+            else if(isInPIDControl){
                     dblHeadingDeviation = botHeading - dblTargetHeading;
                     dblHeadingDeviation = AngleUnit.normalizeRadians(dblHeadingDeviation);
-                    dblHeadingOutput = headingControl.calculate(dblHeadingDeviation);
+                    dblHeadingOutput = (headingControl.calculate(dblHeadingDeviation) * -1);
                     rotationPower = dblHeadingOutput;
                 }
 
@@ -85,11 +106,19 @@ public class Chassis extends SubsystemBase {
                 dblFrontRightPower = (leftStickY - leftStickX - rotationPower) / dblDenominator;
                 dblBackRightPower = (leftStickY + leftStickX - rotationPower) / dblDenominator;
         }
+        frontLeftMotor.setPower(dblFrontLeftPower);
+        frontRightMotor.setPower(dblFrontRightPower);
+        backLeftMotor.setPower(dblBackLeftPower);
+        backRightMotor.setPower(dblBackRightPower);
+    }
 
+    public void setTargetDegrees(double targetHeading){
+        dblTargetHeading = Math.toRadians(targetHeading);
     }
 
     public void enableFieldCentric(){
         bolFieldCentric = true;
+        headingControl.reset();
     }
 
     public void disableFieldCentric(){
@@ -98,15 +127,16 @@ public class Chassis extends SubsystemBase {
 
     public void toggleFieldCentric(){
         if(bolFieldCentric){
-            bolFieldCentric = false;
+            disableFieldCentric();
         }
         else{
-            bolFieldCentric = true;
+            enableFieldCentric();
         }
     }
 
     public void enablePIDUse(){
         isInPIDControl = true;
+        headingControl.reset();
     }
 
     public void disablePIDUse(){
@@ -115,10 +145,10 @@ public class Chassis extends SubsystemBase {
 
     public void togglePIDUse(){
         if(isInPIDControl){
-            isInPIDControl = false;
+            disablePIDUse();
         }
         else{
-            isInPIDControl = true;
+            enablePIDUse();
         }
     }
 }

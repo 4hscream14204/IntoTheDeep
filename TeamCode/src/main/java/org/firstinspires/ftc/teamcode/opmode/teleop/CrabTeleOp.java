@@ -51,7 +51,6 @@ public class CrabTeleOp extends OpMode {
     public GamepadEx chassisController;
     public boolean bolIsInitLoop = true;
 
-    ElapsedTime timer = new ElapsedTime();
 
     @Override
     public void init() {
@@ -73,7 +72,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() -> robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0))))
+                        new InstantCommand(() -> robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0)))), new InstantCommand(()-> robotBase.chassisSubsystem.setTargetDegrees(0))
                 ));
         chassisController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
@@ -83,10 +82,16 @@ public class CrabTeleOp extends OpMode {
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() ->robotBase.clawSubsystem.toggleClaw())
                 ));
-        chassisController.getGamepadButton(GamepadKeys.Button.A)
+        /*chassisController.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
                                 new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem, robotBase.intakeSubsystem, robotBase.shoulderSubsystem)
+                        ));*/
+
+        chassisController.getGamepadButton(GamepadKeys.Button.A)
+                        .whenPressed(()->CommandScheduler.getInstance().schedule(
+                                new InstantCommand(()->robotBase.chassisSubsystem.setTargetDegrees(45))
                         ));
+
         chassisController.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(()->CommandScheduler.getInstance().schedule( new EjectCommandGroup(robotBase)));
 
@@ -272,12 +277,13 @@ public class CrabTeleOp extends OpMode {
                 .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblMarginOfError ++));
     }
 
-    public void init_loop(){
+    /*public void init_loop(){
         CommandScheduler.getInstance().run();
-    }
+    }*/
     public void start(){
         CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
-        timer.reset();
+        robotBase.chassisSubsystem.timer.reset();
+        robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.drive.otos.getPosition().h));
 
     }
 
@@ -286,9 +292,11 @@ public class CrabTeleOp extends OpMode {
         chassisController.readButtons();
         armController.readButtons();
         double botHeading = robotBase.drive.otos.getPosition().h;
-        int dblCurrentTime = (int) timer.seconds();
+        double dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
 
-        double chassisLeftStickX = (chassisController.getLeftY() * Math.abs(chassisController.getLeftY()) * -1);
+        robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
+
+        /*double chassisLeftStickX = (chassisController.getLeftY() * Math.abs(chassisController.getLeftY()) * -1);
         double chassisLeftStickY = chassisController.getLeftX() * Math.abs(chassisController.getLeftX());
         double chassisRightStickX = chassisController.getRightX() * Math.abs(chassisController.getRightX());
         double rotX = chassisLeftStickX * Math.cos(-botHeading) - chassisLeftStickY * Math.sin(-botHeading);
@@ -310,7 +318,7 @@ public class CrabTeleOp extends OpMode {
         robotBase.frontLeftMotor.setPower(dubFrontLeftPower);
         robotBase.backLeftMotor.setPower(dubBackLeftPower);
         robotBase.frontRightMotor.setPower(dubFrontRightPower);
-        robotBase.backRightMotor.setPower(dubBackRightPower);
+        robotBase.backRightMotor.setPower(dubBackRightPower);*/
 
         robotBase.ledSubsystem.GetSuggestion(dblCurrentTime);
 
@@ -355,18 +363,20 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
+        telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
+        telemetry.addData("Right stick X", chassisController.getRightX());
         /*telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
         telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));*/
         telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
         telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
         telemetry.addData("Target Left Extension", robotBase.extensionSubsystem.extendLeftMotor.getTargetPosition());
         telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());
-        telemetry.addData("Is Shoulder at Chamber Position", robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER));
+        /*telemetry.addData("Is Shoulder at Chamber Position", robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER));
         telemetry.addData("Is Extension at Chamber Position", robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER));
         telemetry.addData("Left Extension Power", robotBase.extensionSubsystem.extendLeftMotor.getPower());
-        telemetry.addData("Right Extension Power", robotBase.extensionSubsystem.extendRightMotor.getPower());
+        telemetry.addData("Right Extension Power", robotBase.extensionSubsystem.extendRightMotor.getPower());*/
         telemetry.addData("Current time", dblCurrentTime);
-        telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
+        /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);
         telemetry.addData("cycle time", robotBase.ledSubsystem.dblEstimatedCycleTime);
         //telemetry.addData("Ok to home",robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP.height);

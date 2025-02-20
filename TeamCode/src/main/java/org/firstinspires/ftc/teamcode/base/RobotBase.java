@@ -8,8 +8,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
@@ -32,18 +34,22 @@ public class RobotBase {
     public Extension extensionSubsystem;
     public Shoulder shoulderSubsystem;
     public Wrist wristSubsystem;
+    public Chassis chassisSubsystem;
     public ITDCrabEnums.EnmAlliance alliance;
     public Timer timerSubsystem;
     public TimerLED ledSubsystem;
 
     public SparkFunOTOSDrive drive;
+    public ElapsedTime timer;
 
 
     public RobotBase(HardwareMap hwMap) {
-        frontLeftMotor = hwMap.dcMotor.get("left_front");
+        timer = new ElapsedTime();
+        /*frontLeftMotor = hwMap.dcMotor.get("left_front");
         backLeftMotor = hwMap.dcMotor.get("left_back");
         frontRightMotor = hwMap.dcMotor.get("right_front");
-        backRightMotor = hwMap.dcMotor.get("right_back");
+        backRightMotor = hwMap.dcMotor.get("right_back");*/
+        drive = new SparkFunOTOSDrive(hwMap, new Pose2d(0,0,0));
 
         intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
                 hwMap.servo.get("intakeServoRight"),
@@ -57,8 +63,9 @@ public class RobotBase {
                 hwMap.digitalChannel.get("shoulderLimitSwitch"));
         wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
         ledSubsystem = new TimerLED (hwMap.servo.get("timerLED"));
+        chassisSubsystem = new Chassis(hwMap.dcMotor.get("left_front"), hwMap.dcMotor.get("right_front"), hwMap.dcMotor.get("left_back"), hwMap.dcMotor.get("right_back"), timer, drive.otos);
 
-        frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        /*frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -69,8 +76,7 @@ public class RobotBase {
         backRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);*/
 
-        drive = new SparkFunOTOSDrive(hwMap, new Pose2d(0,0,0));
     }
 }
