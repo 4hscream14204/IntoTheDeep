@@ -53,7 +53,7 @@ public class RedLeftBucketAndPark extends OpMode {
         robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.ZERO);
         robotBase.clawSubsystem.openClaw();
         //robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
-        robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER);
+        robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK);
         robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED);
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(
@@ -66,6 +66,7 @@ public class RedLeftBucketAndPark extends OpMode {
                 ));
 
         blueLeftAction = robotBase.drive.actionBuilder(startPose)
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.MAXSHOULDERUPPOSITION))))
                 // .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.MAX))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
