@@ -1,14 +1,16 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ftc.SparkFunOTOSCorrected;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 
 public class Chassis extends SubsystemBase {
@@ -24,7 +26,7 @@ public class Chassis extends SubsystemBase {
     double dblBackRightPower;
     boolean bolFieldCentric = true;
     double dblDenominator;
-    boolean isInPIDControl = true;
+    public boolean isInPIDControl = false;
     double leftStickX;
     double leftStickY;
     double rotationPower;
@@ -37,6 +39,7 @@ public class Chassis extends SubsystemBase {
     double dblHeadingOutput = 0;
     public ElapsedTime timer;
     public SparkFunOTOSCorrected otos;
+    public SparkFunOTOS.Pose2D botPose;
 
 
     public Chassis(DcMotor m_frontLeftMotor, DcMotor m_frontRightMotor, DcMotor m_backLeftMotor, DcMotor m_backRightMotor, ElapsedTime m_timer, SparkFunOTOSCorrected m_otos){
@@ -53,6 +56,8 @@ public class Chassis extends SubsystemBase {
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         dblCurrentTime = timer.milliseconds();
         dblLastStickTime = timer.milliseconds();
+        isInPIDControl = false;
+        botPose = otos.getPosition();
     }
 
     public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior){
@@ -73,7 +78,8 @@ public class Chassis extends SubsystemBase {
         leftStickX = (m_leftStickY * Math.abs(m_leftStickY) * -1);
         leftStickY = m_leftStickX * Math.abs(m_leftStickX);
         rotationPower = m_rightStickX * Math.abs(m_rightStickX);
-        botHeading = otos.getPosition().h;
+        botPose = otos.getPosition();
+        botHeading = botPose.h;
         dblCurrentTime = timer.milliseconds();
 
         if(bolFieldCentric){
@@ -112,8 +118,9 @@ public class Chassis extends SubsystemBase {
         backRightMotor.setPower(dblBackRightPower);
     }
 
-    public void setTargetDegrees(double targetHeading){
-        dblTargetHeading = Math.toRadians(targetHeading);
+    public void setTargetDegrees(double targetHeadingDegrees){
+        isInPIDControl = true;
+        dblTargetHeading = Math.toRadians(targetHeadingDegrees);
     }
 
     public void enableFieldCentric(){
@@ -134,9 +141,10 @@ public class Chassis extends SubsystemBase {
         }
     }
 
-    public void enablePIDUse(){
+    public void enablePIDUse(double targetDegrees){
         isInPIDControl = true;
         headingControl.reset();
+        setTargetDegrees(targetDegrees);
     }
 
     public void disablePIDUse(){
@@ -148,7 +156,7 @@ public class Chassis extends SubsystemBase {
             disablePIDUse();
         }
         else{
-            enablePIDUse();
+            enablePIDUse(botHeading);
         }
     }
 }

@@ -30,8 +30,13 @@ public class ChamberCommandGroup extends SequentialCommandGroup {
                     new WaitCommand(250),
                     new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                     new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
-                    new ParallelCommandGroup(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
-                            new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
+                    /*new ParallelCommandGroup(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
+                            new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))/*,*/
+                    new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
+                    /*new WaitCommand(1000),
+                    new InstantCommand(()->robotBase.chassisSubsystem.setTargetDegrees(0)),
+                    new WaitCommand(1000),
+                    new InstantCommand(()->robotBase.chassisSubsystem.disablePIDUse())*/
             );
         }
         else{

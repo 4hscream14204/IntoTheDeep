@@ -24,8 +24,10 @@ import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ElbowWristHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionControlCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.GyroResetCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SampleOuttakeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.SetHeadingDegreesCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SpecimenWallPickUpCommandGroup;
@@ -72,7 +74,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() -> robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0)))), new InstantCommand(()-> robotBase.chassisSubsystem.setTargetDegrees(0))
+                        new InstantCommand(()->robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0)))), new GyroResetCommandGroup(robotBase)
                 ));
         chassisController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
@@ -87,10 +89,10 @@ public class CrabTeleOp extends OpMode {
                                 new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem, robotBase.intakeSubsystem, robotBase.shoulderSubsystem)
                         ));*/
 
-        chassisController.getGamepadButton(GamepadKeys.Button.A)
+        /*chassisController.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
-                                new InstantCommand(()->robotBase.chassisSubsystem.setTargetDegrees(45))
-                        ));
+                                new SetHeadingDegreesCommandGroup(robotBase, 315)
+                        ));*/
 
         chassisController.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(()->CommandScheduler.getInstance().schedule( new EjectCommandGroup(robotBase)));
@@ -123,6 +125,11 @@ public class CrabTeleOp extends OpMode {
                         .whenPressed(
                                 ()->CommandScheduler.getInstance().schedule(new ElbowWristHomeCommandGroup(robotBase))
                         );
+
+        /*chassisController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+                        .whenPressed(
+                                ()->CommandScheduler.getInstance().schedule(new SetHeadingDegreesCommandGroup(robotBase, 0))
+                        );*/
 
        /* chassisController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .toggleWhenPressed(
@@ -284,7 +291,7 @@ public class CrabTeleOp extends OpMode {
         CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
         robotBase.chassisSubsystem.timer.reset();
         robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.drive.otos.getPosition().h));
-
+        robotBase.chassisSubsystem.disablePIDUse();
     }
 
     public void loop(){
@@ -363,13 +370,14 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
-        telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
-        telemetry.addData("Right stick X", chassisController.getRightX());
+        telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
+        //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
+        //telemetry.addData("Right stick X", chassisController.getRightX());
         /*telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
         telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));*/
         telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
         telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
-        telemetry.addData("Target Left Extension", robotBase.extensionSubsystem.extendLeftMotor.getTargetPosition());
+        /*telemetry.addData("Target Left Extension", robotBase.extensionSubsystem.extendLeftMotor.getTargetPosition());
         telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());
         telemetry.addData("Hue", robotBase.intakeSubsystem.GetHueValues());
         /*telemetry.addData("Is Shoulder at Chamber Position", robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER));

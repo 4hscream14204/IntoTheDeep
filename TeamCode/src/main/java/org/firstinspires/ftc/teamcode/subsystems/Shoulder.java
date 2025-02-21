@@ -18,7 +18,7 @@ public class Shoulder extends SubsystemBase {
         HOME (0),
         HIGHCHAMBER (1730),
         HIGHCHAMBERCLAMP (1975),
-        NEWHIGHCHAMBER(1070),//2750, 3396
+        NEWHIGHCHAMBER(1060),//2750, 3396
         LOWCHAMBER (680),
         LOWCHAMBERCLAMP (0),
         NEWLOWCHAMBER(1070),
@@ -170,5 +170,10 @@ public class Shoulder extends SubsystemBase {
 
     public double getPower(){
         return dcShoulderMotorLeft.getPower();
+    }
+
+    public void setPower(double m_Power) {
+        dcShoulderMotorLeft.setPower(m_Power);
+        dcShoulderMotorRight.setPower(m_Power);
     }
 }
