@@ -12,20 +12,13 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class AutoInitCommandGroup extends SequentialCommandGroup {
     public AutoInitCommandGroup(RobotBase robotBase){
-        if(!robotBase.shoulderSubsystem.isShoulderHome()) {
-            addCommands(
-                    new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
-            );
-        }
-        if(!robotBase.extensionSubsystem.isExtensionHome()){
-            addCommands(
-                    new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
-            );
-        }
         addCommands(
-                new WaitUntilCommand(()->robotBase.shoulderSubsystem.isShoulderHome()),
-                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
-                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.AUTOINIT))
+                new InstantCommand(()->robotBase.clawSubsystem.closeClaw()),
+                new WaitCommand(1000),
+                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK)),
+                new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.AUTOPARK)),
+                new InstantCommand(()->robotBase.shoulderSubsystem.setPower(0.0))
+
         );
     }
 }
