@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
@@ -53,8 +54,8 @@ public class RobotBase {
 
         intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
                 hwMap.servo.get("intakeServoRight"),
-                hwMap.servo.get("gateServo"));
-                //hwMap.get(RevColorSensorV3.class, "intakeColorSensor"));
+                hwMap.servo.get("gateServo"),
+                hwMap.get(NormalizedColorSensor.class, "intakeColorSensor"));
         clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
         elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
         extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionLeftMotor"), hwMap.dcMotor.get("extensionRightMotor"), hwMap.digitalChannel.get("extensionLimitSwitch"));

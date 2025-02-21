@@ -1,16 +1,17 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import android.graphics.Color;
+
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.qualcomm.hardware.rev.RevColorSensorV3;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 
 public class Intake extends SubsystemBase {
+
+    final float[] hsvValues = new float[3];
 
     public enum GatePosition{
         OPEN (0.343888),
@@ -21,44 +22,41 @@ public class Intake extends SubsystemBase {
         }
     }
 
-    public enum Red{
-        RED (2030),
-        BLUE (2455),
-        GREEN (2780);
-        public final double value;
-        Red(double m_colorAmounts){this.value = m_colorAmounts;}
-    }
-
-    public enum Blue{
-        RED (1510),
-        BLUE (3025),
-        GREEN (2730);
-        public final double value;
-        Blue(double m_colorAmounts){this.value = m_colorAmounts;}
-    }
-
-    public enum Yellow{
+    public enum Colors{
         RED (0),
         BLUE (0),
-        GREEN (0);
+        GREEN(0);
         public final double value;
-        Yellow(double m_colorAmounts){this.value = m_colorAmounts;}
+        Colors(double m_colorAmounts){this.value = m_colorAmounts;}
     }
 
     public Intake.GatePosition enmGatePosition;
     public Servo intakeServoLeft;
     public Servo intakeServoRight;
     public Servo intakeServoGate;
-    public RevColorSensorV3 intakeColorSensor;
+    public NormalizedColorSensor intakeColorSensor;
 
-    public double dblColorMarginOfError = 0;
+    public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate, NormalizedColorSensor m_intakesensor) {
+        intakeServoLeft = m_intakeLeft;
+        intakeServoRight = m_intakeRight;
+        intakeServoGate = m_intakeGate;
+        intakeColorSensor = m_intakesensor;
+        //intakeServoGate.setPosition(GatePosition.ClOSED.value);
+    }
 
-    public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate/*, RevColorSensorV3 m_intakesensor*/ ) {
-            intakeServoLeft = m_intakeLeft;
-            intakeServoRight = m_intakeRight;
-            intakeServoGate = m_intakeGate;
-           // intakeColorSensor = m_intakesensor;
-            //intakeServoGate.setPosition(GatePosition.ClOSED.value);
+    NormalizedRGBA colors = intakeColorSensor.getNormalizedColors();
+
+    public double GetHueValues() {
+        Color.colorToHSV(colors.toColor(), hsvValues);
+        return hsvValues[0];
+    }
+
+    public boolean IsColor(Intake.Colors m_targetColor) {
+        if (m_targetColor.value == GetHueValues()) {
+            return true;
+        }
+
+        return false;
     }
 
     public void intakeSpeed (double speed){
@@ -76,7 +74,7 @@ public class Intake extends SubsystemBase {
         }
     }
 
-    public int checkSampleColorRed(){
+    /*public int checkSampleColorRed(){
         return intakeColorSensor.red();
     }
 
@@ -86,7 +84,7 @@ public class Intake extends SubsystemBase {
 
     public int checkSampleColorGreen(){
         return intakeColorSensor.green();
-    }
+    }*/
 
     public void intakeOuttake(){
         intakeServoLeft.setPosition(0);
@@ -114,7 +112,7 @@ public class Intake extends SubsystemBase {
         return intakeServoGate.getPosition();
     }
 
-    public boolean isRedSample(){
+    /*public boolean isRedSample(){
         if(Math.abs(Red.RED.value - intakeColorSensor.red()) <= 10){
             return true;
         }
@@ -130,7 +128,7 @@ public class Intake extends SubsystemBase {
         else{
             return false;
         }
-    }
+    }*/
 
     /*public boolean isMyColor(){
         if (Math.abs(checkSampleColor().red - Red.RED.value) <= dblColorMarginOfError) {
