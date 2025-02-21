@@ -31,18 +31,18 @@ public class TimerLED extends SubsystemBase {
     public double dblEstimatedHangTime = 5;
     public double dblMarginOfError = 3;
 
-    public void GetSuggestion(double dblTimerLength){
+    public void getSuggestion(double dblTimerLength){
         double m_remainingTime = 120 - dblTimerLength;
         if (dblEstimatedCycleTime * intSpecimensToDeliver + dblEstimatedHangTime + dblMarginOfError < m_remainingTime) {
-            SetColor(Colors.BLUE);
+            setColor(Colors.BLUE);
         } else if (dblEstimatedHangTime +dblMarginOfError < m_remainingTime) {
-            SetColor(Colors.PURPLE);
+            setColor(Colors.PURPLE);
         } else {
-            SetColor(Colors.RED);
+            setColor(Colors.RED);
         }
     }
 
-    public void SetColor(Colors enmTargetColor) {
+    public void setColor(Colors enmTargetColor) {
         ledTimer.setPosition(enmTargetColor.value);
     }
 }

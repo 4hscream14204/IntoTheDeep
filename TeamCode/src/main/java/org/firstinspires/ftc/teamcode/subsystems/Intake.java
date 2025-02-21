@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 
 public class Intake extends SubsystemBase {
@@ -46,13 +47,13 @@ public class Intake extends SubsystemBase {
 
     NormalizedRGBA colors = intakeColorSensor.getNormalizedColors();
 
-    public double GetHueValues() {
+    public double getHueValues() {
         Color.colorToHSV(colors.toColor(), hsvValues);
         return hsvValues[0];
     }
 
-    public boolean IsColor(Intake.Colors m_targetColor) {
-        if (m_targetColor.value == GetHueValues()) {
+    public boolean isColor(Intake.Colors m_targetColor) {
+        if (m_targetColor.value == getHueValues()) {
             return true;
         }
 
