@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
-import android.provider.ContactsContract;
-
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
@@ -11,12 +9,9 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
-import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
-import org.firstinspires.ftc.teamcode.commands.BucketEjectAndHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketExtendUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ChamberCommandGroup;
@@ -25,18 +20,14 @@ import org.firstinspires.ftc.teamcode.commands.ElbowWristHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionControlCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.GyroResetCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.SampleOuttakeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.SetHeadingDegreesCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SpecimenWallPickUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
-import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 
 
@@ -327,7 +318,7 @@ public class CrabTeleOp extends OpMode {
         robotBase.frontRightMotor.setPower(dubFrontRightPower);
         robotBase.backRightMotor.setPower(dubBackRightPower);*/
 
-        robotBase.ledSubsystem.getSuggestion(dblCurrentTime);
+        robotBase.ledSubsystem.ledSuggestion(dblCurrentTime);
 
         /*if(!robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
