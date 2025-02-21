@@ -21,8 +21,7 @@ public class EjectCommandGroup extends SequentialCommandGroup {
         if(robotBase.shoulderSubsystem.enmShoulderPosition == Shoulder.ShoulderPosition.TOGGLE && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET) && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.LOWBUCKET)) {
             addCommands(
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
-                    //new WaitCommand(500),
-                    new InstantCommand(() -> robotBase.intakeSubsystem.intakeOuttake()),
+                    //new WaitCommand(500),cotBase.intakeSubsystem.intakeOuttake()),
                     new WaitCommand(200),
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)),
