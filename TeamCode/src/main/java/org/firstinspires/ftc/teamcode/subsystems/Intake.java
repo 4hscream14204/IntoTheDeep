@@ -45,9 +45,10 @@ public class Intake extends SubsystemBase {
         //intakeServoGate.setPosition(GatePosition.ClOSED.value);
     }
 
-    NormalizedRGBA colors = intakeColorSensor.getNormalizedColors();
+
 
     public double getHueValues() {
+        NormalizedRGBA colors = intakeColorSensor.getNormalizedColors();
         Color.colorToHSV(colors.toColor(), hsvValues);
         return hsvValues[0];
     }
