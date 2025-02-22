@@ -35,7 +35,7 @@ public class TimerLED extends SubsystemBase {
         if (dblEstimatedCycleTime * intSpecimensToDeliver + dblEstimatedHangTime + dblMarginOfError > m_remainingTime) {
             setColor(Colors.GREEN);
 
-        } else if (dblEstimatedHangTime +dblMarginOfError > m_remainingTime) {
+        } else if (dblEstimatedHangTime +dblMarginOfError > m_remainingTime) { //6 * 3 + 5 + 3
             setColor(Colors.PURPLE);
 
         } else {

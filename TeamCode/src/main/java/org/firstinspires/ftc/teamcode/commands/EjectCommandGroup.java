@@ -33,6 +33,7 @@ public class EjectCommandGroup extends SequentialCommandGroup {
             );
         }*/
         if(DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE){
+            robotBase.ledSubsystem.intSpecimensToDeliver ++;
             addCommands(
                     new InstantCommand(()->robotBase.ledSubsystem.intSpecimensToDeliver ++),
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
