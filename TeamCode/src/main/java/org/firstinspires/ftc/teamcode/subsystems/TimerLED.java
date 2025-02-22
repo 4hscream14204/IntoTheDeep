@@ -30,7 +30,7 @@ public class TimerLED extends SubsystemBase {
     public TimerLED.Colors enmColorHue;
 
     public void ledSuggestion(double dblTimerLength){
-        double m_remainingTime = 120 - dblTimerLength;
+        double m_remainingTime = 120000 - dblTimerLength;
 
         if (dblEstimatedCycleTime * intSpecimensToDeliver + dblEstimatedHangTime + dblMarginOfError >= m_remainingTime) {
             setColor(Colors.GREEN);
