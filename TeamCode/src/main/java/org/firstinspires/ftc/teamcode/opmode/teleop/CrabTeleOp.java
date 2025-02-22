@@ -298,6 +298,7 @@ public class CrabTeleOp extends OpMode {
         armController.readButtons();
         double botHeading = robotBase.drive.otos.getPosition().h;
         double dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
+        robotBase.intakeSubsystem.getTime(dblCurrentTime);
 
         robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
 
