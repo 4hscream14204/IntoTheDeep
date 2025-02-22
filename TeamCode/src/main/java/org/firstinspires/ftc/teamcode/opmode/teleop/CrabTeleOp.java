@@ -358,9 +358,9 @@ public class CrabTeleOp extends OpMode {
        // telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
        // telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
         /*telemetry.addData("Target Left Extension", robotBase.extensionSubsystem.extendLeftMotor.getTargetPosition());
-        telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());
-        telemetry.addData("Hue", robotBase.intakeSubsystem.GetHueValues());
-        telemetry.addData("Current time", dblCurrentTime);
+        telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());*/
+        telemetry.addData("Hue", robotBase.intakeSubsystem.getHueValues());
+        /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);
         telemetry.addData("cycle time", robotBase.ledSubsystem.dblEstimatedCycleTime);
