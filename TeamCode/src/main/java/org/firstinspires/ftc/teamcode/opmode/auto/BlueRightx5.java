@@ -74,6 +74,14 @@ public class BlueRightx5 extends OpMode {
                         ()-> waitSec--
                 ));
 
+        baseController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENSTOCKPILE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENBASICCYCLE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
 
@@ -107,11 +115,11 @@ public class BlueRightx5 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-52, 44), Math.toRadians(90),new TranslationalVelConstraint(40))
                 //Line up for third sample
                 .splineToConstantHeading(new Vector2d(-52, 17), Math.toRadians(270),new TranslationalVelConstraint(40))
-                .splineToConstantHeading(new Vector2d(-61, 17), Math.toRadians(90),new TranslationalVelConstraint(28))
+                .splineToConstantHeading(new Vector2d(-62, 17), Math.toRadians(90),new TranslationalVelConstraint(28))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(0.7, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
                 .afterTime(0.7, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
-                .splineToConstantHeading(new Vector2d(-61, 44), Math.toRadians(90),new TranslationalVelConstraint(40))
+                .splineToConstantHeading(new Vector2d(-62, 44), Math.toRadians(90),new TranslationalVelConstraint(40))
                 //.setTangent(Math.toRadians(270))
 
                 // go forward and grab specimen
@@ -179,6 +187,7 @@ public class BlueRightx5 extends OpMode {
         telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Shoulder Power", robotBase.shoulderSubsystem.getPower());
+        telemetry.addData("Strategy: ", DataStorage.strategy);
 
     }
 
