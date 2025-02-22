@@ -11,7 +11,7 @@ public class PickupSpecimenLineUpCommandGroup extends SequentialCommandGroup {
     public PickupSpecimenLineUpCommandGroup(Lift lift, SpecimenGrabber specimenGrabber, Wrist wrist){
         addCommands(
                 new InstantCommand(wrist::wristPickupPos),
-                new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.PICKUP)),
+                //new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.PICKUP)),
                 new InstantCommand(specimenGrabber::grabberOpen)
         );
     }

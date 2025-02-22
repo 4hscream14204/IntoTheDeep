@@ -111,7 +111,7 @@ public class NewTeleGeorge extends OpMode{
 
         armController.getGamepadButton(GamepadKeys.Button.X)
                 .toggleWhenPressed(new HighChamberScoreCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem),
-                        new HighChamberScoreClampCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem));
+                        new HighChamberScoreClampCommandGroup(robotBase.liftSubsystem, robotBase.specimenGrabberSubsystem, robotBase.wristSubsystem));
 
       /*      armController.getGamepadButton(GamepadKeys.Button.X)
                     .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
