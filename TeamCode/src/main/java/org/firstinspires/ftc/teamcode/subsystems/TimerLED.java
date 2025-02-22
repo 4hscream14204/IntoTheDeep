@@ -23,7 +23,7 @@ public class TimerLED extends SubsystemBase {
         Colors(double m_color){this.value = m_color;}
     }
 
-    public double dblEstimatedCycleTime = 10;
+    public double dblEstimatedCycleTime = 6;
     public int intSpecimensToDeliver = 0;
     public double dblEstimatedHangTime = 5;
     public double dblMarginOfError = 3;
@@ -47,6 +47,7 @@ public class TimerLED extends SubsystemBase {
     public void setColor(Colors enmTargetColor) {
         if (enmTargetColor != enmColorHue) {
             ledTimer.setPosition(enmTargetColor.value);
+            enmColorHue = enmTargetColor;
         }
     }
 }

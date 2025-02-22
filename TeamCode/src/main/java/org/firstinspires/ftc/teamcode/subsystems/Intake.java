@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import android.graphics.Color;
+import android.provider.ContactsContract;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
@@ -24,11 +25,20 @@ public class Intake extends SubsystemBase {
     }
 
     public enum Colors{
-        RED (0),
-        BLUE (0),
-        GREEN(0);
+        REDHIGH (330),
+        REDLOW (15),
+        BLUEHIGH (270),
+        BLUELOW (200),
+        YELLOWHIGH(65),
+        YELLOWLOW(30);
         public final double value;
         Colors(double m_colorAmounts){this.value = m_colorAmounts;}
+    }
+
+    public enum ColorList{
+        RED,
+        BLUE,
+        YELLOW;
     }
 
     public Intake.GatePosition enmGatePosition;
@@ -53,12 +63,27 @@ public class Intake extends SubsystemBase {
         return hsvValues[0];
     }
 
-    public boolean isColor(Intake.Colors m_targetColor) {
-        if (m_targetColor.value == getHueValues()) {
-            return true;
+    public boolean isColor(Intake.ColorList m_targetColor) {
+        if (m_targetColor == ColorList.BLUE) {
+            if (getHueValues() > Colors.BLUELOW.value && getHueValues() < Colors.BLUEHIGH.value) {
+                return true;
+            }
+            return false;
+        } else if (m_targetColor == ColorList.YELLOW) {
+            if (getHueValues() > Colors.YELLOWLOW.value && getHueValues() < Colors.YELLOWHIGH.value) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (m_targetColor == ColorList.RED) {
+            if (getHueValues() < Colors.REDLOW.value && getHueValues() > Colors.REDHIGH.value) {
+                return true;
+            } else {
+                return false;
+            }
         }
-
         return false;
+
     }
 
     public void intakeSpeed (double speed){
