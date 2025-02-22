@@ -109,8 +109,8 @@ public class BlueRightx5 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-52, 17), Math.toRadians(270),new TranslationalVelConstraint(40))
                 .splineToConstantHeading(new Vector2d(-61, 17), Math.toRadians(90),new TranslationalVelConstraint(28))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
-                .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
-                .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
+                .afterTime(0.7, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
+                .afterTime(0.7, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
                 .splineToConstantHeading(new Vector2d(-61, 44), Math.toRadians(90),new TranslationalVelConstraint(40))
                 //.setTangent(Math.toRadians(270))
 
