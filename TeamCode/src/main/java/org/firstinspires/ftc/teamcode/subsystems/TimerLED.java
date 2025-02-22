@@ -32,10 +32,10 @@ public class TimerLED extends SubsystemBase {
     public void ledSuggestion(double dblTimerLength){
         double m_remainingTime = 120 - dblTimerLength;
 
-        if (dblEstimatedCycleTime * intSpecimensToDeliver + dblEstimatedHangTime + dblMarginOfError > m_remainingTime) {
+        if (dblEstimatedCycleTime * intSpecimensToDeliver + dblEstimatedHangTime + dblMarginOfError >= m_remainingTime) {
             setColor(Colors.GREEN);
 
-        } else if (dblEstimatedHangTime +dblMarginOfError > m_remainingTime) { //6 * 3 + 5 + 3
+        } else if (dblEstimatedHangTime +dblMarginOfError >= m_remainingTime) {
             setColor(Colors.PURPLE);
 
         } else {
