@@ -78,7 +78,7 @@ public class Intake extends SubsystemBase {
     }
 
     public double getHueValues() {
-        if (currentTime - dblLastColorRead > 10) {
+        if (currentTime - dblLastColorRead > 100) {
             NormalizedRGBA colors = intakeColorSensor.getNormalizedColors();
             Color.colorToHSV(colors.toColor(), hsvValues);
             dblLastColorRead = currentTime;
