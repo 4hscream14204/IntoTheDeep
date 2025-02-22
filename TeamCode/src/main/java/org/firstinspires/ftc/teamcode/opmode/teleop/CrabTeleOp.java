@@ -259,27 +259,6 @@ public class CrabTeleOp extends OpMode {
                 .toggleWhenActive(new NewChamberLineUpCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.NEWHIGHCHAMBER),
                         new NewChamberReleaseCommandGroup(robotBase, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP));*/
 
-        armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                .and(new GamepadButton( armController, GamepadKeys.Button.START))
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedCycleTime ++));
-
-        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .and(new GamepadButton( armController, GamepadKeys.Button.START))
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedCycleTime --));
-
-        chassisController.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON)
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedHangTime ++));
-
-        chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_STICK_BUTTON)
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedHangTime --));
-
-        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .and(new GamepadButton(armController, GamepadKeys.Button.START))
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblMarginOfError --));
-
-        armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                .and(new GamepadButton(armController, GamepadKeys.Button.START))
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblMarginOfError ++));
     }
 
     /*public void init_loop(){
