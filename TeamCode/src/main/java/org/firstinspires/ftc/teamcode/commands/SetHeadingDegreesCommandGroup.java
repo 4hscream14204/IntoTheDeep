@@ -8,10 +8,21 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 
 public class SetHeadingDegreesCommandGroup extends SequentialCommandGroup {
     public SetHeadingDegreesCommandGroup(RobotBase robotBase, double targetHeadingDegrees){
-        addCommands(
-               new InstantCommand(()->robotBase.chassisSubsystem.setTargetDegrees(targetHeadingDegrees)),
-                new WaitCommand(1000),
-                new InstantCommand(()->robotBase.chassisSubsystem.disablePIDUse())
-        );
+        if(Math.abs(Math.toDegrees(robotBase.drive.otos.getPosition().h) - targetHeadingDegrees) >= 170){
+            addCommands(
+                    new InstantCommand(()->robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.drive.otos.getPosition().h - 90))),
+                    new WaitCommand(100),
+                    new InstantCommand(()->robotBase.chassisSubsystem.setTargetDegrees(targetHeadingDegrees)),
+                    new WaitCommand(1000),
+                    new InstantCommand(()->robotBase.chassisSubsystem.disablePIDUse())
+            );
+        }
+        else{
+            addCommands(
+                    new InstantCommand(() -> robotBase.chassisSubsystem.setTargetDegrees(targetHeadingDegrees)),
+                    new WaitCommand(1000),
+                    new InstantCommand(() -> robotBase.chassisSubsystem.disablePIDUse())
+            );
+        }
     }
 }
