@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Intake extends SubsystemBase {
 
     final float[] hsvValues = new float[3];
+    float gain = 3;
+
 
     public enum GatePosition{
         OPEN (0.343888),
@@ -67,6 +69,7 @@ public class Intake extends SubsystemBase {
         intakeServoGate = m_intakeGate;
         intakeColorSensor = m_intakesensor;
         intakeLED = m_IntakeLED;
+        intakeColorSensor.setGain(gain);
         //intakeServoGate.setPosition(GatePosition.ClOSED.value);
     }
 
