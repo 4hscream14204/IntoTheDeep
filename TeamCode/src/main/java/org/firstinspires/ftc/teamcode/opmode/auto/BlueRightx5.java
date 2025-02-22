@@ -90,12 +90,13 @@ public class BlueRightx5 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-2.0, 36), Math.toRadians(90), new TranslationalVelConstraint(35))
 
                 //drive over to samples and move them to human player area
-                .splineToSplineHeading(new Pose2d(-29.0, 36.00,Math.toRadians(270.00)), Math.toRadians(270.00), new TranslationalVelConstraint(35))
+                .splineToSplineHeading(new Pose2d(-29.0, 36.00,Math.toRadians(270.00)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)))
                 .afterTime(0.1, ()->CommandScheduler.getInstance().schedule( new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.MIN))))
                 .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME))))
                 .splineToConstantHeading(new Vector2d(-29.0, 15), Math.toRadians(270), new TranslationalVelConstraint(35))
-                .splineToConstantHeading(new Vector2d(-42, 15), Math.toRadians(90),new TranslationalVelConstraint(28))
+                //Curve to behind first specimen
+                .splineToConstantHeading(new Vector2d(-42, 15), Math.toRadians(90),new TranslationalVelConstraint(35))
                 .setTangent(Math.toRadians(90))
                 //push into player area
                 .splineToConstantHeading(new Vector2d(-42, 40), Math.toRadians(90),new TranslationalVelConstraint(45))
