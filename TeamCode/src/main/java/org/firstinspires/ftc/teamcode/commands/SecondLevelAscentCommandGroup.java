@@ -15,7 +15,8 @@ public class SecondLevelAscentCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
                     new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE)),
                     new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.SECONDLEVELASCENT)),
-                    new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.SECONDLEVELASCENT)),
+                    new InstantCommand(()->robotBase.clawSubsystem.closeClaw())
+,                    new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.SECONDLEVELASCENT)),
                     new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.SECONDLEVELASCENT))
             );
         }

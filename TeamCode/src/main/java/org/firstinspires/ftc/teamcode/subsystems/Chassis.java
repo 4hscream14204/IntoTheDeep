@@ -33,7 +33,7 @@ public class Chassis extends SubsystemBase {
     double botHeading;
     double dblLastStickTime = 0;
     public double dblCurrentTime = 0;
-    double dblDelayTime = 200;
+    double dblDelayTime = 0;
     public double dblTargetHeading = 0;
     double dblHeadingDeviation;
     double dblHeadingOutput = 0;

@@ -65,6 +65,15 @@ public class RedLeftBucketAndPark extends OpMode {
                         ()-> waitSec--
                 ));
 
+        baseController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENSTOCKPILE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENBASICCYCLE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
+
         blueLeftAction = robotBase.drive.actionBuilder(startPose)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.MAXSHOULDERUPPOSITION))))
@@ -97,6 +106,7 @@ public class RedLeftBucketAndPark extends OpMode {
     public void init_loop() {
         CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", waitSec);
+        telemetry.addData("Strategy: ", DataStorage.strategy);
     }
 
     @Override

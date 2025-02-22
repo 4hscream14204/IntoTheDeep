@@ -1,11 +1,15 @@
 package org.firstinspires.ftc.teamcode.commands;
 
+import android.provider.ContactsContract;
+
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
 
+import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
@@ -22,7 +26,27 @@ public class ChamberCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(extensionChamberPosition))
             );
         }
-        if(robotBase.shoulderSubsystem.isAtPosition(chamberPosition) && robotBase.extensionSubsystem.isAtPosition(extensionChamberPosition)){
+        if(robotBase.shoulderSubsystem.isAtPosition(chamberPosition) && robotBase.extensionSubsystem.isAtPosition(extensionChamberPosition) && DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE){
+            addCommands(
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(clampPosition)),
+                new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(clampPosition)),
+                new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
+                new WaitCommand(250),
+                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
+                    /*new ParallelCommandGroup(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
+                            new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))/*,*/
+                new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
+                    new WaitUntilCommand(()->robotBase.extensionSubsystem.isExtensionHome()),
+                    new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                    new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))
+                    /*new WaitCommand(1000),
+                    new InstantCommand(()->robotBase.chassisSubsystem.setTargetDegrees(0)),
+                    new WaitCommand(1000),
+                    new InstantCommand(()->robotBase.chassisSubsystem.disablePIDUse())*/
+            );
+        }
+        else if(robotBase.shoulderSubsystem.isAtPosition(chamberPosition) && robotBase.extensionSubsystem.isAtPosition(extensionChamberPosition) && DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENBASICCYCLE){
             addCommands(
                     new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(clampPosition)),
                     new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(clampPosition)),
@@ -30,13 +54,8 @@ public class ChamberCommandGroup extends SequentialCommandGroup {
                     new WaitCommand(250),
                     new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                     new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
-                    /*new ParallelCommandGroup(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
-                            new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))/*,*/
-                    new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)
-                    /*new WaitCommand(1000),
-                    new InstantCommand(()->robotBase.chassisSubsystem.setTargetDegrees(0)),
-                    new WaitCommand(1000),
-                    new InstantCommand(()->robotBase.chassisSubsystem.disablePIDUse())*/
+                    new ParallelCommandGroup(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
+                    new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
             );
         }
         else{

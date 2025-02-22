@@ -21,12 +21,14 @@ import org.firstinspires.ftc.teamcode.commands.ExtensionControlCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.GyroResetCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.SetHeadingDegreesCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SpecimenWallPickUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ToggleStrategyCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 
@@ -80,10 +82,10 @@ public class CrabTeleOp extends OpMode {
                                 new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem, robotBase.intakeSubsystem, robotBase.shoulderSubsystem)
                         ));*/
 
-        /*chassisController.getGamepadButton(GamepadKeys.Button.A)
+        chassisController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
                                 new SetHeadingDegreesCommandGroup(robotBase, 315)
-                        ));*/
+                        ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(()->CommandScheduler.getInstance().schedule( new EjectCommandGroup(robotBase)));
@@ -117,10 +119,15 @@ public class CrabTeleOp extends OpMode {
                                 ()->CommandScheduler.getInstance().schedule(new ElbowWristHomeCommandGroup(robotBase))
                         );
 
-        /*chassisController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
+        chassisController.getGamepadButton(GamepadKeys.Button.BACK)
+                        .whenPressed(
+                                ()->CommandScheduler.getInstance().schedule(new ToggleStrategyCommandGroup()
+                                ));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(
                                 ()->CommandScheduler.getInstance().schedule(new SetHeadingDegreesCommandGroup(robotBase, 0))
-                        );*/
+                        );
 
        /* chassisController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .toggleWhenPressed(
@@ -352,7 +359,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Elbow Enum: ", robotBase.elbowSubsystem.enmElbowPosition);
         telemetry.addData("Elbow isAtPosition", robotBase.elbowSubsystem.isAtPosition(Elbow.ElbowPosition.PRESUBPICKUP));
         telemetry.addData("Wrist isAtPosition", robotBase.wristSubsystem.isAtPosition(Wrist.WristPosition.PRESUBPICKUP));*/
-        telemetry.addData("Arm Right Stick Y", armController.getRightY());
+       // telemetry.addData("Arm Right Stick Y", armController.getRightY());
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
@@ -361,20 +368,18 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("FieldCentric", bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
-        telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
+        telemetry.addData("Strategy: ", DataStorage.strategy);
+        telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
+       // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
         //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
         //telemetry.addData("Right stick X", chassisController.getRightX());
         /*telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
         telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));*/
-        telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
-        telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
+       // telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
+       // telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
         /*telemetry.addData("Target Left Extension", robotBase.extensionSubsystem.extendLeftMotor.getTargetPosition());
         telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());
         telemetry.addData("Hue", robotBase.intakeSubsystem.GetHueValues());
-        /*telemetry.addData("Is Shoulder at Chamber Position", robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER));
-        telemetry.addData("Is Extension at Chamber Position", robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER));
-        telemetry.addData("Left Extension Power", robotBase.extensionSubsystem.extendLeftMotor.getPower());
-        telemetry.addData("Right Extension Power", robotBase.extensionSubsystem.extendRightMotor.getPower());*/
         telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);

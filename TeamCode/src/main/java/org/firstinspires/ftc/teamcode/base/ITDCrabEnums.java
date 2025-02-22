@@ -5,4 +5,9 @@ public class ITDCrabEnums {
         RED,
         BLUE
     }
+    public enum Strategy {
+        SPECIMENSTOCKPILE,
+        SPECIMENBASICCYCLE,
+        BUCKETBASICCYCLE
+    }
 }

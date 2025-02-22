@@ -69,6 +69,14 @@ public class BlueRightx4 extends OpMode {
                         ()-> waitSec--
                 ));
 
+        baseController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENSTOCKPILE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENBASICCYCLE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
                 // hang preload
@@ -150,7 +158,7 @@ public class BlueRightx4 extends OpMode {
         telemetry.addData("Wait time", waitSec);
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
-
+        telemetry.addData("Strategy: ", DataStorage.strategy);
     }
 
     @Override

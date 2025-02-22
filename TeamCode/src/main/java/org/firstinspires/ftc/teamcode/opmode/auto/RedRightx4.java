@@ -68,6 +68,14 @@ public class RedRightx4 extends OpMode {
                         ()-> waitSec--
                 ));
 
+        baseController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENSTOCKPILE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENBASICCYCLE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
                 .setTangent(Math.toRadians(270))
@@ -146,6 +154,7 @@ public class RedRightx4 extends OpMode {
     public void init_loop() {
         CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", waitSec);
+        telemetry.addData("Strategy: ", DataStorage.strategy);
     }
 
     @Override
