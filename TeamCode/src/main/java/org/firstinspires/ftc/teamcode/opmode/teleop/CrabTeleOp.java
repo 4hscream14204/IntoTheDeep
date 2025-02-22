@@ -306,6 +306,7 @@ public class CrabTeleOp extends OpMode {
         robotBase.backRightMotor.setPower(dubBackRightPower);*/
 
         robotBase.ledSubsystem.ledSuggestion(dblCurrentTime);
+        robotBase.intakeSubsystem.displaySampleColor();
 
         /*if(!robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
