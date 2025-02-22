@@ -259,27 +259,6 @@ public class CrabTeleOp extends OpMode {
                 .toggleWhenActive(new NewChamberLineUpCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.NEWHIGHCHAMBER),
                         new NewChamberReleaseCommandGroup(robotBase, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP));*/
 
-        armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                .and(new GamepadButton( armController, GamepadKeys.Button.START))
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedCycleTime ++));
-
-        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .and(new GamepadButton( armController, GamepadKeys.Button.START))
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedCycleTime --));
-
-        chassisController.getGamepadButton(GamepadKeys.Button.LEFT_STICK_BUTTON)
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedHangTime ++));
-
-        chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_STICK_BUTTON)
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblEstimatedHangTime --));
-
-        armController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-                .and(new GamepadButton(armController, GamepadKeys.Button.START))
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblMarginOfError --));
-
-        armController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
-                .and(new GamepadButton(armController, GamepadKeys.Button.START))
-                .whileActiveOnce(new InstantCommand(()->robotBase.ledSubsystem.dblMarginOfError ++));
     }
 
     /*public void init_loop(){
@@ -298,6 +277,7 @@ public class CrabTeleOp extends OpMode {
         armController.readButtons();
         double botHeading = robotBase.drive.otos.getPosition().h;
         double dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
+        robotBase.intakeSubsystem.getTime(dblCurrentTime);
 
         robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
 
@@ -378,9 +358,9 @@ public class CrabTeleOp extends OpMode {
        // telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
        // telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
         /*telemetry.addData("Target Left Extension", robotBase.extensionSubsystem.extendLeftMotor.getTargetPosition());
-        telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());
-        telemetry.addData("Hue", robotBase.intakeSubsystem.GetHueValues());
-        telemetry.addData("Current time", dblCurrentTime);
+        telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());*/
+        telemetry.addData("Hue", robotBase.intakeSubsystem.getHueValues());
+        /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);
         telemetry.addData("cycle time", robotBase.ledSubsystem.dblEstimatedCycleTime);
