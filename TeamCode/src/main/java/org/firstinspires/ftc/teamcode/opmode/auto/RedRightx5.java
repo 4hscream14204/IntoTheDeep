@@ -74,6 +74,14 @@ public class RedRightx5 extends OpMode {
                         ()-> waitSec--
                 ));
 
+        baseController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENSTOCKPILE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENBASICCYCLE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
 
         blueRightx4Action = robotBase.drive.actionBuilder(startPose)
 
@@ -161,10 +169,9 @@ public class RedRightx5 extends OpMode {
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
                 .waitSeconds(0.1)
-
                 .build();
 
-        robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
+        robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
 
         for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             module.clearBulkCache();
@@ -179,6 +186,7 @@ public class RedRightx5 extends OpMode {
         telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Shoulder Power", robotBase.shoulderSubsystem.getPower());
+        telemetry.addData("Strategy: ", DataStorage.strategy);
 
     }
 
