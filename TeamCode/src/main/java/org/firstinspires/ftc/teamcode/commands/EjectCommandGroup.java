@@ -36,15 +36,15 @@ public class EjectCommandGroup extends SequentialCommandGroup {
             addCommands(
                     new InstantCommand(()->robotBase.ledSubsystem.intSpecimensToDeliver ++),
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
-                    new InstantCommand(() -> robotBase.intakeSubsystem.intakeSpeed(0)),
+                    new InstantCommand(() -> robotBase.intakeSubsystem.intakeSpeed(1)),
                     new WaitCommand(200),
-                    new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop())
-                    /*new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)),
+                    new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
+                    new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)),
                     new InstantCommand(()-> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                     new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME)),
                     new WaitUntilCommand(()->robotBase.extensionSubsystem.extensionGetPosition() > (Extension.ExtensionPosition.SECONDLEVELASCENTPULL.height)),
                     new ParallelCommandGroup(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
-                            new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))*/
+                            new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
             );
         }
         else if(DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENBASICCYCLE){
