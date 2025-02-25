@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
+
 public class TimerLED extends SubsystemBase {
 
     private Servo ledTimer;
@@ -31,16 +34,24 @@ public class TimerLED extends SubsystemBase {
 
     public void ledSuggestion(double dblTimerLength){
         double m_remainingTime = 120000 - dblTimerLength;
+        if (DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE) {
+            if (dblEstimatedCycleTime * intSpecimensToDeliver + dblEstimatedHangTime + dblMarginOfError < m_remainingTime) {
+                setColor(Colors.GREEN);
 
-        if (dblEstimatedCycleTime * intSpecimensToDeliver + dblEstimatedHangTime + dblMarginOfError < m_remainingTime) {
-            setColor(Colors.GREEN);
+            } else if (dblEstimatedHangTime + dblMarginOfError < m_remainingTime) {
+                setColor(Colors.PURPLE);
 
-        } else if (dblEstimatedHangTime +dblMarginOfError < m_remainingTime) {
-            setColor(Colors.PURPLE);
+            } else {
+                setColor(Colors.WHITE);
 
+            }
         } else {
-            setColor(Colors.WHITE);
+            if (dblEstimatedHangTime + dblMarginOfError < m_remainingTime) {
+                setColor(Colors.PURPLE);
 
+            } else {
+                setColor(Colors.WHITE);
+            }
         }
     }
 
