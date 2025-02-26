@@ -7,6 +7,9 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
+
 public class Intake extends SubsystemBase {
 
     final float[] hsvValues = new float[3];
@@ -41,7 +44,7 @@ public class Intake extends SubsystemBase {
 
     public enum DisplayColors{
         RED(.2888),
-        YELLOW(.3244),
+        YELLOW(.3666),
         GREEN(.4944),
         BLUE(.59),
         PURPLE(.7183),

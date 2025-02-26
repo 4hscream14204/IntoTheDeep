@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.commands.ElbowWristHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionControlCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.GyroResetCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.RejectCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SecondLevelAscentCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SetHeadingDegreesCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
@@ -307,6 +308,7 @@ public class CrabTeleOp extends OpMode {
 
         robotBase.ledSubsystem.ledSuggestion(dblCurrentTime);
         robotBase.intakeSubsystem.displaySampleColor();
+        new RejectCommandGroup(robotBase);
 
         /*if(!robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
