@@ -24,11 +24,11 @@ public class Intake extends SubsystemBase {
 
     public enum Colors{
         REDHIGH (330),
-        REDLOW (30),
+        REDLOW (40),
         BLUEHIGH (270),
         BLUELOW (200),
-        YELLOWHIGH(85),
-        YELLOWLOW(30);
+        YELLOWHIGH(100),
+        YELLOWLOW(50);
         public final double value;
         Colors(double m_colorAmounts){this.value = m_colorAmounts;}
     }
@@ -40,7 +40,7 @@ public class Intake extends SubsystemBase {
     }
 
     public enum DisplayColors{
-        RED(.2783),
+        RED(.2888),
         YELLOW(.3244),
         GREEN(.4944),
         BLUE(.59),
@@ -101,7 +101,7 @@ public class Intake extends SubsystemBase {
                 return false;
             }
         } else if (m_targetColor == ColorList.RED) {
-            if (getHueValues() < Colors.REDLOW.value && getHueValues() > Colors.REDHIGH.value) {
+            if (getHueValues() < Colors.REDLOW.value || getHueValues() > Colors.REDHIGH.value) {
                 return true;
             } else {
                 return false;
@@ -116,7 +116,7 @@ public class Intake extends SubsystemBase {
             setColor(DisplayColors.BLUE);
         } else if (getHueValues() > Colors.YELLOWLOW.value && getHueValues() < Colors.YELLOWHIGH.value) {
             setColor(DisplayColors.YELLOW);
-        } else if (getHueValues() < Colors.REDLOW.value && getHueValues() > Colors.REDHIGH.value) {
+        } else if (getHueValues() < Colors.REDLOW.value || getHueValues() > Colors.REDHIGH.value) {
             setColor(DisplayColors.RED);
         } else {
             setColor(DisplayColors.OFF);
