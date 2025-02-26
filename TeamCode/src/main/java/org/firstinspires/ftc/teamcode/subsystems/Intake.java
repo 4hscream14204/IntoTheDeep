@@ -114,6 +114,14 @@ public class Intake extends SubsystemBase {
 
     }
 
+    public boolean isWrongColor() {
+        if ((isColor(Intake.ColorList.BLUE) && DataStorage.alliance != ITDCrabEnums.EnmAlliance.BLUE) || (isColor(Intake.ColorList.RED) && DataStorage.alliance != ITDCrabEnums.EnmAlliance.RED)) {
+            return true;
+        }
+
+        return false;
+    }
+
     public void displaySampleColor() {
         if (getHueValues() > Colors.BLUELOW.value && getHueValues() < Colors.BLUEHIGH.value) {
             setColor(DisplayColors.BLUE);

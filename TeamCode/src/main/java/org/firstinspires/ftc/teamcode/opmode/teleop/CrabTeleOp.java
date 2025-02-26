@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.ScheduleCommand;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -31,6 +32,7 @@ import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleStrategyCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 
 
@@ -240,6 +242,8 @@ public class CrabTeleOp extends OpMode {
                         new InstantCommand(()->robotBase.shoulderSubsystem.reset())
                 );
 
+        //new Trigger(()->robotBase.intakeSubsystem.isWrongColor())
+
        /* new Trigger(()->robotBase.intakeSubsystem.isBlueSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)
                 .whenActive(
                         new SampleOuttakeCommandGroup(robotBase)
@@ -308,7 +312,6 @@ public class CrabTeleOp extends OpMode {
 
         robotBase.ledSubsystem.ledSuggestion(dblCurrentTime);
         robotBase.intakeSubsystem.displaySampleColor();
-        new RejectCommandGroup(robotBase);
 
         /*if(!robotBase.shoulderSubsystem.isShoulderHome()){
             robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
