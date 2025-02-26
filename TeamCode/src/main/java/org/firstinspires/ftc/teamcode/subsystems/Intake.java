@@ -24,10 +24,10 @@ public class Intake extends SubsystemBase {
 
     public enum Colors{
         REDHIGH (330),
-        REDLOW (15),
+        REDLOW (30),
         BLUEHIGH (270),
         BLUELOW (200),
-        YELLOWHIGH(65),
+        YELLOWHIGH(85),
         YELLOWLOW(30);
         public final double value;
         Colors(double m_colorAmounts){this.value = m_colorAmounts;}
