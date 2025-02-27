@@ -180,6 +180,7 @@ public class BlueLefttx4 extends OpMode{
     public void init_loop() {
         CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", waitSec);
+        telemetry.addData("Strategy: ", DataStorage.strategy);
     }
 
     @Override

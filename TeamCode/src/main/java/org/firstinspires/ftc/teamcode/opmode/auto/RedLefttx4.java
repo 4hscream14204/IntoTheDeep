@@ -165,7 +165,7 @@ public class RedLefttx4 extends OpMode{
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK))))
                 .build();
 
-        robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
+        robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
 
         for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             module.clearBulkCache();
@@ -177,6 +177,7 @@ public class RedLefttx4 extends OpMode{
     public void init_loop() {
         CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", waitSec);
+        telemetry.addData("Strategy: ", DataStorage.strategy);
     }
 
     @Override
