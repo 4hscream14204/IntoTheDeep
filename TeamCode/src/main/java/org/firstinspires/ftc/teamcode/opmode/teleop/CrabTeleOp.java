@@ -298,7 +298,6 @@ public class CrabTeleOp extends OpMode {
     }
 
     public void loop(){
-        telemetry.update();
         chassisController.readButtons();
         armController.readButtons();
         double botHeading = robotBase.drive.otos.getPosition().h;
@@ -368,7 +367,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Elbow isAtPosition", robotBase.elbowSubsystem.isAtPosition(Elbow.ElbowPosition.PRESUBPICKUP));
         telemetry.addData("Wrist isAtPosition", robotBase.wristSubsystem.isAtPosition(Wrist.WristPosition.PRESUBPICKUP));*/
        // telemetry.addData("Arm Right Stick Y", armController.getRightY());
-        telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
+        /*telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
@@ -376,7 +375,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
-        telemetry.addData("Strategy: ", DataStorage.strategy);
+        telemetry.addData("Strategy: ", DataStorage.strategy);*/
         telemetry.addData("loop time", loopTimer);
         //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
        // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
@@ -388,9 +387,9 @@ public class CrabTeleOp extends OpMode {
        // telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
         /*telemetry.addData("Target Left Extension", robotBase.extensionSubsystem.extendLeftMotor.getTargetPosition());
         telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());*/
-        telemetry.addData("Hue", robotBase.intakeSubsystem.getHueValues());
-        telemetry.addData("specimens to deliver", robotBase.ledSubsystem.intSpecimensToDeliver);
-        telemetry.addData("Timer: ", dblCurrentTime);
+        //telemetry.addData("Hue", robotBase.intakeSubsystem.getHueValues());
+        //telemetry.addData("specimens to deliver", robotBase.ledSubsystem.intSpecimensToDeliver);
+        telemetry.addData("Timer: ", dblCurrentTime / 1000);
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);
