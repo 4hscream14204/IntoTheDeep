@@ -10,9 +10,9 @@ import org.firstinspires.ftc.teamcode.subsystems.Sweeper;
 public class ToggleSweeperCommandGroup extends SequentialCommandGroup {
     public ToggleSweeperCommandGroup(RobotBase robotBase) {
         addCommands(
-                new InstantCommand(()->robotBase.sweeperSubsystem.goToPosition(Sweeper.SweeperPosition.CLOSED)),
+                new InstantCommand(()->robotBase.sweeperSubsystem.goToPosition(Sweeper.SweeperPosition.HOME)),
                 new WaitCommand(750),
-                new InstantCommand(()->robotBase.sweeperSubsystem.goToPosition(Sweeper.SweeperPosition.OPEN))
+                new InstantCommand(()->robotBase.sweeperSubsystem.goToPosition(Sweeper.SweeperPosition.OUT))
         );
     }
 }
