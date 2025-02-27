@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
-//@Disabled
+@Disabled
 @Autonomous (name = "RedRight4x")
 public class RedRightx4 extends OpMode {
 

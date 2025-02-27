@@ -18,17 +18,14 @@ import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.AutoInitCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.GrabSpecimenAndHangPosCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.SpecimenPickupAutoCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous(name = "BlueLeftx4")
-public class BlueLefttx4 extends OpMode{
+@Autonomous(name = "RedLeftx4")
+public class RedLefttx4 extends OpMode{
     public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
@@ -168,7 +165,7 @@ public class BlueLefttx4 extends OpMode{
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK))))
                 .build();
 
-        robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
+        robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
 
         for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             module.clearBulkCache();

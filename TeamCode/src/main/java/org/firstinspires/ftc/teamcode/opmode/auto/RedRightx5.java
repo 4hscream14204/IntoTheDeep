@@ -212,10 +212,10 @@ public class RedRightx5 extends OpMode {
     @Override
     public void loop() {
         CommandScheduler.getInstance().run();
-        robotBase.drive.updatePoseEstimate();
-        telemetry.addData("x", robotBase.drive.pose.position.x);
-        telemetry.addData("y", robotBase.drive.pose.position.y);
-        telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
+       // robotBase.drive.updatePoseEstimate();
+       // telemetry.addData("x", robotBase.drive.pose.position.x);
+       // telemetry.addData("y", robotBase.drive.pose.position.y);
+       // telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
         //  telemetry.addData("Feild Position y")
         // telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         // telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
