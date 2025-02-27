@@ -31,6 +31,7 @@ import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleStrategyCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ToggleSweeperCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
@@ -124,7 +125,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
-                                new InstantCommand(()->robotBase.sweeperSubsystem.ToggleSweeper())
+                                new ToggleSweeperCommandGroup(robotBase)
                         ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.BACK)
