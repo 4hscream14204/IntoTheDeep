@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Sweeper;
 import org.firstinspires.ftc.teamcode.subsystems.Timer;
 import org.firstinspires.ftc.teamcode.subsystems.TimerLED;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
@@ -39,6 +40,7 @@ public class RobotBase {
     public ITDCrabEnums.EnmAlliance alliance;
     public Timer timerSubsystem;
     public TimerLED ledSubsystem;
+    public Sweeper sweeperSubsystem;
 
     public SparkFunOTOSDrive drive;
     public ElapsedTime timer;
@@ -66,6 +68,7 @@ public class RobotBase {
         wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
         ledSubsystem = new TimerLED (hwMap.servo.get("timerLED"));
         chassisSubsystem = new Chassis(hwMap.dcMotor.get("left_front"), hwMap.dcMotor.get("right_front"), hwMap.dcMotor.get("left_back"), hwMap.dcMotor.get("right_back"), timer, drive.otos);
+        sweeperSubsystem = new Sweeper(hwMap.servo.get("sweeperServo"));
 
         /*frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

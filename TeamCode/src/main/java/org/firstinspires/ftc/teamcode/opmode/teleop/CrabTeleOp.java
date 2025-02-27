@@ -117,10 +117,15 @@ public class CrabTeleOp extends OpMode {
                                 ()->CommandScheduler.getInstance().schedule(new SpecimenWallPickUpCommandGroup(robotBase, robotBase.shoulderSubsystem, robotBase.clawSubsystem, robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
                         );
 
-        chassisController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+        /*chassisController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(
                                 ()->CommandScheduler.getInstance().schedule(new ElbowWristHomeCommandGroup(robotBase))
-                        );
+                        ); */
+
+        chassisController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+                        .whenPressed(()->CommandScheduler.getInstance().schedule(
+                                new InstantCommand(()->robotBase.sweeperSubsystem.ToggleSweeper())
+                        ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.BACK)
                         .whenPressed(

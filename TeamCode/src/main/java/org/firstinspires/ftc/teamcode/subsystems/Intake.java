@@ -65,6 +65,7 @@ public class Intake extends SubsystemBase {
     public double dblLastColorRead;
     public double currentTime;
     public double lastReadValue;
+    public double currentSpeed = 0.5;
 
     public Intake(Servo m_intakeLeft, Servo m_intakeRight, Servo m_intakeGate, NormalizedColorSensor m_intakesensor, Servo m_IntakeLED) {
         intakeServoLeft = m_intakeLeft;
@@ -144,6 +145,7 @@ public class Intake extends SubsystemBase {
     }
 
     public void intakeSpeed (double speed){
+        currentSpeed = speed;
         if(speed > 0.5){
             intakeServoLeft.setPosition(1 - speed);
             intakeServoRight.setPosition(speed);
@@ -173,6 +175,7 @@ public class Intake extends SubsystemBase {
     public void intakeOuttake(){
         intakeServoLeft.setPosition(0);
         intakeServoRight.setPosition(1);
+        currentSpeed = 1;
     }
 
     public void gateGoToPosition(Intake.GatePosition enmTargetPosition) {
@@ -194,6 +197,10 @@ public class Intake extends SubsystemBase {
 
     public double getPosition() {
         return intakeServoGate.getPosition();
+    }
+
+    public double getSpeed () {
+        return currentSpeed;
     }
 
     /*public boolean isRedSample(){
