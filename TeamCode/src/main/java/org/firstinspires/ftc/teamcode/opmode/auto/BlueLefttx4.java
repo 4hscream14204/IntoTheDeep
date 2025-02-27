@@ -140,7 +140,7 @@ public class BlueLefttx4 extends OpMode{
                 .waitSeconds(1)
 
                 .setTangent(Math.toRadians(225))
-                .splineToLinearHeading(new Pose2d(51,45,Math.toRadians(-140)),Math.toRadians(-140),new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(52,44,Math.toRadians(-143)),Math.toRadians(-143),new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.65)))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET))))
