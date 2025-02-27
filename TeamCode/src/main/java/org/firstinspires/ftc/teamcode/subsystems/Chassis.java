@@ -24,7 +24,7 @@ public class Chassis extends SubsystemBase {
     double dblFrontRightPower;
     double dblBackLeftPower;
     double dblBackRightPower;
-    boolean bolFieldCentric = true;
+    public boolean bolFieldCentric = true;
     double dblDenominator;
     public boolean isInPIDControl = false;
     double leftStickX;
