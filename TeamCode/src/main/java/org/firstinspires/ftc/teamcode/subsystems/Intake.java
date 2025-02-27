@@ -117,17 +117,19 @@ public class Intake extends SubsystemBase {
     public boolean isWrongColor() {
         if ((isColor(Intake.ColorList.BLUE) && DataStorage.alliance != ITDCrabEnums.EnmAlliance.BLUE) || (isColor(Intake.ColorList.RED) && DataStorage.alliance != ITDCrabEnums.EnmAlliance.RED)) {
             return true;
+        } else if (isColor(ColorList.YELLOW) && (DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENBASICCYCLE || DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE)) {
+            return true;
         }
 
         return false;
     }
 
     public void displaySampleColor() {
-        if (getHueValues() > Colors.BLUELOW.value && getHueValues() < Colors.BLUEHIGH.value) {
+        if (isColor(ColorList.BLUE)) {
             setColor(DisplayColors.BLUE);
-        } else if (getHueValues() > Colors.YELLOWLOW.value && getHueValues() < Colors.YELLOWHIGH.value) {
+        } else if (isColor(ColorList.YELLOW)) {
             setColor(DisplayColors.YELLOW);
-        } else if (getHueValues() < Colors.REDLOW.value || getHueValues() > Colors.REDHIGH.value) {
+        } else if (isColor(ColorList.RED)) {
             setColor(DisplayColors.RED);
         } else {
             setColor(DisplayColors.OFF);
