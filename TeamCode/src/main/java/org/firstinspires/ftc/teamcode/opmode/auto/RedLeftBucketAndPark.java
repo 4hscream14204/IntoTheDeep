@@ -12,6 +12,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
@@ -25,7 +26,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
-
+@Disabled
 @Autonomous(name = "RedLeftBucketAndPark")
 public class RedLeftBucketAndPark extends OpMode {
     public TelemetryPacket telemetryPacket;
@@ -127,12 +128,13 @@ public class RedLeftBucketAndPark extends OpMode {
     @Override
     public void loop() {
         CommandScheduler.getInstance().run();
-        robotBase.drive.updatePoseEstimate();
+       /* robotBase.drive.updatePoseEstimate();
         telemetry.addData("x", robotBase.drive.pose.position.x);
         telemetry.addData("y", robotBase.drive.pose.position.y);
         telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
         //telemetry.addData("Feild Position y")
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
+        */
         blueLeftAction.run(telemetryPacket);
     }
 
