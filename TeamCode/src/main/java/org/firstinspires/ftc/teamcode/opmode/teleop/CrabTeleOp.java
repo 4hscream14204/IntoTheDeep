@@ -239,10 +239,13 @@ public class CrabTeleOp extends OpMode {
 
         new Trigger(()->robotBase.shoulderSubsystem.isShoulderHome())
                 .whenActive(
-                        new InstantCommand(()->robotBase.shoulderSubsystem.reset())
-                );
+                        ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.reset())
+                ));
 
-        //new Trigger(()->robotBase.intakeSubsystem.isWrongColor())
+        new Trigger(()->robotBase.intakeSubsystem.isWrongColor())
+                .whenActive(
+                        ()->CommandScheduler.getInstance().schedule(new RejectCommandGroup(robotBase)
+                ));
 
        /* new Trigger(()->robotBase.intakeSubsystem.isBlueSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)
                 .whenActive(
@@ -352,10 +355,10 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
         telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
-        telemetry.addData("FieldCentric", bolFieldCentric);
+        telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
         telemetry.addData("Strategy: ", DataStorage.strategy);
-        telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
+        //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
        // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
         //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
         //telemetry.addData("Right stick X", chassisController.getRightX());
