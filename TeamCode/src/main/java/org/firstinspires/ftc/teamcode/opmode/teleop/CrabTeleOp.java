@@ -31,9 +31,11 @@ import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleStrategyCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ToggleSweeperCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Sweeper;
 
 
 @TeleOp(name = ("Aristocrab TeleOp"))
@@ -117,15 +119,17 @@ public class CrabTeleOp extends OpMode {
                                 ()->CommandScheduler.getInstance().schedule(new SpecimenWallPickUpCommandGroup(robotBase, robotBase.shoulderSubsystem, robotBase.clawSubsystem, robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
                         );
 
-        /*chassisController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+        chassisController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(
                                 ()->CommandScheduler.getInstance().schedule(new ElbowWristHomeCommandGroup(robotBase))
-                        ); */
+                        );
 
-        chassisController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
+        /*chassisController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
-                                new InstantCommand(()->robotBase.sweeperSubsystem.ToggleSweeper())
-                        ));
+                                new ToggleSweeperCommandGroup(robotBase)
+                        ));*/
+
+
 
         chassisController.getGamepadButton(GamepadKeys.Button.BACK)
                         .whenPressed(
@@ -211,6 +215,14 @@ public class CrabTeleOp extends OpMode {
                         .whenInactive(()->CommandScheduler.getInstance().schedule(
                                 new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
                         ));
+
+        new Trigger(()->armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
+                .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.sweeperSubsystem.setPosition(chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)))
+                ))
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.sweeperSubsystem.setPosition(Sweeper.SweeperPosition.HOME.position))
+                ));
 
         new Trigger(()->armController.getRightY() > 0.01)
                 .or(new Trigger(()->armController.getRightY() < -0.01))
