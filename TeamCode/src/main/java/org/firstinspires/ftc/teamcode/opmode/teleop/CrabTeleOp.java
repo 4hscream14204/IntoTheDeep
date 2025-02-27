@@ -50,6 +50,7 @@ public class CrabTeleOp extends OpMode {
     public GamepadEx armController;
     public GamepadEx chassisController;
     public boolean bolIsInitLoop = true;
+    double dblCurrentTime;
 
 
     @Override
@@ -301,7 +302,8 @@ public class CrabTeleOp extends OpMode {
         chassisController.readButtons();
         armController.readButtons();
         double botHeading = robotBase.drive.otos.getPosition().h;
-        double dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
+        double loopTimer = robotBase.chassisSubsystem.timer.milliseconds() - dblCurrentTime;
+        dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
         robotBase.intakeSubsystem.getTime(dblCurrentTime);
 
         robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
@@ -375,6 +377,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
         telemetry.addData("Strategy: ", DataStorage.strategy);
+        telemetry.addData("loop time", loopTimer);
         //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
        // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
         //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
