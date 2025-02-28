@@ -300,7 +300,6 @@ public class CrabTeleOp extends OpMode {
     public void loop(){
         chassisController.readButtons();
         armController.readButtons();
-        double botHeading = robotBase.drive.otos.getPosition().h;
         double loopTimer = robotBase.chassisSubsystem.timer.milliseconds() - dblCurrentTime;
         dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
         robotBase.intakeSubsystem.getTime(dblCurrentTime);
@@ -374,9 +373,10 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
-        telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));
-        telemetry.addData("Strategy: ", DataStorage.strategy);*/
+        telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));*/
+        telemetry.addData("Strategy: ", DataStorage.strategy);
         telemetry.addData("loop time", loopTimer);
+        telemetry.addData("Alliance", DataStorage.alliance);
         //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
        // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
         //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
