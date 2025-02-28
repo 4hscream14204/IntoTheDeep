@@ -126,7 +126,7 @@ public class Intake extends SubsystemBase {
     }
 
     public boolean isRightColor(){
-        if ((isColor(ColorList.BLUE) && DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) || (isColor(ColorList.RED) && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)){
+        if ((isColor(ColorList.BLUE) && DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) || (isColor(ColorList.RED) && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED) || (isColor(ColorList.YELLOW) && DataStorage.strategy == ITDCrabEnums.Strategy.BUCKETBASICCYCLE)){
             return true;
         }
         else{
