@@ -18,6 +18,7 @@ public class SpecimenWallPickUpCommandGroup extends SequentialCommandGroup {
 public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, Claw claw, Extension extension, Elbow elbow, Wrist wrist){
     if (!shoulder.isShoulderHome() && extension.isExtensionHome() && DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENBASICCYCLE){
         addCommands(
+                new GyroResetCommandGroup(robotBase),
                 new InstantCommand(claw::closeClaw),
                 new WaitCommand(250),
                 new InstantCommand(()->extension.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
@@ -29,6 +30,7 @@ public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, C
     }
     else if(!robotBase.shoulderSubsystem.isShoulderHome() && DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE){
         addCommands(
+                new GyroResetCommandGroup(robotBase),
                 new InstantCommand(claw::closeClaw),
                 new WaitCommand(250),
                 new InstantCommand(()->extension.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),

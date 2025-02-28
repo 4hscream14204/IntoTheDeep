@@ -19,7 +19,7 @@ public class RejectCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.COLORSENSOREJECT)),
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeSpeed(0.8)),
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
-                    new WaitCommand(500),
+                    new WaitCommand(100),
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)),
                     new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),

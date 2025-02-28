@@ -21,8 +21,8 @@ public class Extension extends SubsystemBase {
         NEWLOWCHAMBERCLAMP (0),
         HIGHCHAMBER (-1700),//-1870
         HIGHCHAMBERCLAMP (-1100),//-1150
-        SECONDLEVELASCENT (-2933),
-        SECONDLEVELASCENTPULL (-2266),
+        SECONDLEVELASCENT (-1540/*-2933*/),
+        SECONDLEVELASCENTPULL (-50/*-2266*/),
         SPECIMENPICKUP(-500);
         public final int height;
         ExtensionPosition(int high){

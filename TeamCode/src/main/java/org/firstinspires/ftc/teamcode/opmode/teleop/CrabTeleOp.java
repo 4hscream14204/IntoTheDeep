@@ -272,6 +272,9 @@ public class CrabTeleOp extends OpMode {
                         ()->CommandScheduler.getInstance().schedule(new RejectCommandGroup(robotBase)
                 ));
 
+        new Trigger(()->robotBase.intakeSubsystem.isRightColor())
+                .whenActive(()->CommandScheduler.getInstance().schedule(new SubPickupReturnCommandGroup(robotBase)));
+
        /* new Trigger(()->robotBase.intakeSubsystem.isBlueSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)
                 .whenActive(
                         new SampleOuttakeCommandGroup(robotBase)
