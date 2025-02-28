@@ -373,11 +373,11 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Elbow isAtPosition", robotBase.elbowSubsystem.isAtPosition(Elbow.ElbowPosition.PRESUBPICKUP));
         telemetry.addData("Wrist isAtPosition", robotBase.wristSubsystem.isAtPosition(Wrist.WristPosition.PRESUBPICKUP));*/
        // telemetry.addData("Arm Right Stick Y", armController.getRightY());
-        /*telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
-        telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
-        telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
+        telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
+        /*telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
+        telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());*/
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
-        telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
+        /*telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));*/
