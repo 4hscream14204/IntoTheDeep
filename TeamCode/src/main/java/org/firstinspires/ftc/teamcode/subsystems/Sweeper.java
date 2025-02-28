@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Sweeper extends SubsystemBase {
 
     public enum SweeperPosition {
-        OUT(0),
+        OUT(1),
         HOME(0);
         public final double position;
         SweeperPosition(double value) {
