@@ -75,8 +75,8 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.drive.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0)))), new GyroResetCommandGroup(robotBase)
-                ));
+                        new GyroResetCommandGroup(robotBase)
+                        ));
         chassisController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() -> bolFieldCentric = !bolFieldCentric)
@@ -387,6 +387,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Strategy: ", DataStorage.strategy);
         telemetry.addData("loop time", loopTimer);
         telemetry.addData("Alliance", DataStorage.alliance);
+        telemetry.addData("Gyro", robotBase.chassisSubsystem.botPose.h);
         //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
        // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
         //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
