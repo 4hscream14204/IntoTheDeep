@@ -9,16 +9,21 @@ import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class RejectCommandGroup extends SequentialCommandGroup {
     public RejectCommandGroup(RobotBase robotBase){
         if(robotBase.shoulderSubsystem.isShoulderHome() && robotBase.elbowSubsystem.isAtPosition(Elbow.ElbowPosition.PICKUP)) {
             addCommands(
+                    new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.COLORSENSOREJECT)),
+                    new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.COLORSENSOREJECT)),
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeSpeed(0.8)),
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
                     new WaitCommand(500),
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
-                    new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED))
+                    new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)),
+                    new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                    new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))
             );
         }
     }

@@ -14,6 +14,7 @@ public class Elbow extends SubsystemBase {
         AUTO (0.1888),
         PRESUBPICKUP (0.6777),
         DROPOFF (0.777),
+        COLORSENSOREJECT (0.76388),
         GIVETOHUMAN (0.6777);
         public final double value;
         ElbowPosition(double m_pos){

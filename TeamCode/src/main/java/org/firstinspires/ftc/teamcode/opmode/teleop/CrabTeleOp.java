@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.BucketElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketExtendUpCommandGroup;
@@ -30,6 +31,7 @@ import org.firstinspires.ftc.teamcode.commands.SpecimenWallPickUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ToggleAllianceCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleStrategyCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleSweeperCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
@@ -207,6 +209,11 @@ public class CrabTeleOp extends OpMode {
                 .whenPressed(
                         ()->CommandScheduler.getInstance().schedule(new SpecimenWallPickUpCommandGroup(robotBase, robotBase.shoulderSubsystem, robotBase.clawSubsystem, robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
                 );
+
+        armController.getGamepadButton(GamepadKeys.Button.START)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new ToggleAllianceCommandGroup()
+                ));
 
         new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
                 .or(new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1))
