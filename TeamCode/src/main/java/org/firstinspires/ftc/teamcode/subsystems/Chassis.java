@@ -4,6 +4,9 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ftc.SparkFunOTOSCorrected;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.pedropathing.follower.Follower;
+import com.pedropathing.follower.FollowerConstants;
+import com.pedropathing.localization.Pose;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -38,11 +41,12 @@ public class Chassis extends SubsystemBase {
     double dblHeadingDeviation;
     double dblHeadingOutput = 0;
     public ElapsedTime timer;
-    public SparkFunOTOSCorrected otos;
-    public SparkFunOTOS.Pose2D botPose;
+    //public SparkFunOTOSCorrected otos;
+    public Follower otos;
+    public Pose botPose;
 
 
-    public Chassis(DcMotor m_frontLeftMotor, DcMotor m_frontRightMotor, DcMotor m_backLeftMotor, DcMotor m_backRightMotor, ElapsedTime m_timer, SparkFunOTOSCorrected m_otos){
+    public Chassis(DcMotor m_frontLeftMotor, DcMotor m_frontRightMotor, DcMotor m_backLeftMotor, DcMotor m_backRightMotor, ElapsedTime m_timer, /*SparkFunOTOSCorrected m_otos*/ Follower m_otos){
         frontLeftMotor = m_frontLeftMotor;
         frontRightMotor = m_frontRightMotor;
         backLeftMotor = m_backLeftMotor;
@@ -57,7 +61,7 @@ public class Chassis extends SubsystemBase {
         dblCurrentTime = timer.milliseconds();
         dblLastStickTime = timer.milliseconds();
         isInPIDControl = false;
-        botPose = otos.getPosition();
+        botPose = otos.getPose();
     }
 
     public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior){
@@ -78,8 +82,8 @@ public class Chassis extends SubsystemBase {
         leftStickX = (m_leftStickY * Math.abs(m_leftStickY) * -1);
         leftStickY = m_leftStickX * Math.abs(m_leftStickX);
         rotationPower = m_rightStickX * Math.abs(m_rightStickX);
-        botPose = otos.getPosition();
-        botHeading = botPose.h;
+        botPose = otos.getPose();
+        botHeading = botPose.getHeading();
         dblCurrentTime = timer.milliseconds();
 
         if(bolFieldCentric){
