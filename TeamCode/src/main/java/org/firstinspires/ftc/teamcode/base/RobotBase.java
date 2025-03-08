@@ -5,17 +5,21 @@ import com.acmerobotics.roadrunner.Time;
 import com.acmerobotics.roadrunner.ftc.SparkFunOTOSCorrected;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
+import com.pedropathing.util.Constants;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 //import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.subsystems.Chassis;
 import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
@@ -46,9 +50,9 @@ public class RobotBase {
     public TimerLED ledSubsystem;
     public Sweeper sweeperSubsystem;
 
-    public Follower drive;
+    public SparkFunOTOS otos;
     public ElapsedTime timer;
-    public Pose startPose = new Pose(0, 0, 0);
+    //public Pose startPose = new Pose(0, 0, 0);
 
 
     public RobotBase(HardwareMap hwMap) {
@@ -57,8 +61,8 @@ public class RobotBase {
         backLeftMotor = hwMap.dcMotor.get("left_back");
         frontRightMotor = hwMap.dcMotor.get("right_front");
         backRightMotor = hwMap.dcMotor.get("right_back");*/
-        drive = new Follower(hwMap);
-        drive.setStartingPose(startPose);
+        Constants.setConstants(FConstants.class, LConstants.class);
+        otos = hwMap.get(SparkFunOTOS.class, "sensor_otos");
 
         intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
                 hwMap.servo.get("intakeServoRight"),
@@ -73,7 +77,7 @@ public class RobotBase {
                 hwMap.digitalChannel.get("shoulderLimitSwitch"));
         wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
         ledSubsystem = new TimerLED (hwMap.servo.get("timerLED"));
-        chassisSubsystem = new Chassis(hwMap.dcMotor.get("left_front"), hwMap.dcMotor.get("right_front"), hwMap.dcMotor.get("left_back"), hwMap.dcMotor.get("right_back"), timer, drive);
+        chassisSubsystem = new Chassis(hwMap.dcMotor.get("leftFront"), hwMap.dcMotor.get("rightFront"), hwMap.dcMotor.get("leftRear"), hwMap.dcMotor.get("rightRear"), timer, otos);
         sweeperSubsystem = new Sweeper(hwMap.servo.get("sweeperServo"));
 
         /*frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

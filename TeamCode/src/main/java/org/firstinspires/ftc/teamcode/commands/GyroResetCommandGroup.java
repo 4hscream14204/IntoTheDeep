@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 public class GyroResetCommandGroup extends SequentialCommandGroup {
     public GyroResetCommandGroup(RobotBase robotBase){
         addCommands(
-                new InstantCommand(()->robotBase.drive.setPose(new Pose(0, 0, Math.toRadians(0)))),
+                new InstantCommand(()->robotBase.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0)))),
                 new InstantCommand(()->robotBase.chassisSubsystem.setTargetDegrees(0)),
                 new WaitCommand(250),
                 new InstantCommand(()->robotBase.chassisSubsystem.disablePIDUse())

@@ -42,11 +42,11 @@ public class Chassis extends SubsystemBase {
     double dblHeadingOutput = 0;
     public ElapsedTime timer;
     //public SparkFunOTOSCorrected otos;
-    public Follower otos;
-    public Pose botPose;
+    public SparkFunOTOS otos;
+    public SparkFunOTOS.Pose2D botPose;
 
 
-    public Chassis(DcMotor m_frontLeftMotor, DcMotor m_frontRightMotor, DcMotor m_backLeftMotor, DcMotor m_backRightMotor, ElapsedTime m_timer, /*SparkFunOTOSCorrected m_otos*/ Follower m_otos){
+    public Chassis(DcMotor m_frontLeftMotor, DcMotor m_frontRightMotor, DcMotor m_backLeftMotor, DcMotor m_backRightMotor, ElapsedTime m_timer, /*SparkFunOTOSCorrected m_otos*/ SparkFunOTOS m_otos){
         frontLeftMotor = m_frontLeftMotor;
         frontRightMotor = m_frontRightMotor;
         backLeftMotor = m_backLeftMotor;
@@ -61,7 +61,7 @@ public class Chassis extends SubsystemBase {
         dblCurrentTime = timer.milliseconds();
         dblLastStickTime = timer.milliseconds();
         isInPIDControl = false;
-        botPose = otos.getPose();
+        botPose = otos.getPosition();
     }
 
     public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior){
@@ -82,8 +82,8 @@ public class Chassis extends SubsystemBase {
         leftStickX = (m_leftStickY * Math.abs(m_leftStickY) * -1);
         leftStickY = m_leftStickX * Math.abs(m_leftStickX);
         rotationPower = m_rightStickX * Math.abs(m_rightStickX);
-        botPose = otos.getPose();
-        botHeading = botPose.getHeading();
+        botPose = otos.getPosition();
+        botHeading = botPose.h;
         dblCurrentTime = timer.milliseconds();
 
         if(bolFieldCentric){

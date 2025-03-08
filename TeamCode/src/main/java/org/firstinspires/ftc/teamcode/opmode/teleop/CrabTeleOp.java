@@ -66,7 +66,7 @@ public class CrabTeleOp extends OpMode {
         } else if(DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED){
             intHeadingFix = -90;
         }*/
-        robotBase.drive.setStartingPose(new Pose(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
+        robotBase.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
 
         chassisController = new GamepadEx(gamepad1);
         armController = new GamepadEx(gamepad2);
@@ -304,7 +304,7 @@ public class CrabTeleOp extends OpMode {
     public void start(){
         CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
         robotBase.chassisSubsystem.timer.reset();
-        robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.drive.getPose().getHeading()));
+        robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.otos.getPosition().h));
         robotBase.chassisSubsystem.disablePIDUse();
     }
 
@@ -388,7 +388,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Strategy: ", DataStorage.strategy);
         telemetry.addData("loop time", loopTimer);
         telemetry.addData("Alliance", DataStorage.alliance);
-        telemetry.addData("Gyro", robotBase.chassisSubsystem.botPose.getHeading());
+        telemetry.addData("Gyro", robotBase.chassisSubsystem.botPose.h);
         //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
        // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
         //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
