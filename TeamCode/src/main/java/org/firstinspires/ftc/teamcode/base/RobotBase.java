@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.Time;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
@@ -62,8 +63,8 @@ public class RobotBase {
         clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
         elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
         extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionLeftMotor"), hwMap.dcMotor.get("extensionRightMotor"), hwMap.digitalChannel.get("extensionLimitSwitch"));
-        shoulderSubsystem = new Shoulder(hwMap.dcMotor.get("shoulderMotor"),
-                hwMap.dcMotor.get("rightShoulderMotor"),
+        shoulderSubsystem = new Shoulder(hwMap.get(DcMotorEx.class, "shoulderMotor"),
+                hwMap.get(DcMotorEx.class, "rightShoulderMotor"),
                 hwMap.digitalChannel.get("shoulderLimitSwitch"));
         wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
         ledSubsystem = new TimerLED (hwMap.servo.get("timerLED"));

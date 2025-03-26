@@ -401,6 +401,8 @@ public class CrabTeleOp extends OpMode {
         //telemetry.addData("Hue", robotBase.intakeSubsystem.getHueValues());
         //telemetry.addData("specimens to deliver", robotBase.ledSubsystem.intSpecimensToDeliver);
         telemetry.addData("Timer: ", dblCurrentTime / 1000);
+        telemetry.addData("Left shoulder AMPs", robotBase.shoulderSubsystem.getLeftAMP());
+        telemetry.addData("Right shoulder AMPs", robotBase.shoulderSubsystem.getRightAMP());
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);

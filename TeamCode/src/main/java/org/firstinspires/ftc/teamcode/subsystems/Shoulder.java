@@ -2,12 +2,15 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
+
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 public class Shoulder extends SubsystemBase {
 
-    public DcMotor dcShoulderMotorLeft;
-    public DcMotor dcShoulderMotorRight;
+    public DcMotorEx dcShoulderMotorLeft;
+    public DcMotorEx dcShoulderMotorRight;
     public DigitalChannel tsShoulderLimitSwitch;
     public double dblUpPower = 1;
     public double dblDownPower = -0.5;
@@ -34,7 +37,16 @@ public class Shoulder extends SubsystemBase {
         }
     }
 
-    public Shoulder(DcMotor conShoulderMotor, DcMotor rightShoulderMotor, DigitalChannel conShoulderLimitSwitch) {
+    public  enum MaxAmps{
+        MAXAMPLEFT (999999999),
+        MAXAMPRIGHT(999999999);
+        public final double max;
+        MaxAmps(double cap){
+            this.max = cap;
+        }
+    }
+
+    public Shoulder(DcMotorEx conShoulderMotor, DcMotorEx rightShoulderMotor, DigitalChannel conShoulderLimitSwitch) {
         dcShoulderMotorLeft = conShoulderMotor;
         dcShoulderMotorRight = rightShoulderMotor;
         tsShoulderLimitSwitch = conShoulderLimitSwitch;
@@ -76,6 +88,8 @@ public class Shoulder extends SubsystemBase {
         dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         bolStoppedInPlace = false;
+
+        checkStalling();
     }
 
     public void goUpOrDown(double power){
@@ -98,6 +112,8 @@ public class Shoulder extends SubsystemBase {
 
             bolStoppedInPlace = false;
         }
+
+        checkStalling();
     }
 
     public void goUp(double power){
@@ -175,5 +191,19 @@ public class Shoulder extends SubsystemBase {
     public void setPower(double m_Power) {
         dcShoulderMotorLeft.setPower(m_Power);
         dcShoulderMotorRight.setPower(m_Power);
+    }
+
+    public double getLeftAMP() {
+        return dcShoulderMotorLeft.getCurrent(CurrentUnit.AMPS);
+    }
+
+    public double getRightAMP() {
+        return dcShoulderMotorRight.getCurrent(CurrentUnit.AMPS);
+    }
+
+    public void checkStalling(){
+        if (getLeftAMP() > MaxAmps.MAXAMPLEFT.max || getRightAMP() > MaxAmps.MAXAMPRIGHT.max) {
+            stopInPlace();
+        }
     }
 }
