@@ -52,16 +52,15 @@ public class Shoulder extends SubsystemBase {
         tsShoulderLimitSwitch = conShoulderLimitSwitch;
         dcShoulderMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcShoulderMotorLeft.setTargetPosition(0);
-        dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        dcShoulderMotorLeft.setPower(0);
+        dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);;
         dcShoulderMotorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         enmShoulderPosition = ShoulderPosition.HOME;
         dcShoulderMotorRight.setDirection(DcMotor.Direction.REVERSE);
         dcShoulderMotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcShoulderMotorRight.setTargetPosition(0);
-        dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        dcShoulderMotorRight.setPower(0);
+        dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);;
         dcShoulderMotorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        setPower(0);
 
     }
 
@@ -89,20 +88,17 @@ public class Shoulder extends SubsystemBase {
 
         bolStoppedInPlace = false;
 
-        checkStalling();
     }
 
     public void goUpOrDown(double power){
         if(isShoulderHome() && power < 0){
             reset();
-            dcShoulderMotorLeft.setPower(0);
-            dcShoulderMotorRight.setPower(0);
+            setPower(0);
             return;
         }
         if(isShoulderHome() && power == 0){
             reset();
-            dcShoulderMotorLeft.setPower(0);
-            dcShoulderMotorRight.setPower(0);
+            setPower(0);
         }
         else{
             dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -113,7 +109,6 @@ public class Shoulder extends SubsystemBase {
             bolStoppedInPlace = false;
         }
 
-        checkStalling();
     }
 
     public void goUp(double power){
@@ -158,10 +153,9 @@ public class Shoulder extends SubsystemBase {
             dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             intCurrentPos = dcShoulderMotorLeft.getCurrentPosition();
             dcShoulderMotorLeft.setTargetPosition(intCurrentPos);
-            dcShoulderMotorLeft.setPower(0.2);
             dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             dcShoulderMotorRight.setTargetPosition(intCurrentPos);
-            dcShoulderMotorRight.setPower(0.2);
+            setPower(0.2);
     }
 
     public int shoulderGetPosition(){
@@ -177,11 +171,10 @@ public class Shoulder extends SubsystemBase {
         dcShoulderMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcShoulderMotorLeft.setTargetPosition(0);
         dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        dcShoulderMotorLeft.setPower(0);
         dcShoulderMotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcShoulderMotorRight.setTargetPosition(0);
         dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        dcShoulderMotorRight.setPower(0);
+        setPower(0);
     }
 
     public double getPower(){
@@ -189,8 +182,12 @@ public class Shoulder extends SubsystemBase {
     }
 
     public void setPower(double m_Power) {
-        dcShoulderMotorLeft.setPower(m_Power);
-        dcShoulderMotorRight.setPower(m_Power);
+        if (isStalling()) {
+            stopInPlace();
+        } else {
+            dcShoulderMotorLeft.setPower(m_Power);
+            dcShoulderMotorRight.setPower(m_Power);
+        }
     }
 
     public double getLeftAMP() {
@@ -201,8 +198,12 @@ public class Shoulder extends SubsystemBase {
         return dcShoulderMotorRight.getCurrent(CurrentUnit.AMPS);
     }
 
-    public void checkStalling(){
-        if (getLeftAMP() > MaxAmps.MAXAMPLEFT.max || getRightAMP() > MaxAmps.MAXAMPRIGHT.max) {
+    public boolean isStalling(){
+        return (getLeftAMP() > MaxAmps.MAXAMPLEFT.max || getRightAMP() > MaxAmps.MAXAMPRIGHT.max);
+    }
+
+    public void stopIfStalling(){
+        if (isStalling()) {
             stopInPlace();
         }
     }
