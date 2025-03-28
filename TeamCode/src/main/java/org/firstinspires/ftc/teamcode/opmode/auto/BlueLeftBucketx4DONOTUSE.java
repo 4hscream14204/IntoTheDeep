@@ -50,7 +50,7 @@ public class BlueLeftBucketx4DONOTUSE extends OpMode {
         robotBase.clawSubsystem.openClaw();
         //robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
         robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER);
-        robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED);
+        robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED);
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(
                         ()-> waitSec++

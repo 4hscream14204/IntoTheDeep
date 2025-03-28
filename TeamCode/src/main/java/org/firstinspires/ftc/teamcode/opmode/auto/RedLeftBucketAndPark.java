@@ -18,9 +18,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
-import org.firstinspires.ftc.teamcode.commands.GrabSpecimenAndHangPosCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.SpecimenPickupAutoCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
@@ -55,7 +52,7 @@ public class RedLeftBucketAndPark extends OpMode {
         robotBase.clawSubsystem.openClaw();
         //robotBase.elbowSubsystem.enmElbowPosition = Elbow.ElbowPosition.HOME;
         robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK);
-        robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED);
+        robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED);
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new InstantCommand(
                         ()-> waitSec++

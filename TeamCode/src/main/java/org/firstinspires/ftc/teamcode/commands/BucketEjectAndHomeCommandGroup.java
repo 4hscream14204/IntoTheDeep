@@ -5,8 +5,6 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
 
-import org.firstinspires.ftc.teamcode.base.DataStorage;
-import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
@@ -23,6 +21,6 @@ public class BucketEjectAndHomeCommandGroup extends SequentialCommandGroup {
                 new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
                 new WaitUntilCommand(()->robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.HIGHCHAMBERCLAMP.height),
                 new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
-                new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)));
+                new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED)));
     }
 }
