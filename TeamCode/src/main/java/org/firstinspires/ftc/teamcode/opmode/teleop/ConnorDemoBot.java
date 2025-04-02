@@ -103,9 +103,5 @@ public class ConnorDemoBot extends OpMode {
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
-
-            if ()
-
-            telemetry.addData("Arm AMPs", arm.getCurrent(CurrentUnit.AMPS));
         }
     }
