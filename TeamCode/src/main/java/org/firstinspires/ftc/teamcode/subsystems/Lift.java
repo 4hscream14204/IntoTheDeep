@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 public class Lift {
 
-    public DcMotor liftMotor;
+    public DcMotorEx liftMotor;
     public double speed = 0;
     public int home = 0;
     public int highBasket = -4000;
@@ -14,7 +17,7 @@ public class Lift {
     public double downPower = 0.4;
     public boolean stopped = true;
 
-    public Lift (DcMotor conLiftMotor){
+    public Lift (DcMotorEx conLiftMotor){
         liftMotor = conLiftMotor;
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setTargetPosition(0);
@@ -100,5 +103,5 @@ public class Lift {
     public int getPosition() {
         return liftMotor.getCurrentPosition();
         }
-    }
+}
 

@@ -4,11 +4,14 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 @TeleOp(name="Connor demo bot")
 public class ConnorDemoBot extends OpMode {
@@ -19,7 +22,7 @@ public class ConnorDemoBot extends OpMode {
     DcMotor backRightMotor;
     Servo claw;
     Servo test;
-    DcMotorSimple arm = null;
+    DcMotorEx arm = null;
 
     @Override
     public void init() {
@@ -29,7 +32,7 @@ public class ConnorDemoBot extends OpMode {
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
         claw = hardwareMap.servo.get("clawServo");
-        arm = hardwareMap.get(DcMotorSimple.class, "armMotor");
+        arm = hardwareMap.get(DcMotorEx.class, "armMotor");
         test = hardwareMap.get(Servo.class, "test");
 
         frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -100,5 +103,9 @@ public class ConnorDemoBot extends OpMode {
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
+
+            if ()
+
+            telemetry.addData("Arm AMPs", arm.getCurrent(CurrentUnit.AMPS));
         }
     }
