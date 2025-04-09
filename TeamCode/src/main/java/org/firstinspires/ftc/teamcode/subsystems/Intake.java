@@ -7,9 +7,6 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.base.DataStorage;
-import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
-
 public class Intake extends SubsystemBase {
 
     final float[] hsvValues = new float[3];
@@ -81,7 +78,7 @@ public class Intake extends SubsystemBase {
         currentTime = time;
     }
 
-    public double getHueValues() {
+    /*public double getHueValues() {
         if (currentTime - dblLastColorRead > 100) {
             NormalizedRGBA colors = intakeColorSensor.getNormalizedColors();
             Color.colorToHSV(colors.toColor(), hsvValues);
@@ -114,8 +111,8 @@ public class Intake extends SubsystemBase {
         return false;
 
     }
-
-    public boolean isWrongColor() {
+*/
+    /*public boolean isWrongColor() {
         if ((isColor(Intake.ColorList.BLUE) && DataStorage.alliance != ITDCrabEnums.EnmAlliance.BLUE) || (isColor(Intake.ColorList.RED) && DataStorage.alliance != ITDCrabEnums.EnmAlliance.RED)) {
             return true;
         } else if (isColor(ColorList.YELLOW) && (DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENBASICCYCLE || DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE)) {
@@ -151,7 +148,7 @@ public class Intake extends SubsystemBase {
             intakeLED.setPosition(enmTargetColor.value);
             enmColorHue = enmTargetColor;
         }
-    }
+    }*/
 
     public void intakeSpeed (double speed){
         currentSpeed = speed;

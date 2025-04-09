@@ -17,19 +17,9 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-//import org.firstinspires.ftc.teamcode.roadrunner.SparkFunOTOSDrive;
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.subsystems.Chassis;
-import org.firstinspires.ftc.teamcode.subsystems.Claw;
-import org.firstinspires.ftc.teamcode.subsystems.Elbow;
-import org.firstinspires.ftc.teamcode.subsystems.Extension;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
-import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
-import org.firstinspires.ftc.teamcode.subsystems.Sweeper;
-import org.firstinspires.ftc.teamcode.subsystems.Timer;
-import org.firstinspires.ftc.teamcode.subsystems.TimerLED;
-import org.firstinspires.ftc.teamcode.subsystems.Wrist;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
+//import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 public class RobotBase {
 
@@ -37,48 +27,43 @@ public class RobotBase {
     public DcMotor frontRightMotor;
     public DcMotor backLeftMotor;
     public DcMotor backRightMotor;
+    public DcMotor intakeMotor;
 
-    public Intake intakeSubsystem;
-    public Claw clawSubsystem;
-    public Elbow elbowSubsystem;
-    public Extension extensionSubsystem;
-    public Shoulder shoulderSubsystem;
-    public Wrist wristSubsystem;
+    //public Intake intakeSubsystem;
     public Chassis chassisSubsystem;
-    public ITDCrabEnums.EnmAlliance alliance;
-    public Timer timerSubsystem;
-    public TimerLED ledSubsystem;
-    public Sweeper sweeperSubsystem;
+    public Lift liftSubsystem;
 
-    public SparkFunOTOS otos;
-    public ElapsedTime timer;
+    /*public SparkFunOTOS otos;
+    public ElapsedTime timer;*/
     //public Pose startPose = new Pose(0, 0, 0);
 
 
     public RobotBase(HardwareMap hwMap) {
-        timer = new ElapsedTime();
+        //timer = new ElapsedTime();
+        intakeMotor = hwMap.dcMotor.get("intakeMotor");
+        liftSubsystem = new Lift(hwMap.dcMotor.get("liftMotor"), hwMap.servo.get("bucketServo"));
         /*frontLeftMotor = hwMap.dcMotor.get("left_front");
         backLeftMotor = hwMap.dcMotor.get("left_back");
         frontRightMotor = hwMap.dcMotor.get("right_front");
         backRightMotor = hwMap.dcMotor.get("right_back");*/
-        Constants.setConstants(FConstants.class, LConstants.class);
-        otos = hwMap.get(SparkFunOTOS.class, "sensor_otos");
+        //Constants.setConstants(FConstants.class, LConstants.class);
+        //otos = hwMap.get(SparkFunOTOS.class, "sensor_otos");
 
-        intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
+        /*intakeSubsystem = new Intake(hwMap.servo.get("intakeServoLeft"),
                 hwMap.servo.get("intakeServoRight"),
                 hwMap.servo.get("gateServo"),
                 hwMap.get(NormalizedColorSensor.class, "intakeColorSensor"),
                 hwMap.servo.get("intakeLED"));
-        clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
+        /*clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
         elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
         extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionLeftMotor"), hwMap.dcMotor.get("extensionRightMotor"), hwMap.digitalChannel.get("extensionLimitSwitch"));
         shoulderSubsystem = new Shoulder(hwMap.dcMotor.get("shoulderMotor"),
                 hwMap.dcMotor.get("rightShoulderMotor"),
                 hwMap.digitalChannel.get("shoulderLimitSwitch"));
         wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
-        ledSubsystem = new TimerLED (hwMap.servo.get("timerLED"));
-        chassisSubsystem = new Chassis(hwMap.dcMotor.get("leftFront"), hwMap.dcMotor.get("rightFront"), hwMap.dcMotor.get("leftRear"), hwMap.dcMotor.get("rightRear"), timer, otos);
-        sweeperSubsystem = new Sweeper(hwMap.servo.get("sweeperServo"));
+        ledSubsystem = new TimerLED (hwMap.servo.get("timerLED"));*/
+        chassisSubsystem = new Chassis(hwMap.dcMotor.get("leftFront"), hwMap.dcMotor.get("rightFront"), hwMap.dcMotor.get("leftRear"), hwMap.dcMotor.get("rightRear"));
+        //sweeperSubsystem = new Sweeper(hwMap.servo.get("sweeperServo"));
 
         /*frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
