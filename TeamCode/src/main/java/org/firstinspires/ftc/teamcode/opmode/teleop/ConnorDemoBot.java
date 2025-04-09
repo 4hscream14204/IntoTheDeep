@@ -1,107 +1,49 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.button.Trigger;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
-import org.firstinspires.ftc.teamcode.subsystems.Lift;
+import org.firstinspires.ftc.teamcode.base.RobotBase;
 
-@TeleOp(name="Connor demo bot")
+@TeleOp(name = ("Connor Bot"))
 public class ConnorDemoBot extends OpMode {
 
-    DcMotor frontLeftMotor;
-    DcMotor frontRightMotor;
-    DcMotor backLeftMotor;
-    DcMotor backRightMotor;
-    Servo claw;
-    Servo test;
-    DcMotorEx arm = null;
+    public RobotBase robotBase;
+    double dubFrontRightPower;
+    double dubFrontLeftPower;
+    double dubBackRightPower;
+    double dubBackLeftPower;
+    public GamepadEx chassisController;
 
     @Override
     public void init() {
+        CommandScheduler.getInstance().reset();
+        robotBase = new RobotBase(hardwareMap);
 
-        frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-        backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
-        frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-        backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-        claw = hardwareMap.servo.get("clawServo");
-        arm = hardwareMap.get(DcMotorEx.class, "armMotor");
-        test = hardwareMap.get(Servo.class, "test");
+        chassisController = new GamepadEx(gamepad1);
 
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        arm.setDirection(DcMotorSimple.Direction.FORWARD);
-        IMU imu = hardwareMap.get(IMU.class, "imu");
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
-        imu.initialize(parameters);
-        claw.setPosition(0.40833);
+        chassisController.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(()-> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.clawsubsystem.togglePosition())
+                ));
+
+        new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
+                .or(new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1))
+                .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.armsubsystem.moveArm(robotBase, chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) - chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER))
+                        )))
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.armsubsystem.stopInPlace())
+                ));
     }
 
     @Override
     public void loop() {
-        double y = -gamepad1.left_stick_y  * Math.abs (gamepad1.left_stick_y); // Remember, Y stick value is reversed
-        double x = gamepad1.left_stick_x * Math.abs (gamepad1.left_stick_x);
-        double rx = gamepad1.right_stick_x * Math.abs (gamepad1.right_stick_x);
-
-        // Denominator is the largest motor power (absolute value) or 1
-        // This ensures all the powers maintain the same ratio,
-        // but only if at least one is out of the range [-1, 1]
-            IMU imu = hardwareMap.get(IMU.class, "imu");
-            double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-            double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-            double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
-
-            double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-            double frontLeftPower = (rotY + rotX + rx) / denominator;
-            double backLeftPower = (rotY - rotX + rx) / denominator;
-            double frontRightPower = (rotY - rotX - rx) / denominator;
-            double backRightPower = (rotY + rotX - rx) / denominator;
-
-            if (gamepad1.a) {
-                if(claw.getPosition() == 0.5){
-                    claw.setPosition(0.8944);
-                }
-                else{
-                    claw.setPosition(0.5);
-                }
-            }
-
-            if (gamepad1.right_trigger > 0.1) {
-                arm.setPower(-0.3);
-            }
-
-            if (gamepad1.left_trigger > 0.1) {
-                arm.setPower(0.3);
-            }
-
-            if (gamepad1.left_trigger < 0.1 && gamepad1.right_trigger < 0.1) {
-                arm.setPower(0);
-            }
-
-            if (gamepad1.start) {
-                imu.resetYaw();
-            }
-
-            if(gamepad1.b){
-                test.setPosition(0);
-            }
-
-            if(gamepad1.y){
-                test.setPosition(1);
-            }
-
-            frontLeftMotor.setPower(frontLeftPower);
-            backLeftMotor.setPower(backLeftPower);
-            frontRightMotor.setPower(frontRightPower);
-            backRightMotor.setPower(backRightPower);
-        }
+        chassisController.readButtons();
     }
+}
