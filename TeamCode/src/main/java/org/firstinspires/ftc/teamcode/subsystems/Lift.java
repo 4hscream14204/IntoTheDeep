@@ -6,13 +6,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Lift extends SubsystemBase {
     public DcMotor liftMotor;
-    public double upPower = 0.5;
-    public double downPower = -0.5;
+    public double dblUpPower = 0.5;
+    public double dblDownPower = -0.5;
     public Servo bucketServo;
 
     public enum LiftPosition {
         HOME (0),
-        HIGHDROPOFF (400);
+        LOWDROPOFF (280),
+        MEDIUMDROPOFF (400),
+        HIGHDROPOFF (600);
         public final int height;
         LiftPosition(int high){
             this.height = high;
@@ -28,8 +30,6 @@ public class Lift extends SubsystemBase {
         }
     }
 
-    public double dblUpPower = -1;
-    public double dblDownPower = 1;
     public boolean bolStopped = true;
     public int intCurrentPos;
     public int intMaxPosition;
@@ -84,11 +84,11 @@ public class Lift extends SubsystemBase {
     public void goToPosition(LiftPosition enmTargetPosition) {
         if(extensionGetPosition() < enmTargetPosition.height){
             enmExtensionPosition = enmTargetPosition;
-            setPower(dblDownPower);
+            setPower(dblUpPower);
         }
         else if(extensionGetPosition() > enmTargetPosition.height){
             enmExtensionPosition = enmTargetPosition;
-            setPower(dblUpPower);
+            setPower(dblDownPower);
         }
         else if(isAtPosition(enmTargetPosition)){
             stopInPlace();

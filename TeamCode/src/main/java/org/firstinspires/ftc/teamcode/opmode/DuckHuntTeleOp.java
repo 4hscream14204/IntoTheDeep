@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.HighFreightCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.LowFreightCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.MediumFreightCommandGroup;
 
 @TeleOp(name = ("Duck Hunt TeleOp"))
 public class DuckHuntTeleOp extends OpMode {
@@ -27,14 +29,22 @@ public class DuckHuntTeleOp extends OpMode {
         armController = new GamepadEx(gamepad2);
         robotBase.chassisSubsystem.bolFieldCentric = false;
 
-        chassisController.getGamepadButton(GamepadKeys.Button.A)
-                .whenPressed(()->robotBase.liftSubsystem.bucketServo.setPosition(0.15));
+        /*chassisController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.liftSubsystem.bucketServo.setPosition(0.15))));
 
         chassisController.getGamepadButton(GamepadKeys.Button.B)
-                .whenPressed(()->robotBase.liftSubsystem.bucketServo.setPosition(0.85));
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.liftSubsystem.bucketServo.setPosition(0.85))));*/
 
         chassisController.getGamepadButton(GamepadKeys.Button.Y)
-                .whenPressed(()-> new HighFreightCommandGroup(robotBase.liftSubsystem));
+                .whenPressed(()-> CommandScheduler.getInstance().schedule(new HighFreightCommandGroup(robotBase.liftSubsystem)));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(()-> CommandScheduler.getInstance().schedule(new MediumFreightCommandGroup(robotBase.liftSubsystem)));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(()-> CommandScheduler.getInstance().schedule(new LowFreightCommandGroup(robotBase.liftSubsystem)));
 
         new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
                 .or(new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1))
