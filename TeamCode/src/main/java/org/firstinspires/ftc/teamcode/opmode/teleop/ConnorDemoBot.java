@@ -47,8 +47,8 @@ public class ConnorDemoBot extends OpMode {
         chassisController.readButtons();
         robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
 
-        telemetry.addData("Arm AMPs", robotBase.armsubsystem.getAmps());
+        //telemetry.addData("Arm AMPs", robotBase.armsubsystem.getAmps());
         telemetry.addData("Max AMPs", robotBase.armsubsystem.dblAmpLimit);
-        telemetry.addData("Is stalling", robotBase.armsubsystem.isStalling());
+        //telemetry.addData("Is stalling", robotBase.armsubsystem.isStalling());
     }
 }
