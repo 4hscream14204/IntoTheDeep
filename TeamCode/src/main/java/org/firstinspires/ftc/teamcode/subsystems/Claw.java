@@ -7,11 +7,11 @@ public class Claw {
     Servo srvClaw;
 
     public enum ClawPositions {
-        OPEN(0),
-        CLOSED(0);
-        public final int rotation;
+        OPEN(0.5),
+        CLOSED(0.83);
 
-        ClawPositions(int rot) {
+        public final double rotation;
+        ClawPositions(double rot) {
             this.rotation = rot;
         }
     }
