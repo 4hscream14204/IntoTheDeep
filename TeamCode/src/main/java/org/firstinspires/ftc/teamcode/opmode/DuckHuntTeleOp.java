@@ -55,13 +55,24 @@ public class DuckHuntTeleOp extends OpMode {
                         new InstantCommand(()->robotBase.intakeMotor.setPower(0))
                 ));
 
-        new Trigger(()->armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
-                .or(new Trigger(()->armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1))
-                .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.liftSubsystem.extend( armController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) - armController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)))
-                ))
+        chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
+                .whenActive(()-> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()-> robotBase.carouselServo.setPosition(1))
+                ));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenInactive(()->CommandScheduler.getInstance().schedule(
-                        new InstantCommand(()->robotBase.liftSubsystem.liftMotor.setPower(0))
+                        new InstantCommand(()->robotBase.carouselServo.setPosition(0.5))
+                ));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenActive(()-> CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()-> robotBase.carouselServo.setPosition(0))
+                ));
+
+        chassisController.getGamepadButton(GamepadKeys.Button.LEFT_BUMPER)
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.carouselServo.setPosition(0.5))
                 ));
     }
 

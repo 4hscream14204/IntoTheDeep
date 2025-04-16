@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.base;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Time;
 import com.acmerobotics.roadrunner.ftc.SparkFunOTOSCorrected;
-import com.pedropathing.follower.Follower;
-import com.pedropathing.localization.Pose;
-import com.pedropathing.util.Constants;
+//import com.pedropathing.follower.Follower;
+//import com.pedropathing.localization.Pose;
+//import com.pedropathing.util.Constants;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.subsystems.Chassis;
@@ -28,6 +29,7 @@ public class RobotBase {
     public DcMotor backLeftMotor;
     public DcMotor backRightMotor;
     public DcMotor intakeMotor;
+    public Servo carouselServo;
 
     //public Intake intakeSubsystem;
     public Chassis chassisSubsystem;
@@ -42,6 +44,7 @@ public class RobotBase {
         //timer = new ElapsedTime();
         intakeMotor = hwMap.dcMotor.get("intakeMotor");
         liftSubsystem = new Lift(hwMap.dcMotor.get("liftMotor"), hwMap.servo.get("bucketServo"));
+        carouselServo = hwMap.servo.get("carouselServo");
         /*frontLeftMotor = hwMap.dcMotor.get("left_front");
         backLeftMotor = hwMap.dcMotor.get("left_back");
         frontRightMotor = hwMap.dcMotor.get("right_front");
