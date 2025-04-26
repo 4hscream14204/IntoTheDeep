@@ -22,9 +22,9 @@ public class LineAndCurve extends OpMode {
     private Timer pathTimer, actionTimer, opmodeTimer;
 
     private final Pose startPose = new Pose(9.757, 84.983, 0);
-    private final Pose endLinePose = new Pose(36.668, 84.983, 0);
+    private final Pose endLinePose = new Pose(36.668, 84.983);
     private final Pose submersibleControlPose = new Pose(88.105, 126.073);
-    private final Pose submersibleEndPose = new Pose(87.012, 77.319, -90);
+    private final Pose submersibleEndPose = new Pose(87.012, 77.319);
 
     private Path startLine;
     private Path submersibleCurve;
