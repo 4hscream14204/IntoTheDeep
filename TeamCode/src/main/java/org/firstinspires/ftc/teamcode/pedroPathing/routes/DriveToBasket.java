@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.pedroPathing.examples;
+package org.firstinspires.ftc.teamcode.pedroPathing.routes;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
@@ -15,38 +15,31 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 
-@Autonomous(name = "LineAndCurve")
-public class LineAndCurve extends OpMode {
+@Autonomous(name = "Drive to Bucket")
+public class DriveToBasket extends OpMode {
+
     private int pathState;
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
 
-    private final Pose startPose = new Pose(9.757, 84.983);
-    private final Pose endLinePose = new Pose(32.339, 84.983);
-    private final Pose submersibleControlPose = new Pose(69.05, 141.159);
-    private final Pose submersibleEndPose = new Pose(69.705, 98.549, Math.toRadians(-90));
-
     private Path startLine;
-    private Path submersibleCurve;
-    private Path testSubmersibleCurve;
+    private Path bucketCurve;
+
+    private final Pose startPose = new Pose(9.757, 87);
+    private final Pose endStartPose = new Pose(30, 87);
+    private final Pose bucketEndPose = new Pose(17.918, 125.426);
+    private final Pose bucketControlPose = new Pose(43.921,100.515);
 
     public void buildPaths(){
-        startLine = new Path(new BezierLine(new Point(startPose), new Point(endLinePose)));
-        startLine.setLinearHeadingInterpolation(startPose.getHeading(), endLinePose.getHeading());
-
-        submersibleCurve = new Path(new BezierCurve(new Point(endLinePose), new Point(submersibleControlPose), new Point(submersibleEndPose)));
-        submersibleCurve.setLinearHeadingInterpolation(endLinePose.getHeading(), submersibleEndPose.getHeading());
-
-        testSubmersibleCurve = new Path(new BezierCurve(new Point(startPose), new Point(submersibleControlPose), new Point(submersibleEndPose)));
-        testSubmersibleCurve.setTangentHeadingInterpolation();
-
+        startLine = new Path(new BezierLine(startPose, endStartPose));
+        bucketCurve = new Path(new BezierCurve(endStartPose, bucketControlPose, bucketEndPose));
     }
 
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
-                follower.followPath(testSubmersibleCurve, true);
-                setPathState(-1);
+                follower.followPath(startLine, true);
+                setPathState(1);
                 break;
             case 1:
 
@@ -57,17 +50,17 @@ public class LineAndCurve extends OpMode {
                 */
 
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
-                if(!follower.isBusy()) {
+                if (!follower.isBusy()) {
                     /* Score Preload */
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
-                    follower.followPath(submersibleCurve,true);
-                    setPathState(2);
+                    follower.followPath(bucketCurve, true);
+                    setPathState(-1);
                 }
                 break;
             case 2:
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
-                if(!follower.isBusy()) {
+                if (!follower.isBusy()) {
                     /* Level 1 Ascent */
 
                     /* Set the state to a Case we won't use or define, so it just stops running an new paths */
@@ -75,10 +68,11 @@ public class LineAndCurve extends OpMode {
                 }
         }
     }
-    public void setPathState(int pState) {
-        pathState = pState;
-        pathTimer.resetTimer();
-    }
+
+        public void setPathState(int pState) {
+            pathState = pState;
+            pathTimer.resetTimer();
+        }
 
     @Override
     public void init(){
@@ -91,6 +85,7 @@ public class LineAndCurve extends OpMode {
         follower.setStartingPose(startPose);
         buildPaths();
     }
+
     @Override
     public void loop(){
         // These loop the movements of the robot
@@ -101,7 +96,7 @@ public class LineAndCurve extends OpMode {
         telemetry.addData("path state", pathState);
         telemetry.addData("x", follower.getPose().getX());
         telemetry.addData("y", follower.getPose().getY());
-        telemetry.addData("heading", follower.getPose().getHeading());
+        telemetry.addData("heading", Math.toDegrees(follower.getPose().getHeading()));
         telemetry.update();
     }
 }
