@@ -389,6 +389,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("loop time", loopTimer);
         telemetry.addData("Alliance", DataStorage.alliance);
         telemetry.addData("Gyro", robotBase.chassisSubsystem.botPose.h);
+        telemetry.addData("is stalling", robotBase.shoulderSubsystem.isStalling());
         //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
        // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
         //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
