@@ -13,9 +13,9 @@ public class LConstants {
         OTOSConstants.hardwareMapName = "sensor_otos";
         OTOSConstants.linearUnit = DistanceUnit.INCH;
         OTOSConstants.angleUnit = AngleUnit.RADIANS;
-        OTOSConstants.offset = new SparkFunOTOS.Pose2D(0, 0, 0);
-        OTOSConstants.linearScalar = 1.0428 /*0.9617604062*/;
-        OTOSConstants.angularScalar = 0.9879 /*0.8968 0.9814*/ /*1.001*/;
+        OTOSConstants.offset = new SparkFunOTOS.Pose2D(-0.006, 0.0781, Math.toRadians(0.0134));
+        OTOSConstants.linearScalar = 1.0396 /*0.9617604062*/;
+        OTOSConstants.angularScalar = 0.9853 /*0.8968 0.9814*/ /*1.001*/;
         /*ThreeWheelConstants.forwardTicksToInches = .001989436789;
         ThreeWheelConstants.strafeTicksToInches = .001989436789;
         ThreeWheelConstants.turnTicksToInches = .001989436789;
