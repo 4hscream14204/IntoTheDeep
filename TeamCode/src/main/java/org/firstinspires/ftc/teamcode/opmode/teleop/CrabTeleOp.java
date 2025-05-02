@@ -7,7 +7,9 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
+import com.pedropathing.util.Constants;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -35,6 +37,8 @@ import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleAllianceCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleStrategyCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleSweeperCommandGroup;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
@@ -54,6 +58,8 @@ public class CrabTeleOp extends OpMode {
     public GamepadEx chassisController;
     public boolean bolIsInitLoop = true;
     double dblCurrentTime;
+    private Follower follower;
+    private final Pose startPose = new Pose(0,0,0);
 
 
     @Override
@@ -61,6 +67,9 @@ public class CrabTeleOp extends OpMode {
         CommandScheduler.getInstance().reset();
         robotBase = new RobotBase(hardwareMap);
         int intHeadingFix = 180;
+        Constants.setConstants(FConstants.class, LConstants.class);
+        follower = new Follower(hardwareMap);
+        follower.setStartingPose(startPose);
         /*if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
             intHeadingFix = 90;
         } else if(DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED){
@@ -306,6 +315,7 @@ public class CrabTeleOp extends OpMode {
         robotBase.chassisSubsystem.timer.reset();
         robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.otos.getPosition().h));
         robotBase.chassisSubsystem.disablePIDUse();
+        follower.startTeleopDrive();
     }
 
     public void loop(){
@@ -314,8 +324,18 @@ public class CrabTeleOp extends OpMode {
         double loopTimer = robotBase.chassisSubsystem.timer.milliseconds() - dblCurrentTime;
         dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
         robotBase.intakeSubsystem.getTime(dblCurrentTime);
+        double botHeading = robotBase.otos.getPosition().h;
 
-        robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
+        double chassisLeftStickX = (chassisController.getLeftY() * Math.abs(chassisController.getLeftY()) * -1);
+        double chassisLeftStickY = chassisController.getLeftX() * Math.abs(chassisController.getLeftX());
+        double chassisRightStickX = chassisController.getRightX() * Math.abs(chassisController.getRightX());
+        double rotX = chassisLeftStickX * Math.cos(-botHeading) - chassisLeftStickY * Math.sin(-botHeading);
+        double rotY = chassisLeftStickX * Math.sin(-botHeading) + chassisLeftStickY * Math.cos(-botHeading);
+
+        follower.setTeleOpMovementVectors(chassisLeftStickY, -chassisLeftStickX, -chassisRightStickX, false);
+        follower.update();
+
+        //robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
 
         /*double chassisLeftStickX = (chassisController.getLeftY() * Math.abs(chassisController.getLeftY()) * -1);
         double chassisLeftStickY = chassisController.getLeftX() * Math.abs(chassisController.getLeftX());
@@ -388,7 +408,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Strategy: ", DataStorage.strategy);
         telemetry.addData("loop time", loopTimer);
         telemetry.addData("Alliance", DataStorage.alliance);
-        telemetry.addData("Gyro", robotBase.chassisSubsystem.botPose.h);
+        telemetry.addData("Heading in Degrees", Math.toDegrees(follower.getPose().getHeading()));
         //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
        // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
         //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));

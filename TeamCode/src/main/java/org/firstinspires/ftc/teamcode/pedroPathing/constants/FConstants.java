@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class FConstants {
     static {
         FollowerConstants.localizers = Localizers.OTOS;
+        FollowerConstants.useBrakeModeInTeleOp = true;
+        FollowerConstants.automaticHoldEnd = true;
 
         FollowerConstants.leftFrontMotorName = "leftFront";
         FollowerConstants.leftRearMotorName = "leftRear";
