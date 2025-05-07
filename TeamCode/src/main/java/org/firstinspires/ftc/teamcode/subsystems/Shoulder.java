@@ -38,8 +38,8 @@ public class Shoulder extends SubsystemBase {
     }
 
     public  enum MaxAmps{
-        MAXAMPLEFT (7),
-        MAXAMPRIGHT(7);
+        MAXAMPLEFT (999),
+        MAXAMPRIGHT(999);
         public final double max;
         MaxAmps(double cap){
             this.max = cap;
