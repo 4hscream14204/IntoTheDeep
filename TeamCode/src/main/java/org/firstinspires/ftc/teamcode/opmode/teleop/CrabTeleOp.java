@@ -85,8 +85,8 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new GyroResetCommandGroup(robotBase)
-                        ));
+                        new InstantCommand(() -> robotBase.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0)))
+                        )));
         chassisController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new InstantCommand(() -> bolFieldCentric = !bolFieldCentric)
@@ -312,17 +312,17 @@ public class CrabTeleOp extends OpMode {
     }*/
     public void start(){
         CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
-        robotBase.chassisSubsystem.timer.reset();
-        robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.otos.getPosition().h));
-        robotBase.chassisSubsystem.disablePIDUse();
+        //robotBase.chassisSubsystem.timer.reset();
+        //robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.otos.getPosition().h));
+        //robotBase.chassisSubsystem.disablePIDUse();
         follower.startTeleopDrive();
     }
 
     public void loop(){
         chassisController.readButtons();
         armController.readButtons();
-        double loopTimer = robotBase.chassisSubsystem.timer.milliseconds() - dblCurrentTime;
-        dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
+        //double loopTimer = robotBase.chassisSubsystem.timer.milliseconds() - dblCurrentTime;
+        //dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
         robotBase.intakeSubsystem.getTime(dblCurrentTime);
         double botHeading = robotBase.otos.getPosition().h;
 
@@ -332,8 +332,19 @@ public class CrabTeleOp extends OpMode {
         double rotX = chassisLeftStickX * Math.cos(-botHeading) - chassisLeftStickY * Math.sin(-botHeading);
         double rotY = chassisLeftStickX * Math.sin(-botHeading) + chassisLeftStickY * Math.cos(-botHeading);
 
-        follower.setTeleOpMovementVectors(chassisLeftStickY, -chassisLeftStickX, -chassisRightStickX, false);
-        follower.update();
+        dubDenominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(chassisRightStickX), 1);
+        dubFrontLeftPower = (rotY + rotX + chassisRightStickX) / dubDenominator;
+        dubBackLeftPower = (rotY - rotX + chassisRightStickX) / dubDenominator;
+        dubFrontRightPower = (rotY - rotX - chassisRightStickX) / dubDenominator;
+        dubBackRightPower = (rotY + rotX - chassisRightStickX) / dubDenominator;
+
+        robotBase.frontLeftMotor.setPower(dubFrontLeftPower);
+        robotBase.backLeftMotor.setPower(dubBackLeftPower);
+        robotBase.frontRightMotor.setPower(dubFrontRightPower);
+        robotBase.backRightMotor.setPower(dubBackRightPower);
+
+        //follower.setTeleOpMovementVectors(chassisLeftStickY, -chassisLeftStickX, -chassisRightStickX, false);
+        //follower.update();
 
         //robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
 
@@ -406,7 +417,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));*/
         telemetry.addData("Strategy: ", DataStorage.strategy);
-        telemetry.addData("loop time", loopTimer);
+        //telemetry.addData("loop time", loopTimer);
         telemetry.addData("Alliance", DataStorage.alliance);
         telemetry.addData("Heading in Degrees", Math.toDegrees(follower.getPose().getHeading()));
         //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);

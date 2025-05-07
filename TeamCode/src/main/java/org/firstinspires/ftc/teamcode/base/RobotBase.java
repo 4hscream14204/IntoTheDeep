@@ -57,10 +57,10 @@ public class RobotBase {
 
     public RobotBase(HardwareMap hwMap) {
         timer = new ElapsedTime();
-        /*frontLeftMotor = hwMap.dcMotor.get("left_front");
-        backLeftMotor = hwMap.dcMotor.get("left_back");
-        frontRightMotor = hwMap.dcMotor.get("right_front");
-        backRightMotor = hwMap.dcMotor.get("right_back");*/
+        frontLeftMotor = hwMap.dcMotor.get("leftFront");
+        backLeftMotor = hwMap.dcMotor.get("leftRear");
+        frontRightMotor = hwMap.dcMotor.get("rightFront");
+        backRightMotor = hwMap.dcMotor.get("rightRear");
         Constants.setConstants(FConstants.class, LConstants.class);
         otos = hwMap.get(SparkFunOTOS.class, "sensor_otos");
 
@@ -77,7 +77,7 @@ public class RobotBase {
                 hwMap.digitalChannel.get("shoulderLimitSwitch"));
         wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
         ledSubsystem = new TimerLED (hwMap.servo.get("timerLED"));
-        chassisSubsystem = new Chassis(hwMap.dcMotor.get("leftFront"), hwMap.dcMotor.get("rightFront"), hwMap.dcMotor.get("leftRear"), hwMap.dcMotor.get("rightRear"), timer, otos);
+        //chassisSubsystem = new Chassis(hwMap.dcMotor.get("leftFront"), hwMap.dcMotor.get("rightFront"), hwMap.dcMotor.get("leftRear"), hwMap.dcMotor.get("rightRear"), timer, otos);
         sweeperSubsystem = new Sweeper(hwMap.servo.get("sweeperServo"));
 
         /*frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

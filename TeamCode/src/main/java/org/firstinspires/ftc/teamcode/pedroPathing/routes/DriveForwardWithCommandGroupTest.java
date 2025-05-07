@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.routes;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
+import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.PathChain;
@@ -16,7 +18,9 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
+import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @Autonomous(name = "Drive Command Group Test")
 public class DriveForwardWithCommandGroupTest extends OpMode {
@@ -26,13 +30,21 @@ public class DriveForwardWithCommandGroupTest extends OpMode {
     private Timer pathTimer, actionTimer, opmodeTimer;
     private final Pose beginningPose = new Pose(9.757, 84.983, 0);
     private final Pose startPose = new Pose(36.668, 84.983, 0);
-
     private Path line;
     private Path line2;
+    private PathChain chain;
 
     public void buildPaths(){
         line = new Path(new BezierLine(new Point(beginningPose), new Point(startPose)));
         line.setLinearHeadingInterpolation(beginningPose.getHeading(), startPose.getHeading());
+
+        chain = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(beginningPose), new Point(startPose))) // First path
+                .setTangentHeadingInterpolation()
+                .setPathEndTimeoutConstraint(0)
+                .addTemporalCallback(0.5, ()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))
+                .addTemporalCallback(0.5, ()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))
+                .build();
 
         /*line2 = new Path(new BezierLine(new Point(startPose), new Point(returnPose)));
         line2.setLinearHeadingInterpolation(startPose.getHeading(), returnPose.getHeading());*/
@@ -40,7 +52,7 @@ public class DriveForwardWithCommandGroupTest extends OpMode {
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
-                follower.followPath(line, true);
+                follower.followPath(chain, true);
                 setPathState(1);
                 break;
             case 1:
@@ -56,7 +68,8 @@ public class DriveForwardWithCommandGroupTest extends OpMode {
                     /* Score Preload */
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
-                    robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE);
+                    //CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME)));
+                    //CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)));
                     setPathState(-1);
                 }
                 break;
@@ -97,7 +110,6 @@ public class DriveForwardWithCommandGroupTest extends OpMode {
         pathTimer = new Timer();
         opmodeTimer = new Timer();
         opmodeTimer.resetTimer();
-
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
         follower.setStartingPose(beginningPose);
@@ -108,7 +120,6 @@ public class DriveForwardWithCommandGroupTest extends OpMode {
      * It runs all the setup actions, including building paths and starting the path system **/
     @Override
     public void start() {
-        CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem));
         opmodeTimer.resetTimer();
         setPathState(0);
     }
