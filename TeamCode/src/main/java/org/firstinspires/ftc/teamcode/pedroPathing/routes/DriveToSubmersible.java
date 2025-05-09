@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.routes;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.Path;
+import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
@@ -14,68 +14,56 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.R;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
-import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
-import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous(name = "Drive Command Group Test")
-public class DriveForwardWithCommandGroupTest extends OpMode {
+@Autonomous(name = "Drive to Chamber")
+public class DriveToSubmersible extends OpMode {
     RobotBase robotBase;
     private int pathState;
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
-    private final Pose beginningPose = new Pose(9.757, 84.983, Math.toRadians(-90));
-    private final Pose startPose = new Pose(36.668, 84.983, Math.toRadians(-90));
     private Path line;
-    private Path line2;
-    private PathChain chain;
+    private BezierCurve endCurve;
+    private PathChain startPath;
+    private Pose beginningPose = new Pose(9.987, 56.000, Math.toRadians(-90));
+    private Pose endLinePose = new Pose(31.684, 56.000, Math.toRadians(-90));
+    private Pose endCurveControlPoint = new Pose(23.818, 72.328, Point.CARTESIAN);
+    private Pose endCurveEndPoint = new Pose(40.206, 72.328, Point.CARTESIAN);
 
     public void buildPaths(){
-        line = new Path(new BezierLine(new Point(beginningPose), new Point(startPose)));
-        line.setConstantHeadingInterpolation(Math.toRadians(-90));
+        line = new Path(new BezierLine(new Point(beginningPose), new Point(endLinePose)));
+        endCurve = new BezierCurve(endLinePose, endCurveControlPoint, endCurveEndPoint);
 
-        chain = follower.pathBuilder()
-                .addPath(line) // First path
+        startPath = follower.pathBuilder().addPath(line)
+                //.addPath(endCurve)
                 .setConstantHeadingInterpolation(Math.toRadians(-90))
-                .setPathEndTimeoutConstraint(0)
-                .addTemporalCallback(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
-                .addTemporalCallback(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP))))
                 .build();
-
-        /*line2 = new Path(new BezierLine(new Point(startPose), new Point(returnPose)));
-        line2.setLinearHeadingInterpolation(startPose.getHeading(), returnPose.getHeading());*/
+                        // Line 2
+        /*follower.pathBuilder().addPath(new BezierCurve(new Point(31.684, 56.000, Point.CARTESIAN), new Point(23.818, 72.328, Point.CARTESIAN), new Point(40.206, 72.328, Point.CARTESIAN)))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .build();*/
     }
+
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
-                follower.followPath(chain, true);
+                follower.followPath(startPath, true);
                 setPathState(1);
                 break;
             case 1:
 
-                /* You could check for
-                - Follower State: "if(!follower.isBusy() {}"
-                - Time: "if(pathTimer.getElapsedTimeSeconds() > 1) {}"
-                - Robot Position: "if(follower.getPose().getX() > 36) {}"
-                */
-
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
                 if(!follower.isBusy()) {
-                    /* Score Preload */
-
-                    /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     //CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME)));
                     //CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)));
                     setPathState(-1);
                 }
                 break;
             case 2:
-                /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
                 if(!follower.isBusy()) {
                     /* Level 1 Ascent */
 
@@ -84,29 +72,14 @@ public class DriveForwardWithCommandGroupTest extends OpMode {
                 }
         }
     }
+
     public void setPathState(int pState) {
         pathState = pState;
         pathTimer.resetTimer();
     }
+
     @Override
-    public void loop() {
-
-        // These loop the movements of the robot
-        follower.update();
-        autonomousPathUpdate();
-
-        // Feedback to Driver Hub
-        telemetry.addData("path state", pathState);
-        telemetry.addData("x", follower.getPose().getX());
-        telemetry.addData("y", follower.getPose().getY());
-        telemetry.addData("heading", follower.getPose().getHeading());
-        telemetry.update();
-        CommandScheduler.getInstance().run();
-    }
-
-    /** This method is called once at the init of the OpMode. **/
-    @Override
-    public void init() {
+    public void init(){
         CommandScheduler.getInstance().reset();
         robotBase = new RobotBase(hardwareMap);
         pathTimer = new Timer();
@@ -119,17 +92,24 @@ public class DriveForwardWithCommandGroupTest extends OpMode {
         robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME);
         robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME);
     }
+    @Override
+    public void loop(){
+        follower.update();
+        autonomousPathUpdate();
 
-    /** This method is called once at the start of the OpMode.
-     * It runs all the setup actions, including building paths and starting the path system **/
+        // Feedback to Driver Hub
+        telemetry.addData("path state", pathState);
+        telemetry.addData("x", follower.getPose().getX());
+        telemetry.addData("y", follower.getPose().getY());
+        telemetry.addData("heading", follower.getPose().getHeading());
+        telemetry.update();
+        CommandScheduler.getInstance().run();
+    }
+
     @Override
     public void start() {
         opmodeTimer.resetTimer();
         setPathState(0);
     }
 
-    /** We do not use this because everything should automatically disable **/
-    @Override
-    public void stop() {
-    }
 }
