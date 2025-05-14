@@ -4,22 +4,38 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Wrist {
 
-    private Servo srvWrist;
-    private double home = 0.776;
-    private double pickup = 1;
-    private double transfer = .7016;
+    public enum WristPosition {
+        FOLDEDIN (0.886111),
+        FOLDEDOUT (0.5);
+        public final double value;
+        WristPosition(double m_position) {
+            this.value = m_position;
+        }
+    }
 
-    public Wrist (Servo conWristServo){
-        srvWrist = conWristServo;
-        wristHomePos();
+    public Servo wristServo;
+
+    public WristPosition enmWristPosition;
+
+    public Wrist(Servo m_wristServo) {
+        wristServo = m_wristServo;
+        enmWristPosition = WristPosition.FOLDEDIN;
     }
-    public void wristHomePos(){
-        srvWrist.setPosition(home);
+
+    public void goToPosition(WristPosition enmTargetPosition) {
+        wristServo.setPosition(enmTargetPosition.value);
+        enmWristPosition = enmTargetPosition;
+
     }
-    public void wristPickupPos(){
-        srvWrist.setPosition(pickup);
+
+    public boolean isAtPosition(WristPosition enmCheckPosition) {
+        if(enmCheckPosition == enmWristPosition){
+            return true;
+        }
+        return false;
     }
-    public void wristTransferPos(){
-        srvWrist.setPosition(transfer);
+
+    public double getPosition() {
+        return wristServo.getPosition();
     }
 }
