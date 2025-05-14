@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.routes;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
@@ -15,9 +16,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
+import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @Autonomous(name = "Drive to Chamber")
@@ -29,8 +33,8 @@ public class DriveToSubmersible extends OpMode {
     private Path line;
     private BezierCurve endCurve;
     private PathChain startPath;
-    private Pose beginningPose = new Pose(9.987, 56.000, Math.toRadians(-90));
-    private Pose endLinePose = new Pose(31.684, 56.000, Math.toRadians(-90));
+    private Pose beginningPose = new Pose(7, 56.000, 0/*Math.toRadians(-90)*/);
+    private Pose endLinePose = new Pose(40, 56.000, 0/*Math.toRadians(-90)*/);
     private Pose endCurveControlPoint = new Pose(23.818, 72.328, Point.CARTESIAN);
     private Pose endCurveEndPoint = new Pose(40.206, 72.328, Point.CARTESIAN);
 
@@ -40,7 +44,14 @@ public class DriveToSubmersible extends OpMode {
 
         startPath = follower.pathBuilder().addPath(line)
                 //.addPath(endCurve)
-                .setConstantHeadingInterpolation(Math.toRadians(-90))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .addParametricCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER))))
+                .addParametricCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER))))
+                .addParametricCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
+                .addParametricCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
+                .addParametricCallback(0.8, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP))))
+                .addParametricCallback(0.9, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.openClaw())))
+                .addParametricCallback(1, ()->CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)))
                 .build();
                         // Line 2
         /*follower.pathBuilder().addPath(new BezierCurve(new Point(31.684, 56.000, Point.CARTESIAN), new Point(23.818, 72.328, Point.CARTESIAN), new Point(40.206, 72.328, Point.CARTESIAN)))
@@ -91,6 +102,7 @@ public class DriveToSubmersible extends OpMode {
         buildPaths();
         robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME);
         robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME);
+        robotBase.clawSubsystem.closeClaw();
     }
     @Override
     public void loop(){
