@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.commands.ExtensionHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ShoulderHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
@@ -34,7 +35,7 @@ public class DriveToSubmersible extends OpMode {
     private BezierCurve endCurve;
     private PathChain startPath;
     private Pose beginningPose = new Pose(7, 56.000, 0/*Math.toRadians(-90)*/);
-    private Pose endLinePose = new Pose(40, 56.000, 0/*Math.toRadians(-90)*/);
+    private Pose endLinePose = new Pose(20, 56.000, 0/*Math.toRadians(-90)*/);
     private Pose endCurveControlPoint = new Pose(23.818, 72.328, Point.CARTESIAN);
     private Pose endCurveEndPoint = new Pose(40.206, 72.328, Point.CARTESIAN);
 
@@ -45,13 +46,14 @@ public class DriveToSubmersible extends OpMode {
         startPath = follower.pathBuilder().addPath(line)
                 //.addPath(endCurve)
                 .setConstantHeadingInterpolation(Math.toRadians(0))
-                .addParametricCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER))))
-                .addParametricCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER))))
-                .addParametricCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
-                .addParametricCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
-                .addParametricCallback(0.8, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP))))
-                .addParametricCallback(0.9, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.openClaw())))
-                .addParametricCallback(1, ()->CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)))
+                .addTemporalCallback(500, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.NEWHIGHCHAMBER))))
+                .addTemporalCallback(750, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER))))
+                .addTemporalCallback(750, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
+                .addTemporalCallback(750, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
+                .addTemporalCallback(2000, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP))))
+                .addTemporalCallback(2500, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.openClaw())))
+                .addTemporalCallback(3000, ()->CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)))
+                .addTemporalCallback(3000, ()->CommandScheduler.getInstance().schedule(new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)))
                 .build();
                         // Line 2
         /*follower.pathBuilder().addPath(new BezierCurve(new Point(31.684, 56.000, Point.CARTESIAN), new Point(23.818, 72.328, Point.CARTESIAN), new Point(40.206, 72.328, Point.CARTESIAN)))
