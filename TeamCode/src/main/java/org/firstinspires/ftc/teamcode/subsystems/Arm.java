@@ -11,7 +11,7 @@ public class Arm extends SubsystemBase {
     public boolean bolStoppedInPlace = true;
     public int intCurrentPos;
 
-    public double maxAmps = 999999;
+    public double maxAmps = 7;
 
     public Arm (DcMotorEx m_armMotor) {
         armMotor = m_armMotor;

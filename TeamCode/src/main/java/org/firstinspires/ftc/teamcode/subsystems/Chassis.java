@@ -24,8 +24,8 @@ public class Chassis extends SubsystemBase {
         backRightMotor = m_backRightMotor;
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
         backLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotor.Direction.REVERSE);
     }
 
     public void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior){
