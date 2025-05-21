@@ -73,6 +73,9 @@ public class ITDExampleRobot extends OpMode {
 
         telemetry.addData("AMP", robotBase.armSubsystem.getAMP());
         telemetry.addData("is stalling", robotBase.armSubsystem.isStalling());
+        telemetry.addData("arm stopped", robotBase.armSubsystem.bolStoppedInPlace);
+        telemetry.addData("current position", robotBase.armSubsystem.intCurrentPos);
+        telemetry.addData("intake speed", robotBase.intakeSubsystem.getSpeed());
 
         CommandScheduler.getInstance().run();
     }
