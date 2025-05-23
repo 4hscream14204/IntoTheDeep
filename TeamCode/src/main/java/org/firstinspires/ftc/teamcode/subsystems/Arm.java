@@ -71,12 +71,4 @@ public class Arm extends SubsystemBase {
     public boolean isStalling(){
         return (getAMP() > maxAmps);
     }
-
-    public void stopIfStalling(){
-        if (isStalling()) {
-            stopInPlace();
-        }
-    }
-
-
 }
