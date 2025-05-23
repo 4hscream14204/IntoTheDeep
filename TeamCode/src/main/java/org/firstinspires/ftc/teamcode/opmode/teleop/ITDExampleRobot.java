@@ -77,6 +77,9 @@ public class ITDExampleRobot extends OpMode {
         telemetry.addData("current position", robotBase.armSubsystem.intCurrentPos);
         telemetry.addData("intake speed", robotBase.intakeSubsystem.getSpeed());
         telemetry.addData("Max AMPs", robotBase.armSubsystem.maxAmps);
+        telemetry.addData("Invalid direction", robotBase.armSubsystem.dblInvalidDirection);
+        telemetry.addData("Current direction", robotBase.armSubsystem.dblCurrentDirection);
+        telemetry.addData("Arm power", robotBase.armSubsystem.getPower());
 
         CommandScheduler.getInstance().run();
     }

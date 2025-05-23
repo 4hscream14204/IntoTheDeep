@@ -10,8 +10,10 @@ public class Arm extends SubsystemBase {
     public DcMotorEx armMotor;
     public boolean bolStoppedInPlace = true;
     public int intCurrentPos;
+    public double dblInvalidDirection = 0;
+    public double dblCurrentDirection;
 
-    public double maxAmps = 7;
+    public double maxAmps = 6;
 
     public Arm (DcMotorEx m_armMotor) {
         armMotor = m_armMotor;
@@ -24,7 +26,6 @@ public class Arm extends SubsystemBase {
 
     public void move(double power) {
         armMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        armMotor.setPower(power);
         armMotor.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         setPower(power);
 
@@ -40,7 +41,7 @@ public class Arm extends SubsystemBase {
         armMotor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         intCurrentPos = armMotor.getCurrentPosition();
         armMotor.setTargetPosition(intCurrentPos);
-        setPower(0.2);
+        armMotor.setPower(0.2);
     }
 
     public void reset(){
@@ -57,9 +58,13 @@ public class Arm extends SubsystemBase {
     }
 
     public void setPower(double m_Power) {
-        if (isStalling()) {
+        if (isStalling() || ((Math.abs(m_Power) / m_Power) == dblInvalidDirection)) {
+            dblInvalidDirection = (Math.abs(m_Power) / m_Power);
+            dblCurrentDirection = (Math.abs(m_Power) / m_Power);
             stopInPlace();
         } else {
+            dblInvalidDirection = 0;
+            dblCurrentDirection = (Math.abs(m_Power) / m_Power);
             armMotor.setPower(m_Power);
         }
     }
