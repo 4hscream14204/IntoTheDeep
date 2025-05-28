@@ -400,7 +400,7 @@ public class CrabTeleOp extends OpMode {
        /* telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
         telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
         telemetry.addData("Chassis Right Stick X", chassisRightStickX);*/
-
+telemetry.addData("Color: ", robotBase.intakeSubsystem.enmColorHue);
         //telemetry.addData("Elbow", robotBase.elbowSubsystem.getPosition());
        // telemetry.addData("Wrist", robotBase.wristSubsystem.getPosition());
         /*telemetry.addData("Wrist Enum: ", robotBase.wristSubsystem.enmWristPosition);
