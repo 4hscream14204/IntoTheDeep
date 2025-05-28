@@ -97,7 +97,7 @@ public class BlueRightx5 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-2.0, 36), Math.toRadians(90), new TranslationalVelConstraint(35))
 
                 //drive over to samples and move them to human player area
-                .splineToSplineHeading(new Pose2d(-30, 36.00,Math.toRadians(180)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
+                .splineToSplineHeading(new Pose2d(-31, 36.00,Math.toRadians(180)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)))
                 .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.AUTO))))
                 .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME))))
@@ -130,7 +130,7 @@ public class BlueRightx5 extends OpMode {
 
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 27.00, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-2.5, 27.00, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
@@ -140,7 +140,7 @@ public class BlueRightx5 extends OpMode {
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 27, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-2.5, 27, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
 
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
@@ -151,7 +151,7 @@ public class BlueRightx5 extends OpMode {
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 30, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-2.5, 30, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
@@ -161,7 +161,7 @@ public class BlueRightx5 extends OpMode {
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 30, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-2.5, 30, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.4)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
