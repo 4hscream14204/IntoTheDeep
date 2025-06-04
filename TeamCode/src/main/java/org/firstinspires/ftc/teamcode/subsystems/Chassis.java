@@ -8,10 +8,10 @@ public class Chassis extends SubsystemBase {
     DcMotor frontRightMotor;
     DcMotor backLeftMotor;
     DcMotor backRightMotor;
-    double dblFrontLeftPower;
-    double dblFrontRightPower;
-    double dblBackLeftPower;
-    double dblBackRightPower;
+    double dblFrontLeftPower = 0;
+    double dblFrontRightPower = 0;
+    double dblBackLeftPower = 0;
+    double dblBackRightPower = 0;
     double dblDenominator;
     double leftStickX;
     double leftStickY;
@@ -54,6 +54,36 @@ public class Chassis extends SubsystemBase {
         dblBackLeftPower = (leftStickY - leftStickX + rotationPower) / dblDenominator;
         dblFrontRightPower = (leftStickY - leftStickX - rotationPower) / dblDenominator;
         dblBackRightPower = (leftStickY + leftStickX - rotationPower) / dblDenominator;
+
+        frontLeftMotor.setPower(dblFrontLeftPower);
+        frontRightMotor.setPower(dblFrontRightPower);
+        backLeftMotor.setPower(dblBackLeftPower);
+        backRightMotor.setPower(dblBackRightPower);
+    }
+
+    public void testWheels(double m_leftStickX, double m_leftStickY, double m_rightStickX, boolean m_front, boolean m_left) {
+        leftStickX = (m_leftStickY * Math.abs(m_leftStickY) * -1);
+        leftStickY = m_leftStickX * Math.abs(m_leftStickX);
+        rotationPower = m_rightStickX * Math.abs(m_rightStickX);
+
+
+
+        dblDenominator = Math.max(Math.abs(leftStickX) + Math.abs(leftStickX) + Math.abs(rotationPower), 1);
+        if (m_front) {
+            if (m_left) {
+                dblFrontLeftPower = (leftStickY + leftStickX + rotationPower) / dblDenominator;
+            } else {
+                dblFrontRightPower = (leftStickY - leftStickX - rotationPower) / dblDenominator;
+            }
+
+        } else {
+
+            if (m_left) {
+                dblBackLeftPower = (leftStickY - leftStickX + rotationPower) / dblDenominator;
+            } else {
+                dblBackRightPower = (leftStickY + leftStickX - rotationPower) / dblDenominator;
+            }
+        }
 
         frontLeftMotor.setPower(dblFrontLeftPower);
         frontRightMotor.setPower(dblFrontRightPower);

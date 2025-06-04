@@ -31,7 +31,7 @@ public class RobotBase {
         intakeSubsystem = new Intake(hwMap.crservo.get("intakeServo"));
         wristSubsystem = new Wrist(hwMap.servo.get("wristServo"));
         armSubsystem = new Arm (hwMap.get(DcMotorEx.class, "armMotor"));
-        chassisSubsystem = new Chassis(hwMap.dcMotor.get("frontLeft"), hwMap.dcMotor.get("frontRight"), hwMap.dcMotor.get("backLeft"), hwMap.dcMotor.get("backRight"));
+        chassisSubsystem = new Chassis(hwMap.dcMotor.get("left_front"), hwMap.dcMotor.get("right_front"), hwMap.dcMotor.get("left_back"), hwMap.dcMotor.get("right_back"));
 
     }
 
