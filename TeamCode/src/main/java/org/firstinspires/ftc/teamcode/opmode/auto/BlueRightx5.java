@@ -134,7 +134,7 @@ public class BlueRightx5 extends OpMode {
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
+                .setTangent(Math.toRadians(100))
                 .splineToSplineHeading(new Pose2d(-41.0, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
@@ -145,7 +145,7 @@ public class BlueRightx5 extends OpMode {
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
+                .setTangent(Math.toRadians(100))
                 .splineToSplineHeading(new Pose2d(-41.0, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
@@ -155,7 +155,7 @@ public class BlueRightx5 extends OpMode {
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
+                .setTangent(Math.toRadians(100))
                 .splineToSplineHeading(new Pose2d(-41, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
