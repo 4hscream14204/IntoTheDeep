@@ -44,7 +44,7 @@ public class Chassis extends SubsystemBase {
 
     public void drive(double m_leftStickX, double m_leftStickY, double m_rightStickX){
         leftStickX = (m_leftStickY * Math.abs(m_leftStickY) * -1);
-        leftStickY = (m_leftStickX * Math.abs(m_leftStickX)) * -1;
+        leftStickY = (m_leftStickX * Math.abs(m_leftStickX) * -1);
         rotationPower = m_rightStickX * Math.abs(m_rightStickX);
 
 
