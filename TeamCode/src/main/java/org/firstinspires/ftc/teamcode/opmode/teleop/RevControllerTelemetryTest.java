@@ -19,5 +19,6 @@ public class RevControllerTelemetryTest extends OpMode {
         telemetry.addData("Right Stick Y", -gamepad1.right_stick_y);
         telemetry.addData("Left Trigger", gamepad1.left_trigger);
         telemetry.addData("Right Trigger", gamepad1.right_trigger);
+        telemetry.addData("Finger 1 Y", gamepad1.touchpad_finger_1_y);
     }
 }

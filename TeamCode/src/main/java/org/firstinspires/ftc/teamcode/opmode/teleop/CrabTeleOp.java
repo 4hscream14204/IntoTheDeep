@@ -317,8 +317,8 @@ public class CrabTeleOp extends OpMode {
         dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
         robotBase.intakeSubsystem.getTime(dblCurrentTime);
 
-        double leftPower = -gamepad1.touchpad_finger_1_y;
-        double rightPower = -gamepad1.touchpad_finger_2_y;
+        /*double leftPower = gamepad1.touchpad_finger_1_y;
+        double rightPower = gamepad1.touchpad_finger_2_y;
         double largest = 1;
         largest = Math.max(largest, Math.abs(leftPower));
         largest = Math.max(largest, Math.abs(rightPower));
@@ -326,7 +326,26 @@ public class CrabTeleOp extends OpMode {
         robotBase.chassisSubsystem.frontLeftMotor.setPower(leftPower / largest);
         robotBase.chassisSubsystem.frontRightMotor.setPower(rightPower / largest);
         robotBase.chassisSubsystem.backLeftMotor.setPower(leftPower / largest);
-        robotBase.chassisSubsystem.backRightMotor.setPower(rightPower / largest);
+        robotBase.chassisSubsystem.backRightMotor.setPower(rightPower / largest);*/
+
+        if((!gamepad1.touchpad_finger_1 && !gamepad1.touchpad_finger_2)){
+            robotBase.chassisSubsystem.frontLeftMotor.setPower(0);
+            robotBase.chassisSubsystem.frontRightMotor.setPower(0);
+            robotBase.chassisSubsystem.backLeftMotor.setPower(0);
+            robotBase.chassisSubsystem.backRightMotor.setPower(0);
+        }
+        else{
+            double leftPower = gamepad1.touchpad_finger_1_y;
+            double rightPower = gamepad1.touchpad_finger_2_y;
+            double largest = 1;
+            largest = Math.max(largest, Math.abs(leftPower));
+            largest = Math.max(largest, Math.abs(rightPower));
+
+            robotBase.chassisSubsystem.frontLeftMotor.setPower(leftPower / largest);
+            robotBase.chassisSubsystem.frontRightMotor.setPower(rightPower / largest);
+            robotBase.chassisSubsystem.backLeftMotor.setPower(leftPower / largest);
+            robotBase.chassisSubsystem.backRightMotor.setPower(rightPower / largest);
+        }
 
         //robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
 
