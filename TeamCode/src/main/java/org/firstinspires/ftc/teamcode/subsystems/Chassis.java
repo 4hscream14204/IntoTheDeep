@@ -16,10 +16,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 public class Chassis extends SubsystemBase {
 
     PIDController headingControl = new PIDController(2, 0, 0.25);
-    DcMotor frontLeftMotor;
-    DcMotor frontRightMotor;
-    DcMotor backLeftMotor;
-    DcMotor backRightMotor;
+    public DcMotor frontLeftMotor;
+    public DcMotor frontRightMotor;
+    public DcMotor backLeftMotor;
+    public DcMotor backRightMotor;
     double dblFrontLeftPower;
     double dblFrontRightPower;
     double dblBackLeftPower;

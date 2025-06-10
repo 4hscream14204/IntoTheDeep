@@ -317,7 +317,18 @@ public class CrabTeleOp extends OpMode {
         dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
         robotBase.intakeSubsystem.getTime(dblCurrentTime);
 
-        robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
+        double leftPower = -gamepad1.touchpad_finger_1_y;
+        double rightPower = -gamepad1.touchpad_finger_2_y;
+        double largest = 1;
+        largest = Math.max(largest, Math.abs(leftPower));
+        largest = Math.max(largest, Math.abs(rightPower));
+
+        robotBase.chassisSubsystem.frontLeftMotor.setPower(leftPower / largest);
+        robotBase.chassisSubsystem.frontRightMotor.setPower(rightPower / largest);
+        robotBase.chassisSubsystem.backLeftMotor.setPower(leftPower / largest);
+        robotBase.chassisSubsystem.backRightMotor.setPower(rightPower / largest);
+
+        //robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
 
         /*double chassisLeftStickX = (chassisController.getLeftY() * Math.abs(chassisController.getLeftY()) * -1);
         double chassisLeftStickY = chassisController.getLeftX() * Math.abs(chassisController.getLeftX());
@@ -408,6 +419,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Timer: ", dblCurrentTime / 1000);
         telemetry.addData("Left shoulder AMPs", robotBase.shoulderSubsystem.getLeftAMP());
         telemetry.addData("Right shoulder AMPs", robotBase.shoulderSubsystem.getRightAMP());
+
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);
