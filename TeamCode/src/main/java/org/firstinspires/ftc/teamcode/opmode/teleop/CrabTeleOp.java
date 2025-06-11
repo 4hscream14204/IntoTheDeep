@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
@@ -70,7 +71,10 @@ public class CrabTeleOp extends OpMode {
         chassisController = new GamepadEx(gamepad1);
         armController = new GamepadEx(gamepad2);
         robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
-
+        Gamepad.LedEffect endgameEffect = new Gamepad.LedEffect.Builder()
+                .addStep(1, 0, 0, 250)
+                .addStep(0, 1, 0, 250)
+                .build();
 
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
@@ -279,7 +283,7 @@ public class CrabTeleOp extends OpMode {
                 .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad1.rumble(30, 30, 500))));
 
         new Trigger(()->robotBase.ledSubsystem.endgameRumble(dblCurrentTime))
-                .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad1.rumble(1000)), new InstantCommand(()-> gamepad1.rumble(1000))));
+                .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad1.rumble(1000)), new InstantCommand(()-> gamepad1.rumble(1000)), new InstantCommand(()->gamepad1.runLedEffect(endgameEffect)), new InstantCommand(()->gamepad1.runLedEffect(endgameEffect))));
 
        /* new Trigger(()->robotBase.intakeSubsystem.isBlueSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)
                 .whenActive(
