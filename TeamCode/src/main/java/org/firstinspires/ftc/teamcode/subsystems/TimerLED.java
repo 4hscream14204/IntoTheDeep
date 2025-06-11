@@ -61,4 +61,14 @@ public class TimerLED extends SubsystemBase {
             enmColorHue = enmTargetColor;
         }
     }
+
+    public boolean endgameRumble(double dblTimerLength){
+        double m_remainingTime = 120000 - dblTimerLength;
+        if(m_remainingTime <= 30){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

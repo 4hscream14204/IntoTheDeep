@@ -278,6 +278,9 @@ public class CrabTeleOp extends OpMode {
         new Trigger(()->robotBase.intakeSubsystem.isRightColor())
                 .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad1.rumble(30, 30, 500))));
 
+        new Trigger(()->robotBase.ledSubsystem.endgameRumble(dblCurrentTime))
+                .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad1.rumble(1000)), new InstantCommand(()-> gamepad1.rumble(1000))));
+
        /* new Trigger(()->robotBase.intakeSubsystem.isBlueSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)
                 .whenActive(
                         new SampleOuttakeCommandGroup(robotBase)
