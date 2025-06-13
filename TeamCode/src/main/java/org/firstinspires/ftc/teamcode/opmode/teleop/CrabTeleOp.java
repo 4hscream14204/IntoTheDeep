@@ -104,7 +104,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
                         .whenActive(()-> CommandScheduler.getInstance().schedule(
-                                new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0.8))
+                                new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(1))
                         ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
@@ -320,7 +320,7 @@ public class CrabTeleOp extends OpMode {
     public void loop(){
         chassisController.readButtons();
         armController.readButtons();
-        double loopTimer = robotBase.chassisSubsystem.timer.milliseconds() - dblCurrentTime;
+        //double loopTimer = robotBase.chassisSubsystem.timer.milliseconds() - dblCurrentTime;
         dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
         robotBase.intakeSubsystem.getTime(dblCurrentTime);
 
@@ -354,32 +354,6 @@ public class CrabTeleOp extends OpMode {
         robotBase.intakeSubsystem.displaySampleColor();
         robotBase.shoulderSubsystem.stopIfStalling();
 
-        /*if(!robotBase.shoulderSubsystem.isShoulderHome()){
-            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
-        }
-        else{
-            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
-        }*/
-
-     //   robotBase.intakeSubsystem.intakeSpeed(((chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)-chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER))/2)+0.5);
-
-       /*if(armController.getRightY() > 0.1){
-            robotBase.shoulderSubsystem.goUp(armController.getRightY());
-        }
-
-        if(armController.getRightY() < -0.05 && armController.getRightY() >= -0.3){
-            robotBase.shoulderSubsystem.goDown(armController.getRightY());
-        }
-
-        if(armController.getRightY() <= 0.1 && armController.getRightY() >= -0.1){
-            robotBase.shoulderSubsystem.stopInPlace();
-        }*/
-
-        //Connor: I don't think we need these but I commented them just in case.
-       /* telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
-        telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
-        telemetry.addData("Chassis Right Stick X", chassisRightStickX);*/
-
         //telemetry.addData("Elbow", robotBase.elbowSubsystem.getPosition());
        // telemetry.addData("Wrist", robotBase.wristSubsystem.getPosition());
         /*telemetry.addData("Wrist Enum: ", robotBase.wristSubsystem.enmWristPosition);
@@ -396,20 +370,10 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));*/
         telemetry.addData("Strategy: ", DataStorage.strategy);
-        telemetry.addData("loop time", loopTimer);
+        //telemetry.addData("loop time", loopTimer);
         telemetry.addData("Alliance", DataStorage.alliance);
         telemetry.addData("Gyro", robotBase.chassisSubsystem.botPose.h);
         telemetry.addData("is stalling", robotBase.shoulderSubsystem.isStalling());
-        //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
-       // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
-        //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
-        //telemetry.addData("Right stick X", chassisController.getRightX());
-        /*telemetry.addData("Chassis Left Trigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
-        telemetry.addData("Chassis Right Trigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));*/
-       // telemetry.addData("Maximum Extension", robotBase.extensionSubsystem.intMaxPosition);
-       // telemetry.addData("IsPastMaxPosition?", robotBase.extensionSubsystem.isPastMaxPosition());
-        /*telemetry.addData("Target Left Extension", robotBase.extensionSubsystem.extendLeftMotor.getTargetPosition());
-        telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());*/
         //telemetry.addData("Hue", robotBase.intakeSubsystem.getHueValues());
         //telemetry.addData("specimens to deliver", robotBase.ledSubsystem.intSpecimensToDeliver);
         telemetry.addData("Timer: ", dblCurrentTime / 1000);
@@ -419,14 +383,7 @@ public class CrabTeleOp extends OpMode {
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);
         telemetry.addData("cycle time", robotBase.ledSubsystem.dblEstimatedCycleTime);
-        //telemetry.addData("Ok to home",robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP.height);
-        /*telemetry.addLine()
-                .addData("Red: ", robotBase.intakeSubsystem.checkSampleColorRed())
-                .addData("Blue: ", robotBase.intakeSubsystem.checkSampleColorBlue())
-                .addData("Green: ", robotBase.intakeSubsystem.checkSampleColorGreen());
-
-        telemetry.addData("IsRed", robotBase.intakeSubsystem.isRedSample());
-        telemetry.addData("IsBlue", robotBase.intakeSubsystem.isBlueSample());*/
+        //telemetry.addData("Ok to home",robotBase.extensionSubsystem.extensionGetPosition() > Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP.height);*/
 
         CommandScheduler.getInstance().run();
     }

@@ -109,7 +109,7 @@ public class RedRightx5 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-36, 46), Math.toRadians(90),new TranslationalVelConstraint(40))
                 //.setTangent(Math.toRadians(270))
                 //line up for second sample
-                .splineToConstantHeading(new Vector2d(-36, 15), Math.toRadians(270),new TranslationalVelConstraint(40))
+                .splineToConstantHeading(new Vector2d(-38/*36*/, 15), Math.toRadians(270),new TranslationalVelConstraint(40))
                 //push to human player
                 .splineToConstantHeading(new Vector2d(-46, 15), Math.toRadians(90),new TranslationalVelConstraint(28))
                 .splineToConstantHeading(new Vector2d(-46, 46), Math.toRadians(90),new TranslationalVelConstraint(40))
@@ -135,8 +135,8 @@ public class RedRightx5 extends OpMode {
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
-                .splineToSplineHeading(new Pose2d(-41.0, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
+                .setTangent(Math.toRadians(100/*120*/))
+                .splineToSplineHeading(new Pose2d(-41.0, 65, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
                 //hang specimen
@@ -146,8 +146,8 @@ public class RedRightx5 extends OpMode {
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
-                .splineToSplineHeading(new Pose2d(-41.0, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
+                .setTangent(Math.toRadians(100))
+                .splineToSplineHeading(new Pose2d(-41.0, 65, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
                 //hang specimen
@@ -156,8 +156,8 @@ public class RedRightx5 extends OpMode {
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
-                .splineToSplineHeading(new Pose2d(-41, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
+                .setTangent(Math.toRadians(100))
+                .splineToSplineHeading(new Pose2d(-41, 65, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
                 //hang specimen

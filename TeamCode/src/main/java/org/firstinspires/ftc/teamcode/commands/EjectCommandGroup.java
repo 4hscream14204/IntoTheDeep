@@ -12,6 +12,8 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class EjectCommandGroup extends SequentialCommandGroup {
     boolean hasRan;
@@ -28,9 +30,13 @@ public class EjectCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(() -> robotBase.clawSubsystem.openClaw())
             );
         }*/
-        if(DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE){
+        if(DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE && !robotBase.shoulderSubsystem.isShoulderHome()){
             addCommands(
-                    new InstantCommand(()->robotBase.ledSubsystem.intSpecimensToDeliver ++),
+                    //new InstantCommand(()->robotBase.ledSubsystem.intSpecimensToDeliver ++),
+                    new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
+                    new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF)),
+                    new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
+                    new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE)),
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeSpeed(1)),
                     new WaitCommand(200),
@@ -48,7 +54,7 @@ public class EjectCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(()->robotBase.ledSubsystem.intSpecimensToDeliver ++),
                     //new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeSpeed(0)),
-                    new WaitCommand(200),
+                    new WaitCommand(500),
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop())
                     /*new InstantCommand(()-> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                     new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME)),
