@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.BucketElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketExtendUpCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ChamberCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.CommandSchedulerResetCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ElbowWristHomeCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ExtensionControlCommandGroup;
@@ -173,7 +174,7 @@ public class CrabTeleOp extends OpMode {
                                 new SubPickupReturnCommandGroup(robotBase)
                         ));
         armController.getGamepadButton(GamepadKeys.Button.BACK)
-                .whenPressed(new InstantCommand(() -> CommandScheduler.getInstance().cancelAll()));
+                .whenPressed(new CommandSchedulerResetCommandGroup(robotBase));
 
         armController.getGamepadButton(GamepadKeys.Button.A)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem, robotBase.intakeSubsystem, robotBase.shoulderSubsystem)/*new SubPickupTogglePreSubPickupCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem), new SubPickupTogglePickupCommandGroup(robotBase)*/));
