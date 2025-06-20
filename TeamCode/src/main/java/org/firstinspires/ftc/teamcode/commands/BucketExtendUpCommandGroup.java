@@ -15,7 +15,7 @@ public class BucketExtendUpCommandGroup extends SequentialCommandGroup {
       addCommands(
         new InstantCommand(()-> robotBase.clawSubsystem.openClaw()),
         new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(basketPosition)),
-        new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.AUTODROPOFF)),
+        new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
         new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(basketPosition)),
         //new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.55)),
         new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(extensionBasket)),
