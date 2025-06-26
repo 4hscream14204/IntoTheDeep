@@ -34,6 +34,7 @@ import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleAllianceCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ToggleGateCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleStrategyCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleSweeperCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
@@ -97,7 +98,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
-                                new SetHeadingDegreesCommandGroup(robotBase, 315)
+                                new ToggleGateCommandGroup(robotBase)
                         ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.B)
@@ -380,6 +381,7 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Timer: ", dblCurrentTime / 1000);
         telemetry.addData("Left shoulder AMPs", robotBase.shoulderSubsystem.getLeftAMP());
         telemetry.addData("Right shoulder AMPs", robotBase.shoulderSubsystem.getRightAMP());
+        telemetry.addData("GatePosition", robotBase.intakeSubsystem.enmGatePosition);
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);

@@ -189,6 +189,7 @@ public class Intake extends SubsystemBase {
 
     public void gateGoToPosition(Intake.GatePosition enmTargetPosition) {
         intakeServoGate.setPosition(enmTargetPosition.value);
+        enmGatePosition = enmTargetPosition;
     }
 
     public boolean isAtPosition(Intake.GatePosition enmCheckPosition) {

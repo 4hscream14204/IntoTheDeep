@@ -26,6 +26,7 @@ import org.firstinspires.ftc.teamcode.commands.HangSpecimenAutoCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.TimerLED;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 import java.util.List;
@@ -87,7 +88,7 @@ public class BlueRightx5 extends OpMode {
                 // hang preload
                 .setTangent(Math.toRadians(270))
                 .afterTime(0.0, ()-> CommandScheduler.getInstance().schedule(new SpecimenPickupAutoCommandGroup(robotBase)))
-                .splineToConstantHeading(new Vector2d(-2.0, 28.00), Math.toRadians(270.00), new TranslationalVelConstraint(40))
+                .splineToConstantHeading(new Vector2d(-2.0, 27.00), Math.toRadians(270.00), new TranslationalVelConstraint(40))
 
                 //.waitSeconds(0.1)
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
@@ -101,14 +102,14 @@ public class BlueRightx5 extends OpMode {
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)))
                 .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.AUTO))))
                 .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME))))
-                .splineToConstantHeading(new Vector2d(-22, 15), Math.toRadians(270), new TranslationalVelConstraint(40))
+                .splineToConstantHeading(new Vector2d(-29, 15), Math.toRadians(270), new TranslationalVelConstraint(40))
                 .splineToConstantHeading(new Vector2d(-38, 15), Math.toRadians(90),new TranslationalVelConstraint(28))
                 .setTangent(Math.toRadians(90))
                 //push into player area
                 .splineToConstantHeading(new Vector2d(-39, 44), Math.toRadians(90),new TranslationalVelConstraint(40))
                 //.setTangent(Math.toRadians(270))
                 //line up for second sample
-                .splineToConstantHeading(new Vector2d(-39, 15), Math.toRadians(270),new TranslationalVelConstraint(40))
+                .splineToConstantHeading(new Vector2d(-36, 15), Math.toRadians(270),new TranslationalVelConstraint(40))
                 //push to human player
                 .splineToConstantHeading(new Vector2d(-46, 15), Math.toRadians(90),new TranslationalVelConstraint(28))
                 .splineToConstantHeading(new Vector2d(-46, 44), Math.toRadians(90),new TranslationalVelConstraint(40))
@@ -130,7 +131,7 @@ public class BlueRightx5 extends OpMode {
 
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-2.5, 27.00, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-2.5, 26.50, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
@@ -140,7 +141,7 @@ public class BlueRightx5 extends OpMode {
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-2.5, 27, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-2.5, 26.5, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
 
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
@@ -151,7 +152,7 @@ public class BlueRightx5 extends OpMode {
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-2.5, 29, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-2.5, 28, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
@@ -161,7 +162,7 @@ public class BlueRightx5 extends OpMode {
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-2.5, 30, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-2.5, 28, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.4)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
@@ -172,6 +173,7 @@ public class BlueRightx5 extends OpMode {
                 .build();
 
         robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
+        robotBase.ledSubsystem.setColor(TimerLED.Colors.BLUE);
 
         for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             module.clearBulkCache();
