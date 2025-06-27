@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.BucketElbowWristCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.BucketExtendUpCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ChamberBucketHighCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ChamberCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.CommandSchedulerResetCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
@@ -34,6 +35,7 @@ import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleAllianceCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ToggleControlsCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleGateCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleStrategyCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleSweeperCommandGroup;
@@ -78,7 +80,10 @@ public class CrabTeleOp extends OpMode {
                 .addStep(0, 1, 0, 250)
                 .build();
 
-
+        chassisController.getGamepadButton(GamepadKeys.Button.Y)
+                        .whenPressed(()->CommandScheduler.getInstance().schedule(
+                                new ChamberBucketHighCommandGroup(robotBase, DataStorage.controlScheme)
+                        ));
         chassisController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
                         new GyroResetCommandGroup(robotBase)
@@ -142,7 +147,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.BACK)
                         .whenPressed(
-                                ()->CommandScheduler.getInstance().schedule(new ToggleStrategyCommandGroup()
+                                ()->CommandScheduler.getInstance().schedule(new ToggleControlsCommandGroup()
                                 ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.A)
@@ -166,9 +171,9 @@ public class CrabTeleOp extends OpMode {
         chassisController.getGamepadButton(GamepadKeys.Button.DPAD_RIGHT)
                         .whenPressed(new BucketElbowWristCommandGroup(robotBase));
 
-        chassisController.getGamepadButton(GamepadKeys.Button.Y)
+        /*chassisController.getGamepadButton(GamepadKeys.Button.Y)
                         .and(new GamepadButton(chassisController, GamepadKeys.Button.RIGHT_BUMPER))
-                        .whenActive(()->CommandScheduler.getInstance().schedule( new SecondLevelAscentCommandGroup(robotBase)));
+                        .whenActive(()->CommandScheduler.getInstance().schedule( new SecondLevelAscentCommandGroup(robotBase)));*/
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
                         .whenPressed(()->CommandScheduler.getInstance().schedule(
@@ -192,7 +197,7 @@ public class CrabTeleOp extends OpMode {
                 ));
 
         //high basket button combo
-        armController.getGamepadButton(GamepadKeys.Button.Y)
+        /*armController.getGamepadButton(GamepadKeys.Button.Y)
                 .and(new GamepadButton(armController, GamepadKeys.Button.LEFT_BUMPER))
                 .whenActive(()->CommandScheduler.getInstance().schedule( new BucketExtendUpCommandGroup(robotBase, Shoulder.ShoulderPosition.HIGHBASKET, Extension.ExtensionPosition.HIGHBUCKET)));
 
@@ -214,7 +219,7 @@ public class CrabTeleOp extends OpMode {
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(
                         ()->CommandScheduler.getInstance().schedule(new SpecimenWallPickUpCommandGroup(robotBase, robotBase.shoulderSubsystem, robotBase.clawSubsystem, robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
-                );
+                );*/
 
         armController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(()->CommandScheduler.getInstance().schedule(
@@ -381,7 +386,10 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Timer: ", dblCurrentTime / 1000);
         telemetry.addData("Left shoulder AMPs", robotBase.shoulderSubsystem.getLeftAMP());
         telemetry.addData("Right shoulder AMPs", robotBase.shoulderSubsystem.getRightAMP());
-        telemetry.addData("GatePosition", robotBase.intakeSubsystem.enmGatePosition);
+        //telemetry.addData("GatePosition", robotBase.intakeSubsystem.enmGatePosition);
+        telemetry.addData("Controls: ", DataStorage.controlScheme);
+        telemetry.addData("Extension Pos", robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER));
+        telemetry.addData("Shoulder Pos", robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE));
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);

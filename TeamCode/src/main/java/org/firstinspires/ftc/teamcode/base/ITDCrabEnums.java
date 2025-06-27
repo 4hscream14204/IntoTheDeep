@@ -10,4 +10,8 @@ public class ITDCrabEnums {
         SPECIMENBASICCYCLE,
         BUCKETBASICCYCLE
     }
+    public enum ControlScheme{
+        BUCKET,
+        SPECIMEN
+    }
 }
