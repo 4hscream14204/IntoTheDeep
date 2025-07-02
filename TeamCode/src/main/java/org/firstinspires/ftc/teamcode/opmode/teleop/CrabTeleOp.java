@@ -152,7 +152,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(
-                                ()->CommandScheduler.getInstance().schedule(new SetHeadingDegreesCommandGroup(robotBase, 0))
+                                ()->CommandScheduler.getInstance().schedule(new SubPickupToggleCommandGroup(robotBase.wristSubsystem, robotBase.elbowSubsystem, robotBase.intakeSubsystem, robotBase.shoulderSubsystem))
                         );
 
        /* chassisController.getGamepadButton(GamepadKeys.Button.DPAD_UP)

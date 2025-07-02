@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.commands;
 
 import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.ParallelCommandGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
@@ -10,13 +11,14 @@ import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class ChamberBucketHighCommandGroup extends SequentialCommandGroup {
     public ChamberBucketHighCommandGroup(RobotBase robotBase, ITDCrabEnums.ControlScheme controlScheme){
         if(controlScheme == ITDCrabEnums.ControlScheme.BUCKET){
-            if(!robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE) && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)) {
+            if(robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE) && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)) {
                 addCommands(
                         new InstantCommand(() -> robotBase.clawSubsystem.openClaw()),
                         new InstantCommand(() -> robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HIGHBASKET)),
@@ -26,6 +28,21 @@ public class ChamberBucketHighCommandGroup extends SequentialCommandGroup {
                         new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
                         new WaitUntilCommand(() -> robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE)),
                         new InstantCommand(() -> robotBase.shoulderSubsystem.stopInPlace())
+                );
+            }
+            if(robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE) && robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)){
+                addCommands(
+                    new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
+                    new InstantCommand(() -> robotBase.intakeSubsystem.intakeOuttake()),
+                    new WaitCommand(500),
+                    new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
+                    new WaitCommand(500),
+                    new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED)),
+                    new InstantCommand(()-> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                    new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME)),
+                    new WaitUntilCommand(()->robotBase.extensionSubsystem.extensionGetPosition() > (Extension.ExtensionPosition.HIGHCHAMBERCLAMP.height)),
+                    new ParallelCommandGroup(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
+                    new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
                 );
             }
         }
@@ -56,7 +73,7 @@ public class ChamberBucketHighCommandGroup extends SequentialCommandGroup {
                         new InstantCommand(robotBase.shoulderSubsystem::stopInPlace)
                 );
             }
-            else if(robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER)){
+            else if(robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER) && robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE)){
                 addCommands(
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
                         new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),

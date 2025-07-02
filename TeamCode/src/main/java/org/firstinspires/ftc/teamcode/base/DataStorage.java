@@ -6,6 +6,6 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 public class DataStorage {
     public static double dblIMUFinalHeadingRad = 0;
     public static ITDCrabEnums.EnmAlliance alliance = ITDCrabEnums.EnmAlliance.BLUE;
-    public static ITDCrabEnums.Strategy strategy = ITDCrabEnums.Strategy.SPECIMENBASICCYCLE;
+    public static ITDCrabEnums.Strategy strategy = ITDCrabEnums.Strategy.SPECIMENSTOCKPILE;
     public static ITDCrabEnums.ControlScheme controlScheme = ITDCrabEnums.ControlScheme.SPECIMEN;
 }
