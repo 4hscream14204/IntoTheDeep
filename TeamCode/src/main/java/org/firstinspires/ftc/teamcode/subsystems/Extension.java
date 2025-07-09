@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 public class Extension extends SubsystemBase {
 
     public DcMotor extendLeftMotor;
+    public DcMotor extendMiddleMotor;
     public DcMotor extendRightMotor;
     public DigitalChannel tsExtensionLimitSwitch;
 
@@ -38,30 +39,35 @@ public class Extension extends SubsystemBase {
 
     public ExtensionPosition enmExtensionPosition;
 
-    public Extension(DcMotor m_extensionLeftMotor, DcMotor m_extensionRightMotor, DigitalChannel m_TsExtensionLimitSwitch) {
+    public Extension(DcMotor m_extensionLeftMotor, DcMotor m_extensionMiddleMotor,DcMotor m_extensionRightMotor, DigitalChannel m_TsExtensionLimitSwitch) {
         extendLeftMotor = m_extensionLeftMotor;
+        extendMiddleMotor = m_extensionMiddleMotor;
         extendRightMotor = m_extensionRightMotor;
         tsExtensionLimitSwitch = m_TsExtensionLimitSwitch;
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setTargetPosition(0);
         setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         extendLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        extendMiddleMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         extendRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         enmExtensionPosition = ExtensionPosition.HOME;
     }
 
     public void setPower(double power){
         extendLeftMotor.setPower(power);
+        extendMiddleMotor.setPower(power);
         extendRightMotor.setPower(power);
     }
 
     public void setTargetPosition(int position){
         extendLeftMotor.setTargetPosition(position);
+        extendMiddleMotor.setTargetPosition(position);
         extendRightMotor.setTargetPosition(position);
     }
 
     public void setMode(DcMotor.RunMode mode){
         extendLeftMotor.setMode(mode);
+        extendMiddleMotor.setMode(mode);
         extendRightMotor.setMode(mode);
     }
 
