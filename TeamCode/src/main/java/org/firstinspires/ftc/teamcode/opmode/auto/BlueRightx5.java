@@ -185,7 +185,7 @@ public class BlueRightx5 extends OpMode {
         CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", waitSec);
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
-        telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
+        //telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Shoulder Power", robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Strategy: ", DataStorage.strategy);

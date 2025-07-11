@@ -184,7 +184,7 @@ public class RedRightx4 extends OpMode {
         telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
         //telemetry.addData("Feild Position y")
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
-        telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
+        //telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
         blueRightx4Action.run(telemetryPacket);
     }
 

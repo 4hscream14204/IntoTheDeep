@@ -62,9 +62,8 @@ public class RobotBase {
                 hwMap.servo.get("intakeLED"));
         clawSubsystem = new Claw(hwMap.servo.get ("clawServo"));
         elbowSubsystem = new Elbow(hwMap.servo.get("elbowServo"));
-        extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionLeftMotor"), hwMap.dcMotor.get("extensionRightMotor"), hwMap.digitalChannel.get("extensionLimitSwitch"));
+        extensionSubsystem = new Extension(hwMap.dcMotor.get("extensionLeftMotor"), hwMap.dcMotor.get("extensionMiddleMotor"), hwMap.dcMotor.get("extensionRightMotor"),hwMap.digitalChannel.get("extensionLimitSwitch"));
         shoulderSubsystem = new Shoulder(hwMap.get(DcMotorEx.class, "shoulderMotor"),
-                hwMap.get(DcMotorEx.class, "rightShoulderMotor"),
                 hwMap.digitalChannel.get("shoulderLimitSwitch"));
         wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
         ledSubsystem = new TimerLED (hwMap.servo.get("timerLED"));

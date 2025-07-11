@@ -307,6 +307,11 @@ public class CrabTeleOp extends OpMode {
                 .toggleWhenActive(new NewChamberLineUpCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.NEWHIGHCHAMBER),
                         new NewChamberReleaseCommandGroup(robotBase, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP));*/
 
+        /*new Trigger(()->robotBase.extensionSubsystem.isExtensionHome() && !robotBase.shoulderSubsystem.bolStoppedInPlace)
+                .whenActive(
+                        ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.extend(robotBase.shoulderSubsystem.getPower() / )))
+                )
+*/
     }
 
     /*public void init_loop(){
@@ -379,8 +384,9 @@ public class CrabTeleOp extends OpMode {
         //telemetry.addData("Hue", robotBase.intakeSubsystem.getHueValues());
         //telemetry.addData("specimens to deliver", robotBase.ledSubsystem.intSpecimensToDeliver);
         telemetry.addData("Timer: ", dblCurrentTime / 1000);
-        telemetry.addData("Left shoulder AMPs", robotBase.shoulderSubsystem.getLeftAMP());
-        telemetry.addData("Right shoulder AMPs", robotBase.shoulderSubsystem.getRightAMP());
+        //telemetry.addData("Left shoulder AMPs", robotBase.shoulderSubsystem.getLeftAMP());
+        //telemetry.addData("Right shoulder AMPs", robotBase.shoulderSubsystem.getRightAMP());
+        telemetry.addData("ShoulderAMP", robotBase.shoulderSubsystem.getAMP());
         telemetry.addData("GatePosition", robotBase.intakeSubsystem.enmGatePosition);
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);

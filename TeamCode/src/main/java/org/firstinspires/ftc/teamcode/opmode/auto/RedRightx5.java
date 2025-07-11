@@ -5,7 +5,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
+//import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -186,7 +186,7 @@ public class RedRightx5 extends OpMode {
         CommandScheduler.getInstance().run();
         telemetry.addData("Wait time", waitSec);
         telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
-        telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
+        //telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("Shoulder Power", robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Strategy: ", DataStorage.strategy);
@@ -206,7 +206,7 @@ public class RedRightx5 extends OpMode {
                     .waitSeconds(waitSec)
                     .build();
 
-            Actions.runBlocking(waitAction);
+            //Actions.runBlocking(waitAction);
         }
 
     }

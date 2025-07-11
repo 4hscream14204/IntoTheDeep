@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 public class Shoulder extends SubsystemBase {
 
-    public  DcMotorEx dcSchoulderMotor;
+    public  DcMotorEx dcShoulderMotor;
   //  public DcMotorEx dcShoulderMotorLeft;
   //  public DcMotorEx dcShoulderMotorRight;
     public DigitalChannel tsShoulderLimitSwitch;
@@ -41,16 +41,15 @@ public class Shoulder extends SubsystemBase {
     public  enum MaxAmps{
         MAXAMPLEFT (999),
         MAXAMPRIGHT(999),
-        MAXAMPSINGLE (999);
+        MAXAMP (999);
         public final double max;
         MaxAmps(double cap){
             this.max = cap;
         }
     }
 
-    public Shoulder(DcMotorEx conShoulderMotor, DcMotorEx rightShoulderMotor, DigitalChannel conShoulderLimitSwitch) {
-        dcShoulderMotorLeft = conShoulderMotor;
-        dcShoulderMotorRight = rightShoulderMotor;
+    public Shoulder(DcMotorEx conShoulderMotor, DigitalChannel conShoulderLimitSwitch) {
+        dcShoulderMotor = conShoulderMotor;
         tsShoulderLimitSwitch = conShoulderLimitSwitch;
        /* dcShoulderMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         dcShoulderMotorLeft.setTargetPosition(0);
@@ -72,16 +71,16 @@ public class Shoulder extends SubsystemBase {
     public ShoulderPosition enmShoulderPosition;
 
     public void goToPosition(ShoulderPosition enmTargetPosition){
-        if(dcSchoulderMotor.getCurrentPosition() < enmTargetPosition.height){
+        if(dcShoulderMotor.getCurrentPosition() < enmTargetPosition.height){
             //dcShoulderMotorLeft
-            dcSchoulderMotor.setPower(dblUpPower);
+            dcShoulderMotor.setPower(dblUpPower);
           /*  dcShoulderMotorLeft.setPower(dblUpPower);
             dcShoulderMotorRight.setPower(dblUpPower);
 
            */
         }
-        else if(dcSchoulderMotor.getCurrentPosition() > enmTargetPosition.height){
-            dcSchoulderMotor.setPower(dblDownPower);
+        else if(dcShoulderMotor.getCurrentPosition() > enmTargetPosition.height){
+            dcShoulderMotor.setPower(dblDownPower);
           /*  dcShoulderMotorLeft.setPower(dblDownPower);
             dcShoulderMotorRight.setPower(dblDownPower);
 
@@ -92,8 +91,8 @@ public class Shoulder extends SubsystemBase {
             return;
         }
         enmShoulderPosition = enmTargetPosition;
-        dcSchoulderMotor.setTargetPosition(enmTargetPosition.height);
-        dcSchoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        dcShoulderMotor.setTargetPosition(enmTargetPosition.height);
+        dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         /*dcShoulderMotorLeft.setTargetPosition(enmTargetPosition.height);
         dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         dcShoulderMotorRight.setTargetPosition(enmTargetPosition.height);
@@ -116,8 +115,8 @@ public class Shoulder extends SubsystemBase {
             setPower(0);
         }
         else{
-            dcSchoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            dcSchoulderMotor.setPower(power);
+            dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            dcShoulderMotor.setPower(power);
           /*  dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             dcShoulderMotorLeft.setPower(power);
             dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -125,19 +124,20 @@ public class Shoulder extends SubsystemBase {
 
            */
 
+
             bolStoppedInPlace = false;
         }
 
     }
 
     public void goUp(double power){
-        if(dcSchoulderMotor.getCurrentPosition() > ShoulderPosition.MAXPOSITION.height){
+        if(dcShoulderMotor.getCurrentPosition() > ShoulderPosition.MAXPOSITION.height){
             //dcShoulderMotorLeft
             stopInPlace();
         }
         else {
-            dcSchoulderMotor.setPower(power);
-            dcSchoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            dcShoulderMotor.setPower(power);
+            dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
          /*   dcShoulderMotorLeft.setPower(power);
             dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             dcShoulderMotorRight.setPower(power);
@@ -152,8 +152,8 @@ public class Shoulder extends SubsystemBase {
        if(tsShoulderLimitSwitch.getState()){
             reset();
         }
-       dcSchoulderMotor.setPower(power);
-       dcSchoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       dcShoulderMotor.setPower(power);
+       dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
        /* dcShoulderMotorLeft.setPower(power);
         dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         dcShoulderMotorRight.setPower(power);
@@ -164,7 +164,7 @@ public class Shoulder extends SubsystemBase {
     }
 
     public boolean isAtPosition(ShoulderPosition targetPosition){
-        if(Math.abs(dcSchoulderMotor.getCurrentPosition() - targetPosition.height) <= 30){
+        if(Math.abs(dcShoulderMotor.getCurrentPosition() - targetPosition.height) <= 30){
             return true;
         }
         return false;
@@ -178,16 +178,14 @@ public class Shoulder extends SubsystemBase {
         if(isShoulderHome()){
             reset();
         }
-            dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            intCurrentPos = dcShoulderMotorLeft.getCurrentPosition();
-            dcShoulderMotorLeft.setTargetPosition(intCurrentPos);
-            dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            dcShoulderMotorRight.setTargetPosition(intCurrentPos);
+            dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            intCurrentPos = dcShoulderMotor.getCurrentPosition();
+            dcShoulderMotor.setTargetPosition(intCurrentPos);
             setPower(0.2);
     }
 
     public int shoulderGetPosition(){
-        return dcSchoulderMotor.getCurrentPosition();
+        return dcShoulderMotor.getCurrentPosition();
     }
                                                //dcShoulderMotorLeft
     public boolean isShoulderHome(){
@@ -196,46 +194,33 @@ public class Shoulder extends SubsystemBase {
 
     public void reset(){
         bolStoppedInPlace = false;
-        dcSchoulderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        dcSchoulderMotor.setTargetPosition(0);
-        dcSchoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-       // dcShoulderMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-       // dcShoulderMotorLeft.setTargetPosition(0);
-       // dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //dcShoulderMotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //dcShoulderMotorRight.setTargetPosition(0);
-        //dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        dcShoulderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        dcShoulderMotor.setTargetPosition(0);
+        dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         setPower(0);
     }
 
     public double getPower(){
-        return dcSchoulderMotor.getPower();
+        return dcShoulderMotor.getPower();
     }
 
     public void setPower(double m_Power) {
-        if (isStalling()) {
+        /*if (isStalling()) {
             stopInPlace();
-        } else {
-            dcSchoulderMotor.setPower(m_Power);
+        } else {*/
+            dcShoulderMotor.setPower(m_Power);
            // dcShoulderMotorLeft.setPower(m_Power);
            // dcShoulderMotorRight.setPower(m_Power);
-        }
+        //}
     }
 
-    public  double getSingleAMP() {
-        return dcSchoulderMotor.getCurrent(CurrentUnit.AMPS);
-    }
-
-    public double getLeftAMP() {
-        return dcShoulderMotorLeft.getCurrent(CurrentUnit.AMPS);
-    }
-
-    public double getRightAMP() {
-        return dcShoulderMotorRight.getCurrent(CurrentUnit.AMPS);
+    public  double getAMP() {
+        return dcShoulderMotor.getCurrent(CurrentUnit.AMPS);
     }
 
     public boolean isStalling(){
-        return (getLeftAMP() > MaxAmps.MAXAMPLEFT.max || getRightAMP() > MaxAmps.MAXAMPRIGHT.max);
+        return (getAMP() > MaxAmps.MAXAMP.max);
     }
 
     public void stopIfStalling(){
