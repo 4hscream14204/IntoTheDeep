@@ -224,7 +224,7 @@ public class CrabTeleOp extends OpMode {
         new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
                 .or(new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0.1))
                         .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
-                                new ExtensionControlCommandGroup(robotBase, chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) - chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER))
+                                new ExtensionControlCommandGroup(robotBase, (chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) - chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)))
                         ))
                         .whenInactive(()->CommandScheduler.getInstance().schedule(
                                 new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
@@ -318,7 +318,7 @@ public class CrabTeleOp extends OpMode {
         CommandScheduler.getInstance().run();
     }*/
     public void start(){
-        CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
+        //CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
         robotBase.chassisSubsystem.timer.reset();
         robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.drive.otos.getPosition().h));
         robotBase.chassisSubsystem.disablePIDUse();
