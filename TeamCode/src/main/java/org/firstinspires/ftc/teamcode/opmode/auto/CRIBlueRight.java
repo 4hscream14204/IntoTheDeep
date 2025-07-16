@@ -25,8 +25,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.TimerLED;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous(name = "CRIRedLeftx4")
-public class CRIRedLeft extends OpMode{
+@Autonomous(name = "CRIBlueRightx4")
+public class CRIBlueRight extends OpMode{
     public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
@@ -36,12 +36,12 @@ public class CRIRedLeft extends OpMode{
     public GamepadEx baseController;
     public int waitSec = 0;
     public Action waitAction;
-    public Action blueLeftAction;
+    public Action blueRightAction;
 
 
     @Override
     public void init() {
-        startPose = new Pose2d(14, 61, Math.toRadians(0));
+        startPose = new Pose2d(14, 61, Math.toRadians(180));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
@@ -75,7 +75,7 @@ public class CRIRedLeft extends OpMode{
         baseController.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
 
-        blueLeftAction = robotBase.drive.actionBuilder(startPose)
+        blueRightAction = robotBase.drive.actionBuilder(startPose)
                 .afterTime(0, ()->CommandScheduler.getInstance() .schedule(new InstantCommand(()->robotBase.clawSubsystem.openClaw())))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.MAXSHOULDERUPPOSITION))))
@@ -84,8 +84,8 @@ public class CRIRedLeft extends OpMode{
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 .setTangent(Math.toRadians(270))
-                .splineToSplineHeading(new Pose2d(55, 56,Math.toRadians(135.00)), Math.toRadians(45.00), new TranslationalVelConstraint(30))
-                .splineToSplineHeading(new Pose2d(57.3, 58.3,Math.toRadians(135.00)), Math.toRadians(45.00), new TranslationalVelConstraint(20))
+                .splineToSplineHeading(new Pose2d(55, -56,Math.toRadians(135.00)), Math.toRadians(-45.00), new TranslationalVelConstraint(30))
+                .splineToSplineHeading(new Pose2d(57.3, -58.3,Math.toRadians(135.00)), Math.toRadians(-45.00), new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN))))
                 .afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())))
@@ -214,7 +214,7 @@ public class CRIRedLeft extends OpMode{
         telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
         //telemetry.addData("Feild Position y")
         //    telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
-        blueLeftAction.run(telemetryPacket);
+        blueRightAction.run(telemetryPacket);
     }
 
     @Override
