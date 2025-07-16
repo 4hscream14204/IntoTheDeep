@@ -7,6 +7,7 @@ public class Sweeper extends SubsystemBase {
 
     public enum SweeperPosition {
         OUT(0),
+        MIDDLE (0.85),
         HOME(1);
         public final double position;
         SweeperPosition(double value) {

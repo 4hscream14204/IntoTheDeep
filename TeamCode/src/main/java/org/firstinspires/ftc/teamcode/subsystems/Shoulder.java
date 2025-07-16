@@ -30,6 +30,7 @@ public class Shoulder extends SubsystemBase {
         HIGHBASKET (1070),
         TOGGLE (1060),
         AUTOPARK (1181),
+        AUTOAVOIDENCE (981),
         SECONDLEVELASCENT (1180);
         public final int height;
         ShoulderPosition(int high){

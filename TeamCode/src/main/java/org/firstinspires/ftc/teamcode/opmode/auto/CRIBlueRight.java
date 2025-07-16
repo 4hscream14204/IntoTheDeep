@@ -41,7 +41,7 @@ public class CRIBlueRight extends OpMode{
 
     @Override
     public void init() {
-        startPose = new Pose2d(14, 61, Math.toRadians(180));
+        startPose = new Pose2d(14, -61, Math.toRadians(180));
         robotBase =new RobotBase(hardwareMap);
         armController = new GamepadEx(gamepad2);
         baseController = new GamepadEx(gamepad1);
@@ -84,8 +84,8 @@ public class CRIBlueRight extends OpMode{
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 .setTangent(Math.toRadians(270))
-                .splineToSplineHeading(new Pose2d(55, -56,Math.toRadians(135.00)), Math.toRadians(-45.00), new TranslationalVelConstraint(30))
-                .splineToSplineHeading(new Pose2d(57.3, -58.3,Math.toRadians(135.00)), Math.toRadians(-45.00), new TranslationalVelConstraint(20))
+                .splineToSplineHeading(new Pose2d(55, -56,Math.toRadians(45.00)), Math.toRadians(-45.00), new TranslationalVelConstraint(30))
+                .splineToSplineHeading(new Pose2d(56.3, -57.3,Math.toRadians(45.00)), Math.toRadians(-45.00), new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN))))
                 .afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())))
@@ -96,7 +96,7 @@ public class CRIBlueRight extends OpMode{
                 .waitSeconds(1)
 
                 .setTangent(Math.toRadians(225))
-                .splineToLinearHeading(new Pose2d(47.5,47,Math.toRadians(180)),Math.toRadians(180),new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(45.5,-45,Math.toRadians(0)),Math.toRadians(0),new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.7)))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET))))
@@ -105,8 +105,8 @@ public class CRIBlueRight extends OpMode{
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET))))
                 .waitSeconds(3)
-                .splineToLinearHeading(new Pose2d(55,56,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(20))
-                .splineToLinearHeading(new Pose2d(57.3,58.3,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(55,-56,Math.toRadians(45)),Math.toRadians(-45),new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(56.3,-57.3,Math.toRadians(45)),Math.toRadians(-45),new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 .afterTime(0.3, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN))))
@@ -119,7 +119,7 @@ public class CRIBlueRight extends OpMode{
                 .waitSeconds(1)
 
                 .setTangent(Math.toRadians(225))
-                .splineToLinearHeading(new Pose2d(56,47,Math.toRadians(180)),Math.toRadians(180),new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(54,-45,Math.toRadians(0)),Math.toRadians(0),new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.65)))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET))))
@@ -128,8 +128,8 @@ public class CRIBlueRight extends OpMode{
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET))))
                 .waitSeconds(3)
-                .splineToLinearHeading(new Pose2d(55,56,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(20))
-                .splineToLinearHeading(new Pose2d(57.3,58.3,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(55,-56,Math.toRadians(45)),Math.toRadians(-45),new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(57.3,-58.3,Math.toRadians(45)),Math.toRadians(-45),new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 .afterTime(0.3, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN))))
@@ -142,7 +142,7 @@ public class CRIBlueRight extends OpMode{
                 .waitSeconds(1)
 
                 .setTangent(Math.toRadians(225))
-                .splineToLinearHeading(new Pose2d(52,43,Math.toRadians(-143)),Math.toRadians(-143),new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(54.5,-43,Math.toRadians(-30)),Math.toRadians(45),new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.8/*0.65*/)))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET))))
@@ -151,8 +151,8 @@ public class CRIBlueRight extends OpMode{
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET))))
                 .waitSeconds(3)
-                .splineToLinearHeading(new Pose2d(55,56,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(20))
-                .splineToLinearHeading(new Pose2d(57.3,58.3,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(55,-56,Math.toRadians(45)),Math.toRadians(-45),new TranslationalVelConstraint(20))
+                .splineToLinearHeading(new Pose2d(57.3,-58.3,Math.toRadians(45)),Math.toRadians(-45),new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
                 .afterTime(0.3, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN))))
@@ -163,10 +163,10 @@ public class CRIBlueRight extends OpMode{
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
                 .afterTime(1.5, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET))))
                 .waitSeconds(1)
-                .splineToSplineHeading(new Pose2d(10, 37,Math.toRadians(0)), Math.toRadians(180), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(10, -37,Math.toRadians(180)), Math.toRadians(0), new TranslationalVelConstraint(90))
                 .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.clawSubsystem.closeClaw())))
                 .afterTime(0, ()-> CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
-                .splineToConstantHeading(new Vector2d(10, 21), Math.toRadians(180), new TranslationalVelConstraint(20))
+                .splineToConstantHeading(new Vector2d(10, -21), Math.toRadians(90), new TranslationalVelConstraint(20))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK))))
                 .build();
