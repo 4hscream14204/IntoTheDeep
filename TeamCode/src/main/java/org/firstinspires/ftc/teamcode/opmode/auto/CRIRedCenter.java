@@ -81,6 +81,7 @@ public class CRIRedCenter extends OpMode{
         blueLeftAction = robotBase.drive.actionBuilder(startPose)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOAVOIDENCE)))))
+                .afterTime(0.2, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)))))
                 .setTangent(Math.toRadians(90))
                 //Chamber avoidence
                 .splineToConstantHeading(new Vector2d(-27, 16.2), Math.toRadians(180), new TranslationalVelConstraint(40))
