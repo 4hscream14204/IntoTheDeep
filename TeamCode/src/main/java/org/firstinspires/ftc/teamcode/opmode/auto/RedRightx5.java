@@ -34,7 +34,7 @@ import java.util.List;
 
 
 
-//@Disabled
+@Disabled
 @Autonomous (name = "RedRightx5")
 public class RedRightx5 extends OpMode {
     public TelemetryPacket telemetryPacket;

@@ -28,8 +28,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Sweeper;
 import org.firstinspires.ftc.teamcode.subsystems.TimerLED;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous(name = "CRIRedCenterx4")
-public class CRIRedCenter extends OpMode{
+@Autonomous(name = "CRIBlueCenterx4")
+public class CRIBlueCenter extends OpMode{
     public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
@@ -60,9 +60,7 @@ public class CRIRedCenter extends OpMode{
         //robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK);
         CommandScheduler.getInstance().schedule(new AutoInitCommandGroup(robotBase));
         CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)));
-
         baseController.getGamepadButton(GamepadKeys.Button.RIGHT_BUMPER)
-
                 .whenPressed(new InstantCommand(
                         ()-> waitSec++
                 ));
@@ -82,10 +80,10 @@ public class CRIRedCenter extends OpMode{
                 .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
 
         blueLeftAction = robotBase.drive.actionBuilder(startPose)
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOAVOIDENCE)))))
-                .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP))))
-                .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
+                .afterTime(0.2, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)))))
                 .setTangent(Math.toRadians(90))
                 //Chamber avoidence
                 .splineToConstantHeading(new Vector2d(-27, 16.2), Math.toRadians(180), new TranslationalVelConstraint(40))
@@ -117,15 +115,15 @@ public class CRIRedCenter extends OpMode{
                 //Second sample drop off
                 .splineToConstantHeading(new Vector2d(-6, 16.8), Math.toRadians(0), new TranslationalVelConstraint(60))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.sweeperSubsystem.goToPosition(Sweeper.SweeperPosition.OUT)))))
-               /* //Third sample return
-                .splineToConstantHeading(new Vector2d(-64, 17.4), Math.toRadians(180), new TranslationalVelConstraint(30))
-                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.sweeperSubsystem.goToPosition(Sweeper.SweeperPosition.MIDDLE)))))
-                .waitSeconds(0.4)
-                .setTangent(0)
-                //Third sample drop off
-                .splineToConstantHeading(new Vector2d(-7, 17), Math.toRadians(0), new TranslationalVelConstraint(40))
-                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.sweeperSubsystem.goToPosition(Sweeper.SweeperPosition.MIDDLE)))))
-                */
+                /* //Third sample return
+                 .splineToConstantHeading(new Vector2d(-64, 17.4), Math.toRadians(180), new TranslationalVelConstraint(30))
+                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.sweeperSubsystem.goToPosition(Sweeper.SweeperPosition.MIDDLE)))))
+                 .waitSeconds(0.4)
+                 .setTangent(0)
+                 //Third sample drop off
+                 .splineToConstantHeading(new Vector2d(-7, 17), Math.toRadians(0), new TranslationalVelConstraint(40))
+                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.sweeperSubsystem.goToPosition(Sweeper.SweeperPosition.MIDDLE)))))
+                 */
                 .splineToLinearHeading(new Pose2d(-14.0, 16.00, Math.toRadians(90.00)), Math.toRadians(0.00), new TranslationalVelConstraint(50))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.sweeperSubsystem.goToPosition(Sweeper.SweeperPosition.OUT)))))
                 .waitSeconds(0.2)
@@ -174,18 +172,18 @@ public class CRIRedCenter extends OpMode{
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOAVOIDENCE)))))
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK)))))
                 .splineToConstantHeading(new Vector2d(-50, 18), Math.toRadians(180), new TranslationalVelConstraint(30))
-                .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
                 .splineToConstantHeading(new Vector2d(-55, 10), Math.toRadians(270), new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)))))
-                //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP)))))
-               // .afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)))))
+                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP)))))
+                .afterTime(0.2, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)))))
                 .afterTime(0.4, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.clawSubsystem.openClaw()))))
-                .afterTime(0.1, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME)))))
+                .afterTime(0.4, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME)))))
                 .waitSeconds(1)
                 .build();
 
-        robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
-        robotBase.ledSubsystem.setColor(TimerLED.Colors.RED);
+        robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
+        robotBase.ledSubsystem.setColor(TimerLED.Colors.BLUE);
 
         for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             module.clearBulkCache();
