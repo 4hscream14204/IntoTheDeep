@@ -171,8 +171,8 @@ public class CRIBlueRight extends OpMode{
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK))))
                 .build();
 
-        robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
-        robotBase.ledSubsystem.setColor(TimerLED.Colors.RED);
+        robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
+        robotBase.ledSubsystem.setColor(TimerLED.Colors.BLUE);
 
         for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             module.clearBulkCache();

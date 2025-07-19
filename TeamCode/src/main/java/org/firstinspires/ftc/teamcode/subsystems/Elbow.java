@@ -8,7 +8,7 @@ public class Elbow extends SubsystemBase {
     public enum ElbowPosition {
         HOME (0.36111),
         INIT (0.32),
-        PICKUP (0.9666666666666667),
+        PICKUP (0.966666666666),//0.966666666666667, 889
         MAX (1),
         MIN (0),
         AUTO (0.1888),

@@ -31,7 +31,7 @@ public class ChamberCommandGroup extends SequentialCommandGroup {
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(clampPosition)),
                 new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(clampPosition)),
                 new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
-                new WaitCommand(250),
+                new WaitCommand(250),//250
                 new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                 new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
                     /*new ParallelCommandGroup(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
@@ -51,7 +51,7 @@ public class ChamberCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(clampPosition)),
                     new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(clampPosition)),
                     new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
-                    new WaitCommand(250),
+                    new WaitCommand(250),// 250
                     new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                     new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
                     new ParallelCommandGroup(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),

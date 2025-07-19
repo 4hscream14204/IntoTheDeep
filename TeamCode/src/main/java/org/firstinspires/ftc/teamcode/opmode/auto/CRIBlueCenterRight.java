@@ -8,7 +8,6 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.ScheduleCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.lynx.LynxModule;
@@ -19,17 +18,15 @@ import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.AutoInitCommandGroup;
-import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
-import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Sweeper;
 import org.firstinspires.ftc.teamcode.subsystems.TimerLED;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous(name = "CRIBlueCenterx4")
-public class CRIBlueCenter extends OpMode{
+@Autonomous(name = "CRIBlueCenterRightx4")
+public class CRIBlueCenterRight extends OpMode{
     public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
@@ -175,10 +172,10 @@ public class CRIBlueCenter extends OpMode{
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
                 .splineToConstantHeading(new Vector2d(-55, 10), Math.toRadians(270), new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)))))
-                .afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP)))))
-                .afterTime(0.2, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)))))
+                //.afterTime(0.0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP)))))
+                //.afterTime(0.2, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)))))
                 .afterTime(0.4, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.clawSubsystem.openClaw()))))
-                .afterTime(0.4, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME)))))
+                .afterTime(0.1, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME)))))
                 .waitSeconds(1)
                 .build();
 
