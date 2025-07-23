@@ -10,12 +10,14 @@ public class ToggleAllianceCommandGroup extends SequentialCommandGroup {
     public ToggleAllianceCommandGroup(){
         if(DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE){
             addCommands(
-                    new InstantCommand(()-> DataStorage.alliance = ITDCrabEnums.EnmAlliance.RED)
+                    new InstantCommand(()-> DataStorage.alliance = ITDCrabEnums.EnmAlliance.RED),
+                    new InstantCommand(()-> DataStorage.lightsArm = ITDCrabEnums.LightsArm.RED)
             );
         }
         else{
             addCommands(
-                    new InstantCommand(()-> DataStorage.alliance = ITDCrabEnums.EnmAlliance.BLUE)
+                    new InstantCommand(()-> DataStorage.alliance = ITDCrabEnums.EnmAlliance.BLUE),
+                    new InstantCommand(()-> DataStorage.lightsArm = ITDCrabEnums.LightsArm.BLUE)
             );
         }
     }

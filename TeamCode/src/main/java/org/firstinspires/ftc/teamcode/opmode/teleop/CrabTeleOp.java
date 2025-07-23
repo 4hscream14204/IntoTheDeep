@@ -287,25 +287,20 @@ public class CrabTeleOp extends OpMode {
         new Trigger(()->robotBase.ledSubsystem.endgameRumble(dblCurrentTime))
                 .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad1.rumble(1000)), new InstantCommand(()-> gamepad2.rumble(1000)), new InstantCommand(()->gamepad1.runLedEffect(endgameEffect)), new InstantCommand(()->gamepad1.runLedEffect(endgameEffect))));
 
-       /* new Trigger(()->robotBase.intakeSubsystem.isBlueSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)
-                .whenActive(
-                        new SampleOuttakeCommandGroup(robotBase)
-                );
+        new Trigger(()->DataStorage.lightsChassis == ITDCrabEnums.LightsChassis.SPECIMENSTOCKPILE)
+                .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad1.setLedColor(0, 1, 0, 9999999))));
 
-        new Trigger(()->robotBase.intakeSubsystem.isRedSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE)
-                .whenActive(
-                        new SampleOuttakeCommandGroup(robotBase)
-                );*/
+        new Trigger(()->DataStorage.lightsChassis == ITDCrabEnums.LightsChassis.SPECIMENBASIC)
+                .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad1.setLedColor(1, 0, 0, 9999999))));
 
-        /*new Trigger(()->!robotBase.shoulderSubsystem.isShoulderHome() && robotBase.extensionSubsystem.isPastMaxPosition())
-                .whenActive(()->CommandScheduler.getInstance().schedule(
-                        new ExtensionMaximumPositionCommandGroup(robotBase)
-                ));*/
+        new Trigger(()->DataStorage.lightsChassis == ITDCrabEnums.LightsChassis.BUCKET)
+                .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad1.setLedColor(0.5, 0.5,0, 9999999))));
 
-        /*armController.getGamepadButton(GamepadKeys.Button.X)
-                .and(new GamepadButton( armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .toggleWhenActive(new NewChamberLineUpCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.NEWHIGHCHAMBER),
-                        new NewChamberReleaseCommandGroup(robotBase, Extension.ExtensionPosition.NEWHIGHCHAMBERCLAMP));*/
+        new Trigger(()->DataStorage.lightsArm == ITDCrabEnums.LightsArm.BLUE)
+                .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad2.setLedColor(0, 0,1, 9999999))));
+
+        new Trigger(()->DataStorage.lightsArm == ITDCrabEnums.LightsArm.RED)
+                .whenActive(()->CommandScheduler.getInstance().schedule(new InstantCommand(()->gamepad2.setLedColor(1, 0,0, 9999999))));
 
     }
 

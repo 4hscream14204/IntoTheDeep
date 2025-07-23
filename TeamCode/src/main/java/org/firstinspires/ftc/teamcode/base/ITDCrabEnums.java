@@ -15,4 +15,15 @@ public class ITDCrabEnums {
         BUCKET,
         SPECIMEN
     }
+
+    public enum LightsChassis {
+        SPECIMENSTOCKPILE,
+        SPECIMENBASIC,
+        BUCKET
+    }
+
+    public enum LightsArm {
+        RED,
+        BLUE
+    }
 }
