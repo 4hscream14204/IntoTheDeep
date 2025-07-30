@@ -18,8 +18,10 @@ import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.AutoInitCommandGroup;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
+import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @Autonomous(name = "RedLeft")
 public class RedBucketCRIAuto extends OpMode {
@@ -38,6 +40,10 @@ public class RedBucketCRIAuto extends OpMode {
         startToBucket = follower.pathBuilder()
             .addPath(new BezierLine(new Pose(0, 0, Math.toRadians(-90)), new Pose(-3.94, -17.72, Math.toRadians(-140))))
                 .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(-140))
+                //.addTemporalCallback(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
+                .addTemporalCallback(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET))))
+                .addTemporalCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .addTemporalCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
             .build();
 
         //builder.addPath(new BezierLine(new Point(0, 0, Point.CARTESIAN), new Point(-3.94, -17.72, Point.CARTESIAN)));
