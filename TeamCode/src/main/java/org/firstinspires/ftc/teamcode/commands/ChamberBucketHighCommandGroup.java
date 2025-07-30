@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 public class ChamberBucketHighCommandGroup extends SequentialCommandGroup {
     public ChamberBucketHighCommandGroup(RobotBase robotBase, ITDCrabEnums.ControlScheme controlScheme){
         if(controlScheme == ITDCrabEnums.ControlScheme.BUCKET){
-            if(robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE) && !robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)) {
+            if(!robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)) {
                 addCommands(
                         new InstantCommand(() -> robotBase.clawSubsystem.openClaw()),
                         new InstantCommand(() -> robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HIGHBASKET)),
@@ -30,7 +30,7 @@ public class ChamberBucketHighCommandGroup extends SequentialCommandGroup {
                         new InstantCommand(() -> robotBase.shoulderSubsystem.stopInPlace())
                 );
             }
-            if(robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE) && robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)){
+            if(robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)){
                 addCommands(
                         new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
                         new InstantCommand(() -> robotBase.intakeSubsystem.intakeOuttake()),
