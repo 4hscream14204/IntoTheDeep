@@ -8,6 +8,7 @@ public class Sweeper extends SubsystemBase {
     public enum SweeperPosition {
         OUT(0),
         MIDDLE (0.85),
+        TELE(0.80),
         HOME(1);
         public final double position;
         SweeperPosition(double value) {
@@ -22,7 +23,7 @@ public class Sweeper extends SubsystemBase {
 
     public Sweeper(Servo sweeperServo) {
         srvSweeper = sweeperServo;
-        servoRange = SweeperPosition.OUT.position - SweeperPosition.HOME.position;
+        servoRange = SweeperPosition.OUT.position - SweeperPosition.TELE.position;
     }
 
 
@@ -30,7 +31,7 @@ public class Sweeper extends SubsystemBase {
 
     public void goToPosition (SweeperPosition m_targetPosition) {
         srvSweeper.setPosition(m_targetPosition.position);
-        if (m_targetPosition == SweeperPosition.HOME) {
+        if (m_targetPosition == SweeperPosition.TELE) {
             sweeperOpen = false;
         } else {
             sweeperOpen = true;
@@ -46,6 +47,6 @@ public class Sweeper extends SubsystemBase {
     }
 
     public void setPosition(double m_targetPosition) {
-        srvSweeper.setPosition(m_targetPosition * servoRange + SweeperPosition.HOME.position);
+        srvSweeper.setPosition(m_targetPosition * servoRange + SweeperPosition.TELE.position);
     }
 }

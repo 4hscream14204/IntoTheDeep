@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Sweeper;
 import org.firstinspires.ftc.teamcode.subsystems.TimerLED;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
-
+@Disabled
 @Autonomous(name = "CRIRedCenterRightx4")
 public class CRIRedRightSpecimen extends OpMode{
     public TelemetryPacket telemetryPacket;

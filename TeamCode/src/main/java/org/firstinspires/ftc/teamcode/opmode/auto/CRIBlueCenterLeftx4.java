@@ -25,8 +25,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Sweeper;
 import org.firstinspires.ftc.teamcode.subsystems.TimerLED;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous(name = "CRIBlueCenterRightx4")
-public class CRIBlueCenterRight extends OpMode{
+@Autonomous(name = "CRIBlueCenterLeftx4")
+public class CRIBlueCenterLeftx4 extends OpMode{
     public TelemetryPacket telemetryPacket;
 
     public Pose2d startPose;
