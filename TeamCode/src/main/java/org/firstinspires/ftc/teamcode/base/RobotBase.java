@@ -54,7 +54,6 @@ public class RobotBase {
     public ElapsedTime timer;
     //public Pose startPose = new Pose(0, 0, 0);
 
-
     public RobotBase(HardwareMap hwMap) {
         timer = new ElapsedTime();
         frontLeftMotor = hwMap.dcMotor.get("leftFront");
