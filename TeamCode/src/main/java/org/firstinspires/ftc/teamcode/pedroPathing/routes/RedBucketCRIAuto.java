@@ -32,18 +32,18 @@ public class RedBucketCRIAuto extends OpMode {
 
     private PathChain startToBucket;
 
-    private final Pose startPose = new Pose(0, 0, Math.toRadians(-90));
-    private final Pose bucketScorePose = new Pose(-3.94, -17.72, Math.toRadians(50));
+    private final Pose startPose = new Pose(14, 61, Math.toRadians(0));
+    private final Pose bucketScorePose = new Pose(55, 56, Math.toRadians(50));
 
     public void buildPaths(){
 
         startToBucket = follower.pathBuilder()
-            .addPath(new BezierLine(new Pose(0, 0, Math.toRadians(-90)), new Pose(-3.94, -17.72, Math.toRadians(-140))))
-                .setLinearHeadingInterpolation(Math.toRadians(-90), Math.toRadians(-140))
+            .addPath(new BezierLine(new Pose(14, 61, Math.toRadians(0)), new Pose(55, 56, Math.toRadians(145))))
+                .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(145))
                 //.addTemporalCallback(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .addTemporalCallback(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET))))
-                .addTemporalCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
-                .addTemporalCallback(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
+                .addTemporalCallback(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .addTemporalCallback(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
             .build();
 
         //builder.addPath(new BezierLine(new Point(0, 0, Point.CARTESIAN), new Point(-3.94, -17.72, Point.CARTESIAN)));
