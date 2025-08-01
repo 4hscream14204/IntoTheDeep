@@ -5,7 +5,6 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
-import org.firstinspires.ftc.teamcode.commands.EjectCommandGroup;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 public class AutoEjectCommandGroup extends SequentialCommandGroup {
