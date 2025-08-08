@@ -11,7 +11,7 @@ public class Elbow extends SubsystemBase {
         PICKUP (0.9666666666666667),
         MAX (1),
         MIN (0),
-        AUTO (0.1888),
+        AUTO (0.5),
         PRESUBPICKUP (0.6777),
         DROPOFF (0.777),
         COLORSENSOREJECT (0.76388),
