@@ -388,6 +388,8 @@ public class CrabTeleOp extends OpMode {
         //telemetry.addData("Right shoulder AMPs", robotBase.shoulderSubsystem.getRightAMP());
         telemetry.addData("ShoulderAMP", robotBase.shoulderSubsystem.getAMP());
         telemetry.addData("GatePosition", robotBase.intakeSubsystem.enmGatePosition);
+        telemetry.addData("RightTrigger", GamepadKeys.Trigger.RIGHT_TRIGGER);
+        telemetry.addData("LeftTrigger", GamepadKeys.Trigger.LEFT_TRIGGER);
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);

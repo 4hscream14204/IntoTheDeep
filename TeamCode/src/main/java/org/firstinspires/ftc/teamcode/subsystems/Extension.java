@@ -51,6 +51,7 @@ public class Extension extends SubsystemBase {
         extendMiddleMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         extendRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         enmExtensionPosition = ExtensionPosition.HOME;
+        extendLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void setPower(double power){
@@ -136,10 +137,7 @@ public class Extension extends SubsystemBase {
     }
 
     public boolean isAtPosition(ExtensionPosition targetPosition){
-        if(Math.abs(extensionGetPosition() - targetPosition.height) <= 50){
-            return true;
-        }
-        return false;
+        return (Math.abs(extensionGetPosition() - targetPosition.height) <= 50);
     }
 
     public boolean isExtensionHome(){
