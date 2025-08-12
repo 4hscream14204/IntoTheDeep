@@ -59,12 +59,12 @@ public class RedBucketCRIAuto extends OpMode {
                 .build();
 
         firstSampleGrab = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(60, 67, Math.toRadians(145)), new Pose(48, 61, Math.toRadians(180))))
+                .addPath(new BezierCurve(new Pose(60, 67, Math.toRadians(145)), new Pose(48, 59, Math.toRadians(180))))
                 .setLinearHeadingInterpolation(Math.toRadians(145), Math.toRadians(180))
                 .build();
 
         secondSampleScore = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(48, 61, Math.toRadians(180)), new Pose(62, 69, Math.toRadians(145))))
+                .addPath(new BezierCurve(new Pose(48, 59, Math.toRadians(180)), new Pose(62, 69, Math.toRadians(145))))
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(145))
                 .build();
     }
