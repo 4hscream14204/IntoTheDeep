@@ -23,6 +23,7 @@ public class Extension extends SubsystemBase {
         HIGHCHAMBERCLAMP (-1100),//-1150
         SECONDLEVELASCENT (-1540/*-2933*/),
         SECONDLEVELASCENTPULL (-50/*-2266*/),
+        AUTOPREINTAKESAMPLE(-700),
         SPECIMENPICKUP(-500);
         public final int height;
         ExtensionPosition(int high){

@@ -20,6 +20,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.AutoInitCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.autocommands.AutoEjectCommandGroup;
 import org.firstinspires.ftc.teamcode.pedroPathing.commands.FollowPath;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
@@ -38,6 +39,7 @@ public class RedBucketCRIAuto extends OpMode {
     public SequentialCommandGroup bucketEject;
     private PathChain startToBucket;
     private PathChain firstSampleGrab;
+    private PathChain secondSampleScore;
 
     private final Pose startPose = new Pose(14, 61, Math.toRadians(0));
 
@@ -57,8 +59,13 @@ public class RedBucketCRIAuto extends OpMode {
                 .build();
 
         firstSampleGrab = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(60, 67, Math.toRadians(145)), new Pose(48, 57, Math.toRadians(180))))
+                .addPath(new BezierCurve(new Pose(60, 67, Math.toRadians(145)), new Pose(48, 61, Math.toRadians(180))))
                 .setLinearHeadingInterpolation(Math.toRadians(145), Math.toRadians(180))
+                .build();
+
+        secondSampleScore = follower.pathBuilder()
+                .addPath(new BezierCurve(new Pose(48, 61, Math.toRadians(180)), new Pose(62, 69, Math.toRadians(145))))
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(145))
                 .build();
     }
 
@@ -86,9 +93,11 @@ public class RedBucketCRIAuto extends OpMode {
         pathTimer = new Timer();
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
-        follower.setStartingPose(startPose);
         buildPaths();
         bucketEject = new SequentialCommandGroup(
+                new InstantCommand(()->follower.setStartingPose(new Pose(14, (61-follower.getYOffset()), 0))),
+                //new InstantCommand(this::buildPaths),
+                //new WaitCommand(250),
                 new FollowPath(follower, startToBucket, false, 1),
                 //new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)),
                 new WaitUntilCommand(()->!follower.isBusy()),
@@ -104,16 +113,29 @@ public class RedBucketCRIAuto extends OpMode {
                 new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                 new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
                 new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
-                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET)),
-                new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.LOWBUCKET)),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.AUTOPREINTAKESAMPLE)),
+                new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.AUTOPREINTAKESAMPLE)),
                 new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME)),
                 new FollowPath(follower, firstSampleGrab, false, 1),
-                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1))
+                new WaitUntilCommand(()->robotBase.shoulderSubsystem.isShoulderHome()),
+                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1)),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
+                new WaitCommand(1000),
+                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
+                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.7)),
+                new FollowPath(follower, secondSampleScore, true, 1),
+                new WaitCommand(1000),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET)),
+                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
+                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
+                new WaitUntilCommand(()->!follower.isBusy() && robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)),
+                new AutoEjectCommandGroup(robotBase)
         );
         CommandScheduler.getInstance().schedule(new AutoInitCommandGroup(robotBase));
     }
     public void init_loop(){
         CommandScheduler.getInstance().run();
+        follower.setStartingPose(startPose);
     }
     public void start(){
         CommandScheduler.getInstance().reset();
@@ -123,11 +145,15 @@ public class RedBucketCRIAuto extends OpMode {
     }
     public void loop(){
         follower.update();
+        //robotBase.intakeSubsystem.getHueValues();
+        robotBase.intakeSubsystem.displaySampleColor();
         //autonomousPathUpdate();
         telemetry.addData("Path State", pathState);
         telemetry.addData("Position", follower.getPose().toString());
         telemetry.addData("X", follower.getPose().getX());
         telemetry.addData("Y", follower.getPose().getY());
+        telemetry.addData("Set Color", robotBase.intakeSubsystem.getHueValues());
+        telemetry.addData("IsRightColor", robotBase.intakeSubsystem.isColor(Intake.ColorList.YELLOW));
         telemetry.update();
         CommandScheduler.getInstance().run();
     }
