@@ -368,28 +368,30 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Elbow isAtPosition", robotBase.elbowSubsystem.isAtPosition(Elbow.ElbowPosition.PRESUBPICKUP));
         telemetry.addData("Wrist isAtPosition", robotBase.wristSubsystem.isAtPosition(Wrist.WristPosition.PRESUBPICKUP));*/
        // telemetry.addData("Arm Right Stick Y", armController.getRightY());
-        telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
+        //telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         /*telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());*/
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
-        /*telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
-        telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
+        telemetry.addData("isExtensionHome", robotBase.extensionSubsystem.isExtensionHome());
+        telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
+        telemetry.addData("isPastMaxPosition", robotBase.extensionSubsystem.isPastMaxPosition());
+        /*telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));*/
         telemetry.addData("Strategy: ", DataStorage.strategy);
         //telemetry.addData("loop time", loopTimer);
         telemetry.addData("Alliance", DataStorage.alliance);
         telemetry.addData("Gyro", robotBase.chassisSubsystem.botPose.h);
-        telemetry.addData("is stalling", robotBase.shoulderSubsystem.isStalling());
+        //telemetry.addData("is stalling", robotBase.shoulderSubsystem.isStalling());
         //telemetry.addData("Hue", robotBase.intakeSubsystem.getHueValues());
         //telemetry.addData("specimens to deliver", robotBase.ledSubsystem.intSpecimensToDeliver);
         telemetry.addData("Timer: ", dblCurrentTime / 1000);
         //telemetry.addData("Left shoulder AMPs", robotBase.shoulderSubsystem.getLeftAMP());
         //telemetry.addData("Right shoulder AMPs", robotBase.shoulderSubsystem.getRightAMP());
-        telemetry.addData("ShoulderAMP", robotBase.shoulderSubsystem.getAMP());
-        telemetry.addData("GatePosition", robotBase.intakeSubsystem.enmGatePosition);
-        telemetry.addData("RightTrigger", GamepadKeys.Trigger.RIGHT_TRIGGER);
-        telemetry.addData("LeftTrigger", GamepadKeys.Trigger.LEFT_TRIGGER);
+        //telemetry.addData("ShoulderAMP", robotBase.shoulderSubsystem.getAMP());
+        //telemetry.addData("GatePosition", robotBase.intakeSubsystem.enmGatePosition);
+        telemetry.addData("RightTrigger", chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+        telemetry.addData("LeftTrigger", chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER));
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);
