@@ -35,6 +35,7 @@ import org.firstinspires.ftc.teamcode.commands.SubPickupReturnCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.SubPickupToggleCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.TeleOpStartCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleAllianceCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.ToggleGateCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleStrategyCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.ToggleSweeperCommandGroup;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
@@ -75,7 +76,7 @@ public class CrabTeleOp extends OpMode {
         } else if(DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED){
             intHeadingFix = -90;
         }*/
-        robotBase.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
+        //robotBase.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
 
         chassisController = new GamepadEx(gamepad1);
         armController = new GamepadEx(gamepad2);
@@ -101,9 +102,9 @@ public class CrabTeleOp extends OpMode {
                         ));*/
 
         chassisController.getGamepadButton(GamepadKeys.Button.DPAD_DOWN)
-                        .whenPressed(()->CommandScheduler.getInstance().schedule(
-                                new SetHeadingDegreesCommandGroup(robotBase, 315)
-                        ));
+                .whenPressed(()->CommandScheduler.getInstance().schedule(
+                        new ToggleGateCommandGroup(robotBase)
+                ));
 
         chassisController.getGamepadButton(GamepadKeys.Button.B)
                 .whenPressed(()->CommandScheduler.getInstance().schedule( new EjectCommandGroup(robotBase)));
@@ -312,7 +313,7 @@ public class CrabTeleOp extends OpMode {
     }*/
     public void start(){
         CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
-        //robotBase.chassisSubsystem.timer.reset();
+        robotBase.chassisSubsystem.timer.reset();
         //robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.otos.getPosition().h));
         //robotBase.chassisSubsystem.disablePIDUse();
         follower.startTeleopDrive();
@@ -322,9 +323,9 @@ public class CrabTeleOp extends OpMode {
         chassisController.readButtons();
         armController.readButtons();
         //double loopTimer = robotBase.chassisSubsystem.timer.milliseconds() - dblCurrentTime;
-        //dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
+        dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
         robotBase.intakeSubsystem.getTime(dblCurrentTime);
-        double botHeading = robotBase.otos.getPosition().h;
+        /*double botHeading = follower.getPose().getHeading();
 
         double chassisLeftStickX = (chassisController.getLeftY() * Math.abs(chassisController.getLeftY()) * -1);
         double chassisLeftStickY = chassisController.getLeftX() * Math.abs(chassisController.getLeftX());
@@ -341,60 +342,14 @@ public class CrabTeleOp extends OpMode {
         robotBase.frontLeftMotor.setPower(dubFrontLeftPower);
         robotBase.backLeftMotor.setPower(dubBackLeftPower);
         robotBase.frontRightMotor.setPower(dubFrontRightPower);
-        robotBase.backRightMotor.setPower(dubBackRightPower);
-
-        //follower.setTeleOpMovementVectors(chassisLeftStickY, -chassisLeftStickX, -chassisRightStickX, false);
-        //follower.update();
-
-        //robotBase.chassisSubsystem.drive(chassisController.getLeftX(), chassisController.getLeftY(), chassisController.getRightX());
-
-        /*double chassisLeftStickX = (chassisController.getLeftY() * Math.abs(chassisController.getLeftY()) * -1);
-        double chassisLeftStickY = chassisController.getLeftX() * Math.abs(chassisController.getLeftX());
-        double chassisRightStickX = chassisController.getRightX() * Math.abs(chassisController.getRightX());
-        double rotX = chassisLeftStickX * Math.cos(-botHeading) - chassisLeftStickY * Math.sin(-botHeading);
-        double rotY = chassisLeftStickX * Math.sin(-botHeading) + chassisLeftStickY * Math.cos(-botHeading);
-
-        if (bolFieldCentric) {
-            dubDenominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(chassisRightStickX), 1);
-            dubFrontLeftPower = (rotY + rotX + chassisRightStickX) / dubDenominator;
-            dubBackLeftPower = (rotY - rotX + chassisRightStickX) / dubDenominator;
-            dubFrontRightPower = (rotY - rotX - chassisRightStickX) / dubDenominator;
-            dubBackRightPower = (rotY + rotX - chassisRightStickX) / dubDenominator;
-        } else {
-            dubDenominator = Math.max(Math.abs(chassisLeftStickX) + Math.abs(chassisLeftStickX) + Math.abs(chassisRightStickX), 1);
-            dubFrontLeftPower = (chassisLeftStickY + chassisLeftStickX + chassisRightStickX) / dubDenominator;
-            dubBackLeftPower = (chassisLeftStickY - chassisLeftStickX + chassisRightStickX) / dubDenominator;
-            dubFrontRightPower = (chassisLeftStickY - chassisLeftStickX - chassisRightStickX) / dubDenominator;
-            dubBackRightPower = (chassisLeftStickY + chassisLeftStickX - chassisRightStickX) / dubDenominator;
-        }
-        robotBase.frontLeftMotor.setPower(dubFrontLeftPower);
-        robotBase.backLeftMotor.setPower(dubBackLeftPower);
-        robotBase.frontRightMotor.setPower(dubFrontRightPower);
         robotBase.backRightMotor.setPower(dubBackRightPower);*/
+
+        follower.setTeleOpMovementVectors(-chassisController.getLeftY(), chassisController.getLeftX(), -chassisController.getRightX(), false);
+        follower.update();
 
         robotBase.ledSubsystem.ledSuggestion(dblCurrentTime);
         robotBase.intakeSubsystem.displaySampleColor();
 
-        /*if(!robotBase.shoulderSubsystem.isShoulderHome()){
-            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERUPPOSITION.height;
-        }
-        else{
-            robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
-        }*/
-
-     //   robotBase.intakeSubsystem.intakeSpeed(((chassisController.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER)-chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER))/2)+0.5);
-
-       /*if(armController.getRightY() > 0.1){
-            robotBase.shoulderSubsystem.goUp(armController.getRightY());
-        }
-
-        if(armController.getRightY() < -0.05 && armController.getRightY() >= -0.3){
-            robotBase.shoulderSubsystem.goDown(armController.getRightY());
-        }
-
-        if(armController.getRightY() <= 0.1 && armController.getRightY() >= -0.1){
-            robotBase.shoulderSubsystem.stopInPlace();
-        }*/
 
         //Connor: I don't think we need these but I commented them just in case.
        /* telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
