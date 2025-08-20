@@ -40,7 +40,9 @@ public class RedBucketCRIAuto extends OpMode {
     private PathChain startToBucket;
     private PathChain firstSampleGrab;
     private PathChain secondSampleScore;
+    private PathChain secondSampleGrab;
 
+    private PathChain thirdSampleScore;
     private final Pose startPose = new Pose(14, 61, Math.toRadians(0));
 
     public void buildPaths(){
@@ -64,7 +66,17 @@ public class RedBucketCRIAuto extends OpMode {
                 .build();
 
         secondSampleScore = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(48, 59, Math.toRadians(180)), new Pose(62, 69, Math.toRadians(145))))
+                .addPath(new BezierCurve(new Pose(48, 59, Math.toRadians(180)), new Pose(57, 66, Math.toRadians(145))))
+                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(145))
+                .build();
+
+        secondSampleGrab = follower.pathBuilder()
+                .addPath(new BezierCurve(new Pose(57, 66, Math.toRadians(145)), new Pose(58, 60, Math.toRadians(180))))
+                .setLinearHeadingInterpolation(Math.toRadians(145), Math.toRadians(180))
+                .build();
+
+        thirdSampleScore = follower.pathBuilder()
+                .addPath(new BezierCurve(new Pose(58, 60, Math.toRadians(180)), new Pose(57, 66, Math.toRadians(145))))
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(145))
                 .build();
     }
@@ -120,14 +132,35 @@ public class RedBucketCRIAuto extends OpMode {
                 new WaitUntilCommand(()->robotBase.shoulderSubsystem.isShoulderHome()),
                 new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1)),
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
-                new WaitCommand(1000),
+                new WaitCommand(750),
                 new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
                 new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.7)),
-                new FollowPath(follower, secondSampleScore, true, 1),
-                new WaitCommand(1000),
-                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET)),
+                new FollowPath(follower, secondSampleScore, false, 1),
                 new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
                 new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
+                new WaitCommand(1000),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET)),
+                new WaitUntilCommand(()->!follower.isBusy() && robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)),
+                new AutoEjectCommandGroup(robotBase),
+                new WaitCommand(500),
+                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.AUTOPREINTAKESAMPLE)),
+                new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.AUTOPREINTAKESAMPLE)),
+                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME)),
+                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.7)),
+                new FollowPath(follower, secondSampleGrab, false, 1),
+                new WaitUntilCommand(()->robotBase.shoulderSubsystem.isShoulderHome()),
+                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1)),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
+                new WaitCommand(750),
+                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
+                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.7)),
+                new FollowPath(follower, secondSampleScore, false, 1),
+                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
+                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
+                new WaitCommand(1000),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET)),
                 new WaitUntilCommand(()->!follower.isBusy() && robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)),
                 new AutoEjectCommandGroup(robotBase)
         );

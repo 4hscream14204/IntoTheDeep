@@ -13,6 +13,7 @@ import com.pedropathing.util.Constants;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
@@ -58,7 +59,7 @@ public class CrabTeleOp extends OpMode {
     public GamepadEx armController;
     public GamepadEx chassisController;
     public boolean bolIsInitLoop = true;
-    double dblCurrentTime;
+    ElapsedTime dblCurrentTime;
     private Follower follower;
     private final Pose startPose = new Pose(0,0,0);
 
@@ -313,7 +314,7 @@ public class CrabTeleOp extends OpMode {
     }*/
     public void start(){
         CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
-        robotBase.chassisSubsystem.timer.reset();
+        //robotBase.chassisSubsystem.timer.reset();
         //robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.otos.getPosition().h));
         //robotBase.chassisSubsystem.disablePIDUse();
         follower.startTeleopDrive();
@@ -323,8 +324,8 @@ public class CrabTeleOp extends OpMode {
         chassisController.readButtons();
         armController.readButtons();
         //double loopTimer = robotBase.chassisSubsystem.timer.milliseconds() - dblCurrentTime;
-        dblCurrentTime = robotBase.chassisSubsystem.timer.milliseconds();
-        robotBase.intakeSubsystem.getTime(dblCurrentTime);
+        //dblCurrentTime =
+        //robotBase.intakeSubsystem.getTime(dblCurrentTime);
         /*double botHeading = follower.getPose().getHeading();
 
         double chassisLeftStickX = (chassisController.getLeftY() * Math.abs(chassisController.getLeftY()) * -1);
@@ -347,7 +348,7 @@ public class CrabTeleOp extends OpMode {
         follower.setTeleOpMovementVectors(-chassisController.getLeftY(), chassisController.getLeftX(), -chassisController.getRightX(), false);
         follower.update();
 
-        robotBase.ledSubsystem.ledSuggestion(dblCurrentTime);
+        //robotBase.ledSubsystem.ledSuggestion(dblCurrentTime);
         robotBase.intakeSubsystem.displaySampleColor();
 
 
@@ -387,7 +388,7 @@ telemetry.addData("Color: ", robotBase.intakeSubsystem.enmColorHue);
         telemetry.addData("Target Right Extension", robotBase.extensionSubsystem.extendRightMotor.getTargetPosition());*/
         //telemetry.addData("Hue", robotBase.intakeSubsystem.getHueValues());
         //telemetry.addData("specimens to deliver", robotBase.ledSubsystem.intSpecimensToDeliver);
-        telemetry.addData("Timer: ", dblCurrentTime / 1000);
+        //telemetry.addData("Timer: ", dblCurrentTime / 1000);
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);
