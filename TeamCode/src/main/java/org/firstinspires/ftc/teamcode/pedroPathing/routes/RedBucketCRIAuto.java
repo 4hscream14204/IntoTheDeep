@@ -21,6 +21,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.AutoInitCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.autocommands.AutoEjectCommandGroup;
+import org.firstinspires.ftc.teamcode.commands.autocommands.AutoRetractAndExtendUpCommandGroup;
 import org.firstinspires.ftc.teamcode.pedroPathing.commands.FollowPath;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
@@ -107,7 +108,7 @@ public class RedBucketCRIAuto extends OpMode {
         follower = new Follower(hardwareMap);
         buildPaths();
         bucketEject = new SequentialCommandGroup(
-                new InstantCommand(()->follower.setStartingPose(new Pose(14, (61-follower.getYOffset()), 0))),
+                new InstantCommand(()->follower.setStartingPose(new Pose(14, (61), 0))),
                 //new InstantCommand(this::buildPaths),
                 //new WaitCommand(250),
                 new FollowPath(follower, startToBucket, false, 1),
@@ -115,12 +116,7 @@ public class RedBucketCRIAuto extends OpMode {
                 new WaitUntilCommand(()->!follower.isBusy()),
                 new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.7)),
                 new WaitCommand(1000),
-                new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
-                new WaitCommand(250),
-                new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake()),
-                new WaitCommand(250),
-                new InstantCommand(()->robotBase.intakeSubsystem.intakeStop()),
-                new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)),
+                new AutoEjectCommandGroup(robotBase),
                 new WaitCommand(500),
                 new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                 new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
@@ -133,13 +129,8 @@ public class RedBucketCRIAuto extends OpMode {
                 new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1)),
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
                 new WaitCommand(750),
-                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
-                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.7)),
+                new AutoRetractAndExtendUpCommandGroup(robotBase),
                 new FollowPath(follower, secondSampleScore, false, 1),
-                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
-                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
-                new WaitCommand(1000),
-                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET)),
                 new WaitUntilCommand(()->!follower.isBusy() && robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)),
                 new AutoEjectCommandGroup(robotBase),
                 new WaitCommand(500),
@@ -154,13 +145,8 @@ public class RedBucketCRIAuto extends OpMode {
                 new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1)),
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
                 new WaitCommand(750),
-                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
-                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.7)),
+                new AutoRetractAndExtendUpCommandGroup(robotBase),
                 new FollowPath(follower, secondSampleScore, false, 1),
-                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
-                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
-                new WaitCommand(1000),
-                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET)),
                 new WaitUntilCommand(()->!follower.isBusy() && robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)),
                 new AutoEjectCommandGroup(robotBase)
         );

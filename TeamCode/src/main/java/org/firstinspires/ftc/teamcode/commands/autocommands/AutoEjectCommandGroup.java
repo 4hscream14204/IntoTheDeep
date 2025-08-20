@@ -12,12 +12,12 @@ public class AutoEjectCommandGroup extends SequentialCommandGroup {
     public AutoEjectCommandGroup(RobotBase robotBase) {
 
         addCommands(
-                    new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
+            new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN)),
             new InstantCommand(() -> robotBase.intakeSubsystem.intakeOuttake()),
-            new WaitCommand(500),
-                    new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
-            new WaitCommand(500),
-                    new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED))
+            new WaitCommand(250),
+            new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
+            new WaitCommand(250),
+            new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED))
         );
 
     }
