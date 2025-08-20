@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
@@ -64,6 +65,7 @@ public class Shoulder extends SubsystemBase {
         dcShoulderMotorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         */
         setPower(0);
+        conShoulderMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
 
@@ -129,7 +131,7 @@ public class Shoulder extends SubsystemBase {
         }
 
     }
-
+/*
     public void goUp(double power){
         if(dcShoulderMotor.getCurrentPosition() > ShoulderPosition.MAXPOSITION.height){
             //dcShoulderMotorLeft
@@ -144,8 +146,8 @@ public class Shoulder extends SubsystemBase {
             dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
           */
-            bolStoppedInPlace = false;
-        }
+           // bolStoppedInPlace = false;
+    /*    }
     }
 
     public void goDown(double power){
@@ -159,10 +161,10 @@ public class Shoulder extends SubsystemBase {
         dcShoulderMotorRight.setPower(power);
         dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        */
+
         bolStoppedInPlace = false;
     }
-
+*/
     public boolean isAtPosition(ShoulderPosition targetPosition){
         if(Math.abs(dcShoulderMotor.getCurrentPosition() - targetPosition.height) <= 30){
             return true;
@@ -178,9 +180,9 @@ public class Shoulder extends SubsystemBase {
         if(isShoulderHome()){
             reset();
         }
-            dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             intCurrentPos = dcShoulderMotor.getCurrentPosition();
-            dcShoulderMotor.setTargetPosition(intCurrentPos);
+            dcShoulderMotor.setTargetPosition(dcShoulderMotor.getCurrentPosition());
+            dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             setPower(0.2);
     }
 
