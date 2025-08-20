@@ -372,9 +372,11 @@ public class CrabTeleOp extends OpMode {
         /*telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());*/
         telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
-        /*telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
+        //telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
-        telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
+        telemetry.addData("Extension Limit Switch Raw Data?", robotBase.extensionSubsystem.tsExtensionLimitSwitch.getState());
+        telemetry.addData("Limit Switch MODE???", robotBase.extensionSubsystem.tsExtensionLimitSwitch.getMode());
+        /*telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));*/
         telemetry.addData("Strategy: ", DataStorage.strategy);
         //telemetry.addData("loop time", loopTimer);
