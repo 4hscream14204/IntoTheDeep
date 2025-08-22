@@ -14,7 +14,7 @@ public class Extension extends SubsystemBase {
 
     public enum ExtensionPosition{
         HOME (0),
-        MAXSHOULDERDOWNPOSITION(-1500),
+        MAXSHOULDERDOWNPOSITION(-1168),
         MAXSHOULDERUPPOSITION (-2933),
         LOWBUCKET (-1020),
         HIGHBUCKET (-2833),
@@ -156,9 +156,13 @@ public class Extension extends SubsystemBase {
         return extendLeftMotor.getCurrentPosition();
     }
 
-    public double getPower(){
+    public double getLeftPower(){
         return extendLeftMotor.getPower();
     }
+
+    public double getRightPower(){return extendRightMotor.getPower();}
+
+    public double getMiddlePower(){return extendMiddleMotor.getPower();}
 
     public int getTargetPosition(){
         return extendLeftMotor.getTargetPosition();

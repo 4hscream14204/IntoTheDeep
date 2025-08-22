@@ -367,12 +367,12 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Elbow Enum: ", robotBase.elbowSubsystem.enmElbowPosition);
         telemetry.addData("Elbow isAtPosition", robotBase.elbowSubsystem.isAtPosition(Elbow.ElbowPosition.PRESUBPICKUP));
         telemetry.addData("Wrist isAtPosition", robotBase.wristSubsystem.isAtPosition(Wrist.WristPosition.PRESUBPICKUP));*/
-        telemetry.addData("Arm Right Stick Y", armController.getRightY());
-        telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.intCurrentPos);
-        telemetry.addData("Shoulder Power", robotBase.shoulderSubsystem.getPower());
+        //telemetry.addData("Arm Right Stick Y", armController.getRightY());
+        telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
+        //telemetry.addData("Shoulder Power", robotBase.shoulderSubsystem.getPower());
         /*telemetry.addData("Shoulder Power" , robotBase.shoulderSubsystem.getPower());
         telemetry.addData("Shoulder Limit Switch", robotBase.shoulderSubsystem.isShoulderHome());*/
-        //telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
+        telemetry.addData("Extension Position", robotBase.extensionSubsystem.extensionGetPosition());
         //telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("Extension Limit Switch Raw Data?", robotBase.extensionSubsystem.tsExtensionLimitSwitch.getState());
@@ -390,12 +390,15 @@ public class CrabTeleOp extends OpMode {
         //telemetry.addData("Left shoulder AMPs", robotBase.shoulderSubsystem.getLeftAMP());
         //telemetry.addData("Right shoulder AMPs", robotBase.shoulderSubsystem.getRightAMP());
         telemetry.addData("ShoulderAMP", robotBase.shoulderSubsystem.getAMP());
-        telemetry.addData("GatePosition", robotBase.intakeSubsystem.enmGatePosition);
+        /*telemetry.addData("GatePosition", robotBase.intakeSubsystem.enmGatePosition);
         telemetry.addData("RightTrigger", GamepadKeys.Trigger.RIGHT_TRIGGER);
-        telemetry.addData("LeftTrigger", GamepadKeys.Trigger.LEFT_TRIGGER);
+        telemetry.addData("LeftTrigger", GamepadKeys.Trigger.LEFT_TRIGGER);*/
         telemetry.addData("isShoulderHome", robotBase.shoulderSubsystem.isShoulderHome());
         telemetry.addData("shoulder stopped", robotBase.shoulderSubsystem.bolStoppedInPlace);
         telemetry.addData("Shoulder target position", robotBase.shoulderSubsystem.dcShoulderMotor.getTargetPosition());
+        telemetry.addData("Right extension power", robotBase.extensionSubsystem.getRightPower());
+        telemetry.addData("Left extension power", robotBase.extensionSubsystem.getLeftPower());
+        telemetry.addData("Middle extension power", robotBase.extensionSubsystem.getMiddlePower());
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);

@@ -21,18 +21,18 @@ public class Shoulder extends SubsystemBase {
 
     public enum ShoulderPosition{
         HOME (0),
-        HIGHCHAMBER (1730),
+        HIGHCHAMBER (2193),
         HIGHCHAMBERCLAMP (1975),
-        NEWHIGHCHAMBER(1060),//2750, 3396
+        NEWHIGHCHAMBER(2093),//2750, 3396
         LOWCHAMBER (680),
         LOWCHAMBERCLAMP (0),
-        NEWLOWCHAMBER(1070),
+        NEWLOWCHAMBER(2093),
         MAXPOSITION (1190),
-        LOWBASKET (1070),
-        HIGHBASKET (1070),
-        TOGGLE (1060),
-        AUTOPARK (1181),
-        SECONDLEVELASCENT (1180);
+        LOWBASKET (2093),
+        HIGHBASKET (2093),
+        TOGGLE (2093),
+        AUTOPARK (2093),
+        SECONDLEVELASCENT (12093);
         public final int height;
         ShoulderPosition(int high){
             this.height = high;
@@ -52,18 +52,13 @@ public class Shoulder extends SubsystemBase {
     public Shoulder(DcMotorEx conShoulderMotor, DigitalChannel conShoulderLimitSwitch) {
         dcShoulderMotor = conShoulderMotor;
         tsShoulderLimitSwitch = conShoulderLimitSwitch;
-       /* dcShoulderMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        dcShoulderMotorLeft.setTargetPosition(0);
-        dcShoulderMotorLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);;
-        dcShoulderMotorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        */
+        dcShoulderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        dcShoulderMotor.setTargetPosition(0);
+        dcShoulderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);;
+        dcShoulderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         enmShoulderPosition = ShoulderPosition.HOME;
-       /* dcShoulderMotorRight.setDirection(DcMotor.Direction.REVERSE);
-        dcShoulderMotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        dcShoulderMotorRight.setTargetPosition(0);
-        dcShoulderMotorRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);;
-        dcShoulderMotorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        */
+
         setPower(0);
         conShoulderMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
