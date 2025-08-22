@@ -5,7 +5,9 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 
 import org.firstinspires.ftc.teamcode.base.RobotBase;
+import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class AutoEjectCommandGroup extends SequentialCommandGroup {
 
@@ -17,7 +19,9 @@ public class AutoEjectCommandGroup extends SequentialCommandGroup {
             new WaitCommand(250),
             new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
             new WaitCommand(250),
-            new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED))
+            new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)),
+            new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
+            new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))
         );
 
     }
