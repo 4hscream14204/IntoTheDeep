@@ -20,11 +20,11 @@ public class Extension extends SubsystemBase {
         HIGHBUCKET (-1841),
         LOWCHAMBER (-500),
         NEWLOWCHAMBERCLAMP (0),
-        HIGHCHAMBER (-1700),//-1870
-        HIGHCHAMBERCLAMP (-1100),//-1150
-        SECONDLEVELASCENT (-1540/*-2933*/),
-        SECONDLEVELASCENTPULL (-50/*-2266*/),
-        SPECIMENPICKUP(-500);
+        HIGHCHAMBER (-1105),//-1870
+        HIGHCHAMBERCLAMP (-715),//-1150
+        SECONDLEVELASCENT (-1001/*-2933*/),
+        SECONDLEVELASCENTPULL (-32/*-2266*/),
+        SPECIMENPICKUP(-325);
         public final int height;
         ExtensionPosition(int high){
             this.height = high;
