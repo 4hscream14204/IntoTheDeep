@@ -164,6 +164,12 @@ public class Extension extends SubsystemBase {
 
     public double getMiddlePower(){return extendMiddleMotor.getPower();}
 
+    public int getMiddlePosition(){return extendMiddleMotor.getCurrentPosition();}
+
+    public int getRightPosition(){return extendRightMotor.getCurrentPosition();}
+
+    public int getLeftPosition(){return extendLeftMotor.getCurrentPosition();}
+
     public int getTargetPosition(){
         return extendLeftMotor.getTargetPosition();
     }

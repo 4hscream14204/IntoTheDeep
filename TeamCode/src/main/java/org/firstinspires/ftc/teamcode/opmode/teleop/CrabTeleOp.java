@@ -385,7 +385,7 @@ public class CrabTeleOp extends OpMode {
         //telemetry.addData("Extension Power", robotBase.extensionSubsystem.getPower());
         telemetry.addData("Extension Limit Switch", robotBase.extensionSubsystem.isExtensionHome());
         telemetry.addData("Extension Limit Switch Raw Data?", robotBase.extensionSubsystem.tsExtensionLimitSwitch.getState());
-        telemetry.addData("Limit Switch MODE???", robotBase.extensionSubsystem.tsExtensionLimitSwitch.getMode());
+        //telemetry.addData("Limit Switch MODE???", robotBase.extensionSubsystem.tsExtensionLimitSwitch.getMode());
         /*telemetry.addData("FieldCentric", robotBase.chassisSubsystem.bolFieldCentric);
         telemetry.addData("Gyro", Math.toDegrees(robotBase.drive.otos.getPosition().h));*/
         telemetry.addData("Strategy: ", DataStorage.strategy);
@@ -395,10 +395,10 @@ public class CrabTeleOp extends OpMode {
         //telemetry.addData("is stalling", robotBase.shoulderSubsystem.isStalling());
         //telemetry.addData("Hue", robotBase.intakeSubsystem.getHueValues());
         //telemetry.addData("specimens to deliver", robotBase.ledSubsystem.intSpecimensToDeliver);
-        telemetry.addData("Timer: ", dblCurrentTime / 1000);
+        //telemetry.addData("Timer: ", dblCurrentTime / 1000);
         //telemetry.addData("Left shoulder AMPs", robotBase.shoulderSubsystem.getLeftAMP());
         //telemetry.addData("Right shoulder AMPs", robotBase.shoulderSubsystem.getRightAMP());
-        telemetry.addData("ShoulderAMP", robotBase.shoulderSubsystem.getAMP());
+        //telemetry.addData("ShoulderAMP", robotBase.shoulderSubsystem.getAMP());
         /*telemetry.addData("GatePosition", robotBase.intakeSubsystem.enmGatePosition);
         telemetry.addData("RightTrigger", GamepadKeys.Trigger.RIGHT_TRIGGER);
         telemetry.addData("LeftTrigger", GamepadKeys.Trigger.LEFT_TRIGGER);*/
@@ -408,6 +408,9 @@ public class CrabTeleOp extends OpMode {
         telemetry.addData("Right extension power", robotBase.extensionSubsystem.getRightPower());
         telemetry.addData("Left extension power", robotBase.extensionSubsystem.getLeftPower());
         telemetry.addData("Middle extension power", robotBase.extensionSubsystem.getMiddlePower());
+        telemetry.addData("Middle extension position", robotBase.extensionSubsystem.getMiddlePosition());
+        telemetry.addData("Right extension position", robotBase.extensionSubsystem.getRightPosition());
+        telemetry.addData("Left extension position", robotBase.extensionSubsystem.getLeftPosition());
         /*telemetry.addData("Current time", dblCurrentTime);
         /*telemetry.addData("margin of error", robotBase.ledSubsystem.dblMarginOfError);
         telemetry.addData("Hang time", robotBase.ledSubsystem.dblEstimatedHangTime);
