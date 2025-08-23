@@ -8,11 +8,7 @@ import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
-import com.pedropathing.pathgen.BezierLine;
-import com.pedropathing.pathgen.Path;
-import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
-import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -31,8 +27,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous(name = "RedLeft")
-public class RedBucketCRIAuto extends OpMode {
+@Autonomous(name = "BucketLeft")
+public class BucketAuto extends OpMode {
     private int pathState;
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
@@ -73,8 +69,8 @@ public class RedBucketCRIAuto extends OpMode {
                 .build();
 
         firstLevelAscent = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(61, 67, Math.toRadians(145)), new Pose(18, 16, Math.toRadians(0))))
-                .setLinearHeadingInterpolation(Math.toRadians(145), Math.toRadians(160))
+                .addPath(new BezierCurve(new Pose(61, 67, Math.toRadians(145)), new Pose(19, 9, Math.toRadians(-90))))
+                .setLinearHeadingInterpolation(Math.toRadians(145), Math.toRadians(-90))
                 .build();
     }
 
