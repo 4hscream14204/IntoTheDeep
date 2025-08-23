@@ -14,10 +14,10 @@ public class Extension extends SubsystemBase {
 
     public enum ExtensionPosition{
         HOME (0),
-        MAXSHOULDERDOWNPOSITION(-1168),
-        MAXSHOULDERUPPOSITION (-2933),
-        LOWBUCKET (-1020),
-        HIGHBUCKET (-2833),
+        MAXSHOULDERDOWNPOSITION(-759),
+        MAXSHOULDERUPPOSITION (-1906),
+        LOWBUCKET (-663),
+        HIGHBUCKET (-1841),
         LOWCHAMBER (-500),
         NEWLOWCHAMBERCLAMP (0),
         HIGHCHAMBER (-1700),//-1870

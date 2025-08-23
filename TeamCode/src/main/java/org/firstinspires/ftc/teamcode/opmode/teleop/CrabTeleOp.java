@@ -247,6 +247,15 @@ public class CrabTeleOp extends OpMode {
                         new InstantCommand(()->robotBase.shoulderSubsystem.stopInPlace())
                 ));
 
+        new Trigger(()->!robotBase.shoulderSubsystem.bolStoppedInPlace)
+                .and(new Trigger(()->robotBase.extensionSubsystem.isExtensionHome()))
+                .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.extensionSubsystem.extend(-1)))
+                )
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
+                ));
+
         /*new Trigger(()->chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0.1)
                 .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
                    new InstantCommand(()->robotBase.extensionSubsystem.extend(-chassisController.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER)))
