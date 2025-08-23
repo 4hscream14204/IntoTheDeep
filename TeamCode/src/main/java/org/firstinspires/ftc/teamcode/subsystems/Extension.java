@@ -52,6 +52,7 @@ public class Extension extends SubsystemBase {
         extendRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         enmExtensionPosition = ExtensionPosition.HOME;
         extendLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        extendMiddleMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void setPower(double power){
