@@ -73,7 +73,7 @@ public class RedBucketCRIAuto extends OpMode {
                 .build();
 
         firstLevelAscent = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(59, 65, Math.toRadians(145)), new Pose(49, 51, Math.toRadians(60))))
+                .addPath(new BezierCurve(new Pose(61, 67, Math.toRadians(145)), new Pose(18, 16, Math.toRadians(0))))
                 .setLinearHeadingInterpolation(Math.toRadians(145), Math.toRadians(160))
                 .build();
     }
@@ -145,18 +145,16 @@ public class RedBucketCRIAuto extends OpMode {
                 new WaitCommand(750),
                 new AutoRetractAndExtendUpCommandGroup(robotBase),
                 new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.HIGHBUCKET)),
-                new FollowPath(follower, thirdSampleScore, true, 0.5),
+                new FollowPath(follower, thirdSampleScore, false, 1),
                 new WaitUntilCommand(()->!follower.isBusy()),
                 new WaitCommand(250),
-                new AutoEjectCommandGroup(robotBase)
-                /*new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.AUTOPREINTAKESAMPLE)),
-                new WaitUntilCommand(()->robotBase.extensionSubsystem.isAtPosition(Extension.ExtensionPosition.AUTOPREINTAKESAMPLE))
-                new FollowPath(follower, thirdSampleGrab, true, 1),
-                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME)),
-                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.7)),
-                new WaitUntilCommand(()->robotBase.shoulderSubsystem.isShoulderHome()),
-                new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(1)),
-                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP))*/
+                new AutoEjectCommandGroup(robotBase),
+                new FollowPath(follower, firstLevelAscent, true, 1),
+                new WaitCommand(250),
+                new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET)),
+                new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
+                new WaitUntilCommand(()->!follower.isBusy()),
+                new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK))
         );
         CommandScheduler.getInstance().schedule(new AutoInitCommandGroup(robotBase));
     }
