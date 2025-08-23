@@ -59,8 +59,9 @@ public class CrabTeleOp extends OpMode {
     public GamepadEx armController;
     public GamepadEx chassisController;
     public boolean bolIsInitLoop = true;
-    ElapsedTime dblCurrentTime;
+    double dblCurrentTime;
     private Follower follower;
+    private ElapsedTime timer;
     private final Pose startPose = new Pose(0,0,0);
 
 
@@ -68,15 +69,15 @@ public class CrabTeleOp extends OpMode {
     public void init() {
         CommandScheduler.getInstance().reset();
         robotBase = new RobotBase(hardwareMap);
-        int intHeadingFix = 180;
-        Constants.setConstants(FConstants.class, LConstants.class);
-        follower = new Follower(hardwareMap);
-        follower.setStartingPose(startPose);
-        /*if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
+        int intHeadingFix = 90;
+        if (DataStorage.alliance == ITDCrabEnums.EnmAlliance.BLUE) {
             intHeadingFix = 90;
         } else if(DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED){
             intHeadingFix = -90;
-        }*/
+        }
+        Constants.setConstants(FConstants.class, LConstants.class);
+        follower = new Follower(hardwareMap);
+        follower.setStartingPose(new Pose(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
         //robotBase.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, DataStorage.dblIMUFinalHeadingRad + Math.toRadians(intHeadingFix)));
 
         chassisController = new GamepadEx(gamepad1);
@@ -324,8 +325,8 @@ public class CrabTeleOp extends OpMode {
         chassisController.readButtons();
         armController.readButtons();
         //double loopTimer = robotBase.chassisSubsystem.timer.milliseconds() - dblCurrentTime;
-        //dblCurrentTime =
-        //robotBase.intakeSubsystem.getTime(dblCurrentTime);
+        dblCurrentTime = timer.milliseconds();
+        robotBase.intakeSubsystem.getTime(dblCurrentTime);
         /*double botHeading = follower.getPose().getHeading();
 
         double chassisLeftStickX = (chassisController.getLeftY() * Math.abs(chassisController.getLeftY()) * -1);
@@ -348,7 +349,7 @@ public class CrabTeleOp extends OpMode {
         follower.setTeleOpMovementVectors(-chassisController.getLeftY(), chassisController.getLeftX(), -chassisController.getRightX(), false);
         follower.update();
 
-        //robotBase.ledSubsystem.ledSuggestion(dblCurrentTime);
+        robotBase.ledSubsystem.ledSuggestion(dblCurrentTime);
         robotBase.intakeSubsystem.displaySampleColor();
 
 

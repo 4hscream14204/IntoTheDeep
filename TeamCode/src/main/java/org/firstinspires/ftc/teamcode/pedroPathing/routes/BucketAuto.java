@@ -14,6 +14,7 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.AutoInitCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.autocommands.AutoEjectCommandGroup;
@@ -178,5 +179,9 @@ public class BucketAuto extends OpMode {
         telemetry.addData("IsRightColor", robotBase.intakeSubsystem.isColor(Intake.ColorList.YELLOW));
         telemetry.update();
         CommandScheduler.getInstance().run();
+    }
+
+    public void stop(){
+        DataStorage.dblIMUFinalHeadingRad = follower.getPose().getHeading();
     }
 }
