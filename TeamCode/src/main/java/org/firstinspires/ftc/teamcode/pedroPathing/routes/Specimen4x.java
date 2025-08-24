@@ -9,6 +9,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
+import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
@@ -37,46 +38,68 @@ public class Specimen4x extends OpMode {
     private RobotBase robotBase;
     public SequentialCommandGroup hangSpecimen;
     private PathChain startToHighChamber;
-    private PathChain firstSampleAlignment;
-    private PathChain firstStepTwoSampleAlignment;
+    private PathChain firstSampleAlignmentPartOne;
+    private PathChain firstSampleAlignmentPartTwo;
+    private PathChain firstSampleAlignmentPartThree;
     private PathChain firstSamplePush;
-    private PathChain secondSampleAlignment;
+    private PathChain secondSampleAlignmentPartOne;
+    private PathChain secondSampleAlignmentPartTwo;
     private PathChain secondSamplePush;
-    private PathChain thirdSampleScore;
-    private PathChain firstLevelAscent;
+    private PathChain  thirdSampleAlignmentPartOne;
+    private PathChain  thirdSampleAlignmentPartTwo;
+    private PathChain  thirdSamplePush;
     private final Pose startPose = new Pose(0, 0, Math.toRadians(0));
 
     public void buildPaths(){
         startToHighChamber = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(0, 0, Math.toRadians(0)), new Pose(12, -20.5, Math.toRadians(0))))
+                .addPath(new BezierCurve(new Pose(0, 0, Math.toRadians(0)), new Pose(12, -25.5, Math.toRadians(0))))
                 .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
                 .build();
 
-        firstSampleAlignment = follower.pathBuilder()
+        firstSampleAlignmentPartOne = follower.pathBuilder()
                 .addPath(new BezierCurve(new Pose(12, -23, Math.toRadians(0)), new Pose(-20, -10, Math.toRadians(90))))
                 .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(90))
-                .addPath(new BezierCurve(new Pose(-20, -10, Math.toRadians(90)), new Pose(-20, -40, Math.toRadians(90))))
+                .build();
+        firstSampleAlignmentPartTwo = follower.pathBuilder()
+                .addPath(new BezierCurve(new Pose(-20, -10, Math.toRadians(90)), new Pose(-35, -25, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
-
-        firstStepTwoSampleAlignment = follower.pathBuilder()
-        .addPath(new BezierCurve(new Pose(-20, -40, Math.toRadians(90)), new Pose(-35, -43, Math.toRadians(90))))
+        firstSampleAlignmentPartThree = follower.pathBuilder()
+                .addPath(new BezierCurve(new Pose(-35, -25, Math.toRadians(90)), new Pose(-48, -45, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
         firstSamplePush = follower.pathBuilder()
-                .addPath(new BezierLine(new Pose(-35,-43, Math.toRadians(90)), new Pose(-35, -5, Math.toRadians(90))))
+                .addPath(new BezierLine(new Pose(-48,-45, Math.toRadians(90)), new Pose(-35, -2, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
 
-        secondSampleAlignment = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-35, -5, Math.toRadians(90)), new Pose(-35, -43, Math.toRadians(90))))
+        secondSampleAlignmentPartOne = follower.pathBuilder()
+                .addPath(new BezierCurve(new Pose(-35, -2, Math.toRadians(90)), new Pose(-35, -45, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
-                .addPath(new BezierCurve(new Pose(-35, -43, Math.toRadians(90)), new Pose(-40, -43, Math.toRadians(90))))
+                .build();
+
+        secondSampleAlignmentPartTwo = follower.pathBuilder()
+                .addPath(new BezierCurve(new Pose(-35, -45, Math.toRadians(90)), new Pose(-50, -45, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
 
         secondSamplePush = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-40,-43, Math.toRadians(90)), new Pose(-40, -5, Math.toRadians(90))))
+                .addPath(new BezierLine(new Pose(-50,-45, Math.toRadians(90)), new Pose(-50, -2, Math.toRadians(90))))
+                .setConstantHeadingInterpolation(Math.toRadians(90))
+                .build();
+
+        thirdSampleAlignmentPartOne = follower.pathBuilder()
+                .addPath(new BezierCurve(new Pose(-50, -2, Math.toRadians(90)), new Pose(-50, -45, Math.toRadians(90))))
+                .setConstantHeadingInterpolation(Math.toRadians(90))
+                .build();
+
+        thirdSampleAlignmentPartTwo = follower.pathBuilder()
+                .addPath(new BezierCurve(new Pose(-50, -45, Math.toRadians(90)), new Pose(-52, -45, Math.toRadians(90))))
+                .setConstantHeadingInterpolation(Math.toRadians(90))
+                .build();
+
+        thirdSamplePush = follower.pathBuilder()
+                .addPath(new BezierLine(new Pose(-52,-45, Math.toRadians(90)), new Pose(-52, -2, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
 
@@ -130,15 +153,19 @@ public class Specimen4x extends OpMode {
                 //new WaitUntilCommand(()->!follower.isBusy())
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME)),
                 new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME)),
-                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.AUTO)),
-                new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP)),
-                new FollowPath(follower, firstSampleAlignment, 1),
-                new FollowPath(follower, firstStepTwoSampleAlignment, 1),
-               // new WaitUntilCommand(()->!follower.isBusy()),
+                new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME)),
+               // new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)),
+                new FollowPath(follower, firstSampleAlignmentPartOne, 1),
+                //new WaitUntilCommand(()->!follower.isBusy()),
+                new FollowPath(follower, firstSampleAlignmentPartTwo, 1),
+                //new WaitUntilCommand(()->!follower.isBusy()),
                 new FollowPath(follower, firstSamplePush, 1),
-                new FollowPath(follower, secondSampleAlignment, 1),
-                new FollowPath(follower, secondSamplePush, 1)
-
+                new FollowPath(follower, secondSampleAlignmentPartOne, 1),
+                new FollowPath(follower, secondSampleAlignmentPartTwo, 1),
+                new FollowPath(follower, secondSamplePush, 1),
+                new FollowPath(follower, thirdSampleAlignmentPartOne, 1),
+                new FollowPath(follower, thirdSampleAlignmentPartTwo, 1),
+                new FollowPath(follower, thirdSamplePush, 1)
                 );
         CommandScheduler.getInstance().schedule(new AutoInitCommandGroup(robotBase));
     }
