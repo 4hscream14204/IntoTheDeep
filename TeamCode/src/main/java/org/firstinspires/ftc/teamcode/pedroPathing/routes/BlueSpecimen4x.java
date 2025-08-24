@@ -4,22 +4,22 @@ import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
-import com.arcrobotics.ftclib.command.WaitUntilCommand;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
-import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.AutoInitCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.autocommands.AutoEjectCommandGroup;
-import org.firstinspires.ftc.teamcode.commands.autocommands.AutoRetractAndExtendUpCommandGroup;
 import org.firstinspires.ftc.teamcode.pedroPathing.commands.FollowPath;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
@@ -27,11 +27,9 @@ import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
-import org.firstinspires.ftc.teamcode.subsystems.Sweeper;
-import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @Autonomous(name = "Specimen4x")
-public class Specimen4x extends OpMode {
+public class BlueSpecimen4x extends OpMode {
     private int pathState;
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
@@ -138,9 +136,19 @@ public class Specimen4x extends OpMode {
         CommandScheduler.getInstance().clearButtons();
         robotBase = new RobotBase(hardwareMap);
         pathTimer = new Timer();
+        GamepadEx baseController = new GamepadEx(gamepad1);
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
         buildPaths();
+        baseController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENSTOCKPILE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENBASICCYCLE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
+
         hangSpecimen = new SequentialCommandGroup(
                 new InstantCommand(()->follower.setStartingPose(new Pose(0, 0, 0))),
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
@@ -168,6 +176,7 @@ public class Specimen4x extends OpMode {
                 new FollowPath(follower, thirdSamplePush, 1)
                 );
         CommandScheduler.getInstance().schedule(new AutoInitCommandGroup(robotBase));
+        robotBase.alliance = ITDCrabEnums.EnmAlliance.BLUE;
     }
     public void init_loop(){
         CommandScheduler.getInstance().run();

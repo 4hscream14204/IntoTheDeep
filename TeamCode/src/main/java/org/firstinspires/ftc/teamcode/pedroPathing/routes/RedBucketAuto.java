@@ -5,6 +5,8 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
+import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
@@ -15,6 +17,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
+import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
 import org.firstinspires.ftc.teamcode.base.RobotBase;
 import org.firstinspires.ftc.teamcode.commands.AutoInitCommandGroup;
 import org.firstinspires.ftc.teamcode.commands.autocommands.AutoEjectCommandGroup;
@@ -29,7 +32,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 @Autonomous(name = "BucketLeft")
-public class BucketAuto extends OpMode {
+public class RedBucketAuto extends OpMode {
     private int pathState;
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
@@ -100,6 +103,15 @@ public class BucketAuto extends OpMode {
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
         buildPaths();
+        GamepadEx baseController = new GamepadEx(gamepad1);
+        baseController.getGamepadButton(GamepadKeys.Button.A)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENSTOCKPILE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.B)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.SPECIMENBASICCYCLE));
+
+        baseController.getGamepadButton(GamepadKeys.Button.X)
+                .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
         bucketEject = new SequentialCommandGroup(
                 new InstantCommand(()->follower.setStartingPose(new Pose(14, 61, 0))),
                 //new InstantCommand(this::buildPaths),
@@ -154,6 +166,7 @@ public class BucketAuto extends OpMode {
                 new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK))
         );
         CommandScheduler.getInstance().schedule(new AutoInitCommandGroup(robotBase));
+        robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
     }
     public void init_loop(){
         CommandScheduler.getInstance().run();
