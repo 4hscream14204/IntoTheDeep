@@ -15,7 +15,7 @@ public class AutoSamplePickUpCommandGroup extends SequentialCommandGroup {
         addCommands(
                 new InstantCommand(()-> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
                 new InstantCommand(()-> robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME)),
-                new InstantCommand(()-> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)),
+                new InstantCommand(()-> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED)),
                 new WaitCommand(250),
                 new InstantCommand(()-> robotBase.intakeSubsystem.intakeSpeed(0.7))
         );

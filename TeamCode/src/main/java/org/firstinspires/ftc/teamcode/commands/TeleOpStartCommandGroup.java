@@ -15,7 +15,7 @@ public class TeleOpStartCommandGroup extends SequentialCommandGroup {
             addCommands(
                     new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
                     new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP)),
-                    new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED))
+                    new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED))
             );
         }
         else{
@@ -25,13 +25,13 @@ public class TeleOpStartCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP)),
                     new WaitCommand(250),
                     new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
-                    new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED))
+                    new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED))
             );
         }
         if(!robotBase.extensionSubsystem.isExtensionHome()){
             addCommands(
                     new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
-                    new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED))
+                    new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED))
             );
         }
     }

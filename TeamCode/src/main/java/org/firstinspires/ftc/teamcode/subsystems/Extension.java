@@ -8,23 +8,24 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 public class Extension extends SubsystemBase {
 
     public DcMotor extendLeftMotor;
+    public DcMotor extendMiddleMotor;
     public DcMotor extendRightMotor;
     public DigitalChannel tsExtensionLimitSwitch;
 
     public enum ExtensionPosition{
         HOME (0),
-        MAXSHOULDERDOWNPOSITION(-1500),
-        MAXSHOULDERUPPOSITION (-2933),
-        LOWBUCKET (-1020),
-        HIGHBUCKET (-2833),
+        MAXSHOULDERDOWNPOSITION(-759),
+        MAXSHOULDERUPPOSITION (-1906),
+        LOWBUCKET (-663),
+        HIGHBUCKET (-1841),
         LOWCHAMBER (-500),
         NEWLOWCHAMBERCLAMP (0),
-        HIGHCHAMBER (-1700),//-1870
-        HIGHCHAMBERCLAMP (-1100),//-1150
-        SECONDLEVELASCENT (-1540/*-2933*/),
-        SECONDLEVELASCENTPULL (-50/*-2266*/),
+        HIGHCHAMBER (-1105),//-1870
+        HIGHCHAMBERCLAMP (-715),//-1150
+        SECONDLEVELASCENT (-1001/*-2933*/),
+        SECONDLEVELASCENTPULL (-32/*-2266*/),
         AUTOPREINTAKESAMPLE(-700),
-        SPECIMENPICKUP(-500);
+        SPECIMENPICKUP(-325);
         public final int height;
         ExtensionPosition(int high){
             this.height = high;
@@ -39,30 +40,37 @@ public class Extension extends SubsystemBase {
 
     public ExtensionPosition enmExtensionPosition;
 
-    public Extension(DcMotor m_extensionLeftMotor, DcMotor m_extensionRightMotor, DigitalChannel m_TsExtensionLimitSwitch) {
+    public Extension(DcMotor m_extensionLeftMotor, DcMotor m_extensionMiddleMotor,DcMotor m_extensionRightMotor, DigitalChannel m_TsExtensionLimitSwitch) {
         extendLeftMotor = m_extensionLeftMotor;
+        extendMiddleMotor = m_extensionMiddleMotor;
         extendRightMotor = m_extensionRightMotor;
         tsExtensionLimitSwitch = m_TsExtensionLimitSwitch;
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setTargetPosition(0);
         setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         extendLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        extendMiddleMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         extendRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         enmExtensionPosition = ExtensionPosition.HOME;
+        extendLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        extendMiddleMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void setPower(double power){
         extendLeftMotor.setPower(power);
+        extendMiddleMotor.setPower(power);
         extendRightMotor.setPower(power);
     }
 
     public void setTargetPosition(int position){
         extendLeftMotor.setTargetPosition(position);
+        extendMiddleMotor.setTargetPosition(position);
         extendRightMotor.setTargetPosition(position);
     }
 
     public void setMode(DcMotor.RunMode mode){
         extendLeftMotor.setMode(mode);
+        extendMiddleMotor.setMode(mode);
         extendRightMotor.setMode(mode);
     }
 
@@ -95,7 +103,7 @@ public class Extension extends SubsystemBase {
 
 
     public void goToPosition(ExtensionPosition enmTargetPosition) {
-       if(extensionGetPosition() < enmTargetPosition.height){
+        if(extensionGetPosition() < enmTargetPosition.height){
             enmExtensionPosition = enmTargetPosition;
             setPower(dblDownPower);
         }
@@ -131,10 +139,7 @@ public class Extension extends SubsystemBase {
     }
 
     public boolean isAtPosition(ExtensionPosition targetPosition){
-        if(Math.abs(extensionGetPosition() - targetPosition.height) <= 50){
-            return true;
-        }
-        return false;
+        return (Math.abs(extensionGetPosition() - targetPosition.height) <= 50);
     }
 
     public boolean isExtensionHome(){
@@ -153,9 +158,19 @@ public class Extension extends SubsystemBase {
         return extendLeftMotor.getCurrentPosition();
     }
 
-    public double getPower(){
+    public double getLeftPower(){
         return extendLeftMotor.getPower();
     }
+
+    public double getRightPower(){return extendRightMotor.getPower();}
+
+    public double getMiddlePower(){return extendMiddleMotor.getPower();}
+
+    public int getMiddlePosition(){return extendMiddleMotor.getCurrentPosition();}
+
+    public int getRightPosition(){return extendRightMotor.getCurrentPosition();}
+
+    public int getLeftPosition(){return extendLeftMotor.getCurrentPosition();}
 
     public int getTargetPosition(){
         return extendLeftMotor.getTargetPosition();

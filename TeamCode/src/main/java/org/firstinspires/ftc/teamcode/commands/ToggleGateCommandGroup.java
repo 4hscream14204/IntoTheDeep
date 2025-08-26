@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class ToggleGateCommandGroup extends SequentialCommandGroup {
     public ToggleGateCommandGroup(RobotBase robotBase) {
-        if (robotBase.intakeSubsystem.isAtPosition(Intake.GatePosition.ClOSED)){
+        if (robotBase.intakeSubsystem.isAtPosition(Intake.GatePosition.CLOSED)){
             addCommands(
                     new InstantCommand(() -> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
                     new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
@@ -28,7 +28,7 @@ public class ToggleGateCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF)),
                     new InstantCommand(() -> robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE)),
                     new WaitUntilCommand(() -> robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE)),
-                    new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)));
+                    new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED)));
         }
     }
 }

@@ -84,6 +84,7 @@ public class CrabTeleOp extends OpMode {
         armController = new GamepadEx(gamepad2);
         robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
 
+        timer = new ElapsedTime();
 
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
@@ -211,12 +212,12 @@ public class CrabTeleOp extends OpMode {
         //high Chamber button combo
         armController.getGamepadButton(GamepadKeys.Button.Y)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(()->CommandScheduler.getInstance().schedule(new ChamberCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWHIGHCHAMBER, Extension.ExtensionPosition.HIGHCHAMBER, Extension.ExtensionPosition.HIGHCHAMBERCLAMP)));
+                .whenActive(()->CommandScheduler.getInstance().schedule(new ChamberCommandGroup(robotBase, Shoulder.ShoulderPosition.HIGHCHAMBER, Extension.ExtensionPosition.HIGHCHAMBER, Extension.ExtensionPosition.HIGHCHAMBERCLAMP)));
 
         //high Low button combo
         armController.getGamepadButton(GamepadKeys.Button.B)
                 .and(new GamepadButton(armController, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenActive(()->CommandScheduler.getInstance().schedule( new ChamberCommandGroup(robotBase, Shoulder.ShoulderPosition.NEWLOWCHAMBER, Extension.ExtensionPosition.LOWCHAMBER, Extension.ExtensionPosition.HOME)));
+                .whenActive(()->CommandScheduler.getInstance().schedule( new ChamberCommandGroup(robotBase, Shoulder.ShoulderPosition.LOWCHAMBER, Extension.ExtensionPosition.LOWCHAMBER, Extension.ExtensionPosition.HOME)));
 
         armController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                 .whenPressed(
@@ -288,6 +289,15 @@ public class CrabTeleOp extends OpMode {
         new Trigger(()->robotBase.intakeSubsystem.isRightColor())
                 .whenActive(()->CommandScheduler.getInstance().schedule(new SubPickupReturnCommandGroup(robotBase)));
 
+        new Trigger(()->!robotBase.shoulderSubsystem.bolStoppedInPlace)
+                .and(new Trigger(()->robotBase.extensionSubsystem.isExtensionHome()))
+                .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.extensionSubsystem.extend(-1)))
+                )
+                .whenInactive(()->CommandScheduler.getInstance().schedule(
+                        new InstantCommand(()->robotBase.extensionSubsystem.stopInPlace())
+                ));
+
        /* new Trigger(()->robotBase.intakeSubsystem.isBlueSample() && DataStorage.alliance == ITDCrabEnums.EnmAlliance.RED)
                 .whenActive(
                         new SampleOuttakeCommandGroup(robotBase)
@@ -357,7 +367,7 @@ public class CrabTeleOp extends OpMode {
        /* telemetry.addData("Chassis Left Stick Y", chassisLeftStickY);
         telemetry.addData("Chassis Left Stick X", chassisLeftStickX);
         telemetry.addData("Chassis Right Stick X", chassisRightStickX);*/
-telemetry.addData("Color: ", robotBase.intakeSubsystem.enmColorHue);
+        telemetry.addData("Color: ", robotBase.intakeSubsystem.getHueValues());
         //telemetry.addData("Elbow", robotBase.elbowSubsystem.getPosition());
        // telemetry.addData("Wrist", robotBase.wristSubsystem.getPosition());
         /*telemetry.addData("Wrist Enum: ", robotBase.wristSubsystem.enmWristPosition);

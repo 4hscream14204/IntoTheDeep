@@ -6,15 +6,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Elbow extends SubsystemBase {
 
     public enum ElbowPosition {
-        HOME (0.36111),
-        INIT (0.32),
-        PICKUP (0.9666666666666667),
+        HOME (0.2311),
+        INIT (0.2311),
+        PICKUP (1),
         MAX (1),
         MIN (0),
-        AUTO (0.5),
-        PRESUBPICKUP (0.6777),
-        DROPOFF (0.777),
-        COLORSENSOREJECT (0.76388),
+        AUTO (0.18333),
+        PRESUBPICKUP (0.7238),
+        DROPOFF (0.6288),
+        AUTODROPOFF (0.8),
+        COLORSENSOREJECT (0.80444),
         GIVETOHUMAN (0.6777);
         public final double value;
         ElbowPosition(double m_pos){
@@ -28,7 +29,7 @@ public class Elbow extends SubsystemBase {
 
     public Elbow(Servo conElbowServo) {
         elbowServo = conElbowServo;
-      //  goToPosition(ElbowPosition.INIT);
+        //  goToPosition(ElbowPosition.INIT);
         enmElbowPosition = ElbowPosition.HOME;
     }
 

@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 
-@Autonomous(name = "Specimen4x")
+@Autonomous(name = "BlueSpecimen4x")
 public class BlueSpecimen4x extends OpMode {
     private int pathState;
     private Follower follower;

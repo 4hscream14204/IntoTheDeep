@@ -19,7 +19,7 @@ public class AutoEjectCommandGroup extends SequentialCommandGroup {
             new WaitCommand(250),
             new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
             new WaitCommand(250),
-            new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED)),
+            new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED)),
             new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
             new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))
         );

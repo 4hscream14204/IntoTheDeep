@@ -19,7 +19,7 @@ public class AutoInitCommandGroup extends SequentialCommandGroup {
                 new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK)),
                 new WaitUntilCommand(()->robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.AUTOPARK)),
                 new InstantCommand(()->robotBase.shoulderSubsystem.setPower(0.0)),
-                new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.ClOSED))
+                new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED))
         );
     }
 }
