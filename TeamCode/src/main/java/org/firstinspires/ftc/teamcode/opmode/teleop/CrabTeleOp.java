@@ -84,7 +84,7 @@ public class CrabTeleOp extends OpMode {
         armController = new GamepadEx(gamepad2);
         robotBase.extensionSubsystem.intMaxPosition = Extension.ExtensionPosition.MAXSHOULDERDOWNPOSITION.height;
 
-
+        timer = new ElapsedTime();
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(

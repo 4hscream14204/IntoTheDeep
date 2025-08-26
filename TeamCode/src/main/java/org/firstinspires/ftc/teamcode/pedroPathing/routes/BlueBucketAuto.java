@@ -31,7 +31,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
-@Autonomous(name = "BucketLeft")
+@Autonomous(name = "BlueBucketLeft")
 public class BlueBucketAuto extends OpMode {
     private int pathState;
     private Follower follower;
