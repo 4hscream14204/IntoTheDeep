@@ -325,7 +325,7 @@ public class CrabTeleOp extends OpMode {
     }*/
     public void start(){
         CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
-        //robotBase.chassisSubsystem.timer.reset();
+        robotBase.chassisSubsystem.timer.reset();
         //robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.otos.getPosition().h));
         //robotBase.chassisSubsystem.disablePIDUse();
         follower.startTeleopDrive();
@@ -387,6 +387,7 @@ public class CrabTeleOp extends OpMode {
         //telemetry.addData("loop time", loopTimer);
         telemetry.addData("Alliance", DataStorage.alliance);
         telemetry.addData("Heading in Degrees", Math.toDegrees(follower.getPose().getHeading()));
+        telemetry.addData("Specimens delivered", robotBase.ledSubsystem.intSpecimensToDeliver);
         //telemetry.addData("PID", robotBase.chassisSubsystem.isInPIDControl);
        // telemetry.addData("IsInPIDControl", robotBase.chassisSubsystem.isInPIDControl);
         //telemetry.addData("Current Target Heading", Math.toDegrees(robotBase.chassisSubsystem.dblTargetHeading));
