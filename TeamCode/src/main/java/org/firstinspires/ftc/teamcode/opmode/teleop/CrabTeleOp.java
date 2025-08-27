@@ -325,7 +325,7 @@ public class CrabTeleOp extends OpMode {
     }*/
     public void start(){
         CommandScheduler.getInstance().schedule(new TeleOpStartCommandGroup(robotBase));
-        robotBase.chassisSubsystem.timer.reset();
+        timer.reset();
         //robotBase.chassisSubsystem.setTargetDegrees(Math.toDegrees(robotBase.otos.getPosition().h));
         //robotBase.chassisSubsystem.disablePIDUse();
         follower.startTeleopDrive();
