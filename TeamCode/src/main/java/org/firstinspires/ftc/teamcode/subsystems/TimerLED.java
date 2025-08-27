@@ -26,7 +26,7 @@ public class TimerLED extends SubsystemBase {
         Colors(double m_color){this.value = m_color;}
     }
 
-    public double dblEstimatedCycleTime = 6000;
+    public double dblEstimatedCycleTime = 9000;
     public int intSpecimensToDeliver = 0;
     public double dblEstimatedHangTime = 5000;
     public double dblMarginOfError = 3000;
