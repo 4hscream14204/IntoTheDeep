@@ -176,7 +176,7 @@ public class BlueBucketAuto extends OpMode {
         CommandScheduler.getInstance().reset();
         CommandScheduler.getInstance().cancelAll();
         CommandScheduler.getInstance().clearButtons();
-        follower.setPose(new Pose(0, 0, Math.toRadians(0)));
+        follower.setPose(new Pose(14, 61, Math.toRadians(0)));
         CommandScheduler.getInstance().schedule(bucketEject);
     }
     public void loop(){
