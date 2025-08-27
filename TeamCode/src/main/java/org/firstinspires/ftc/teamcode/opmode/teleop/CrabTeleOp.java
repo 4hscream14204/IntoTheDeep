@@ -153,10 +153,10 @@ public class CrabTeleOp extends OpMode {
                                 ()->CommandScheduler.getInstance().schedule(new ToggleStrategyCommandGroup()
                                 ));
 
-        chassisController.getGamepadButton(GamepadKeys.Button.A)
+        /*chassisController.getGamepadButton(GamepadKeys.Button.A)
                         .whenPressed(
                                 ()->CommandScheduler.getInstance().schedule(new SetHeadingDegreesCommandGroup(robotBase, 0))
-                        );
+                        );*/
 
        /* chassisController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .toggleWhenPressed(
@@ -289,7 +289,7 @@ public class CrabTeleOp extends OpMode {
         new Trigger(()->robotBase.intakeSubsystem.isRightColor())
                 .whenActive(()->CommandScheduler.getInstance().schedule(new SubPickupReturnCommandGroup(robotBase)));
 
-        new Trigger(()->!robotBase.shoulderSubsystem.bolStoppedInPlace)
+        new Trigger(()->!robotBase.shoulderSubsystem.bolStoppedInPlace && !robotBase.shoulderSubsystem.isShoulderHome())
                 .and(new Trigger(()->robotBase.extensionSubsystem.isExtensionHome()))
                 .whileActiveContinuous(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.extensionSubsystem.extend(-1)))

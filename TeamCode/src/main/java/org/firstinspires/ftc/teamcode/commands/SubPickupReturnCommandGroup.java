@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class SubPickupReturnCommandGroup extends SequentialCommandGroup {
     public SubPickupReturnCommandGroup(RobotBase robotBase) {
-        if(DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE || DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENBASICCYCLE) {
+        if(DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENBASICCYCLE) {
             addCommands(
                     new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP)),
                     new InstantCommand(() -> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
@@ -27,6 +27,14 @@ public class SubPickupReturnCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(() -> robotBase.clawSubsystem.openClaw()),
                     new WaitUntilCommand(() -> robotBase.shoulderSubsystem.isAtPosition(Shoulder.ShoulderPosition.TOGGLE)),
                     new InstantCommand(() -> robotBase.shoulderSubsystem.stopInPlace())
+            );
+        }
+        if(DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE){
+            addCommands(
+                    new InstantCommand(() -> robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PRESUBPICKUP)),
+                    new InstantCommand(() -> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP)),
+                    new ExtensionHomeCommandGroup(robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem),
+                    new InstantCommand(()->robotBase.clawSubsystem.openClaw())
             );
         }
         else{

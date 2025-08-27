@@ -4,6 +4,8 @@ import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.arcrobotics.ftclib.command.WaitUntilCommand;
+import com.pedropathing.follower.Follower;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
 import org.firstinspires.ftc.teamcode.base.ITDCrabEnums;
@@ -16,9 +18,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 public class SpecimenWallPickUpCommandGroup extends SequentialCommandGroup {
 public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, Claw claw, Extension extension, Elbow elbow, Wrist wrist){
-    if (!shoulder.isShoulderHome() && extension.isExtensionHome() && DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENBASICCYCLE){
+    if (!shoulder.isShoulderHome() && !extension.isExtensionHome() && !extension.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER) && DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENBASICCYCLE){
         addCommands(
-                new GyroResetCommandGroup(robotBase),
                 new InstantCommand(claw::closeClaw),
                 new WaitCommand(250),
                 new InstantCommand(()->extension.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
@@ -49,9 +50,7 @@ public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, C
                 new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
                 new InstantCommand(claw::openClaw),
                 //new WaitCommand(250),
-                new InstantCommand(()->shoulder.goToPosition(Shoulder.ShoulderPosition.HIGHCHAMBER)),
-                new WaitUntilCommand(()->shoulder.isAtPosition(Shoulder.ShoulderPosition.HIGHCHAMBER)),
-                new InstantCommand(()->shoulder.stopInPlace())
+                new InstantCommand(()->shoulder.goToPosition(Shoulder.ShoulderPosition.HIGHCHAMBER))
         );
     }
 }

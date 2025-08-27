@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
+import org.firstinspires.ftc.teamcode.subsystems.Wrist;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -54,7 +55,9 @@ public class EjectCommandGroup extends SequentialCommandGroup {
                     new WaitCommand(200),
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED)),
-                    new InstantCommand(() -> robotBase.clawSubsystem.openClaw())
+                    new InstantCommand(() -> robotBase.clawSubsystem.openClaw()),
+                    new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                    new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))
             );
         }
         else{
