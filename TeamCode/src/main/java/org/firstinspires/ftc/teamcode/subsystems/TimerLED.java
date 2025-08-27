@@ -28,7 +28,7 @@ public class TimerLED extends SubsystemBase {
 
     public double dblEstimatedCycleTime = 9000;
     public int intSpecimensToDeliver = 0;
-    public double dblEstimatedHangTime = 5000;
+    public double dblEstimatedHangTime = 7000;
     public double dblMarginOfError = 3000;
     public TimerLED.Colors enmColorHue;
 
