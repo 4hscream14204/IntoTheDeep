@@ -178,7 +178,7 @@ public class Shoulder extends SubsystemBase {
         intCurrentPos = dcShoulderMotor.getCurrentPosition();
         dcShoulderMotor.setTargetPosition(dcShoulderMotor.getCurrentPosition());
         dcShoulderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        setPower(0.2);
+        setPower(0.4);
     }
 
     public int shoulderGetPosition(){
