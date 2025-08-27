@@ -89,7 +89,7 @@ public class CrabTeleOp extends OpMode {
 
         chassisController.getGamepadButton(GamepadKeys.Button.START)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
-                        new InstantCommand(() -> robotBase.otos.setPosition(new SparkFunOTOS.Pose2D(0, 0, Math.toRadians(0)))
+                        new InstantCommand(() -> follower.setPose(new Pose(0, 0, Math.toRadians(0)))
                         )));
         chassisController.getGamepadButton(GamepadKeys.Button.BACK)
                 .whenPressed(() -> CommandScheduler.getInstance().schedule(
@@ -131,10 +131,10 @@ public class CrabTeleOp extends OpMode {
                 .whenInactive(()->CommandScheduler.getInstance().schedule(
                         new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())
                 ));
-        chassisController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
+        /*chassisController.getGamepadButton(GamepadKeys.Button.DPAD_UP)
                         .whenPressed(
                                 ()->CommandScheduler.getInstance().schedule(new SpecimenWallPickUpCommandGroup(robotBase, robotBase.shoulderSubsystem, robotBase.clawSubsystem, robotBase.extensionSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem))
-                        );
+                        );*/
 
         chassisController.getGamepadButton(GamepadKeys.Button.DPAD_LEFT)
                         .whenPressed(

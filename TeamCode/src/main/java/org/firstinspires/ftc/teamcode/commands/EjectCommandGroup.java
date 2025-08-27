@@ -66,7 +66,6 @@ public class EjectCommandGroup extends SequentialCommandGroup {
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeOuttake()),
                     new WaitCommand(500),
                     new InstantCommand(() -> robotBase.intakeSubsystem.intakeStop()),
-                    new WaitCommand(500),
                     new InstantCommand(() -> robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.CLOSED)),
                     new InstantCommand(()-> robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PICKUP)),
                     new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME)),
