@@ -12,6 +12,7 @@ import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.PathChain;
+import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -53,92 +54,100 @@ public class RedSpecimen4x extends OpMode {
     private PathChain firstSpecimenHangPartTwo;
     private PathChain secondSpecimenPickUp;
     private PathChain secondSpecimenHang;
+    private PathChain secondSpecimenHangPartTwo;
     private final Pose startPose = new Pose(0, 0, Math.toRadians(0));
 
     public void buildPaths(){
         startToHighChamber = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(0, 0, Math.toRadians(0)), new Pose(12, -25.5, Math.toRadians(0))))
+                .addPath(new BezierCurve(new Pose(0, 0, Math.toRadians(0)), new Pose(12, -35.5, Math.toRadians(0))))
                 .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(0))
                 .build();
 
+
+
+        /*
+         .addPath(
+        // Line 1
+        new BezierCurve(
+          new Point(4.440, 40.150, Point.CARTESIAN),
+          new Point(73.351, 25.673, Point.CARTESIAN),
+          new Point(68.718, 7.914, Point.CARTESIAN),
+          new Point(79.914, 4.440, Point.CARTESIAN),
+          new Point(4.826, 9.845, Point.CARTESIAN)
+        )
+      )
+         */
         firstSampleAlignmentPartOne = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(12, -23, Math.toRadians(0)), new Pose(-20, -10, Math.toRadians(90))))
+                .addPath(new BezierCurve(new Pose(12, -35.5, Math.toRadians(0)), new Pose(-20, -13, Math.toRadians(90))))
                 .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(90))
                 .build();
         firstSampleAlignmentPartTwo = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-20, -10, Math.toRadians(90)), new Pose(-25, -48, Math.toRadians(90))))
+                .addPath(new BezierCurve(new Pose(-20, -13, Math.toRadians(90)), new Pose(-25, -56, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
         firstSampleAlignmentPartThree = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-25, -48, Math.toRadians(90)), new Pose(-48, -45, Math.toRadians(90))))
+                .addPath(new BezierCurve(new Pose(-25, -56, Math.toRadians(90)), new Pose(-37, -56, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
         firstSamplePush = follower.pathBuilder()
-                .addPath(new BezierLine(new Pose(-48,-45, Math.toRadians(90)), new Pose(-33, -2, Math.toRadians(90))))
+                .addPath(new BezierLine(new Pose(-37,-54, Math.toRadians(90)), new Pose(-37, -5, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
 
         secondSampleAlignmentPartOne = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-33, -2, Math.toRadians(90)), new Pose(-35, -45, Math.toRadians(90))))
+                .addPath(new BezierCurve(new Pose(-37, -5, Math.toRadians(90)), new Pose(-33, -52, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
 
         secondSampleAlignmentPartTwo = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-35, -45, Math.toRadians(90)), new Pose(-40, -45, Math.toRadians(90))))
+                .addPath(new BezierCurve(new Pose(-33, -52, Math.toRadians(90)), new Pose(-42, -50, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
 
         secondSamplePush = follower.pathBuilder()
-                .addPath(new BezierLine(new Pose(-40,-45, Math.toRadians(90)), new Pose(-40, -2, Math.toRadians(90))))
+                .addPath(new BezierLine(new Pose(-42,-50, Math.toRadians(90)), new Pose(-40, -5, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
 
         thirdSampleAlignmentPartOne = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-40, -2, Math.toRadians(90)), new Pose(-40, -45, Math.toRadians(90))))
+                .addPath(new BezierCurve(new Pose(-40, -5, Math.toRadians(90)), new Pose(-40, -48, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
 
         thirdSampleAlignmentPartTwo = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-40, -45, Math.toRadians(90)), new Pose(-50, -45, Math.toRadians(90))))
+                .addPath(new BezierCurve(new Pose(-40, -50, Math.toRadians(90)), new Pose(-50, -50, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
 
         thirdSamplePush = follower.pathBuilder()
-                .addPath(new BezierLine(new Pose(-50,-45, Math.toRadians(90)), new Pose(-50, -2, Math.toRadians(90))))
+                .addPath(new BezierLine(new Pose(-50,-48, Math.toRadians(90)), new Pose(-49, -5, Math.toRadians(90))))
                 .setConstantHeadingInterpolation(Math.toRadians(90))
                 .build();
         firstSpecimenPickUp = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-50,-2, Math.toRadians(90)), new Pose(-28, 10, Math.toRadians(180))))
+                .addPath(new BezierCurve(new Pose(-49,-5, Math.toRadians(90)), new Pose(-28, 3, Math.toRadians(180))))
                 .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(180))
                 .build();
         firstSpecimenHang = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-28,-10, Math.toRadians(180)), new Pose(13, -20.0, Math.toRadians(0))))
+                .addPath(new BezierCurve(new Pose(-28,-13, Math.toRadians(180)), new Pose(13, -18.0, Math.toRadians(0))))
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(0))
                 .build();
         firstSpecimenHangPartTwo = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-28,-10, Math.toRadians(180)), new Pose(13, -27.0, Math.toRadians(0))))
+                .addPath(new BezierCurve(new Pose(-28,-23, Math.toRadians(180)), new Pose(13, -42.0, Math.toRadians(0))))
                 .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
         secondSpecimenPickUp = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(13,-27, Math.toRadians(0)), new Pose(-28, 10, Math.toRadians(180))))
+                .addPath(new BezierCurve(new Pose(13,-38, Math.toRadians(0)), new Pose(-28, 4, Math.toRadians(180))))
                 .setLinearHeadingInterpolation(Math.toRadians(0), Math.toRadians(180))
                 .build();
         secondSpecimenHang = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(-28,-10, Math.toRadians(180)), new Pose(11, -27.0, Math.toRadians(0))))
+                .addPath(new BezierCurve(new Pose(-28,0, Math.toRadians(180)), new Pose(11, -18.0, Math.toRadians(0))))
                 .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(0))
                 .build();
-
-       /* thirdSampleScore = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(58, 60, Math.toRadians(180)), new Pose(61, 67, Math.toRadians(145))))
-                .setLinearHeadingInterpolation(Math.toRadians(180), Math.toRadians(145))
+        secondSpecimenHangPartTwo = follower.pathBuilder()
+                .addPath(new BezierCurve(new Pose(11,-18, Math.toRadians(180)), new Pose(11, -38.0, Math.toRadians(0))))
+                .setConstantHeadingInterpolation(Math.toRadians(0))
                 .build();
 
-        firstLevelAscent = follower.pathBuilder()
-                .addPath(new BezierCurve(new Pose(61, 67, Math.toRadians(145)), new Pose(19, 9, Math.toRadians(-90))))
-                .setLinearHeadingInterpolation(Math.toRadians(145), Math.toRadians(-90))
-                .build();
-
-        */
     }
 
     public void setPathState(int pState) {
@@ -176,43 +185,55 @@ public class RedSpecimen4x extends OpMode {
         baseController.getGamepadButton(GamepadKeys.Button.X)
                 .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
         hangSpecimen = new SequentialCommandGroup(
+                new InstantCommand(()->robotBase.shoulderSubsystem.stopInPlace()),
                 new InstantCommand(()->follower.setStartingPose(new Pose(0, 0, 0))),
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
-                new FollowPath(follower, startToHighChamber, 1),
+                new FollowPath(follower, startToHighChamber, false, 1),
                 new WaitCommand(500),
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
                 new WaitCommand(250),
                 new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
-                new WaitCommand(500),
+                new WaitCommand(250),
                 //new WaitUntilCommand(()->!follower.isBusy())
+                new InstantCommand(()->robotBase.shoulderSubsystem.stopInPlace()),
+                //new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK)),
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME)),
                // new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME)),
               //  new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.HOME)),
                // new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME)),
-                new FollowPath(follower, firstSampleAlignmentPartOne, 1),
+                new FollowPath(follower, firstSampleAlignmentPartOne, false, 1),
                 //new WaitUntilCommand(()->!follower.isBusy()),
-                new FollowPath(follower, firstSampleAlignmentPartTwo, 1),
+                new FollowPath(follower, firstSampleAlignmentPartTwo, false, 1),
                 //new WaitUntilCommand(()->!follower.isBusy()),
-                new FollowPath(follower, firstSamplePush, 1),
-                new FollowPath(follower, secondSampleAlignmentPartOne, 1),
-                new FollowPath(follower, secondSampleAlignmentPartTwo, 1),
-                new FollowPath(follower, secondSamplePush, 1),
-                new FollowPath(follower, thirdSampleAlignmentPartOne, 1),
-                new FollowPath(follower, thirdSampleAlignmentPartTwo, 1),
-                new FollowPath(follower, thirdSamplePush, 1),
-                new FollowPath(follower, firstSpecimenPickUp, 1),
+                new FollowPath(follower, firstSamplePush, false,1),
+                new FollowPath(follower, secondSampleAlignmentPartOne, false, 1),
+                new FollowPath(follower, secondSampleAlignmentPartTwo, false, 1),
+                new FollowPath(follower, secondSamplePush, false, 1),
+                new FollowPath(follower, thirdSampleAlignmentPartOne, false, 1),
+                new FollowPath(follower, thirdSampleAlignmentPartTwo,false, 1),
+                new FollowPath(follower, thirdSamplePush, false, 1),
+                new FollowPath(follower, firstSpecimenPickUp, false, 1),
                 new WaitCommand(250),
                 new GrabSpecimenAndHangPosCommandGroup(robotBase),
                 new FollowPath(follower, firstSpecimenHang, 1),
-                new FollowPath(follower, firstSpecimenHangPartTwo),
-                new WaitCommand(750),
+                new FollowPath(follower, firstSpecimenHangPartTwo, false, 1),
+                new WaitCommand(500),
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
                 new WaitCommand(500),
                 new InstantCommand(()->robotBase.clawSubsystem.openClaw()),
-                new FollowPath(follower, secondSpecimenPickUp, 1),
+                new InstantCommand(()->robotBase.shoulderSubsystem.stopInPlace()),
+               // new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.AUTOPARK)),
                 new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME)),
+                new FollowPath(follower, secondSpecimenPickUp, false,1),
+                //new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME)),
                 new WaitCommand(500),
-                new GrabSpecimenAndHangPosCommandGroup(robotBase)
+                new GrabSpecimenAndHangPosCommandGroup(robotBase),
+                new FollowPath(follower,secondSpecimenHang, false,1),
+                new FollowPath(follower, secondSpecimenHangPartTwo, false, 1),
+                new WaitCommand(250),
+                new InstantCommand(()-> robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHCHAMBERCLAMP)),
+                new WaitCommand(250),
+                new InstantCommand(()->robotBase.clawSubsystem.openClaw())
                 );
         CommandScheduler.getInstance().schedule(new AutoInitCommandGroup(robotBase));
         robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
@@ -222,11 +243,11 @@ public class RedSpecimen4x extends OpMode {
         follower.setStartingPose(startPose);
     }
     public void start(){
+        follower.setPose(new Pose(0,0,Math.toRadians(0)));
         CommandScheduler.getInstance().reset();
         CommandScheduler.getInstance().cancelAll();
         CommandScheduler.getInstance().clearButtons();
-        CommandScheduler.getInstance().schedule(hangSpecimen);
-    }
+        CommandScheduler.getInstance().schedule(hangSpecimen);}
     public void loop(){
         follower.update();
         //robotBase.intakeSubsystem.getHueValues();
