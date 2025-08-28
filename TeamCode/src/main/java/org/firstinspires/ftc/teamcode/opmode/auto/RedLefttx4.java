@@ -12,7 +12,6 @@ import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.base.DataStorage;
@@ -23,9 +22,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Elbow;
 import org.firstinspires.ftc.teamcode.subsystems.Extension;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.subsystems.Shoulder;
-import org.firstinspires.ftc.teamcode.subsystems.TimerLED;
 import org.firstinspires.ftc.teamcode.subsystems.Wrist;
-@Disabled
+
 @Autonomous(name = "RedLeftx4")
 public class RedLefttx4 extends OpMode{
     public TelemetryPacket telemetryPacket;
@@ -77,16 +75,14 @@ public class RedLefttx4 extends OpMode{
                 .whenPressed(new InstantCommand(()-> DataStorage.strategy = ITDCrabEnums.Strategy.BUCKETBASICCYCLE));
 
         blueLeftAction = robotBase.drive.actionBuilder(startPose)
-                .afterTime(0, ()->CommandScheduler.getInstance() .schedule(new InstantCommand(()->robotBase.clawSubsystem.openClaw())))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.MAXSHOULDERUPPOSITION))))
               //   .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.MAX))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.PICKUP))))
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
-                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF))))
                 .setTangent(Math.toRadians(270))
-                .splineToSplineHeading(new Pose2d(55, 56,Math.toRadians(135.00)), Math.toRadians(45.00), new TranslationalVelConstraint(30))
-                .splineToSplineHeading(new Pose2d(57.3, 58.3,Math.toRadians(135.00)), Math.toRadians(45.00), new TranslationalVelConstraint(20))
+                .splineToSplineHeading(new Pose2d(57, 58,Math.toRadians(135.00)), Math.toRadians(45.00))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN))))
                 .afterTime(0.2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())))
@@ -106,10 +102,9 @@ public class RedLefttx4 extends OpMode{
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET))))
                 .waitSeconds(3)
-                .splineToLinearHeading(new Pose2d(55,56,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(20))
-                .splineToLinearHeading(new Pose2d(57.3,58.3,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(57,58,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
-                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF))))
                 .afterTime(0.3, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN))))
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())))
@@ -129,10 +124,9 @@ public class RedLefttx4 extends OpMode{
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET))))
                 .waitSeconds(3)
-                .splineToLinearHeading(new Pose2d(55,56,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(20))
-                .splineToLinearHeading(new Pose2d(57.3,58.3,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(57,58,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
-                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF))))
                 .afterTime(0.3, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN))))
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())))
@@ -143,8 +137,8 @@ public class RedLefttx4 extends OpMode{
                 .waitSeconds(1)
 
                 .setTangent(Math.toRadians(225))
-                .splineToLinearHeading(new Pose2d(52,43,Math.toRadians(-143)),Math.toRadians(-143),new TranslationalVelConstraint(30))
-                .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.8/*0.65*/)))))
+                .splineToLinearHeading(new Pose2d(52,44,Math.toRadians(-143)),Math.toRadians(-143),new TranslationalVelConstraint(30))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule((new InstantCommand(()->robotBase.intakeSubsystem.intakeSpeed(0.65)))))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.LOWBUCKET))))
                 .afterTime(2, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HOME))))
@@ -152,10 +146,9 @@ public class RedLefttx4 extends OpMode{
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.TOGGLE))))
                 .afterTime(2.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.extensionSubsystem.goToPosition(Extension.ExtensionPosition.HIGHBUCKET))))
                 .waitSeconds(3)
-                .splineToLinearHeading(new Pose2d(55,56,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(20))
-                .splineToLinearHeading(new Pose2d(57.3,58.3,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(30))
+                .splineToLinearHeading(new Pose2d(57,58,Math.toRadians(135)),Math.toRadians(45),new TranslationalVelConstraint(30))
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.BUCKETDROPOFF))))
-                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.PRESUBPICKUP))))
+                .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.DROPOFF))))
                 .afterTime(0.3, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.gateGoToPosition(Intake.GatePosition.OPEN))))
                 .afterTime(0.5, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeOuttake())))
                 .afterTime(1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.intakeSubsystem.intakeStop())))
@@ -173,7 +166,6 @@ public class RedLefttx4 extends OpMode{
                 .build();
 
         robotBase.alliance = ITDCrabEnums.EnmAlliance.RED;
-        robotBase.ledSubsystem.setColor(TimerLED.Colors.RED);
 
         for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
             module.clearBulkCache();
