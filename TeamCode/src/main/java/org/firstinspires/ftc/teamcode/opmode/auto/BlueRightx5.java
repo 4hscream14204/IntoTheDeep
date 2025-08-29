@@ -131,38 +131,38 @@ public class BlueRightx5 extends OpMode {
 
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 27.00, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-3.5, 27.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
-                .splineToSplineHeading(new Pose2d(-41.0, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
+                .setTangent(Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-41.0, 64, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 27, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-3.5, 28, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
 
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
-                .splineToSplineHeading(new Pose2d(-41.0, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
+                .setTangent(Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-41.0, 64, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 27, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-3.5, 28, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
-                .splineToSplineHeading(new Pose2d(-41, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
+                .setTangent(Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-41, 64, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 27, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-3.5, 28, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.4)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))

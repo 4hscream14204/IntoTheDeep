@@ -98,7 +98,7 @@ public class RedRightx5 extends OpMode {
                 .splineToConstantHeading(new Vector2d(-2.0, 36), Math.toRadians(90), new TranslationalVelConstraint(35))
 
                 //drive over to samples and move them to human player area
-                .splineToSplineHeading(new Pose2d(-30, 36.00,Math.toRadians(180)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
+                .splineToSplineHeading(new Pose2d(-32, 36.00,Math.toRadians(180)), Math.toRadians(270.00), new TranslationalVelConstraint(30))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new ShoulderHomeCommandGroup(robotBase.shoulderSubsystem, robotBase.elbowSubsystem, robotBase.wristSubsystem)))
                 .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.elbowSubsystem.goToPosition(Elbow.ElbowPosition.AUTO))))
                 .afterTime(0.1, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.wristSubsystem.goToPosition(Wrist.WristPosition.HOME))))
@@ -131,38 +131,38 @@ public class RedRightx5 extends OpMode {
 
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 27.00, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-3.5, 27.00, Math.toRadians(0.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
-                .splineToSplineHeading(new Pose2d(-41.0, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
+                .setTangent(Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-41.0, 64, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 27, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-3.5, 28, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
 
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
-                .splineToSplineHeading(new Pose2d(-41.0, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
+                .setTangent(Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-41.0, 64, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 27, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-3.5, 28, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.1)
                 //go and grab another specimen
-                .setTangent(Math.toRadians(120))
-                .splineToSplineHeading(new Pose2d(-41, 62, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
+                .setTangent(Math.toRadians(90))
+                .splineToSplineHeading(new Pose2d(-41, 64, Math.toRadians(180.00)), Math.toRadians(135), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new GrabSpecimenAndHangPosCommandGroup(robotBase)))
                 .waitSeconds(0.01)
                 //hang specimen
                 .setTangent(Math.toRadians(315))
-                .splineToSplineHeading(new Pose2d(-3.5, 27, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
+                .splineToSplineHeading(new Pose2d(-3.5, 28, Math.toRadians(358.00)), Math.toRadians(300), new TranslationalVelConstraint(40))
                 .afterTime(0.0, ()->CommandScheduler.getInstance().schedule(new HangSpecimenAutoCommandGroup(robotBase)))
                 .waitSeconds(0.4)
                 .afterTime(0, ()->CommandScheduler.getInstance().schedule(new InstantCommand(()->robotBase.shoulderSubsystem.goToPosition(Shoulder.ShoulderPosition.HOME))))
@@ -212,10 +212,10 @@ public class RedRightx5 extends OpMode {
     @Override
     public void loop() {
         CommandScheduler.getInstance().run();
-       // robotBase.drive.updatePoseEstimate();
-       // telemetry.addData("x", robotBase.drive.pose.position.x);
-       // telemetry.addData("y", robotBase.drive.pose.position.y);
-       // telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
+        //  robotBase.drive.updatePoseEstimate();
+        //  telemetry.addData("x", robotBase.drive.pose.position.x);
+        //  telemetry.addData("y", robotBase.drive.pose.position.y);
+        //  telemetry.addData("heading (deg)", Math.toDegrees(robotBase.drive.pose.heading.toDouble()));
         //  telemetry.addData("Feild Position y")
         // telemetry.addData("Shoulder Position", robotBase.shoulderSubsystem.shoulderGetPosition());
         // telemetry.addData("Shoulder Target Position", robotBase.shoulderSubsystem.dcShoulderMotorLeft.getTargetPosition());
