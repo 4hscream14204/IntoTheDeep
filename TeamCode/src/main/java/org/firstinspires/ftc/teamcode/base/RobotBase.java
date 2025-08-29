@@ -67,7 +67,7 @@ public class RobotBase {
                 hwMap.digitalChannel.get("shoulderLimitSwitch"));
         wristSubsystem = new Wrist (hwMap.servo.get("wristServo"));
         ledSubsystem = new TimerLED (hwMap.servo.get("timerLED"));
-        chassisSubsystem = new Chassis(hwMap.get(DcMotorEx.class,"left_front"), hwMap.get(DcMotorEx.class,"right_front"), hwMap.get(DcMotorEx.class,"left_back"), hwMap.get(DcMotorEx.class,"right_back"), timer, drive.otos);
+        chassisSubsystem = new Chassis(hwMap.get(DcMotorEx.class,"left_Front"), hwMap.get(DcMotorEx.class,"right_Front"), hwMap.get(DcMotorEx.class,"left_Back"), hwMap.get(DcMotorEx.class,"right_Back"), timer, drive.otos);
         sweeperSubsystem = new Sweeper(hwMap.servo.get("sweeperServo"));
 
         /*frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

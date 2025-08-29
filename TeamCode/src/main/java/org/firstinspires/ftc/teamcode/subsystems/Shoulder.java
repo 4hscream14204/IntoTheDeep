@@ -15,24 +15,24 @@ public class Shoulder extends SubsystemBase {
   //  public DcMotorEx dcShoulderMotorRight;
     public DigitalChannel tsShoulderLimitSwitch;
     public double dblUpPower = 1;
-    public double dblDownPower = -0.5;
+    public double dblDownPower = -1;
     public boolean bolStoppedInPlace = true;
     public int intCurrentPos;
 
     public enum ShoulderPosition{
         HOME (0),
-        HIGHCHAMBER (2193),
-        HIGHCHAMBERCLAMP (1975),
-        NEWHIGHCHAMBER(2093),//2750, 3396
-        LOWCHAMBER (680),
+        HIGHCHAMBER (2140),
+        HIGHCHAMBERCLAMP (1920),
+        NEWHIGHCHAMBER(1920),//2750, 3396
+        LOWCHAMBER (2140),
         LOWCHAMBERCLAMP (0),
-        NEWLOWCHAMBER(2093),
+        NEWLOWCHAMBER(1920),
         MAXPOSITION (1190),
-        LOWBASKET (2093),
-        HIGHBASKET (2093),
-        TOGGLE (2093),
-        AUTOPARK (2093),
-        SECONDLEVELASCENT (12093);
+        LOWBASKET (1920),
+        HIGHBASKET (1960),
+        TOGGLE (1920),
+        AUTOPARK (1920),
+        SECONDLEVELASCENT (2000);
         public final int height;
         ShoulderPosition(int high){
             this.height = high;
