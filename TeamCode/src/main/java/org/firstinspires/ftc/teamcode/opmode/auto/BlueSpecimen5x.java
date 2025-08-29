@@ -33,7 +33,7 @@ import java.util.List;
 
 
 
-//@Disabled
+@Disabled
 @Autonomous (name = "BlueRightx5")
 public class BlueSpecimen5x extends OpMode {
     public TelemetryPacket telemetryPacket;

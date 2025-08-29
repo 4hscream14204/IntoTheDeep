@@ -9,7 +9,7 @@ public class Claw extends SubsystemBase {
 
     public enum clawPosition {
         OPEN(1),
-        CLOSED(0.6055/*0.3666*/);
+        CLOSED(0.7166/*0.3666*/);
         public final double value;
         clawPosition(double m_pos){
             this.value = m_pos;
