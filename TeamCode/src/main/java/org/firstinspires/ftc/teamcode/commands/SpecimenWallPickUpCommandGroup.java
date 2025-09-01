@@ -19,10 +19,11 @@ public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, C
     if (!shoulder.isShoulderHome() && extension.isExtensionHome() && DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENBASICCYCLE){
         addCommands(
                 new GyroResetCommandGroup(robotBase),
+                new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PICKUP)),
                 new InstantCommand(claw::closeClaw),
                 new WaitCommand(250),
                 new InstantCommand(()->extension.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
-                new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
                 new WaitUntilCommand(()->extension.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
                 new InstantCommand(extension::stopInPlace),
                 new InstantCommand(shoulder::stopInPlace)
@@ -31,10 +32,11 @@ public SpecimenWallPickUpCommandGroup (RobotBase robotBase, Shoulder shoulder, C
     else if(!robotBase.shoulderSubsystem.isShoulderHome() && DataStorage.strategy == ITDCrabEnums.Strategy.SPECIMENSTOCKPILE){
         addCommands(
                 new GyroResetCommandGroup(robotBase),
+                new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
+                new InstantCommand(()->wrist.goToPosition(Wrist.WristPosition.PICKUP)),
                 new InstantCommand(claw::closeClaw),
                 new WaitCommand(250),
                 new InstantCommand(()->extension.goToPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
-                new InstantCommand(()->elbow.goToPosition(Elbow.ElbowPosition.PICKUP)),
                 new WaitUntilCommand(()->extension.isAtPosition(Extension.ExtensionPosition.HIGHCHAMBER)),
                 new InstantCommand(extension::stopInPlace),
                 new InstantCommand(shoulder::stopInPlace)

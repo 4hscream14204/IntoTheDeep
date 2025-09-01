@@ -15,8 +15,8 @@ public class Extension extends SubsystemBase {
         HOME (0),
         MAXSHOULDERDOWNPOSITION(-1500),
         MAXSHOULDERUPPOSITION (-2933),
-        LOWBUCKET (-1020),
-        HIGHBUCKET (-2833),
+        LOWBUCKET (-1220),
+        HIGHBUCKET (-2933),
         LOWCHAMBER (-500),
         NEWLOWCHAMBERCLAMP (0),
         HIGHCHAMBER (-1700),//-1870
