@@ -18,7 +18,8 @@ public class MediumFreightCommandGroup extends SequentialCommandGroup {
                 new InstantCommand(()->lift.bucketServo.setPosition(0.85)),
                 new InstantCommand(()->lift.goToPosition(Lift.LiftPosition.HOME)),
                 new WaitUntilCommand(()->lift.isAtPosition(Lift.LiftPosition.HOME)),
-                new InstantCommand(()->lift.liftMotor.setPower(0))
+                //new InstantCommand(()->lift.liftMotor.setPower(0)),
+                new InstantCommand(()->lift.reset())
         );
     }
 }
